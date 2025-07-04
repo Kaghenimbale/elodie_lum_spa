@@ -26,6 +26,7 @@ const Navbar = () => {
                         ? "about_us"
                         : navlink.toLocaleLowerCase()
                     }
+                    className="text-cyan-900"
                   >
                     {navlink}
                   </Link>
@@ -33,7 +34,10 @@ const Navbar = () => {
               );
             })}
           </ul>
-          <button type="button" className="font-bold">
+          <button
+            type="button"
+            className="font-bold bg-blue-300 text-white hover:bg-cyan-900"
+          >
             BOOK NOW
           </button>
         </div>
