@@ -7,3 +7,19 @@
   padding: 0;
   overflow-x: hidden;
 }
+
+button {
+  background-color: rgb(131, 214, 255);
+  padding-inline: 2rem;
+  padding-block: 1rem;
+  color: white;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+button:hover {
+  cursor: pointer;
+  background-color: darkgray;
+}
