@@ -26,7 +26,6 @@ const Navbar = () => {
                         ? "about_us"
                         : navlink.toLocaleLowerCase()
                     }
-                    className="text-cyan-900"
                   >
                     {navlink}
                   </Link>
