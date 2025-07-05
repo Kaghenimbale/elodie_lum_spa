@@ -2,9 +2,9 @@ import React from "react";
 
 const Presentation = () => {
   return (
-    <div className="bg-[url('/bg3.jpg')] bg-center bg-no-repeat h-[89.8vh] flex col justify-center items-center">
+    <div className="bg-[url('/bg3.jpg')] bg-center bg-no-repeat h-[85vh] flex col justify-center items-center">
       <div className="w-[60vw] flex flex-col gap-12">
-        <h1 className="text-white text-7xl">
+        <h1 className="text-white text-6xl">
           Your Your beauty truly matters to us and we you'll love to stay here
           at AB&S, a place of splendor made for you.
         </h1>

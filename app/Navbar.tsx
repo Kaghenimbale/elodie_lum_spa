@@ -10,7 +10,7 @@ const Navbar = () => {
       <div className="flex justify-between items-center w-[95vw] mx-auto">
         <div>
           <Link href="/">
-            <Image height={50} width={200} src={logo} alt="EBS logo" />
+            <Image width={150} src={logo} alt="EBS logo" />
           </Link>
         </div>
         <div className="flex gap-5">
@@ -36,7 +36,7 @@ const Navbar = () => {
           </ul>
           <button
             type="button"
-            className="font-bold bg-blue-300 text-white hover:bg-cyan-900"
+            className="text-white bg-cyan-900 hover:bg-cyan-700"
           >
             BOOK NOW
           </button>
