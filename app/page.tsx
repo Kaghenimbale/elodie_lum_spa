@@ -1,4 +1,5 @@
 import Beauty from "./components/Beauty";
+import Hours from "./components/Hours";
 import Presentation from "./components/Presentation";
 import Wellness from "./components/Wellness";
 
@@ -8,6 +9,7 @@ export default function Home() {
       <Presentation />
       <Beauty />
       <Wellness />
+      <Hours />
     </div>
   );
 }

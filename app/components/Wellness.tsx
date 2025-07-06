@@ -3,15 +3,18 @@ import React from "react";
 
 const Wellness = () => {
   return (
-    <div className="flex w-[100%] justify-center items-center gap-20">
-      <div className="relative flex justify-center overflow-hidden w-[600px] h-[400px]">
-        <Image
-          src="/bg1.jpg"
-          alt=""
-          width={600}
-          height={0}
-          className="object-cover w-full h-full transition-transform duration-300 transform hover:scale-105"
-        />
+    <div className="flex w-[100%] justify-center items-center gap-20 py-20">
+      <div className="relative flex items-center justify-center">
+        <div className="relative flex justify-center overflow-hidden w-[600px] h-[400px] z-10">
+          <Image
+            src="/bg1.jpg"
+            alt=""
+            width={600}
+            height={0}
+            className="object-cover w-full h-full transition-transform duration-300 transform hover:scale-105"
+          />
+        </div>
+        <div className="absolute bg-orange-50 -z-0 w-[30rem] h-[30rem] -top-10"></div>
       </div>
       <div className="flex flex-col gap-10">
         <h3 className="text-4xl font-medium">Wellness & Spa</h3>
