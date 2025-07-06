@@ -29,7 +29,7 @@ const Beauty = () => {
               Lorem ipsum dolor sit amet consectetur adipisicing elit. At,
               exercitationem!
             </p>
-            <button className="text-white text-[0.9rem] bg-cyan-800 w-fit hover:bg-cyan-700">
+            <button className="text-white text-[0.9rem] bg-cyan-800 w-fit hover:bg-cyan-700 transition-all duration-300 ease-in-out">
               READ MORE
             </button>
           </div>
@@ -48,7 +48,7 @@ const Beauty = () => {
               Lorem ipsum dolor sit amet consectetur adipisicing elit. At,
               exercitationem!
             </p>
-            <button className="text-white text-[0.9rem] bg-cyan-800 w-fit hover:bg-cyan-700">
+            <button className="text-white text-[0.9rem] bg-cyan-800 w-fit hover:bg-cyan-700 transition-all duration-300 ease-in-out">
               READ MORE
             </button>
           </div>
@@ -67,7 +67,7 @@ const Beauty = () => {
               Lorem ipsum dolor sit amet consectetur adipisicing elit. At,
               exercitationem!
             </p>
-            <button className="text-white text-[0.9rem] bg-cyan-800 w-fit hover:bg-cyan-700">
+            <button className="text-white text-[0.9rem] bg-cyan-800 w-fit hover:bg-cyan-700 transition-all duration-300 ease-in-out">
               READ MORE
             </button>
           </div>
