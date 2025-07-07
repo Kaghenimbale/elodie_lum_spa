@@ -1,0 +1,111 @@
+"use client";
+
+import Image from "next/image";
+import React from "react";
+
+const Post = () => {
+  const date = new Date();
+  return (
+    <div className="w-[100%] flex flex-col items-center justify-center py-20 gap-10">
+      <h2 className="text-6xl">Latest Posts</h2>
+      <p className="font-thin w-[30rem] text-center">
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio
+        voluptatum numquam optio necessitatibus rem explicabo iusto ullam! Ea,
+        qui sed.
+      </p>
+      <div className="flex gap-10">
+        <div>
+          <div className="relative w-[25rem] h-[35rem] group">
+            <div className="relative z-10">
+              <Image
+                src="/post1.jpg"
+                alt="post"
+                width={400}
+                height={0}
+                className="-z-10"
+              />
+            </div>
+            <div className="bg-orange-50 w-[25rem] h-[37.5rem] opacity-0 group-hover:opacity-100 group-hover:transition-opacity group-hover:duration-1000 absolute -top-4 right-4 -z-0"></div>
+          </div>
+          <div className="pt-20 flex flex-col gap-4 w-[25rem] px-3">
+            <div className="flex gap-2 font-thin">
+              <span>6 JULY 2025</span>
+              <span>|</span>
+              <span>BY ASAN WHITESAN</span>
+            </div>
+            <h3 className="text-3xl text-gray-700">Healing Spa</h3>
+            <p className="font-thin">
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus
+              dolore sapiente vel ipsa incidunt facilis!
+            </p>
+            <button className="text-white text-[0.9rem] bg-cyan-800 w-fit hover:bg-cyan-700 transition-all duration-300 ease-in-out">
+              READ MORE
+            </button>
+          </div>
+        </div>
+
+        <div>
+          <div className="relative w-[25rem] h-[35rem] group">
+            <div className="relative z-10">
+              <Image
+                src="/post4.jpg"
+                alt="post"
+                width={400}
+                height={0}
+                className="-z-10"
+              />
+            </div>
+            <div className="bg-orange-50 w-[25rem] h-[37.5rem] opacity-0 group-hover:opacity-100 group-hover:transition-opacity group-hover:duration-1000 absolute -top-4 right-4 -z-0"></div>
+          </div>
+          <div className="pt-20 flex flex-col gap-4 w-[25rem] px-3">
+            <div className="flex gap-2 font-thin">
+              <span>15 OCTOBER 2025</span>
+              <span>|</span>
+              <span>BY ASAN WHITESAN</span>
+            </div>
+            <h3 className="text-3xl text-gray-700">Ressort & Spa</h3>
+            <p className="font-thin">
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus
+              dolore sapiente vel ipsa incidunt facilis!
+            </p>
+            <button className="text-white text-[0.9rem] bg-cyan-800 w-fit hover:bg-cyan-700 transition-all duration-300 ease-in-out">
+              READ MORE
+            </button>
+          </div>
+        </div>
+
+        <div>
+          <div className="relative w-[25rem] h-[35rem] group">
+            <div className="relative z-10">
+              <Image
+                src="/post3.jpg"
+                alt="post"
+                width={400}
+                height={0}
+                className="-z-10"
+              />
+            </div>
+            <div className="bg-orange-50 w-[25rem] h-[37.5rem] opacity-0 group-hover:opacity-100 group-hover:transition-opacity group-hover:duration-1000 absolute -top-4 right-4 -z-0"></div>
+          </div>
+          <div className="pt-20 flex flex-col gap-4 w-[25rem] px-3">
+            <div className="flex gap-2 font-thin">
+              <span>4 APRIL 2025</span>
+              <span>|</span>
+              <span>BY ASAN WHITESAN</span>
+            </div>
+            <h3 className="text-3xl text-gray-700">Blue lagoon</h3>
+            <p className="font-thin">
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus
+              dolore sapiente vel ipsa incidunt facilis!
+            </p>
+            <button className="text-white text-[0.9rem] bg-cyan-800 w-fit hover:bg-cyan-700 transition-all duration-300 ease-in-out">
+              READ MORE
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Post;
