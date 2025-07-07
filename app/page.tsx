@@ -2,6 +2,7 @@ import Beauty from "./components/Beauty";
 import Hours from "./components/Hours";
 import Place from "./components/Place";
 import Presentation from "./components/Presentation";
+import Testimonial from "./components/Testimonial";
 import Wellness from "./components/Wellness";
 import Wellness1 from "./components/Wellness1";
 
@@ -14,6 +15,7 @@ export default function Home() {
       <Hours />
       <Wellness1 />
       <Place />
+      <Testimonial />
     </div>
   );
 }
