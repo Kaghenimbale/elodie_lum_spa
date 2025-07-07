@@ -1,0 +1,133 @@
+import React from "react";
+import Form from "./Letter/Form";
+import {
+  FaCcMastercard,
+  FaCcPaypal,
+  FaCcStripe,
+  FaCcVisa,
+  FaFacebook,
+  FaInstagram,
+  FaLinkedin,
+  FaPinterest,
+  FaTwitter,
+} from "react-icons/fa";
+
+const Footer = () => {
+  const date = new Date();
+  return (
+    <div className="bg-orange-50 w-[100%] flex flex-col gap-10 items-center justify-center py-10">
+      <div className="flex flex-col gap-6 justify-center items-center">
+        <h2 className="text-4xl font-thin">Join Our Newsletter</h2>
+        <Form />
+      </div>
+      <div className="w-[20rem] h-[1px] bg-gray-400"></div>
+      <div className="grid grid-cols-4">
+        <div className="flex flex-col gap-5">
+          <h3 className="text-xl">ELODIA BEAUTY & SPA</h3>
+          <span className="font-thin w-[20rem]">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis
+            delectus ipsum explicabo maxime sequi aut.
+          </span>
+          <button className="text-white text-[0.9rem] bg-cyan-800 w-fit hover:bg-cyan-700 transition-all duration-300 ease-in-out">
+            SUBSCRIBE
+          </button>
+        </div>
+        <div className="flex flex-col gap-6">
+          <h3 className="text-xl">Important Links</h3>
+          <ul className="flex flex-col gap-2">
+            <li>
+              <a
+                className="font-thin hover:no-underline hover:text-cyan-900"
+                href="/"
+              >
+                Book Online
+              </a>
+            </li>
+            <li>
+              <a
+                className="font-thin hover:no-underline hover:text-cyan-900"
+                href="/"
+              >
+                Purchase a Gift Certificate
+              </a>
+            </li>
+            <li>
+              <a
+                className="font-thin hover:no-underline hover:text-cyan-900"
+                href="/"
+              >
+                Spa Promotions
+              </a>
+            </li>
+            <li>
+              <a
+                className="font-thin hover:no-underline hover:text-cyan-900"
+                href="/"
+              >
+                Exclusive Offer & Events
+              </a>
+            </li>
+            <li>
+              <a
+                className="font-thin hover:no-underline hover:text-cyan-900"
+                href="/"
+              >
+                Blog and News
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div className="flex flex-col gap-6">
+          <h3 className="text-xl">Contact Us</h3>
+          <div className="flex flex-col gap-4 font-thin">
+            <span>Goma, Himbi Av du lac N°123</span>
+            <span>elodiabeautyspa@gmail.com</span>
+            <span>Phone: +1 (437) 665-0194</span>
+          </div>
+          <div className="flex gap-4">
+            <FaInstagram className="text-cyan-900 text-2xl" />
+            <FaFacebook className="text-cyan-900 text-2xl" />
+            <FaLinkedin className="text-cyan-900 text-2xl" />
+            <FaPinterest className="text-cyan-900 text-2xl" />
+            <FaTwitter className="text-cyan-900 text-2xl" />
+          </div>
+        </div>
+        <div className="flex flex-col gap-6">
+          <h3 className="text-xl">Opening Hours</h3>
+          <div>
+            <div className="flex justify-between w-[15rem] font-thin">
+              <span>Monday to Friday</span>
+              <span>09:00 - 20:00</span>
+            </div>
+            <div className="flex justify-between w-[15rem] font-thin">
+              <span>Saturday</span>
+              <span>09:00 - 18:00</span>
+            </div>
+            <div className="flex justify-between w-[15rem] font-thin">
+              <span>Sunday</span>
+              <span>09:00 - 18:00</span>
+            </div>
+          </div>
+          <div className="flex gap-4">
+            <FaCcVisa className="text-cyan-950 text-2xl" />
+            <FaCcPaypal className="text-cyan-950 text-2xl" />
+            <FaCcStripe className="text-cyan-950 text-2xl" />
+            <FaCcMastercard className="text-cyan-950 text-2xl" />
+          </div>
+        </div>
+      </div>
+      <div className="w-[20rem] h-[1px] bg-gray-400"></div>
+      <div className="flex gap-2">
+        <span className="font-thin" title="Copyright">
+          &copy;
+        </span>
+        <span className="font-thin">{date.getFullYear()}</span>
+        <span className="font-thin">
+          Qode Interactive, All Right is Preserved
+        </span>
+      </div>
+    </div>
+  );
+};
+
+export default Footer;
