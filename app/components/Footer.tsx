@@ -84,12 +84,34 @@ const Footer = () => {
             <span>elodiabeautyspa@gmail.com</span>
             <span>Phone: +1 (437) 665-0194</span>
           </div>
-          <div className="flex gap-4">
-            <FaInstagram className="text-cyan-900 text-2xl" />
-            <FaFacebook className="text-cyan-900 text-2xl" />
-            <FaLinkedin className="text-cyan-900 text-2xl" />
-            <FaPinterest className="text-cyan-900 text-2xl" />
-            <FaTwitter className="text-cyan-900 text-2xl" />
+          <div className="">
+            <ul className="flex gap-4">
+              <li className="a">
+                <a href="http://">
+                  <FaInstagram className="text-cyan-900 text-2xl" />
+                </a>
+              </li>
+              <li className="a">
+                <a href="http://">
+                  <FaFacebook className="text-cyan-900 text-2xl" />
+                </a>
+              </li>
+              <li className="a">
+                <a href="http://">
+                  <FaLinkedin className="text-cyan-900 text-2xl" />
+                </a>
+              </li>
+              <li className="a">
+                <a href="http://">
+                  <FaPinterest className="text-cyan-900 text-2xl" />
+                </a>
+              </li>
+              <li className="a">
+                <a href="http://">
+                  <FaTwitter className="text-cyan-900 text-2xl" />
+                </a>
+              </li>
+            </ul>
           </div>
         </div>
         <div className="flex flex-col gap-6">
@@ -108,12 +130,28 @@ const Footer = () => {
               <span>09:00 - 18:00</span>
             </div>
           </div>
-          <div className="flex gap-4">
-            <FaCcVisa className="text-cyan-950 text-2xl" />
-            <FaCcPaypal className="text-cyan-950 text-2xl" />
-            <FaCcStripe className="text-cyan-950 text-2xl" />
-            <FaCcMastercard className="text-cyan-950 text-2xl" />
-          </div>
+          <ul className="flex gap-4">
+            <li>
+              <a href="http://">
+                <FaCcVisa className="text-cyan-950 text-2xl" />
+              </a>
+            </li>
+            <li>
+              <a href="http://">
+                <FaCcPaypal className="text-cyan-950 text-2xl" />
+              </a>
+            </li>
+            <li>
+              <a href="http://">
+                <FaCcStripe className="text-cyan-950 text-2xl" />
+              </a>
+            </li>
+            <li>
+              <a href="http://">
+                <FaCcMastercard className="text-cyan-950 text-2xl" />
+              </a>
+            </li>
+          </ul>
         </div>
       </div>
       <div className="w-[20rem] h-[1px] bg-gray-400"></div>

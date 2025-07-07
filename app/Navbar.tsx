@@ -1,12 +1,28 @@
+"use client";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import logo from "../public/logo.png";
 import Link from "next/link";
 
 const Navbar = () => {
+  const [scrollData, setScrollData] = useState(Number);
   const navlinks = ["HOME", "ABOUT US", "BLOG", "CONTACT"];
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollData(window.scrollY);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
   return (
-    <div className="flex justify-center bg-gray-100">
+    <div
+      className={`flex justify-center bg-orange-50 transition-color duration-1000 fixed w-[100%] z-50 ${
+        scrollData >= 750
+          ? ""
+          : "bg-transparent text-white transition-color duration-1000 ease-in-out"
+      }`}
+    >
       <div className="flex justify-between items-center w-[95vw] mx-auto">
         <div>
           <Link href="/">
