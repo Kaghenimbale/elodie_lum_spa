@@ -3,7 +3,7 @@ import React from "react";
 
 const Wellness1 = () => {
   return (
-    <div>
+    <div className="py-10">
       <div className="flex w-[100%] justify-center items-center gap-20 py-20">
         <div className="flex flex-col gap-10">
           <h3 className="text-4xl font-medium">Your Wellbeing</h3>
@@ -133,7 +133,7 @@ const Wellness1 = () => {
             </div>
           </div>
           <div className="flex gap-10">
-            <Image src="/sauna1.png" alt="icon" width={70} height={0} />
+            <Image src="/sauna2.png" alt="icon" width={70} height={0} />
             <div className="flex flex-col gap-4 hover:cursor-text">
               <div className="flex justify-between w-[30rem]">
                 <h3 className="">Aroma Therapy</h3>
