@@ -2,10 +2,12 @@ import React from "react";
 
 const Place = () => {
   return (
-    <div className="bg-[url('/bg5.jpg')] w-[100%] bg-cover bg-center h-[70vh] flex items-center">
-      <div className="px-96 flex flex-col gap-8">
-        <h2 className="text-white text-6xl">A Place of true splendor</h2>
-        <p className="text-white w-[35vw]">
+    <div className="bg-[url('/bg5.jpg')] bg-cover bg-center h-[70vh] flex items-center">
+      <div className="p-4 md:px-20 xl:px-96 flex flex-col gap-8">
+        <h3 className="text-white text-[2rem] md:text-[4rem]">
+          A Place of true splendor
+        </h3>
+        <p className="text-white md:w-[35vw]">
           Lorem ipsum, dolor sit amet consectetur adipisicing elit. Recusandae
           magni, voluptates neque aliquid voluptate ratione delectus eaque
           tempora iusto officia!

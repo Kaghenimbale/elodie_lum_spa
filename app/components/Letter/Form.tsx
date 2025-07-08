@@ -2,9 +2,9 @@ import React from "react";
 
 const Form = () => {
   return (
-    <form className="flex gap-4">
+    <form className="flex flex-col md:flex-row gap-4">
       <input
-        className="py-4 px-4 w-[20rem] border-[1px] border-gray-400"
+        className="p-4 w-[15rem] md:w-[20rem] border-[1px] border-gray-400"
         type="email"
         placeholder="Email address"
         name="email"

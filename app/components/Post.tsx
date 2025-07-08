@@ -6,17 +6,17 @@ import React from "react";
 const Post = () => {
   const date = new Date();
   return (
-    <div className="w-[100%] flex flex-col items-center justify-center py-20 gap-10">
-      <h2 className="text-6xl">Latest Posts</h2>
-      <p className="font-thin w-[30rem] text-center">
+    <div className="flex flex-col items-center justify-center py-20 px-4 md:px-0 gap-10">
+      <h2 className="text-[2rem] md:text-[4rem]">Latest Posts</h2>
+      <p className="font-thin md:w-[30rem] text-center">
         Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio
         voluptatum numquam optio necessitatibus rem explicabo iusto ullam! Ea,
         qui sed.
       </p>
-      <div className="flex gap-10">
-        <div>
-          <div className="relative w-[25rem] h-[35rem] group">
-            <div className="relative z-10">
+      <div className="flex flex-col items-center justify-between lg:flex-row gap-4 lg:w-[80vw]">
+        <div className="flex flex-col items-center justify-center gap-4 lg:w-[20rem]">
+          <div className="relative flex group">
+            <div className="w-[15rem] md:w-[20rem]">
               <Image
                 src="/post1.jpg"
                 alt="post"
@@ -25,9 +25,9 @@ const Post = () => {
                 className="-z-10"
               />
             </div>
-            <div className="bg-orange-50 w-[22rem] h-[32.8rem] opacity-0 group-hover:opacity-100 group-hover:transition-opacity group-hover:duration-1000 absolute -top-4 right-8 -z-0"></div>
+            <div className="bg-orange-50 w-[20rem] opacity-0 group-hover:opacity-100 group-hover:transition-opacity group-hover:duration-1000 absolute -top-4 right-8 -z-0"></div>
           </div>
-          <div className="flex flex-col gap-4 w-[25rem] px-3">
+          <div className="flex flex-col gap-4">
             <div className="flex gap-2 font-thin">
               <span>6 JULY 2025</span>
               <span>|</span>
@@ -44,9 +44,9 @@ const Post = () => {
           </div>
         </div>
 
-        <div>
-          <div className="relative w-[25rem] h-[35rem] group">
-            <div className="relative z-10">
+        <div className="flex flex-col items-center justify-center gap-4 lg:w-[20rem]">
+          <div className="relative flex group">
+            <div className="w-[15rem] md:w-[20rem]">
               <Image
                 src="/post4.jpg"
                 alt="post"
@@ -55,11 +55,11 @@ const Post = () => {
                 className="-z-10"
               />
             </div>
-            <div className="bg-orange-50 w-[22rem] h-[32.8rem] opacity-0 group-hover:opacity-100 group-hover:transition-opacity group-hover:duration-1000 absolute -top-4 right-8 -z-0"></div>
+            <div className="bg-orange-50 w-[20rem] opacity-0 group-hover:opacity-100 group-hover:transition-opacity group-hover:duration-1000 absolute -top-4 right-8 -z-0"></div>
           </div>
-          <div className="flex flex-col gap-4 w-[25rem] px-3">
+          <div className="flex flex-col gap-4">
             <div className="flex gap-2 font-thin">
-              <span>15 OCTOBER 2025</span>
+              <span>15 MAY 2025</span>
               <span>|</span>
               <span>BY ASAN WHITESAN</span>
             </div>
@@ -74,9 +74,9 @@ const Post = () => {
           </div>
         </div>
 
-        <div>
-          <div className="relative w-[25rem] h-[35rem] group">
-            <div className="relative z-10">
+        <div className="flex flex-col items-center justify-center gap-4 lg:w-[20rem]">
+          <div className="relative flex group">
+            <div className="w-[15rem] md:w-[20rem]">
               <Image
                 src="/post3.jpg"
                 alt="post"
@@ -85,9 +85,9 @@ const Post = () => {
                 className="-z-10"
               />
             </div>
-            <div className="bg-orange-50 w-[22rem] h-[32.8rem] opacity-0 group-hover:opacity-100 group-hover:transition-opacity group-hover:duration-1000 absolute -top-4 right-8 -z-0"></div>
+            <div className="bg-orange-50 w-[20rem] opacity-0 group-hover:opacity-100 group-hover:transition-opacity group-hover:duration-1000 absolute -top-4 right-8 -z-0"></div>
           </div>
-          <div className="flex flex-col gap-4 w-[25rem] px-3">
+          <div className="flex flex-col gap-4">
             <div className="flex gap-2 font-thin">
               <span>4 APRIL 2025</span>
               <span>|</span>

@@ -3,9 +3,9 @@ import React from "react";
 
 const Wellness = () => {
   return (
-    <div className="flex w-[100%] justify-center items-center gap-20 py-20">
+    <div className="flex flex-col md:flex-row justify-center items-center gap-5 md:gap-10 lg:gap-20 py-20">
       <div className="relative flex items-center justify-center">
-        <div className="relative flex justify-center overflow-hidden w-[600px] h-[400px] z-10">
+        <div className="relative flex justify-center overflow-hidden w-[18rem] lg:w-[500px] h-[400px] z-10">
           <Image
             src="/bg1.jpg"
             alt=""
@@ -14,11 +14,13 @@ const Wellness = () => {
             className="object-cover w-full h-full transition-transform duration-300 transform hover:scale-105"
           />
         </div>
-        <div className="absolute bg-orange-50 -z-0 w-[30rem] h-[30rem] -top-10"></div>
+        <div className="absolute bg-orange-50 -z-0 w-[30rem] h-[25rem] -top-10"></div>
       </div>
-      <div className="flex flex-col gap-10">
-        <h3 className="text-4xl font-medium">Wellness & Spa</h3>
-        <p className="w-[30vw] font-thin">
+      <div className="flex flex-col gap-5 md:gap-10 p-4 md:p-0 ">
+        <h3 className="text-[2rem] lg:text-[3.5rem] font-medium">
+          Wellness & Spa
+        </h3>
+        <p className="md:w-[30vw] font-thin">
           Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aliquam
           provident excepturi placeat obcaecati praesentium ullam facilis totam
           harum. Deserunt praesentium, sequi illum id accusamus temporibus

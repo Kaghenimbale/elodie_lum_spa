@@ -15,16 +15,18 @@ import {
 const Footer = () => {
   const date = new Date();
   return (
-    <div className="bg-orange-50 w-[100%] flex flex-col gap-10 items-center justify-center py-10">
+    <div className="bg-orange-50 flex flex-col gap-10 items-center justify-center py-10">
       <div className="flex flex-col gap-6 justify-center items-center">
-        <h2 className="text-4xl font-thin">Join Our Newsletter</h2>
+        <h2 className="text-[1.8rem] md:text-[2rem] font-thin">
+          Join Our Newsletter
+        </h2>
         <Form />
       </div>
       <div className="w-[20rem] h-[1px] bg-gray-400"></div>
-      <div className="grid grid-cols-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:w-[95vw] xl:grid-cols-4 gap-4 justify-items-center">
         <div className="flex flex-col gap-5">
           <h3 className="text-xl">ELODIA BEAUTY & SPA</h3>
-          <span className="font-thin w-[20rem]">
+          <span className="font-thin w-[10rem]">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis
             delectus ipsum explicabo maxime sequi aut.
           </span>
@@ -32,9 +34,9 @@ const Footer = () => {
             SUBSCRIBE
           </button>
         </div>
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-4">
           <h3 className="text-xl">Important Links</h3>
-          <ul className="flex flex-col gap-2">
+          <div className="flex flex-col gap-2 deco">
             <li>
               <a
                 className="font-thin hover:no-underline hover:text-cyan-900"
@@ -75,7 +77,7 @@ const Footer = () => {
                 Blog and News
               </a>
             </li>
-          </ul>
+          </div>
         </div>
         <div className="flex flex-col gap-6">
           <h3 className="text-xl">Contact Us</h3>
@@ -155,12 +157,9 @@ const Footer = () => {
         </div>
       </div>
       <div className="w-[20rem] h-[1px] bg-gray-400"></div>
-      <div className="flex gap-2">
-        <span className="font-thin" title="Copyright">
-          &copy;
-        </span>
-        <span className="font-thin">{date.getFullYear()}</span>
-        <span className="font-thin">
+      <div className="flex gap-2 flex-col md:flex-row items-center">
+        <span className="font-thin">&copy;{date.getFullYear()}</span>
+        <span className="font-thin text-center">
           Qode Interactive, All Right is Preserved
         </span>
       </div>

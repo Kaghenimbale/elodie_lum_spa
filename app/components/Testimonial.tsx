@@ -3,10 +3,10 @@ import React from "react";
 
 const Testimonial = () => {
   return (
-    <div className="w-[100%] bg-orange-50 flex flex-col items-center justify-center gap-10 py-20">
+    <div className=" bg-orange-50 flex flex-col items-center justify-center gap-10 py-20">
       <Image src="/apostrophe.png" alt="testimonial" width={150} height={0} />
       <div className="flex flex-col items-center gap-5">
-        <p className="w-[50rem] text-center font-thin">
+        <p className="lg:w-[40vw] px-4 md:p-0 text-center font-thin">
           Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sit aperiam
           aliquam molestiae atque! Dolor incidunt quidem delectus et rem
           recusandae placeat, esse, voluptatem facilis dicta labore consequuntur

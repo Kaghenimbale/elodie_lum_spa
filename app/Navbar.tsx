@@ -3,34 +3,31 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import logo from "../public/logo.png";
 import Link from "next/link";
+import { MdMenu } from "react-icons/md";
 
 const Navbar = () => {
-  const [scrollData, setScrollData] = useState(Number);
+  // const [scrollData, setScrollData] = useState(Number);
   const navlinks = ["HOME", "ABOUT US", "BLOG", "CONTACT"];
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrollData(window.scrollY);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  // useEffect(() => {
+  //   const handleScroll = () => {
+  //     setScrollData(window.scrollY);
+  //   };
+  //   window.addEventListener("scroll", handleScroll);
+  //   return () => window.removeEventListener("scroll", handleScroll);
+  // }, []);
   return (
-    <div
-      className={`flex justify-center bg-orange-50 transition-color duration-1000 fixed w-[100%] z-50 ${
-        scrollData >= 750
-          ? ""
-          : "bg-transparent text-white transition-color duration-1000 ease-in-out"
-      }`}
+    <nav
+      className={`flex bg-orange-50 transition-color duration-500 fixed left-0 right-0 top-0 z-50 px-5 md:px-10`}
     >
-      <div className="flex justify-between items-center w-[95vw] mx-auto">
+      <div className="flex justify-between items-center w-full">
         <div>
           <Link href="/">
             <Image width={150} height={0} src={logo} alt="EBS logo" />
           </Link>
         </div>
         <div className="flex gap-5">
-          <ul className="flex gap-10 items-center">
+          <ul className="hidden md:flex gap-10 items-center">
             {navlinks.map((navlink) => {
               return (
                 <li key={navlink}>
@@ -51,13 +48,16 @@ const Navbar = () => {
           </ul>
           <button
             type="button"
-            className="text-white bg-cyan-900 hover:bg-cyan-700 transition-all duration-300 ease-in-out"
+            className="text-white hidden md:block bg-cyan-900 hover:bg-cyan-700 transition-all duration-300 ease-in-out"
           >
             BOOK NOW
           </button>
+          <button type="button" className="md:hidden w-0">
+            <MdMenu className="text-4xl text-black" />
+          </button>
         </div>
       </div>
-    </div>
+    </nav>
   );
 };
 

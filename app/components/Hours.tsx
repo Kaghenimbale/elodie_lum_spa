@@ -3,11 +3,13 @@ import Calender from "./Calender";
 
 const Hours = () => {
   return (
-    <div className="flex w-[100%] h-[70vh] items-center justify-center bg-[url('/bg2.jpg')] bg-cover bg-no-repeat bg-center">
-      <div className="w-[60%] flex justify-between">
-        <div className="flex flex-col gap-10">
-          <h3 className="text-4xl">Working Hours</h3>
-          <p className="w-[30rem] font-thin">
+    <div className="flex items-center justify-center bg-[url('/bg2.jpg')] bg-cover bg-no-repeat bg-center py-4 lg:py-10">
+      <div className="md:w-[90vw] xl:w-[70vw] flex flex-col lg:flex-row gap-4 lg:gap-0 items-center justify-between">
+        <div className="flex flex-col gap-10 p-4 md:p-0">
+          <h3 className="text-[2rem] md:text-[3.5rem] text-center md:text-left">
+            Working Hours
+          </h3>
+          <p className="md:w-[30rem] font-thin">
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. A nemo
             sapiente molestias ratione, voluptatem at est sit reiciendis amet
             obcaecati.
@@ -27,7 +29,7 @@ const Hours = () => {
             </div>
           </div>
         </div>
-        <div>
+        <div className="w-[18rem] md:w-[25rem] p-1">
           <Calender />
         </div>
       </div>

@@ -3,10 +3,12 @@ import React from "react";
 
 const Beauty = () => {
   return (
-    <div className="py-20 flex flex-col gap-28 items-center">
-      <div className="flex flex-col items-center gap-10">
-        <h2 className="text-6xl">ELODIA BEAUTY AND SPA CENTER</h2>
-        <p className="w-[50vw] text-center text-xl font-thin">
+    <div className="py-10 md:py-20 flex flex-col gap-10 md:gap-28 items-center">
+      <div className="flex flex-col items-center gap-4 md:gap-10 p-4 md:p-0">
+        <h2 className="text-[2rem] md:text-[3.5rem] text-center">
+          ELODIA BEAUTY AND SPA CENTER
+        </h2>
+        <p className="md:w-[50vw] text-center md:text-xl font-thin">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab quae earum
           maiores itaque, blanditiis iure quidem eum sapiente veritatis atque
           ullam rem harum perferendis dolore numquam omnis ducimus ea! Harum
@@ -14,8 +16,8 @@ const Beauty = () => {
           adipisci!
         </p>
       </div>
-      <div className="flex gap-10">
-        <div className="relative flex justify-center overflow-hidden w-[400px] h-[500px]">
+      <div className="flex gap-10 flex-col md:flex-row items-center p-4">
+        <div className="relative flex justify-center overflow-hidden md:w-[14rem] lg:w-[18rem] xl:w-[23rem] h-[500px]">
           <Image
             src="/banner1.jpg"
             alt="image beauty spa"
@@ -23,7 +25,7 @@ const Beauty = () => {
             height={500}
             className="object-cover w-full h-full transition-transform duration-300 transform hover:scale-105"
           />
-          <div className="w-[350px] h-[250px] absolute bottom-6 bg-white flex flex-col gap-2 justify-center items-center">
+          <div className="w-[15rem] md:w-[350px] h-[250px] absolute bottom-6 bg-white flex flex-col gap-2 justify-center items-center">
             <h3 className="">Mineral Salt Scrub</h3>
             <p className="font-thin text-center">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. At,
@@ -34,7 +36,7 @@ const Beauty = () => {
             </button>
           </div>
         </div>
-        <div className="relative flex justify-center overflow-hidden w-[400px] h-[500px]">
+        <div className="relative flex justify-center overflow-hidden md:w-[14rem] lg:w-[18rem] xl:w-[23rem] h-[500px]">
           <Image
             src="/banner2.jpg"
             alt="image beauty spa"
@@ -42,7 +44,7 @@ const Beauty = () => {
             height={500}
             className="object-cover w-full h-full transition-transform duration-300 transform hover:scale-105"
           />
-          <div className="w-[350px] h-[250px] absolute bottom-6 bg-white flex flex-col gap-2 justify-center items-center">
+          <div className="w-[15rem] md:w-[350px] h-[250px] absolute bottom-6 bg-white flex flex-col gap-2 justify-center items-center">
             <h3 className="">Geothermal Spa</h3>
             <p className="font-thin text-center">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. At,
@@ -53,7 +55,7 @@ const Beauty = () => {
             </button>
           </div>
         </div>
-        <div className="relative flex justify-center overflow-hidden w-[400px] h-[500px]">
+        <div className="relative flex justify-center overflow-hidden md:w-[14rem] lg:w-[18rem] xl:w-[23rem] h-[500px]">
           <Image
             src="/banner3.jpg"
             alt="image beauty spa"
@@ -61,7 +63,7 @@ const Beauty = () => {
             height={500}
             className="object-cover w-full h-full transition-transform duration-300 transform hover:scale-105"
           />
-          <div className="w-[350px] h-[250px] absolute bottom-6 bg-white flex flex-col gap-2 justify-center items-center">
+          <div className="w-[15rem] md:w-[350px] h-[250px] absolute bottom-6 bg-white flex flex-col gap-2 justify-center items-center">
             <h3 className="">Mineral Baths</h3>
             <p className="font-thin text-center">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. At,
@@ -74,7 +76,7 @@ const Beauty = () => {
         </div>
       </div>
 
-      <div className="flex gap-10">
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 md:flex-row">
         <div className="w-[20rem] flex items-center flex-col gap-6">
           <Image
             src="/massage2.png"

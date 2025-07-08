@@ -9,7 +9,7 @@ import Wellness1 from "./components/Wellness1";
 
 export default function Home() {
   return (
-    <div className="w-[100%]">
+    <div className="">
       <Presentation />
       <Beauty />
       <Wellness />
