@@ -4,10 +4,13 @@ import React, { useEffect, useState } from "react";
 import logo from "../public/logo.png";
 import Link from "next/link";
 import { MdMenu } from "react-icons/md";
+import { CgClose } from "react-icons/cg";
+import { IoClose, IoCloseCircle } from "react-icons/io5";
 
 const Navbar = () => {
   // const [scrollData, setScrollData] = useState(Number);
   const navlinks = ["HOME", "ABOUT US", "BLOG", "CONTACT"];
+  const [open, setOpen] = useState(true);
 
   // useEffect(() => {
   //   const handleScroll = () => {
@@ -16,6 +19,10 @@ const Navbar = () => {
   //   window.addEventListener("scroll", handleScroll);
   //   return () => window.removeEventListener("scroll", handleScroll);
   // }, []);
+
+  const handleMenu = () => {
+    setOpen(!open);
+  };
   return (
     <nav
       className={`flex bg-orange-50 transition-color duration-500 fixed left-0 right-0 top-0 z-50 px-5 md:px-10`}
@@ -27,10 +34,16 @@ const Navbar = () => {
           </Link>
         </div>
         <div className="flex gap-5">
-          <ul className="hidden md:flex gap-10 items-center">
+          <ul
+            className={`md:flex gap-10 items-center ${
+              open
+                ? "md:hidden backdrop-blur-3xl text-cyan-900 flex flex-col items-center justify-center fixed top-0 left-0 right-0 h-full"
+                : "hidden"
+            }`}
+          >
             {navlinks.map((navlink) => {
               return (
-                <li key={navlink}>
+                <li key={navlink} onClick={handleMenu}>
                   <Link
                     href={
                       navlink.toLocaleLowerCase() === "home"
@@ -45,6 +58,13 @@ const Navbar = () => {
                 </li>
               );
             })}
+            <button
+              type="button"
+              className="top-6 right-6 absolute md:hidden"
+              onClick={handleMenu}
+            >
+              <IoCloseCircle className="text-3xl text-red-600" />
+            </button>
           </ul>
           <button
             type="button"
@@ -52,7 +72,7 @@ const Navbar = () => {
           >
             BOOK NOW
           </button>
-          <button type="button" className="md:hidden w-0">
+          <button onClick={handleMenu} type="button" className="md:hidden w-0">
             <MdMenu className="text-4xl text-black" />
           </button>
         </div>
