@@ -38,7 +38,7 @@ const Wellness1 = () => {
         </div>
       </div>
 
-      <div className="lg:w-[90vw] flex flex-col lg:flex-row justify-center gap-20">
+      <div className="lg:w-[85vw] flex flex-col lg:flex-row justify-between gap-20">
         <div className="flex flex-col gap-10">
           <div className="flex gap-10">
             <Image src="/aroma.png" alt="icon" width={50} height={0} />
@@ -116,7 +116,7 @@ const Wellness1 = () => {
             <Image src="/detente.png" alt="icon" width={50} height={0} />
             <div className="flex flex-col gap-4 hover:cursor-text">
               <div className="flex justify-between lg:w-[22rem]">
-                <h3 className="">Full body massage</h3>
+                <h3 className="text-nowrap">Full body massage</h3>
                 <div className="underline w-full lg:w-[10rem] border-b-[1px] border-gray-300"></div>
                 <span>
                   from <span>$48</span>
