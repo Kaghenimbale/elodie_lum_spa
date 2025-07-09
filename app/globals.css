@@ -1,9 +1,24 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 * {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  overflow-x: hidden;
   margin: 0;
   padding: 0;
-  overflow-x: hidden;
+}
+
+button {
+  padding-inline: 2rem;
+  padding-block: 1rem;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+button:hover {
+  cursor: pointer;
 }
