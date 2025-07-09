@@ -11,7 +11,7 @@ const Navbar = () => {
   const [open, setOpen] = useState(true);
 
   const handleMenu = () => {
-    setOpen(!open);
+    setOpen((prev) => !prev);
   };
   return (
     <nav
@@ -25,15 +25,15 @@ const Navbar = () => {
         </div>
         <div className="flex gap-5">
           <ul
-            className={`md:flex gap-10 items-center ${
+            className={`md:flex flex-row gap-10 items-center ${
               open
-                ? "md:hidden backdrop-blur-3xl text-cyan-900 flex flex-col items-center justify-center fixed top-0 left-0 right-0 h-full"
-                : "hidden"
+                ? "backdrop-blur-3xl text-cyan-900 flex flex-col items-center justify-center fixed left-0 top-0 w-[100vw] h-[100vh]"
+                : "hidden lg:flex gap-4"
             }`}
           >
             {navlinks.map((navlink) => {
               return (
-                <li key={navlink} onClick={handleMenu}>
+                <li key={navlink} onClick={() => setOpen(false)}>
                   <Link
                     href={
                       navlink.toLocaleLowerCase() === "home"
@@ -51,7 +51,7 @@ const Navbar = () => {
             <button
               type="button"
               className="top-6 right-6 absolute md:hidden"
-              onClick={handleMenu}
+              onClick={() => setOpen(false)}
             >
               <IoCloseCircle className="text-3xl text-red-600" />
             </button>
@@ -62,7 +62,11 @@ const Navbar = () => {
           >
             BOOK NOW
           </button>
-          <button onClick={handleMenu} type="button" className="md:hidden w-0">
+          <button
+            onClick={() => setOpen(true)}
+            type="button"
+            className="md:hidden w-0"
+          >
             <MdMenu className="text-4xl text-black" />
           </button>
         </div>
