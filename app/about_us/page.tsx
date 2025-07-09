@@ -3,12 +3,12 @@ import Testimonial from "../components/Testimonial";
 
 const page = () => {
   return (
-    <div className="pt-28 pb-16 flex flex-col gap-5">
+    <div className="pt-28 pb-16 flex flex-col gap-5 px-4 lg:px-0">
       <div className="flex flex-col gap-5 items-center justify-center">
-        <h2 className="text-[3rem] font-extralight">
+        <h2 className="text-[1rem] lg:text-[3rem] font-extralight">
           Welcome to Elodia Beauty & Spa
         </h2>
-        <p className="md:w-[60rem] font-thin text-center">
+        <p className="lg:w-[60rem] font-thin text-center">
           Welcome to EB & Spa. Imagine stepping into a haven where the everyday
           stresses melt away, and a renewed sense of well-being takes over.
           Revival Med Spa offers this escape at our convenient locations across

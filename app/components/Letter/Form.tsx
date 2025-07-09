@@ -2,7 +2,7 @@ const Form = () => {
   return (
     <form className="flex flex-col md:flex-row gap-4">
       <input
-        className="p-4 w-[15rem] md:w-[20rem] border-[1px] border-gray-400"
+        className="p-4 w-[95vw] md:w-[20rem] border-[1px] border-gray-400"
         type="email"
         placeholder="Email address"
         name="email"
