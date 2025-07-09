@@ -1,4 +1,3 @@
-import React from "react";
 import Calender from "./Calender";
 
 const Hours = () => {

@@ -1,5 +1,3 @@
-import React from "react";
-
 const Form = () => {
   return (
     <form className="flex flex-col md:flex-row gap-4">

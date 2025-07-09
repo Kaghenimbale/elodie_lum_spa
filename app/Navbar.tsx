@@ -1,24 +1,14 @@
 "use client";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import logo from "../public/logo.png";
 import Link from "next/link";
 import { MdMenu } from "react-icons/md";
-import { CgClose } from "react-icons/cg";
-import { IoClose, IoCloseCircle } from "react-icons/io5";
+import { IoCloseCircle } from "react-icons/io5";
 
 const Navbar = () => {
-  // const [scrollData, setScrollData] = useState(Number);
   const navlinks = ["HOME", "ABOUT US", "BLOG", "CONTACT"];
   const [open, setOpen] = useState(true);
-
-  // useEffect(() => {
-  //   const handleScroll = () => {
-  //     setScrollData(window.scrollY);
-  //   };
-  //   window.addEventListener("scroll", handleScroll);
-  //   return () => window.removeEventListener("scroll", handleScroll);
-  // }, []);
 
   const handleMenu = () => {
     setOpen(!open);

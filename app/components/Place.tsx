@@ -1,5 +1,3 @@
-import React from "react";
-
 const Place = () => {
   return (
     <div className="bg-[url('/bg5.jpg')] bg-cover bg-center h-[70vh] flex items-center">
