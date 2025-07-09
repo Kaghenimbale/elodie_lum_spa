@@ -8,7 +8,7 @@ import { IoCloseCircle } from "react-icons/io5";
 
 const Navbar = () => {
   const navlinks = ["HOME", "ABOUT US", "BLOG", "CONTACT"];
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
 
   const handleMenu = () => {
     setOpen((prev) => !prev);
