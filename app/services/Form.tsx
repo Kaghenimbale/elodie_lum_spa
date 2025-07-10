@@ -22,7 +22,10 @@ const Form = () => {
         required
       />
 
-      <select name="service" className="font-thin">
+      <select
+        name="service"
+        className="font-thin p-4 md:w-[25rem] border-[1px] border-gray-400"
+      >
         <option className="font-thin" value="">
           Type of service
         </option>
