@@ -7,7 +7,7 @@ import { MdMenu } from "react-icons/md";
 import { IoCloseCircle } from "react-icons/io5";
 
 const Navbar = () => {
-  const navlinks = ["HOME", "ABOUT US", "BLOG", "CONTACT"];
+  const navlinks = ["HOME", "ABOUT US", "SERVICES", "CONTACT"];
   const [open, setOpen] = useState(false);
 
   const handleMenu = () => {
@@ -23,12 +23,12 @@ const Navbar = () => {
             <Image width={150} height={0} src={logo} alt="EBS logo" />
           </Link>
         </div>
-        <div className="flex gap-5">
+        <div className="flex gap-10">
           <ul
             className={`md:flex flex-row gap-10 items-center ${
               open
                 ? "backdrop-blur-3xl text-cyan-900 flex flex-col items-center justify-center fixed left-0 top-0 w-[100vw] h-[100vh]"
-                : "hidden lg:flex gap-4"
+                : "hidden lg:flex gap-4 xl:gap-14"
             }`}
           >
             {navlinks.map((navlink) => {

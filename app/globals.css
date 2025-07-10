@@ -10,7 +10,8 @@
   padding: 0;
 }
 
-button {
+button,
+select {
   padding-inline: 2rem;
   padding-block: 1rem;
 }
@@ -21,4 +22,9 @@ a:hover {
 
 button:hover {
   cursor: pointer;
+}
+
+input,
+select {
+  outline-color: darkgrey;
 }
