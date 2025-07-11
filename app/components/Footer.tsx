@@ -8,6 +8,7 @@ import {
   FaInstagram,
   FaLinkedin,
   FaPinterest,
+  FaTiktok,
   FaTwitter,
 } from "react-icons/fa";
 
@@ -17,7 +18,7 @@ const Footer = () => {
     <div className="bg-orange-50 flex flex-col gap-10 items-center justify-center py-10">
       <div className="flex flex-col gap-6 justify-center items-center">
         <h2 className="text-[1.8rem] md:text-[2rem] font-thin">
-          Join Our Newsletter
+          Join our email list for exclusive offers and the latest news.
         </h2>
         <Form />
       </div>
@@ -26,8 +27,8 @@ const Footer = () => {
         <div className="flex flex-col gap-5">
           <h3 className="text-xl">ELODIA BEAUTY & SPA</h3>
           <span className="font-thin w-[10rem]">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis
-            delectus ipsum explicabo maxime sequi aut.
+            Explore luxury treatments designed to enhance your natural beauty
+            and boost your confidence
           </span>
           <button className="text-white text-[0.9rem] bg-cyan-800 w-fit hover:bg-cyan-700 transition-all duration-300 ease-in-out">
             SUBSCRIBE
@@ -81,35 +82,27 @@ const Footer = () => {
         <div className="flex flex-col gap-6">
           <h3 className="text-xl">Contact Us</h3>
           <div className="flex flex-col gap-4 font-thin">
-            <span>Goma, Himbi Av du lac N°123</span>
-            <span>elodiabeautyspa@gmail.com</span>
-            <span>Phone: +1 (437) 665-0194</span>
+            <span>
+              598 Concession str, Hamilton, <br /> Ontario, L8V 1B3, Canada
+            </span>
+            <span>elodiabspa@gmail.com</span>
+            <span>Phone: +1(289) 206-1802</span>
           </div>
           <div className="">
             <ul className="flex gap-4">
               <li className="a">
-                <a href="http://">
+                <a href="https://www.instagram.com/elodia_beauty_and_spa?igsh=MWI2YWN0a3NzNGZvbA%3D%3D">
                   <FaInstagram className="text-cyan-900 text-2xl" />
                 </a>
               </li>
               <li className="a">
-                <a href="http://">
+                <a href="https://www.facebook.com/profile.php?id=61567223621147&mibextid=wwXIfr&rdid=w1IMe9quOL5G1nIE&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F18uaNEQTAJ%2F%3Fmibextid%3DwwXIfr#">
                   <FaFacebook className="text-cyan-900 text-2xl" />
                 </a>
               </li>
               <li className="a">
-                <a href="http://">
-                  <FaLinkedin className="text-cyan-900 text-2xl" />
-                </a>
-              </li>
-              <li className="a">
-                <a href="http://">
-                  <FaPinterest className="text-cyan-900 text-2xl" />
-                </a>
-              </li>
-              <li className="a">
-                <a href="http://">
-                  <FaTwitter className="text-cyan-900 text-2xl" />
+                <a href="https://www.tiktok.com/@elodiabeautyandspa?_t=ZM-8ulSXBqXmQJ&_r=1">
+                  <FaTiktok className="text-cyan-900 text-2xl" />
                 </a>
               </li>
             </ul>
@@ -117,18 +110,22 @@ const Footer = () => {
         </div>
         <div className="flex flex-col gap-6">
           <h3 className="text-xl">Opening Hours</h3>
-          <div>
-            <div className="flex justify-between w-[15rem] font-thin">
-              <span>Monday to Friday</span>
-              <span>09:00 - 20:00</span>
+          <div className="w-[20rem]">
+            <div className="flex justify-between font-thin">
+              <span>Monday to Tuesday</span>
+              <span className="text-nowrap">10 AM - 7 PM</span>
             </div>
-            <div className="flex justify-between w-[15rem] font-thin">
+            <div className="flex justify-between font-thin">
+              <span>Wednesday to Thursday</span>
+              <span className="text-nowrap">10 AM - 6 PM</span>
+            </div>
+            <div className="flex justify-between font-thin">
               <span>Saturday</span>
-              <span>09:00 - 18:00</span>
+              <span className="text-nowrap">2 AM - 6 PM</span>
             </div>
-            <div className="flex justify-between w-[15rem] font-thin">
+            <div className="flex justify-between font-thin">
               <span>Sunday</span>
-              <span>09:00 - 18:00</span>
+              <span className="text-nowrap">2 AM - 6 PM</span>
             </div>
           </div>
           <ul className="flex gap-4">

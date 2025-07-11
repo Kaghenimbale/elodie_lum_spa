@@ -20,10 +20,10 @@ const Wellness = () => {
           Wellness & Spa
         </h3>
         <p className="md:w-[30vw] font-thin">
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aliquam
-          provident excepturi placeat obcaecati praesentium ullam facilis totam
-          harum. Deserunt praesentium, sequi illum id accusamus temporibus
-          molestiae reiciendis natus explicabo ex!
+          Escape to our serene Wellness & Spa. Discover a haven where
+          tranquility meets rejuvenation. Our expert treatments are designed to
+          soothe your senses, relax your mind, and revitalize your body. Indulge
+          in an experience tailored for your ultimate well-being.
         </p>
         <button className="text-white text-[0.9rem] bg-cyan-800 w-fit hover:bg-cyan-700 transition-all duration-300 ease-in-out">
           BOOK NOW

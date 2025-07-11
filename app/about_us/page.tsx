@@ -40,10 +40,12 @@ const page = () => {
               AB & Spa
             </h3>
             <p className="md:w-[30vw] font-thin">
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aliquam
-              provident excepturi placeat obcaecati praesentium ullam facilis
-              totam harum. Deserunt praesentium, sequi illum id accusamus
-              temporibus molestiae reiciendis natus explicabo ex!
+              At AB & Spa, we invite you to prioritize your inner harmony and
+              outer radiance with our exclusive wellbeing experience. This
+              carefully curated journey begins with your entrance to the blue
+              lagoon, followed by a purifying silica mud mask for both face and
+              body. Indulge in complete comfort with the use of soft towels and
+              a plush bathrobe, ensuring a truly restorative escape.
             </p>
             <button className="text-white text-[0.9rem] bg-cyan-800 w-fit hover:bg-cyan-700 transition-all duration-300 ease-in-out">
               BOOK NOW
@@ -58,10 +60,14 @@ const page = () => {
             Your Wellbeing
           </h3>
           <p className="md:w-[30vw] font-thin">
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aliquam
-            provident excepturi placeat obcaecati praesentium ullam facilis
-            totam harum. Deserunt praesentium, sequi illum id accusamus
-            temporibus molestiae reiciendis natus explicabo ex!
+            Our commitment lies in offering a diverse range of services, from
+            our invigorating Finnish sauna and serene geothermal spa to our
+            specialized facial and body treatments, all delivered with
+            meticulous attention and heartfelt care. We believe in fostering a
+            community of wellness, where guests can escape the everyday, relieve
+            stress, and emerge feeling completely revitalized. Your journey to
+            balance and renewed vitality begins here, at AB & Spa, where your
+            well-being is our utmost priority.
           </p>
           <ul className="list-disc font-thin">
             <li>Entrance to the blue lagoon</li>

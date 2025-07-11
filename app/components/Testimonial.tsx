@@ -6,15 +6,13 @@ const Testimonial = () => {
       <Image src="/apostrophe.png" alt="testimonial" width={150} height={0} />
       <div className="flex flex-col items-center gap-5">
         <p className="lg:w-[40vw] px-4 md:p-0 text-center font-thin">
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sit aperiam
-          aliquam molestiae atque! Dolor incidunt quidem delectus et rem
-          recusandae placeat, esse, voluptatem facilis dicta labore consequuntur
-          eveniet. Modi enim ea est labore ullam possimus, sit nam, id, vel sed
-          praesentium architecto blanditiis magni reiciendis quia expedita eum
-          ratione cum.
+          From the moment I walked into ELODIA, I felt completely at peace. The
+          atmosphere is so calming, and the staff truly go above and beyond to
+          make you feel special. My skin has never looked better, and I always
+          leave feeling refreshed and confident. I wouldn’t go anywhere else!
         </p>
         <div className="flex gap-2">
-          <span className="font-thin text-gray-500">ALEXA MOURE</span>
+          <span className="font-thin text-gray-500">Isabelle M.</span>
           <span className="font-thin text-gray-500">-</span>
           <span className="font-thin text-gray-500">RELAX MASSAGE</span>
         </div>

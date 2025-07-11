@@ -9,22 +9,27 @@ const Hours = () => {
             Working Hours
           </h3>
           <p className="md:w-[30rem] font-thin">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. A nemo
-            sapiente molestias ratione, voluptatem at est sit reiciendis amet
-            obcaecati.
+            We’re here to welcome you throughout the week with flexible hours
+            designed to suit your lifestyle. Whether you're planning a quick
+            treatment or a full pampering session, there’s always time to relax
+            at ELODIA Beauty and Spa Center.
           </p>
-          <div>
-            <div className="flex justify-between w-[15rem] font-thin">
-              <span>Monday to Friday</span>
-              <span>09:00 - 20:00</span>
+          <div className="w-[20rem]">
+            <div className="flex justify-between font-thin">
+              <span>Monday to Tuesday</span>
+              <span className="text-nowrap">10 AM - 7 PM</span>
             </div>
-            <div className="flex justify-between w-[15rem] font-thin">
+            <div className="flex justify-between font-thin">
+              <span>Wednesday to Thursday</span>
+              <span className="text-nowrap">10 AM - 6 PM</span>
+            </div>
+            <div className="flex justify-between font-thin">
               <span>Saturday</span>
-              <span>09:00 - 18:00</span>
+              <span className="text-nowrap">2 AM - 6 PM</span>
             </div>
-            <div className="flex justify-between w-[15rem] font-thin">
+            <div className="flex justify-between font-thin">
               <span>Sunday</span>
-              <span>09:00 - 18:00</span>
+              <span className="text-nowrap">2 AM - 6 PM</span>
             </div>
           </div>
         </div>
