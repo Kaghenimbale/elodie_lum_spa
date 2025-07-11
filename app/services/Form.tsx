@@ -4,7 +4,7 @@ const Form = () => {
   return (
     <form action="" className="flex flex-col gap-4">
       <h2 className="text-[1.8rem] md:text-[2rem] font-thin">
-        Book and Appointment
+        Book an Appointment
       </h2>
       <input
         className="p-4 md:w-[25rem] border-[1px] border-gray-400"

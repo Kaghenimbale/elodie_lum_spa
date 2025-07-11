@@ -6,9 +6,15 @@ const Place = () => {
           A Place of true splendor
         </h3>
         <p className="text-white md:w-[35vw]">
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Recusandae
-          magni, voluptates neque aliquid voluptate ratione delectus eaque
-          tempora iusto officia!
+          where your journey to relaxation, beauty, and self-confidence begins.
+          Here, you’ll discover a curated selection of luxurious treatments,
+          personalized spa packages, and expert care tailored just for you. Our
+          website is your guide to everything we offer — from rejuvenating
+          facials and body therapies to exclusive promotions and effortless
+          appointment booking. Designed with elegance and simplicity, our online
+          space reflects the peaceful atmosphere you’ll find inside our spa.
+          Take your time, explore our services, and book your moment of splendor
+          today. Because at ELODIA, your beauty and well-being truly matter.
         </p>
         <button className="w-fit bg-white text-cyan-900 hover:bg-cyan-900 hover:text-white transition-all duration-300 ease-in-out">
           BOOK NOW

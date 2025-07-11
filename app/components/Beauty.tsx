@@ -8,11 +8,11 @@ const Beauty = () => {
           ELODIA BEAUTY AND SPA CENTER
         </h2>
         <p className="md:w-[50vw] text-center md:text-xl font-thin">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab quae earum
-          maiores itaque, blanditiis iure quidem eum sapiente veritatis atque
-          ullam rem harum perferendis dolore numquam omnis ducimus ea! Harum
-          modi, minus voluptas a quas laboriosam fugit temporibus voluptatum
-          adipisci!
+          Your beauty truly matters to us — it’s at the heart of everything we
+          do. At ELODIA, we offer a luxurious space where elegance meets
+          comfort. Each detail is designed to help you relax, recharge, and
+          shine. Whether it's your first visit or your tenth, you'll feel right
+          at home. Step into a world of splendor made just for you.
         </p>
       </div>
       <div className="flex gap-10 flex-col md:flex-row items-center p-4">
@@ -25,11 +25,13 @@ const Beauty = () => {
             className="object-cover w-full h-full transition-transform duration-300 transform hover:scale-105"
           />
           <div className="w-[15rem] md:w-[350px] h-[250px] absolute bottom-6 bg-white flex flex-col gap-2 justify-center items-center">
-            <h3 className="">Mineral Salt Scrub</h3>
+            <h3 className="">Basic Elodia Facial</h3>
             <p className="font-thin text-center">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. At,
-              exercitationem!
+              A foundational facial designed to cleanse, hydrate, and refresh
+              your skin, leaving you with a healthy glow. Perfect for all skin
+              types.
             </p>
+            <span>$90.00 CAD</span>
             <button className="text-white text-[0.9rem] bg-cyan-800 w-fit hover:bg-cyan-700 transition-all duration-300 ease-in-out">
               READ MORE
             </button>
@@ -44,11 +46,13 @@ const Beauty = () => {
             className="object-cover w-full h-full transition-transform duration-300 transform hover:scale-105"
           />
           <div className="w-[15rem] md:w-[350px] h-[250px] absolute bottom-6 bg-white flex flex-col gap-2 justify-center items-center">
-            <h3 className="">Geothermal Spa</h3>
+            <h3 className="">EBS Advance Facial</h3>
             <p className="font-thin text-center">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. At,
-              exercitationem!
+              Targeted treatment for enhanced skin concerns. This advanced
+              facial deeply nourishes, firms, and brightens, providing visible
+              results.
             </p>
+            <span>$150.00 CAD</span>
             <button className="text-white text-[0.9rem] bg-cyan-800 w-fit hover:bg-cyan-700 transition-all duration-300 ease-in-out">
               READ MORE
             </button>
@@ -63,11 +67,13 @@ const Beauty = () => {
             className="object-cover w-full h-full transition-transform duration-300 transform hover:scale-105"
           />
           <div className="w-[15rem] md:w-[350px] h-[250px] absolute bottom-6 bg-white flex flex-col gap-2 justify-center items-center">
-            <h3 className="">Mineral Baths</h3>
+            <h3 className="">EBS Bio Microneedling</h3>
             <p className="font-thin text-center">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. At,
-              exercitationem!
+              Innovative microneedling to stimulate collagen production. Reduces
+              fine lines, scars, and improves skin texture for a smoother,
+              firmer look.
             </p>
+            <span>$200.00 CAD</span>
             <button className="text-white text-[0.9rem] bg-cyan-800 w-fit hover:bg-cyan-700 transition-all duration-300 ease-in-out">
               READ MORE
             </button>
@@ -86,8 +92,8 @@ const Beauty = () => {
           <div className="flex flex-col gap-6 items-center">
             <h3 className="text-xl font-medium">Finnish Sauna</h3>
             <p className="text-center font-thin">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Voluptates, a.
+              Relax and detox in our authentic Finnish Sauna. Rejuvenate your
+              body and mind.
             </p>
           </div>
         </div>
@@ -96,8 +102,8 @@ const Beauty = () => {
           <div className="flex flex-col gap-6 items-center">
             <h3 className="text-xl font-medium">Scrub Program</h3>
             <p className="text-center font-thin">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Voluptates, a.
+              Revitalize your skin with our expert Scrub Program. Feel soft and
+              refreshed.
             </p>
           </div>
         </div>
@@ -106,8 +112,8 @@ const Beauty = () => {
           <div className="flex flex-col gap-6 items-center">
             <h3 className="text-xl font-medium">Volcanic Stones</h3>
             <p className="text-center font-thin">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Voluptates, a.
+              Experience deep healing warmth with Volcanic Stones. Melt away
+              tension.
             </p>
           </div>
         </div>
@@ -116,8 +122,8 @@ const Beauty = () => {
           <div className="flex flex-col gap-6 items-center">
             <h3 className="text-xl font-medium">Daily Massage</h3>
             <p className="text-center font-thin">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Voluptates, a.
+              Make self-care a ritual with our Daily Massage. De-stress and
+              soothe muscles
             </p>
           </div>
         </div>

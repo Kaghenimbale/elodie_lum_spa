@@ -9,14 +9,16 @@ const Wellness1 = () => {
             Your Wellbeing
           </h3>
           <p className="md:w-[30vw] font-thin">
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aliquam
-            provident excepturi placeat obcaecati praesentium ullam facilis
-            totam harum. Deserunt praesentium, sequi illum id accusamus
-            temporibus molestiae reiciendis natus explicabo ex!
+            Prioritize your inner harmony and outer radiance with our exclusive
+            wellbeing experience. This carefully curated journey begins with
+            your entrance to the blue lagoon, followed by a purifying silica mud
+            mask for both face and body. Indulge in complete comfort with the
+            use of soft towels and a plush bathrobe, ensuring a truly
+            restorative escape.
           </p>
           <ul className="list-disc font-thin">
             <li>Entrance to the blue lagoon</li>
-            <li>Silica mud mask(face and body)</li>
+            <li>Silica mud mask (face and body)</li>
             <li>Use of soft towel and bathrobe</li>
           </ul>
           <button className="text-white text-[0.9rem] bg-cyan-800 w-fit hover:bg-cyan-700 transition-all duration-300 ease-in-out">
@@ -43,13 +45,15 @@ const Wellness1 = () => {
             <Image src="/aroma.png" alt="icon" width={50} height={0} />
             <div className="flex flex-col gap-4 hover:cursor-text">
               <div className="flex justify-between lg:w-[22rem]">
-                <h3 className="">Aroma Therapy</h3>
+                <h3 className="">Deluxe Aroma Therapy,</h3>
                 <div className="underline w-full lg:w-[10rem] border-b-[1px] border-gray-300"></div>
                 <span>
                   from <span>$48</span>
                 </span>
               </div>
-              <p className="font-thin">Lorem ipsum dolor sit amet.</p>
+              <p className="font-thin">
+                Relax and rejuvenate with essential oil blends.
+              </p>
             </div>
           </div>
           <div className="flex gap-10">
@@ -62,7 +66,9 @@ const Wellness1 = () => {
                   from <span>$36</span>
                 </span>
               </div>
-              <p className="font-thin">Lorem ipsum dolor sit amet.</p>
+              <p className="font-thin">
+                Promotes muscle relaxation and cleansing.
+              </p>
             </div>
           </div>
           <div className="flex gap-10">
@@ -80,7 +86,7 @@ const Wellness1 = () => {
                   from <span>$36</span>
                 </span>
               </div>
-              <p className="font-thin">Lorem ipsum dolor sit amet.</p>
+              <p className="font-thin">Therapeutic mineral bath experience.</p>
             </div>
           </div>
           <div className="flex gap-10">
@@ -93,7 +99,9 @@ const Wellness1 = () => {
                   from <span>$36</span>
                 </span>
               </div>
-              <p className="font-thin">Lorem ipsum dolor sit amet.</p>
+              <p className="font-thin">
+                Purify and revitalize in classic sauna.
+              </p>
             </div>
           </div>
         </div>
@@ -108,7 +116,7 @@ const Wellness1 = () => {
                   from <span>$48</span>
                 </span>
               </div>
-              <p className="font-thin">Lorem ipsum dolor sit amet.</p>
+              <p className="font-thin">Hydrate and revitalize your skin.</p>
             </div>
           </div>
           <div className="flex gap-10">
@@ -121,33 +129,39 @@ const Wellness1 = () => {
                   from <span>$48</span>
                 </span>
               </div>
-              <p className="font-thin">Lorem ipsum dolor sit amet.</p>
+              <p className="font-thin">
+                Deep relaxation and muscle tension relief.
+              </p>
             </div>
           </div>
           <div className="flex gap-10">
             <Image src="/sauna4.png" alt="icon" width={50} height={0} />
             <div className="flex flex-col gap-4 hover:cursor-text">
               <div className="flex justify-between lg:w-[22rem]">
-                <h3 className="">Aroma Therapy</h3>
+                <h3 className="">Extended Aroma Therapy</h3>
                 <div className="underline w-full lg:w-[10rem] border-b-[1px] border-gray-300"></div>
                 <span>
                   from <span>$48</span>
                 </span>
               </div>
-              <p className="font-thin">Lorem ipsum dolor sit amet.</p>
+              <p className="font-thin">
+                Enhance well-being through aromatic oils.
+              </p>
             </div>
           </div>
           <div className="flex gap-10">
             <Image src="/sauna2.png" alt="icon" width={50} height={0} />
             <div className="flex flex-col gap-4 hover:cursor-text">
               <div className="flex justify-between lg:w-[22rem]">
-                <h3 className="">Aroma Therapy</h3>
+                <h3 className="">Aroma Therapy Express,</h3>
                 <div className="underline w-full lg:w-[10rem] border-b-[1px] border-gray-300"></div>
                 <span>
                   from <span>$36</span>
                 </span>
               </div>
-              <p className="font-thin">Lorem ipsum dolor sit amet.</p>
+              <p className="font-thin">
+                Quick aromatic refresh for mind and spirit.
+              </p>
             </div>
           </div>
         </div>

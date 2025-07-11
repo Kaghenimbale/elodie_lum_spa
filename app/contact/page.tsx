@@ -1,6 +1,5 @@
 import React from "react";
 import Location from "./Location";
-import Form from "../services/Form";
 
 const page = () => {
   return (
@@ -13,26 +12,32 @@ const page = () => {
           <div className="flex flex-col gap-6">
             <h3 className="text-xl">EB & SPA</h3>
             <div className="flex flex-col gap-4 font-thin">
-              <span>Goma, Himbi Av du lac N°123</span>
-              <span>elodiabeautyspa@gmail.com</span>
-              <span>Phone: +1 (437) 665-0194</span>
+              <span>
+                598 Concession str, Hamilton, Ontario, L8V 1B3, Canada
+              </span>
+              <span>elodiabspa@gmail.com</span>
+              <span>Phone: +1(289) 206-1802</span>
             </div>
           </div>
 
           <div className="flex flex-col gap-6">
             <h3 className="text-xl">Opening Hours</h3>
-            <div>
-              <div className="flex justify-between w-[15rem] font-thin">
-                <span>Monday to Friday</span>
-                <span>09:00 - 20:00</span>
+            <div className="w-[20rem]">
+              <div className="flex justify-between font-thin">
+                <span>Monday to Tuesday</span>
+                <span className="text-nowrap">10 AM - 7 PM</span>
               </div>
-              <div className="flex justify-between w-[15rem] font-thin">
+              <div className="flex justify-between font-thin">
+                <span>Wednesday to Thursday</span>
+                <span className="text-nowrap">10 AM - 6 PM</span>
+              </div>
+              <div className="flex justify-between font-thin">
                 <span>Saturday</span>
-                <span>09:00 - 18:00</span>
+                <span className="text-nowrap">2 AM - 6 PM</span>
               </div>
-              <div className="flex justify-between w-[15rem] font-thin">
+              <div className="flex justify-between font-thin">
                 <span>Sunday</span>
-                <span>09:00 - 18:00</span>
+                <span className="text-nowrap">2 AM - 6 PM</span>
               </div>
             </div>
           </div>
