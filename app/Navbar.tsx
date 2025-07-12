@@ -55,9 +55,12 @@ const Navbar = () => {
           </ul>
 
           {/* Book Now button for desktop */}
-          <button className="text-white hidden md:block bg-cyan-900 hover:bg-cyan-700 transition duration-300 px-4 py-2">
-            BOOK NOW
-          </button>
+          <Link
+            href="/signUp"
+            className="text-white hidden md:block bg-cyan-900 hover:bg-cyan-700 transition duration-300 px-4 py-2"
+          >
+            CONNEXION
+          </Link>
 
           {/* Mobile menu button */}
           <button
