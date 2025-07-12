@@ -41,13 +41,13 @@ const Wellness1 = () => {
 
       <div className="md:w-[80vw] lg:w-[65vw] flex flex-col lg:flex-row justify-between gap-20">
         <div className="flex flex-col gap-10">
-          <div className="flex gap-10">
-            <Image src="/aroma.png" alt="icon" width={50} height={0} />
+          <div className="flex gap-10 hover:opacity-60 opacity-100">
+            <Image src="/aroma.png" alt="icon" width={80} height={80} />
             <div className="flex flex-col gap-4 hover:cursor-text">
-              <div className="flex justify-between lg:w-[22rem]">
-                <h3 className="">Deluxe Aroma Therapy,</h3>
+              <div className="flex justify-between">
+                <h3 className="text-nowrap">Deluxe Aroma Therapy,</h3>
                 <div className="underline w-full lg:w-[10rem] border-b-[1px] border-gray-300"></div>
-                <span>
+                <span className="text-nowrap">
                   from <span>$48</span>
                 </span>
               </div>
@@ -56,13 +56,13 @@ const Wellness1 = () => {
               </p>
             </div>
           </div>
-          <div className="flex gap-10">
-            <Image src="/bol2.png" alt="icon" width={50} height={0} />
+          <div className="flex gap-10 hover:opacity-60 opacity-100">
+            <Image src="/bol2.png" alt="icon" width={80} height={80} />
             <div className="flex flex-col gap-4 hover:cursor-text">
-              <div className="flex justify-between lg:w-[22rem]">
-                <h3 className="">Sauna relax</h3>
+              <div className="flex justify-between">
+                <h3 className="text-nowrap">Sauna relax</h3>
                 <div className="underline w-full lg:w-[10rem] border-b-[1px] border-gray-300"></div>
-                <span>
+                <span className="text-nowrap">
                   from <span>$36</span>
                 </span>
               </div>
@@ -71,31 +71,31 @@ const Wellness1 = () => {
               </p>
             </div>
           </div>
-          <div className="flex gap-10">
+          <div className="flex gap-10 hover:opacity-60 opacity-100">
             <Image
               src="/massage-des-pieds.png"
               alt="icon"
-              width={50}
-              height={0}
+              width={80}
+              height={80}
             />
             <div className="flex flex-col gap-4 hover:cursor-text">
-              <div className="flex justify-between lg:w-[22rem]">
-                <h3 className="">Geothermal spa</h3>
+              <div className="flex justify-between">
+                <h3 className="text-nowrap">Geothermal spa</h3>
                 <div className="underline w-full lg:w-[10rem] border-b-[1px] border-gray-300"></div>
-                <span>
+                <span className="text-nowrap">
                   from <span>$36</span>
                 </span>
               </div>
               <p className="font-thin">Therapeutic mineral bath experience.</p>
             </div>
           </div>
-          <div className="flex gap-10">
-            <Image src="/bois.png" alt="icon" width={50} height={0} />
+          <div className="flex gap-10 hover:opacity-60 opacity-100">
+            <Image src="/bois.png" alt="icon" width={80} height={80} />
             <div className="flex flex-col gap-4 hover:cursor-text">
-              <div className="flex justify-between lg:w-[22rem]">
-                <h3 className="">Finnish sauna</h3>
+              <div className="flex justify-between">
+                <h3 className="text-nowrap">Finnish sauna</h3>
                 <div className="underline w-full lg:w-[10rem] border-b-[1px] border-gray-300"></div>
-                <span>
+                <span className="text-nowrap">
                   from <span>$36</span>
                 </span>
               </div>
@@ -106,26 +106,26 @@ const Wellness1 = () => {
           </div>
         </div>
         <div className="flex flex-col gap-10">
-          <div className="flex gap-10">
-            <Image src="/massage2.png" alt="icon" width={50} height={0} />
+          <div className="flex gap-10 hover:opacity-60 opacity-100">
+            <Image src="/massage2.png" alt="icon" width={80} height={80} />
             <div className="flex flex-col gap-4 hover:cursor-text">
-              <div className="flex justify-between lg:w-[22rem]">
-                <h3 className="">Face masks</h3>
+              <div className="flex justify-between">
+                <h3 className="text-nowrap">Face masks</h3>
                 <div className="underline w-full lg:w-[10rem] border-b-[1px] border-gray-300"></div>
-                <span>
+                <span className="text-nowrap">
                   from <span>$48</span>
                 </span>
               </div>
               <p className="font-thin">Hydrate and revitalize your skin.</p>
             </div>
           </div>
-          <div className="flex gap-10">
-            <Image src="/detente.png" alt="icon" width={50} height={0} />
+          <div className="flex gap-10 hover:opacity-60 opacity-100">
+            <Image src="/detente.png" alt="icon" width={80} height={80} />
             <div className="flex flex-col gap-4 hover:cursor-text">
-              <div className="flex justify-between lg:w-[22rem]">
+              <div className="flex justify-between">
                 <h3 className="text-nowrap">Full body massage</h3>
                 <div className="underline w-full lg:w-[10rem] border-b-[1px] border-gray-300"></div>
-                <span>
+                <span className="text-nowrap">
                   from <span>$48</span>
                 </span>
               </div>
@@ -134,13 +134,13 @@ const Wellness1 = () => {
               </p>
             </div>
           </div>
-          <div className="flex gap-10">
-            <Image src="/sauna4.png" alt="icon" width={50} height={0} />
+          <div className="flex gap-10 hover:opacity-60 opacity-100">
+            <Image src="/sauna4.png" alt="icon" width={80} height={80} />
             <div className="flex flex-col gap-4 hover:cursor-text">
-              <div className="flex justify-between lg:w-[22rem]">
-                <h3 className="">Extended Aroma Therapy</h3>
+              <div className="flex justify-between">
+                <h3 className="text-nowrap">Extended Aroma Therapy</h3>
                 <div className="underline w-full lg:w-[10rem] border-b-[1px] border-gray-300"></div>
-                <span>
+                <span className="text-nowrap">
                   from <span>$48</span>
                 </span>
               </div>
@@ -149,13 +149,13 @@ const Wellness1 = () => {
               </p>
             </div>
           </div>
-          <div className="flex gap-10">
-            <Image src="/sauna2.png" alt="icon" width={50} height={0} />
+          <div className="flex gap-10 hover:opacity-60 opacity-100">
+            <Image src="/sauna2.png" alt="icon" width={80} height={80} />
             <div className="flex flex-col gap-4 hover:cursor-text">
-              <div className="flex justify-between lg:w-[22rem]">
-                <h3 className="">Aroma Therapy Express,</h3>
+              <div className="flex justify-between">
+                <h3 className="text-nowrap">Aroma Therapy Express,</h3>
                 <div className="underline w-full lg:w-[10rem] border-b-[1px] border-gray-300"></div>
-                <span>
+                <span className="text-nowrap">
                   from <span>$36</span>
                 </span>
               </div>

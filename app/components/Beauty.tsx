@@ -24,7 +24,7 @@ const Beauty = () => {
             height={500}
             className="object-cover w-full h-full transition-transform duration-300 transform hover:scale-105"
           />
-          <div className="w-[15rem] md:w-[350px] h-[250px] absolute bottom-6 bg-white flex flex-col gap-2 justify-center items-center">
+          <div className="w-[15rem] md:w-[350px] h-[250px] absolute bottom-6 bg-white flex flex-col gap-2 justify-center items-center p-2">
             <h3 className="">Basic Elodia Facial</h3>
             <p className="font-thin text-center">
               A foundational facial designed to cleanse, hydrate, and refresh
@@ -45,7 +45,7 @@ const Beauty = () => {
             height={500}
             className="object-cover w-full h-full transition-transform duration-300 transform hover:scale-105"
           />
-          <div className="w-[15rem] md:w-[350px] h-[250px] absolute bottom-6 bg-white flex flex-col gap-2 justify-center items-center">
+          <div className="w-[15rem] md:w-[350px] h-[250px] absolute bottom-6 bg-white flex flex-col gap-2 justify-center items-center p-2">
             <h3 className="">EBS Advance Facial</h3>
             <p className="font-thin text-center">
               Targeted treatment for enhanced skin concerns. This advanced
@@ -66,7 +66,7 @@ const Beauty = () => {
             height={500}
             className="object-cover w-full h-full transition-transform duration-300 transform hover:scale-105"
           />
-          <div className="w-[15rem] md:w-[350px] h-[250px] absolute bottom-6 bg-white flex flex-col gap-2 justify-center items-center">
+          <div className="w-[15rem] md:w-[350px] h-[250px] absolute bottom-6 bg-white flex flex-col gap-2 justify-center items-center p-2">
             <h3 className="">EBS Bio Microneedling</h3>
             <p className="font-thin text-center">
               Innovative microneedling to stimulate collagen production. Reduces
@@ -82,7 +82,7 @@ const Beauty = () => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 md:flex-row">
-        <div className="w-[20rem] flex items-center flex-col gap-6">
+        <div className="w-[20rem] flex items-center flex-col gap-6 opacity-50 hover:opacity-100">
           <Image
             src="/massage2.png"
             alt="icons sauna"
@@ -90,40 +90,40 @@ const Beauty = () => {
             height={30}
           />
           <div className="flex flex-col gap-6 items-center">
-            <h3 className="text-xl font-medium">Finnish Sauna</h3>
+            <h3 className="text-xl font-medium">Sauna</h3>
             <p className="text-center font-thin">
               Relax and detox in our authentic Finnish Sauna. Rejuvenate your
               body and mind.
             </p>
           </div>
         </div>
-        <div className="w-[20rem] flex items-center flex-col gap-6">
+        <div className="w-[20rem] flex items-center flex-col gap-6 opacity-50 hover:opacity-100">
           <Image src="/bol.png" alt="icons sauna" width={100} height={30} />
           <div className="flex flex-col gap-6 items-center">
-            <h3 className="text-xl font-medium">Scrub Program</h3>
+            <h3 className="text-xl font-medium">Hair Removal</h3>
             <p className="text-center font-thin">
-              Revitalize your skin with our expert Scrub Program. Feel soft and
-              refreshed.
+              Reveal your skin's natural glow with our quick, effective, and
+              long-lasting waxing solutions!
             </p>
           </div>
         </div>
-        <div className="w-[20rem] flex items-center flex-col gap-6">
+        <div className="w-[20rem] flex items-center flex-col gap-6 opacity-50 hover:opacity-100">
           <Image src="/detente.png" alt="icons sauna" width={100} height={30} />
           <div className="flex flex-col gap-6 items-center">
-            <h3 className="text-xl font-medium">Volcanic Stones</h3>
+            <h3 className="text-xl font-medium">Basic Elodia Facial</h3>
             <p className="text-center font-thin">
               Experience deep healing warmth with Volcanic Stones. Melt away
               tension.
             </p>
           </div>
         </div>
-        <div className="w-[20rem] flex items-center flex-col gap-6">
+        <div className="w-[20rem] flex items-center flex-col gap-6 opacity-50 hover:opacity-100">
           <Image src="/sauna2.png" alt="icons sauna" width={100} height={30} />
           <div className="flex flex-col gap-6 items-center">
-            <h3 className="text-xl font-medium">Daily Massage</h3>
+            <h3 className="text-xl font-medium">Massage</h3>
             <p className="text-center font-thin">
-              Make self-care a ritual with our Daily Massage. De-stress and
-              soothe muscles
+              Our expert techniques reduce stress, leaving you feeling relaxed
+              and refreshed.
             </p>
           </div>
         </div>

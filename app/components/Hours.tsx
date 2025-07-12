@@ -10,7 +10,7 @@ const Hours = () => {
           </h3>
           <p className="md:w-[30rem] font-thin">
             We’re here to welcome you throughout the week with flexible hours
-            designed to suit your lifestyle. Whether you're planning a quick
+            designed to suit your lifestyle.Whether you're planning a quick
             treatment or a full pampering session, there’s always time to relax
             at ELODIA Beauty and Spa Center.
           </p>
