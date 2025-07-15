@@ -1,42 +1,59 @@
 "use client";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import logo from "../public/logo.png";
 import Link from "next/link";
 import { MdMenu } from "react-icons/md";
 import { IoCloseCircle } from "react-icons/io5";
+import { signOut, onAuthStateChanged, User } from "firebase/auth";
+import { auth } from "@/firebase/config";
+import { useRouter } from "next/navigation";
 
 const Navbar = () => {
   const navlinks = ["HOME", "ABOUT US", "SERVICES", "CONTACT"];
   const [open, setOpen] = useState(false);
+  const [user, setUser] = useState<User | null>(null);
+  const [hasMounted, setHasMounted] = useState(false);
+  const router = useRouter();
 
   const handleMenuToggle = () => {
     setOpen((prev) => !prev);
   };
 
+  // Listen for Firebase auth changes
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    });
+    setHasMounted(true);
+    return () => unsubscribe();
+  }, []);
+
   // Lock body scroll when menu is open
   useEffect(() => {
-    if (open) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-
+    document.body.style.overflow = open ? "hidden" : "";
     return () => {
       document.body.style.overflow = "";
     };
   }, [open]);
 
-  return (
-    <nav className="flex bg-orange-50 transition-colors duration-500 fixed left-0 right-0 top-0 z-50 px-5 md:px-10">
-      <div className="flex justify-between items-center w-full">
-        <div>
-          <Link href="/">
-            <Image width={150} height={0} src={logo} alt="EBS logo" />
-          </Link>
-        </div>
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      alert("Logged out successfully");
+      router.push("/signIn");
+    } catch (error: any) {
+      console.error("Logout error:", error.message);
+    }
+  };
 
-        <div className="flex items-center gap-4 md:gap-10">
+  return (
+    <nav className="flex bg-orange-50 transition-colors duration-500 fixed left-0 right-0 top-0 z-50 px-5 md:px-10 py-3">
+      <div className="flex justify-between items-center w-full">
+        <Link href="/">
+          <Image width={150} height={0} src="/logo.png" alt="EBS logo" />
+        </Link>
+
+        <div className="flex items-center gap-4 md:gap-6">
           {/* Desktop Links */}
           <ul className="hidden md:flex gap-4 xl:gap-14 items-center">
             {navlinks.map((navlink) => (
@@ -54,13 +71,40 @@ const Navbar = () => {
             ))}
           </ul>
 
-          {/* Book Now button for desktop */}
-          <Link
-            href="/signUp"
-            className="text-white hidden md:block bg-cyan-900 hover:bg-cyan-700 transition duration-300 px-4 py-2"
-          >
-            CONNEXION
-          </Link>
+          {/* Authenticated user display */}
+          {hasMounted && user && (
+            <div className="hidden md:flex items-center gap-3">
+              {/* Profile Picture if available */}
+              {user.photoURL && (
+                <Image
+                  src={user.photoURL}
+                  alt="Profile"
+                  width={35}
+                  height={35}
+                  className="rounded-full border border-gray-300"
+                />
+              )}
+              {/* Email */}
+              <span className="text-sm text-gray-700">{user.email}</span>
+              {/* Logout button */}
+              <button
+                onClick={handleLogout}
+                className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 text-sm"
+              >
+                Logout
+              </button>
+            </div>
+          )}
+
+          {/* Connexion button if not logged in */}
+          {!user && (
+            <Link
+              href="/signUp"
+              className="text-white hidden md:block bg-cyan-900 hover:bg-cyan-700 transition duration-300 px-4 py-2 rounded"
+            >
+              CONNEXION
+            </Link>
+          )}
 
           {/* Mobile menu button */}
           <button
@@ -90,6 +134,42 @@ const Navbar = () => {
               {navlink}
             </Link>
           ))}
+
+          {/* Auth info in mobile menu */}
+          {hasMounted && user ? (
+            <>
+              {/* Profile Picture */}
+              {user.photoURL && (
+                <Image
+                  src={user.photoURL}
+                  alt="Profile"
+                  width={50}
+                  height={50}
+                  className="rounded-full border border-gray-300"
+                />
+              )}
+              <span className="text-sm text-gray-700 font-bold text-center">
+                {user.email}
+              </span>
+              <button
+                onClick={() => {
+                  handleLogout();
+                  setOpen(false);
+                }}
+                className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700"
+              >
+                Logout
+              </button>
+            </>
+          ) : (
+            <Link
+              href="/signUp"
+              onClick={() => setOpen(false)}
+              className="bg-cyan-900 text-white px-4 py-2 rounded hover:bg-cyan-700"
+            >
+              CONNEXION
+            </Link>
+          )}
 
           <button
             type="button"
