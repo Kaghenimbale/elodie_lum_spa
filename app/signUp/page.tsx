@@ -76,9 +76,20 @@ const Page = () => {
       const result = await signInWithPopup(auth, googleProvider);
       const user = result.user;
 
-      // Optionally collect referral code here too
-      // await createUserProfile(user, data.referralCode || null);
+      // 1. Create user profile in Firestore (generates referralCode)
+      const referralCode = await createUserInFirestore(user);
 
+      // 2. Send referral email to user
+      await fetch("/api/send-referral", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: user.email,
+          referralCode,
+        }),
+      });
+
+      alert("Account created successfully!");
       router.push("/");
     } catch (error) {
       console.error("Google Sign-In Error:", error);

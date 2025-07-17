@@ -27,7 +27,7 @@ export async function POST(req: Request) {
     subject: "Welcome! Here's your referral code 🎉",
     html: `
       <div style="font-family: sans-serif; padding: 20px;">
-        <h2>🎉 Welcome to Our App!</h2>
+        <h2>🎉 Welcome to Elodia Beauty & Spa!</h2>
         <p>Thank you for signing up. Here's your referral code:</p>
         <div style="font-size: 20px; font-weight: bold; margin: 10px 0;">
           ${referralCode}
@@ -48,5 +48,4 @@ export async function POST(req: Request) {
       { status: 500 }
     );
   }
-  console.log("Incoming request:", email, referralCode);
 }
