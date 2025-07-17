@@ -1,4 +1,6 @@
 import emailjs from "@emailjs/browser";
+// lib/emailService.ts
+import nodemailer from "nodemailer";
 
 export async function sendReferralEmail(toEmail: string, referralCode: string) {
   const templateParams = {
@@ -17,4 +19,23 @@ export async function sendReferralEmail(toEmail: string, referralCode: string) {
   } catch (error) {
     console.error("Failed to send referral email:", error);
   }
+}
+
+export async function sendReferralEarnedEmail(referrerEmail: string) {
+  const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: process.env.EMAIL_USER!,
+      pass: process.env.EMAIL_PASS!,
+    },
+  });
+
+  const mailOptions = {
+    from: `"Referral App" <${process.env.EMAIL_USER}>`,
+    to: referrerEmail,
+    subject: "🎉 You've earned 1 point!",
+    html: `<p>Congratulations! Someone signed up using your referral code. You just earned 1 point 🎁</p>`,
+  };
+
+  await transporter.sendMail(mailOptions);
 }

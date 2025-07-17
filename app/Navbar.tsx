@@ -40,7 +40,7 @@ const Navbar = () => {
     try {
       await signOut(auth);
       alert("Logged out successfully");
-      router.push("/signIn");
+      router.push("/signUp");
     } catch (error: any) {
       console.error("Logout error:", error.message);
     }

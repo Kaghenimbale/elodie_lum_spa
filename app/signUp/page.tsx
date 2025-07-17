@@ -49,7 +49,11 @@ const Page = () => {
         data.password
       );
 
-      const referralCode = await createUserInFirestore(userCredential.user);
+      const referralCode = await createUserInFirestore(
+        userCredential.user,
+        data.referralCode || null
+      );
+
       await fetch("/api/send-referral", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -77,7 +81,10 @@ const Page = () => {
       const user = result.user;
 
       // 1. Create user profile in Firestore (generates referralCode)
-      const referralCode = await createUserInFirestore(user);
+      const referralCode = await createUserInFirestore(
+        user,
+        data.referralCode || null
+      );
 
       // 2. Send referral email to user
       await fetch("/api/send-referral", {
