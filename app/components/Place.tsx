@@ -5,7 +5,7 @@ const Place = () => {
         <h3 className="text-white text-[2rem] md:text-[4rem]">
           A Place of true splendor
         </h3>
-        <p className="text-white md:w-[50vw] text-xl">
+        <p className="text-white md:w-[60vw] text-xl">
           where your journey to relaxation, beauty, and self-confidence begins.
           Here, you’ll discover a curated selection of luxurious treatments,
           personalized spa packages, and expert care tailored just for you. Our
