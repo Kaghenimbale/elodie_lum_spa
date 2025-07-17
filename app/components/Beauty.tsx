@@ -5,14 +5,14 @@ const Beauty = () => {
     <div className="py-10 md:py-20 flex flex-col gap-10 md:gap-28 items-center">
       <div className="flex flex-col items-center gap-4 md:gap-10 p-4 md:p-0">
         <h2 className="text-[2rem] md:text-[3.5rem] text-center">
-          ELODIA BEAUTY AND SPA CENTER
+          ELODIA BEAUTY & SPA
         </h2>
-        <p className="md:w-[50vw] text-center md:text-xl font-thin">
+        <p className="md:w-[50vw] text-center md:text-xl font-thin text-xl">
           Your beauty truly matters to us — it’s at the heart of everything we
-          do. At ELODIA, we offer a luxurious space where elegance meets
-          comfort. Each detail is designed to help you relax, recharge, and
-          shine. Whether it's your first visit or your tenth, you'll feel right
-          at home. Step into a world of splendor made just for you.
+          do. At ELODIA BEAUTY & SPA, we offer a luxurious space where elegance
+          meets comfort. Each detail is designed to help you relax, recharge,
+          and shine. Whether it's your first visit or your tenth, you'll feel
+          right at home. Step into a world of splendor made just for you.
         </p>
       </div>
       <div className="flex gap-10 flex-col md:flex-row items-center p-4">
@@ -81,7 +81,7 @@ const Beauty = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 md:flex-row">
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
         <div className="w-[20rem] flex items-center flex-col gap-6 opacity-50 hover:opacity-100">
           <Image
             src="/massage2.png"
@@ -107,7 +107,7 @@ const Beauty = () => {
             </p>
           </div>
         </div>
-        <div className="w-[20rem] flex items-center flex-col gap-6 opacity-50 hover:opacity-100">
+        {/* <div className="w-[20rem] flex items-center flex-col gap-6 opacity-50 hover:opacity-100">
           <Image src="/detente.png" alt="icons sauna" width={100} height={30} />
           <div className="flex flex-col gap-6 items-center">
             <h3 className="text-xl font-medium">Basic Elodia Facial</h3>
@@ -116,7 +116,7 @@ const Beauty = () => {
               tension.
             </p>
           </div>
-        </div>
+        </div> */}
         <div className="w-[20rem] flex items-center flex-col gap-6 opacity-50 hover:opacity-100">
           <Image src="/sauna2.png" alt="icons sauna" width={100} height={30} />
           <div className="flex flex-col gap-6 items-center">

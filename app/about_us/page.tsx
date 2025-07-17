@@ -8,16 +8,16 @@ const page = () => {
         <h2 className="text-[1rem] lg:text-[3rem] font-extralight">
           Welcome to Elodia Beauty & Spa
         </h2>
-        <p className="lg:w-[60rem] font-thin text-center">
-          Welcome to EB & Spa. Imagine stepping into a haven where the everyday
-          stresses melt away, and a renewed sense of well-being takes over.
-          Revival Med Spa offers this escape at our convenient locations across
-          NYC, Brooklyn, and Long Island. We’ve thoughtfully combined the
-          peaceful ambiance of a luxury spa with the transformative power of
-          cutting-edge medical aesthetics and wellness solutions to provide you
-          with an unparalleled experience. At Revival Med Spa, our mission is
-          simple: to empower you to look and feel your absolute best through
-          personalized care and the most advanced treatments available.
+        <p className="lg:w-[60rem] font-thin text-center text-xl">
+          Welcome to ELODIA BEAUTY & SPA. Imagine stepping into a haven where
+          the everyday stresses melt away, and a renewed sense of well-being
+          takes over. Revival Med Spa offers this escape at our convenient
+          locations across NYC, Brooklyn, and Long Island. We’ve thoughtfully
+          combined the peaceful ambiance of a luxury spa with the transformative
+          power of cutting-edge medical aesthetics and wellness solutions to
+          provide you with an unparalleled experience. At Revival Med Spa, our
+          mission is simple: to empower you to look and feel your absolute best
+          through personalized care and the most advanced treatments available.
         </p>
       </div>
 
@@ -39,7 +39,7 @@ const page = () => {
             <h3 className="text-[2rem] lg:text-[3.5rem] font-extralight">
               AB & Spa
             </h3>
-            <p className="md:w-[30vw] font-thin">
+            <p className="md:w-[30vw] font-thin text-xl">
               At AB & Spa, we invite you to prioritize your inner harmony and
               outer radiance with our exclusive wellbeing experience. This
               carefully curated journey begins with your entrance to the blue
@@ -59,7 +59,7 @@ const page = () => {
           <h3 className="text-[2rem] lg:text-[3.5rem] font-extralight">
             Your Wellbeing
           </h3>
-          <p className="md:w-[30vw] font-thin">
+          <p className="md:w-[30vw] font-thin text-xl">
             Our commitment lies in offering a diverse range of services, from
             our invigorating Finnish sauna and serene geothermal spa to our
             specialized facial and body treatments, all delivered with
@@ -69,7 +69,7 @@ const page = () => {
             balance and renewed vitality begins here, at AB & Spa, where your
             well-being is our utmost priority.
           </p>
-          <ul className="list-disc font-thin">
+          <ul className="list-disc font-thin text-xl">
             <li>Entrance to the blue lagoon</li>
             <li>Silica mud mask(face and body)</li>
             <li>Use of soft towel and bathrobe</li>
@@ -95,7 +95,7 @@ const page = () => {
       <Testimonial />
       <div className="flex flex-col gap-5 items-center justify-center">
         <h2 className="text-[3rem] font-extralight">OUR TEAM</h2>
-        <p className="md:w-[70rem] font-thin text-center">
+        <p className="md:w-[70rem] font-thin text-center text-xl">
           Our Expert Team & Comprehensive Services. Our team of skilled and
           licensed practitioners are passionate about helping you achieve your
           unique aesthetic and wellness goals. We offer a comprehensive menu of

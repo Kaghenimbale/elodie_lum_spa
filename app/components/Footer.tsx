@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Form from "./Letter/Form";
 import {
   FaCcMastercard,
@@ -30,9 +31,12 @@ const Footer = () => {
             Explore luxury treatments designed to enhance your natural beauty
             and boost your confidence
           </span>
-          <button className="text-white text-[0.9rem] bg-cyan-800 w-fit hover:bg-cyan-700 transition-all duration-300 ease-in-out">
+          <Link
+            href="/signIn"
+            className="text-white text-[0.9rem] bg-cyan-800 w-fit hover:bg-cyan-700 transition-all duration-300 ease-in-out"
+          >
             SUBSCRIBE
-          </button>
+          </Link>
         </div>
         <div className="flex flex-col gap-4">
           <h3 className="text-xl">Important Links</h3>

@@ -9,7 +9,7 @@ const page = () => {
         <h2 className="text-[3rem] font-extralight text-center md:text-start">
           Spa Packages and Body Treatments
         </h2>
-        <p className="md:w-[60rem] font-thin text-center">
+        <p className="md:w-[60rem] font-thin text-center text-xl">
           Explore luxury treatments designed to enhance your natural beauty and
           boost your confidence. At our spa, every service is crafted to help
           you feel renewed, radiant, and deeply relaxed. Whether you're seeking

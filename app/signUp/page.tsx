@@ -11,12 +11,14 @@ import {
 import { auth, googleProvider } from "@/firebase/config";
 import { useRouter } from "next/navigation";
 import { FcGoogle } from "react-icons/fc";
+import { createUserInFirestore } from "@/lib/userService";
 
 const Page = () => {
   const router = useRouter();
   const [data, setData] = useState({
     email: "",
     password: "",
+    referralCode: "",
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -32,7 +34,6 @@ const Page = () => {
     }
 
     try {
-      // ✅ Check if email is already in use with Google
       const methods = await fetchSignInMethodsForEmail(auth, data.email);
 
       if (methods.includes("google.com")) {
@@ -42,14 +43,24 @@ const Page = () => {
         return;
       }
 
-      // ✅ Otherwise create account with email/password
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         data.email,
         data.password
       );
 
-      console.log("User created:", userCredential.user);
+      const referralCode = await createUserInFirestore(userCredential.user);
+      await fetch("/api/send-referral", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: userCredential.user.email,
+          referralCode,
+        }),
+      });
+
+      console.log("Referral code:", referralCode);
+
       alert("Account created successfully!");
       router.push("/");
     } catch (error: any) {
@@ -57,17 +68,17 @@ const Page = () => {
       alert(error.message);
     }
 
-    setData({
-      email: "",
-      password: "",
-    });
+    setData({ email: "", password: "", referralCode: "" });
   };
 
   const handleGoogleLogin = async () => {
     try {
       const result = await signInWithPopup(auth, googleProvider);
       const user = result.user;
-      console.log("Google user:", user);
+
+      // Optionally collect referral code here too
+      // await createUserProfile(user, data.referralCode || null);
+
       router.push("/");
     } catch (error) {
       console.error("Google Sign-In Error:", error);
@@ -113,6 +124,18 @@ const Page = () => {
             value={data.password}
             onChange={handleChange}
             required
+          />
+        </div>
+
+        <div className="flex flex-col gap-2">
+          <label htmlFor="referralCode">Referral Code (optional)</label>
+          <input
+            className="p-4 md:w-[25rem] border-[1px] border-gray-400"
+            type="text"
+            placeholder="Enter referral code"
+            name="referralCode"
+            value={data.referralCode}
+            onChange={handleChange}
           />
         </div>
 

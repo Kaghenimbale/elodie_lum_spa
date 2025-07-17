@@ -19,7 +19,7 @@ const Wellness = () => {
         <h3 className="text-[2rem] lg:text-[3.5rem] font-medium">
           Wellness & Spa
         </h3>
-        <p className="md:w-[30vw] font-thin">
+        <p className="md:w-[30vw] font-thin text-xl">
           Escape to our serene Wellness & Spa. Discover a haven where
           tranquility meets rejuvenation. Our expert treatments are designed to
           soothe your senses, relax your mind, and revitalize your body. Indulge
