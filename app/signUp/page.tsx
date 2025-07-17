@@ -66,7 +66,7 @@ const Page = () => {
       console.log("Referral code:", referralCode);
 
       alert("Account created successfully!");
-      router.push("/");
+      router.push("/userProfile");
     } catch (error: any) {
       console.error("Error creating user:", error.message);
       alert(error.message);
@@ -97,7 +97,7 @@ const Page = () => {
       });
 
       alert("Account created successfully!");
-      router.push("/");
+      router.push("/userProfile");
     } catch (error) {
       console.error("Google Sign-In Error:", error);
       alert("Failed to sign in with Google");

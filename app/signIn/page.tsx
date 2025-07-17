@@ -45,7 +45,7 @@ const Page = () => {
         data.password
       );
       console.log("Logged in:", userCredential.user.email);
-      router.push("/");
+      router.push("/userProfile");
     } catch (error: any) {
       console.error("Login error:", error.message);
       alert(error.message);
@@ -57,7 +57,7 @@ const Page = () => {
       const result = await signInWithPopup(auth, googleProvider);
       const user = result.user;
       console.log("Google user logged in:", user.email);
-      router.push("/");
+      router.push("/userProfile");
     } catch (error) {
       console.error("Google Sign-In Error:", error);
       alert("Failed to sign in with Google");
