@@ -17,7 +17,7 @@ const Footer = () => {
   const date = new Date();
   return (
     <div className="bg-orange-50 flex flex-col gap-10 items-center justify-center py-10">
-      <div className="flex flex-col gap-6 justify-center items-center">
+      <div className="flex flex-col gap-6 justify-center items-center p-4 md:p-0">
         <h2 className="text-[1.8rem] md:text-[2rem] font-thin">
           Join our email list for exclusive offers and the latest news.
         </h2>

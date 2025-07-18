@@ -12,6 +12,8 @@ import {
   getDocs,
 } from "firebase/firestore";
 import { BiUser } from "react-icons/bi";
+import { ClipLoader } from "react-spinners";
+
 const page = () => {
   const [user, setUser] = useState<User | null>(null);
   const [userData, setUserData] = useState<any>(null);
@@ -52,7 +54,7 @@ const page = () => {
   if (loading)
     return (
       <p className="w-[100vw] h-[100vh] flex items-center justify-center">
-        Loading...
+        <ClipLoader color="#164E63" size={50} />
       </p>
     );
 
