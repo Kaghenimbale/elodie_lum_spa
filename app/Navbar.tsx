@@ -85,7 +85,9 @@ const Navbar = () => {
                 />
               )}
               {/* Email */}
-              <span className="text-sm text-gray-700">{user.email}</span>
+              <span className="text-2xl font-bold rounded-full flex items-center justify-center w-[3rem] h-[3rem] bg-cyan-800 text-white">
+                {user.email![0].toLocaleUpperCase()}
+              </span>
               {/* Logout button */}
               <button
                 onClick={handleLogout}
@@ -148,8 +150,8 @@ const Navbar = () => {
                   className="rounded-full border border-gray-300"
                 />
               )}
-              <span className="text-sm text-gray-700 font-bold text-center">
-                {user.email}
+              <span className="text-center text-2xl font-bold rounded-full flex items-center justify-center w-[3rem] h-[3rem] bg-cyan-800 text-white">
+                {user.email![0].toLocaleUpperCase()}
               </span>
               <button
                 onClick={() => {
