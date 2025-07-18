@@ -75,7 +75,7 @@ const Navbar = () => {
           {hasMounted && user && (
             <div className="hidden md:flex items-center gap-3">
               {/* Profile Picture if available */}
-              {user.photoURL && (
+              {user.photoURL ? (
                 <Image
                   src={user.photoURL}
                   alt="Profile"
@@ -83,11 +83,12 @@ const Navbar = () => {
                   height={35}
                   className="rounded-full border border-gray-300"
                 />
+              ) : (
+                <span className="text-2xl font-bold rounded-full flex items-center justify-center w-[3rem] h-[3rem] bg-cyan-800 text-white">
+                  {user.email![0].toLocaleUpperCase()}
+                </span>
               )}
-              {/* Email */}
-              <span className="text-2xl font-bold rounded-full flex items-center justify-center w-[3rem] h-[3rem] bg-cyan-800 text-white">
-                {user.email![0].toLocaleUpperCase()}
-              </span>
+
               {/* Logout button */}
               <button
                 onClick={handleLogout}
@@ -141,7 +142,7 @@ const Navbar = () => {
           {hasMounted && user ? (
             <>
               {/* Profile Picture */}
-              {user.photoURL && (
+              {user.photoURL ? (
                 <Image
                   src={user.photoURL}
                   alt="Profile"
@@ -149,10 +150,12 @@ const Navbar = () => {
                   height={50}
                   className="rounded-full border border-gray-300"
                 />
+              ) : (
+                <span className="text-center text-2xl font-bold rounded-full flex items-center justify-center w-[3rem] h-[3rem] bg-cyan-800 text-white">
+                  {user.email![0].toLocaleUpperCase()}
+                </span>
               )}
-              <span className="text-center text-2xl font-bold rounded-full flex items-center justify-center w-[3rem] h-[3rem] bg-cyan-800 text-white">
-                {user.email![0].toLocaleUpperCase()}
-              </span>
+
               <button
                 onClick={() => {
                   handleLogout();
