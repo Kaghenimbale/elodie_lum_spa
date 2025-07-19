@@ -82,7 +82,7 @@ const Beauty = () => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
-        <div className="w-[20rem] flex items-center flex-col gap-6 opacity-50 hover:opacity-100">
+        {/* <div className="w-[20rem] flex items-center flex-col gap-6 opacity-50 hover:opacity-100">
           <Image
             src="/massage2.png"
             alt="icons sauna"
@@ -96,34 +96,37 @@ const Beauty = () => {
               body and mind.
             </p>
           </div>
-        </div>
+        </div> */}
         <div className="w-[20rem] flex items-center flex-col gap-6 opacity-50 hover:opacity-100">
           <Image src="/bol.png" alt="icons sauna" width={100} height={30} />
           <div className="flex flex-col gap-6 items-center">
             <h3 className="text-xl font-medium">Hair Removal</h3>
             <p className="text-center font-thin">
-              Reveal your skin's natural glow with our quick, effective, and
-              long-lasting waxing solutions!
+              Say goodbye to unwanted hair with our gentle waxing services.
+              Designed for all skin types, our treatments leave your skin
+              smooth, clean, and glowing for weeks.
             </p>
           </div>
         </div>
-        {/* <div className="w-[20rem] flex items-center flex-col gap-6 opacity-50 hover:opacity-100">
+        <div className="w-[20rem] flex items-center flex-col gap-6 opacity-50 hover:opacity-100">
           <Image src="/detente.png" alt="icons sauna" width={100} height={30} />
           <div className="flex flex-col gap-6 items-center">
             <h3 className="text-xl font-medium">Basic Elodia Facial</h3>
             <p className="text-center font-thin">
-              Experience deep healing warmth with Volcanic Stones. Melt away
-              tension.
+              Refresh your face with our signature facial that combines deep
+              cleansing and warm volcanic stones. Ideal for tired or dull skin,
+              it restores hydration and natural radiance.
             </p>
           </div>
-        </div> */}
+        </div>
         <div className="w-[20rem] flex items-center flex-col gap-6 opacity-50 hover:opacity-100">
           <Image src="/sauna2.png" alt="icons sauna" width={100} height={30} />
           <div className="flex flex-col gap-6 items-center">
             <h3 className="text-xl font-medium">Massage</h3>
             <p className="text-center font-thin">
-              Our expert techniques reduce stress, leaving you feeling relaxed
-              and refreshed.
+              Let tension melt away with our customized massages. Whether you're
+              seeking stress relief or muscle recovery, our techniques help you
+              feel lighter, relaxed, and renewed.
             </p>
           </div>
         </div>

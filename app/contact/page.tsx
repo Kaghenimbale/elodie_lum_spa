@@ -16,17 +16,38 @@ const page = () => {
     setMessage({ ...message, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(message);
-    setMessage({
-      name: "",
-      email: "",
-      service: "",
-      date: "",
-      message: "",
-    });
+    try {
+      const res = await fetch("/api/book-service", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(message),
+      });
+
+      const result = await res.json();
+
+      if (res.ok) {
+        alert("Booking request sent! ✅");
+        setMessage({
+          name: "",
+          email: "",
+          service: "",
+          date: "",
+          message: "",
+        });
+      } else {
+        alert("Something went wrong 😔");
+        console.error(result.error);
+      }
+    } catch (err) {
+      console.error("Booking error:", err);
+      alert("Error sending booking request");
+    }
   };
+
   return (
     <div className="pt-[4.5rem] pb-16 flex flex-col gap-5 px-4 lg:px-0 items-center justify-center">
       <div className="w-[100%] h-[100vh] lg:h-[80vh] bg-[url('/bg-contact.jpg')] bg-cover bg-bottom flex items-center justify-center">
@@ -75,16 +96,22 @@ const page = () => {
         <h2 className="text-[1.8rem] md:text-[2rem] font-thin">
           Drop Us a Line
         </h2>
-        <input
-          className="p-4 w-[90vw] md:w-[25rem] border-[1px] border-gray-400"
-          type="name"
-          placeholder="Name"
-          name="name"
-          value={message.name}
-          onChange={handleChange}
-          required
-        />
+        <div className="flex flex-col gap-2">
+          <label htmlFor="name">Name:</label>
+          <input
+            className="p-4 w-[90vw] md:w-[25rem] border-[1px] border-gray-400"
+            type="name"
+            placeholder="Name"
+            name="name"
+            value={message.name}
+            onChange={handleChange}
+            required
+          />
+        </div>
 
+        <div className="flex flex-col gap-2">
+          <label htmlFor="email">Email:</label>
+        </div>
         <input
           className="p-4 w-[90vw]  md:w-[25rem] border-[1px] border-gray-400"
           type="email"
@@ -95,54 +122,51 @@ const page = () => {
           required
         />
 
-        <select
-          name="service"
-          className="font-thin p-4 w-[90vw]  md:w-[25rem] border-[1px] border-gray-400"
-          value={message.service}
-          onChange={handleChange}
-          required
-        >
-          <option className="font-thin" value="">
-            Type of service
-          </option>
-          <option className="font-thin" value="body and soul">
-            BODY AND SOUL
-          </option>
-          <option className="font-thin" value="OIL THERAPY">
-            OIL THERAPY
-          </option>
-          <option className="font-thin" value="DAY SPA">
-            DAY SPA
-          </option>
-          <option className="font-thin" value="SAUNA">
-            SAUNA
-          </option>
-          <option className="font-thin" value="FACIAL">
-            FACIAL
-          </option>
-          <option className="font-thin" value="MASSAGE">
-            MASSAGE
-          </option>
-        </select>
+        <div className="flex flex-col gap-2">
+          <label htmlFor="service">Type of Service:</label>
+          <select
+            name="service"
+            className="font-thin p-4 w-[90vw]  md:w-[25rem] border-[1px] border-gray-400"
+            value={message.service}
+            onChange={handleChange}
+            required
+          >
+            <option className="font-thin" value="SAUNA">
+              Hair Removal
+            </option>
+            <option className="font-thin" value="FACIAL">
+              Basic Elodia Facial
+            </option>
+            <option className="font-thin" value="MASSAGE">
+              Massage
+            </option>
+          </select>
+        </div>
 
-        <input
-          className="p-4 w-[90vw] md:w-[25rem] border-[1px] border-gray-400 font-thin"
-          type="date"
-          placeholder="Prefered Date"
-          name="date"
-          value={message.date}
-          onChange={handleChange}
-          required
-        />
+        <div className="flex flex-col gap-2">
+          <label htmlFor="date">Date:</label>
+          <input
+            className="p-4 w-[90vw] md:w-[25rem] border-[1px] border-gray-400 font-thin"
+            type="date"
+            placeholder="Prefered Date"
+            name="date"
+            value={message.date}
+            onChange={handleChange}
+            required
+          />
+        </div>
 
-        <textarea
-          className="p-4 w-[90vw] md:w-[25rem] h-[10rem] border-[1px] border-gray-400 font-thin"
-          placeholder="Message"
-          name="message"
-          value={message.message}
-          onChange={handleChange}
-          required
-        ></textarea>
+        <div className="flex flex-col gap-2">
+          <label htmlFor="message">Message:</label>
+          <textarea
+            className="p-4 w-[90vw] md:w-[25rem] h-[10rem] border-[1px] border-gray-400 font-thin"
+            placeholder="Message"
+            name="message"
+            value={message.message}
+            onChange={handleChange}
+            required
+          ></textarea>
+        </div>
         <button
           type="submit"
           className="text-white text-[0.9rem] bg-cyan-800 w-fit hover:bg-cyan-700 transition-all duration-300 ease-in-out"
