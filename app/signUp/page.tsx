@@ -6,6 +6,7 @@ import { useState, FormEvent } from "react";
 import {
   createUserWithEmailAndPassword,
   fetchSignInMethodsForEmail,
+  onAuthStateChanged,
   signInWithPopup,
 } from "firebase/auth";
 import { auth, googleProvider } from "@/firebase/config";
@@ -63,7 +64,7 @@ const Page = () => {
         }),
       });
 
-      console.log("Referral code:", referralCode);
+      // console.log("Referral code:", referralCode);
 
       alert("Account created successfully!");
       router.push("/userProfile");
@@ -97,7 +98,13 @@ const Page = () => {
       });
 
       alert("Account created successfully!");
-      router.push("/userProfile");
+      onAuthStateChanged(auth, (user) => {
+        if (user?.email === "kaghenimbale@gmail.com") {
+          router.push("/admin");
+        } else {
+          router.push("/userProfile");
+        }
+      });
     } catch (error) {
       console.error("Google Sign-In Error:", error);
       alert("Failed to sign in with Google");

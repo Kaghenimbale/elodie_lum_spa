@@ -7,6 +7,7 @@ import {
   signInWithEmailAndPassword,
   fetchSignInMethodsForEmail,
   signInWithPopup,
+  onAuthStateChanged,
 } from "firebase/auth";
 import { auth, googleProvider } from "@/firebase/config";
 import { useRouter } from "next/navigation";
@@ -44,8 +45,14 @@ const Page = () => {
         data.email,
         data.password
       );
-      console.log("Logged in:", userCredential.user.email);
-      router.push("/userProfile");
+      // console.log("Logged in:", userCredential.user.email);
+      onAuthStateChanged(auth, (user) => {
+        if (user?.email === "kaghenimbale@gmail.com") {
+          router.push("/admin");
+        } else {
+          router.push("/userProfile");
+        }
+      });
     } catch (error: any) {
       console.error("Login error:", error.message);
       alert(error.message);
