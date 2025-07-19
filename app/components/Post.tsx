@@ -7,7 +7,7 @@ const Post = () => {
   return (
     <div className="flex flex-col items-center justify-center py-20 px-4 md:px-0 gap-10">
       <h2 className="text-[2rem] md:text-[4rem]">Latest Posts</h2>
-      <p className="font-thin md:w-[30rem] text-center">
+      <p className="font-thin md:w-[30rem] text-center text-xl">
         Discover the skincare routines our specialists recommend, learn how to
         protect your skin daily, and explore the spa services that make a real
         difference.

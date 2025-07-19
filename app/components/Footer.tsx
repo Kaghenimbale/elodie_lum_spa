@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Form from "./Letter/Form";
 import {
   FaCcMastercard,
@@ -16,7 +17,7 @@ const Footer = () => {
   const date = new Date();
   return (
     <div className="bg-orange-50 flex flex-col gap-10 items-center justify-center py-10">
-      <div className="flex flex-col gap-6 justify-center items-center">
+      <div className="flex flex-col gap-6 justify-center items-center p-4 md:p-0">
         <h2 className="text-[1.8rem] md:text-[2rem] font-thin">
           Join our email list for exclusive offers and the latest news.
         </h2>
@@ -30,9 +31,12 @@ const Footer = () => {
             Explore luxury treatments designed to enhance your natural beauty
             and boost your confidence
           </span>
-          <button className="text-white text-[0.9rem] bg-cyan-800 w-fit hover:bg-cyan-700 transition-all duration-300 ease-in-out">
+          <Link
+            href="/signIn"
+            className="text-white text-[0.9rem] bg-cyan-800 w-fit hover:bg-cyan-700 transition-all duration-300 ease-in-out"
+          >
             SUBSCRIBE
-          </button>
+          </Link>
         </div>
         <div className="flex flex-col gap-4">
           <h3 className="text-xl">Important Links</h3>

@@ -1,7 +1,32 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import Location from "./Location";
 
 const page = () => {
+  const [message, setMessage] = useState({
+    name: "",
+    email: "",
+    service: "",
+    date: "",
+    message: "",
+  });
+
+  const handleChange = (e: any) => {
+    setMessage({ ...message, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log(message);
+    setMessage({
+      name: "",
+      email: "",
+      service: "",
+      date: "",
+      message: "",
+    });
+  };
   return (
     <div className="pt-[4.5rem] pb-16 flex flex-col gap-5 px-4 lg:px-0 items-center justify-center">
       <div className="w-[100%] h-[100vh] lg:h-[80vh] bg-[url('/bg-contact.jpg')] bg-cover bg-bottom flex items-center justify-center">
@@ -46,7 +71,7 @@ const page = () => {
           <Location /> LOCATION
         </div>
       </div>
-      <form action="" className="flex flex-col gap-4">
+      <form action="" onSubmit={handleSubmit} className="flex flex-col gap-4">
         <h2 className="text-[1.8rem] md:text-[2rem] font-thin">
           Drop Us a Line
         </h2>
@@ -55,6 +80,8 @@ const page = () => {
           type="name"
           placeholder="Name"
           name="name"
+          value={message.name}
+          onChange={handleChange}
           required
         />
 
@@ -63,12 +90,17 @@ const page = () => {
           type="email"
           placeholder="Email address"
           name="email"
+          value={message.email}
+          onChange={handleChange}
           required
         />
 
         <select
           name="service"
           className="font-thin p-4 w-[90vw]  md:w-[25rem] border-[1px] border-gray-400"
+          value={message.service}
+          onChange={handleChange}
+          required
         >
           <option className="font-thin" value="">
             Type of service
@@ -98,6 +130,8 @@ const page = () => {
           type="date"
           placeholder="Prefered Date"
           name="date"
+          value={message.date}
+          onChange={handleChange}
           required
         />
 
@@ -105,9 +139,14 @@ const page = () => {
           className="p-4 w-[90vw] md:w-[25rem] h-[10rem] border-[1px] border-gray-400 font-thin"
           placeholder="Message"
           name="message"
+          value={message.message}
+          onChange={handleChange}
           required
         ></textarea>
-        <button className="text-white text-[0.9rem] bg-cyan-800 w-fit hover:bg-cyan-700 transition-all duration-300 ease-in-out">
+        <button
+          type="submit"
+          className="text-white text-[0.9rem] bg-cyan-800 w-fit hover:bg-cyan-700 transition-all duration-300 ease-in-out"
+        >
           SEND
         </button>
       </form>

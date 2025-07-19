@@ -8,11 +8,11 @@ const Hours = () => {
           <h3 className="text-[2rem] md:text-[3.5rem] text-center md:text-left">
             Working Hours
           </h3>
-          <p className="md:w-[30rem] font-thin">
+          <p className="md:w-[30rem] font-thin text-xl">
             We’re here to welcome you throughout the week with flexible hours
-            designed to suit your lifestyle. Whether you're planning a quick
+            designed to suit your lifestyle.Whether you're planning a quick
             treatment or a full pampering session, there’s always time to relax
-            at ELODIA Beauty and Spa Center.
+            at ELODIA Beauty and Spa.
           </p>
           <div className="w-[20rem]">
             <div className="flex justify-between font-thin">
