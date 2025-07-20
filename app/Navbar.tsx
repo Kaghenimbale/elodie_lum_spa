@@ -9,11 +9,22 @@ import { auth } from "@/firebase/config";
 import { useRouter } from "next/navigation";
 
 const Navbar = () => {
-  const navlinks = ["HOME", "ABOUT US", "SERVICES", "CONTACT"];
+  // const navlinks = ["HOME", "ABOUT US", "SERVICES", "CONTACT"];
+  const commonLinks = ["HOME", "ABOUT US", "SERVICES", "CONTACT"];
+  const userLinks = ["userProfile"];
+  const adminLinks = ["admin"];
   const [open, setOpen] = useState(false);
   const [user, setUser] = useState<User | null>(null);
   const [hasMounted, setHasMounted] = useState(false);
   const router = useRouter();
+
+  const isLoggedIn = !!user;
+  const isAdmin = user?.email === process.env.NEXT_PUBLIC_ADMIN_EMAIL;
+
+  const navlinks = [
+    ...commonLinks,
+    ...(isLoggedIn ? (isAdmin ? adminLinks : userLinks) : []),
+  ];
 
   const handleMenuToggle = () => {
     setOpen((prev) => !prev);
@@ -65,7 +76,9 @@ const Navbar = () => {
                       : navlink.toLowerCase().replace(" ", "_")
                   }
                 >
-                  {navlink}
+                  {navlink === "admin" || navlink === "userProfile"
+                    ? navlink.toLocaleUpperCase()
+                    : navlink}
                 </Link>
               </li>
             ))}
@@ -190,3 +203,6 @@ const Navbar = () => {
 };
 
 export default Navbar;
+function useAuthContext(): { userlogged: any; isAdmin: any } {
+  throw new Error("Function not implemented.");
+}
