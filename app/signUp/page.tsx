@@ -13,9 +13,11 @@ import { auth, googleProvider } from "@/firebase/config";
 import { useRouter } from "next/navigation";
 import { FcGoogle } from "react-icons/fc";
 import { createUserInFirestore } from "@/lib/userService";
+import { IoEye, IoEyeOff } from "react-icons/io5";
 
 const Page = () => {
   const router = useRouter();
+  const [showPassword, setShowPassword] = useState(false);
   const [data, setData] = useState({
     email: "",
     password: "",
@@ -141,15 +143,27 @@ const Page = () => {
 
         <div className="flex flex-col gap-2">
           <label htmlFor="password">Password</label>
-          <input
-            className="p-4 md:w-[25rem] border-[1px] border-gray-400"
-            type="password"
-            placeholder="Password"
-            name="password"
-            value={data.password}
-            onChange={handleChange}
-            required
-          />
+          <div className="flex relative items-center justify-center">
+            <input
+              className="p-4 md:w-[22rem] border-y-[1px] border-l-[1px] border-gray-400"
+              type={showPassword ? "text" : "password"}
+              placeholder="Password"
+              name="password"
+              value={data.password}
+              onChange={handleChange}
+              required
+            />
+            <div
+              onClick={() => setShowPassword(!showPassword)}
+              className="flex justify-center items-center bg-white w-[3rem] py-4 border-y-[1px] border-r-[1px] border-gray-400"
+            >
+              {showPassword ? (
+                <IoEyeOff className="text-2xl" />
+              ) : (
+                <IoEye className="text-2xl" />
+              )}
+            </div>
+          </div>
         </div>
 
         <div className="flex flex-col gap-2">
