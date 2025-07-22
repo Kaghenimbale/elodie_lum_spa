@@ -1,130 +1,16 @@
-// "use client";
-
-// import { FormEvent, useState } from "react";
-// import { db } from "@/firebase/config";
-// import { addDoc, collection } from "firebase/firestore";
-
-// const page = () => {
-//   const [data, setData] = useState({
-//     name: "",
-//     price: "",
-//     description: "",
-//   });
-//   const [imageFile, setImageFile] = useState<File | null>(null);
-//   const [loading, setLoading] = useState(false);
-
-//   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-//     setData({ ...data, [e.target.name]: e.target.value });
-//   };
-
-//   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-//     const file = e.target.files?.[0];
-//     if (file) setImageFile(file);
-//   };
-
-//   const handleSubmit = async (e: FormEvent) => {
-//     e.preventDefault();
-//     if (!imageFile) return alert("Please choose an image");
-
-//     const reader = new FileReader();
-
-//     reader.onloadend = async () => {
-//       const base64DataUrl = reader.result as string;
-//       const base64 = base64DataUrl.split(",")[1]; // remove "data:image/jpeg;base64,"
-
-//       const res = await fetch("/api/upload-image", {
-//         method: "POST",
-//         headers: { "Content-Type": "application/json" },
-//         body: JSON.stringify({
-//           image: base64,
-//           fileName: "example.jpg",
-//         }),
-//       });
-
-//       const result = await res.json();
-
-//       if (!res.ok) {
-//         console.error("Upload Error:", result);
-//         return;
-//       }
-
-//       console.log("Image URL:", result.url);
-//     };
-
-//     reader.readAsDataURL(imageFile);
-//   };
-
-//   return (
-//     <div className="w-[100vw] h-[100vh] flex items-center justify-center">
-//       <form
-//         onSubmit={handleSubmit}
-//         className="flex flex-col gap-4 w-full max-w-md mx-auto mt-10 p-4 border rounded"
-//       >
-//         <h2 className="text-2xl font-semibold">Add New Service</h2>
-
-//         <input
-//           type="text"
-//           name="name"
-//           placeholder="Service Name"
-//           value={data.name}
-//           onChange={handleChange}
-//           required
-//           className="p-2 border"
-//         />
-
-//         <input
-//           type="number"
-//           name="price"
-//           placeholder="Price"
-//           value={data.price}
-//           onChange={handleChange}
-//           required
-//           className="p-2 border"
-//         />
-
-//         <input
-//           type="text"
-//           name="description"
-//           placeholder="Description"
-//           value={data.description}
-//           onChange={handleChange}
-//           required
-//           className="p-2 border"
-//         />
-
-//         <input
-//           type="file"
-//           accept="image/*"
-//           onChange={handleImageChange}
-//           required
-//           className="p-2 border"
-//         />
-
-//         <button
-//           type="submit"
-//           disabled={loading}
-//           className="bg-cyan-800 text-white py-2 rounded hover:bg-cyan-700"
-//         >
-//           {loading ? "Uploading..." : "Submit"}
-//         </button>
-//       </form>
-//     </div>
-//   );
-// };
-
-// export default page;
-
 "use client";
 
 import { useState, FormEvent } from "react";
 import { addDoc, collection } from "firebase/firestore";
 import { db } from "@/firebase/config";
+import { useRouter } from "next/navigation";
 
 export default function UploadPage() {
   const [file, setFile] = useState<File | null>(null);
   const [imageUrl, setImageUrl] = useState("");
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
   const [form, setForm] = useState({
     name: "",
@@ -169,6 +55,7 @@ export default function UploadPage() {
             createdAt: new Date(),
           });
 
+          router.push("/services");
           setMessage("✅ Service and image uploaded successfully!");
           setForm({ name: "", price: "", description: "" });
           setFile(null);

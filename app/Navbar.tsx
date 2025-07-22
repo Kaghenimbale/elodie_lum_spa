@@ -76,7 +76,9 @@ const Navbar = () => {
                       : navlink.toLowerCase().replace(" ", "_")
                   }
                 >
-                  {navlink === "admin" || navlink === "userProfile"
+                  {navlink === "admin" ||
+                  navlink === "userProfile" ||
+                  navlink === "manage-services"
                     ? navlink.toLocaleUpperCase()
                     : navlink}
                 </Link>
