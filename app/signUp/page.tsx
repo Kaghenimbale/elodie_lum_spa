@@ -114,7 +114,7 @@ const Page = () => {
   };
 
   return (
-    <div className="h-[85vh] mt-16 flex items-center justify-center">
+    <div className="mt-16 px-20 flex items-center justify-center">
       <form
         onSubmit={handleSubmit}
         className="flex flex-col gap-4 bg-slate-100 shadow-black shadow-sm p-6"
