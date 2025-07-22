@@ -5,10 +5,8 @@ const Wellness1 = () => {
     <div className="py-10 flex flex-col items-center">
       <div className="flex flex-col md:flex-row justify-center items-center gap-5 md:gap-10 lg:gap-20 py-20">
         <div className="flex flex-col gap-5 md:gap-10 p-4 md:p-0 ">
-          <h3 className="text-[2rem] lg:text-[3.5rem] font-medium">
-            Your Wellbeing
-          </h3>
-          <p className="md:w-[30vw] font-thin text-xl">
+          <h3 className="text-[2rem] font-bold">Your Wellbeing</h3>
+          <p className="md:w-[30vw] font-thin">
             Prioritize your inner harmony and outer radiance with our exclusive
             wellbeing experience. This carefully curated journey begins with
             your entrance to the blue lagoon, followed by a purifying silica mud
@@ -16,7 +14,7 @@ const Wellness1 = () => {
             use of soft towels and a plush bathrobe, ensuring a truly
             restorative escape.
           </p>
-          <ul className="list-disc font-thin text-xl">
+          <ul className="list-disc font-thin">
             <li>Entrance to the blue lagoon</li>
             <li>Silica mud mask (face and body)</li>
             <li>Use of soft towel and bathrobe</li>

@@ -51,12 +51,12 @@ const page = () => {
   return (
     <div className="pt-[4.5rem] pb-16 flex flex-col gap-5 px-4 lg:px-0 items-center justify-center">
       <div className="w-[100%] h-[100vh] lg:h-[80vh] bg-[url('/bg-contact.jpg')] bg-cover bg-bottom flex items-center justify-center">
-        <h2 className="text-[2rem] md:text-[3.5rem] text-white">Contact Us</h2>
+        <h2 className="text-[2rem] text-white font-bold">Contact Us</h2>
       </div>
       <div className="flex flex-col lg:flex-row items-center justify-center gap-10 lg:gap-0 lg:justify-between lg:w-[70vw]">
         <div className="flex flex-col gap-10">
           <div className="flex flex-col gap-6">
-            <h3 className="text-xl">EB & SPA</h3>
+            <h3 className="text-xl font-bold">EB & SPA</h3>
             <div className="flex flex-col gap-4 font-thin">
               <span>
                 598 Concession str, Hamilton, Ontario, L8V 1B3, Canada
@@ -67,7 +67,7 @@ const page = () => {
           </div>
 
           <div className="flex flex-col gap-6">
-            <h3 className="text-xl">Opening Hours</h3>
+            <h3 className="text-xl font-bold">Opening Hours</h3>
             <div className="w-[20rem]">
               <div className="flex justify-between font-thin">
                 <span>Monday to Tuesday</span>
@@ -93,9 +93,7 @@ const page = () => {
         </div>
       </div>
       <form action="" onSubmit={handleSubmit} className="flex flex-col gap-4">
-        <h2 className="text-[1.8rem] md:text-[2rem] font-thin">
-          Drop Us a Line
-        </h2>
+        <h2 className="text-[2rem] font-bold">Drop Us a Line</h2>
         <div className="flex flex-col gap-2">
           <label htmlFor="name">Name:</label>
           <input

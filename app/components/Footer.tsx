@@ -18,7 +18,7 @@ const Footer = () => {
   return (
     <div className="bg-orange-50 flex flex-col gap-10 items-center justify-center py-10">
       <div className="flex flex-col gap-6 justify-center items-center p-4 md:p-0">
-        <h2 className="text-[1.8rem] md:text-[2rem] font-thin">
+        <h2 className="text-[1.8rem] md:text-[2rem] font-bold">
           Join our email list for exclusive offers and the latest news.
         </h2>
         <Form />
@@ -26,7 +26,7 @@ const Footer = () => {
       <div className="w-[20rem] h-[1px] bg-gray-400"></div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:w-[95vw] xl:grid-cols-4 gap-4 justify-items-center">
         <div className="flex flex-col gap-5">
-          <h3 className="text-xl">ELODIA BEAUTY & SPA</h3>
+          <h3 className="text-xl font-bold">ELODIA BEAUTY & SPA</h3>
           <span className="font-thin w-[10rem]">
             Explore luxury treatments designed to enhance your natural beauty
             and boost your confidence
@@ -39,7 +39,7 @@ const Footer = () => {
           </Link>
         </div>
         <div className="flex flex-col gap-4">
-          <h3 className="text-xl">Important Links</h3>
+          <h3 className="text-xl font-bold">Important Links</h3>
           <div className="flex flex-col gap-2 deco">
             <li>
               <a
@@ -84,7 +84,7 @@ const Footer = () => {
           </div>
         </div>
         <div className="flex flex-col gap-6">
-          <h3 className="text-xl">Contact Us</h3>
+          <h3 className="text-xl font-bold">Contact Us</h3>
           <div className="flex flex-col gap-4 font-thin">
             <span>
               598 Concession str, Hamilton, <br /> Ontario, L8V 1B3, Canada
@@ -113,7 +113,7 @@ const Footer = () => {
           </div>
         </div>
         <div className="flex flex-col gap-6">
-          <h3 className="text-xl">Opening Hours</h3>
+          <h3 className="text-xl font-bold">Opening Hours</h3>
           <div className="w-[20rem]">
             <div className="flex justify-between font-thin">
               <span>Monday to Tuesday</span>
