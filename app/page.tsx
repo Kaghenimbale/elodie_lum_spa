@@ -17,7 +17,7 @@ export default function Home() {
       <Wellness1 />
       <Place />
       <Testimonial />
-      <Post />
+      {/* <Post /> */}
     </div>
   );
 }

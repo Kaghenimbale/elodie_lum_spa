@@ -1,11 +1,11 @@
 const Place = () => {
   return (
-    <div className="bg-[url('/bg5.jpg')] bg-cover bg-center h-[70vh] flex items-center">
-      <div className="p-4 md:px-20 xl:px-96 flex flex-col gap-8">
-        <h3 className="text-white text-[2rem] md:text-[4rem]">
+    <div className="bg-[url('/bg5.jpg')] bg-cover bg-center flex items-center">
+      <div className="p-4 md:p-20 flex flex-col gap-8">
+        <h3 className="text-white text-[2rem] font-bold">
           A Place of true splendor
         </h3>
-        <p className="text-white md:w-[60vw] text-xl">
+        <p className="text-white md:w-[60vw]">
           where your journey to relaxation, beauty, and self-confidence begins.
           Here, you’ll discover a curated selection of luxurious treatments,
           personalized spa packages, and expert care tailored just for you. Our

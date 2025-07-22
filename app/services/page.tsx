@@ -8,10 +8,10 @@ const page = () => {
   return (
     <div className="pt-28 pb-16 flex flex-col gap-5 items-center px-4 md:px-0">
       <div className="flex flex-col gap-5 items-center justify-center">
-        <h2 className="text-[3rem] font-extralight text-center md:text-start">
+        <h2 className="text-[2rem] font-bold text-center md:text-start">
           Spa Packages and Body Treatments
         </h2>
-        <p className="md:w-[60rem] font-thin text-center text-xl">
+        <p className="md:w-[60rem] font-thin text-center">
           Explore luxury treatments designed to enhance your natural beauty and
           boost your confidence. At our spa, every service is crafted to help
           you feel renewed, radiant, and deeply relaxed. Whether you're seeking
@@ -77,7 +77,7 @@ const page = () => {
       <div className="flex flex-col lg:flex-row gap-10">
         <Form />
         <div className="bg-gray-50 md:w-[50rem] flex flex-col gap-5 p-6">
-          <h2 className="text-[2rem] font-thin">EB & SPA Center</h2>
+          <h2 className="text-[2rem] font-bold">EB & SPA Center</h2>
           <p className="font-thin">
             Indulge in luxury treatments tailored to reveal your natural beauty
             and elevate your self-confidence. Our expert team combines science

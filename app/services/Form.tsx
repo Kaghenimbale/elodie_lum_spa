@@ -3,7 +3,7 @@ import React from "react";
 const Form = () => {
   return (
     <form action="" className="flex flex-col gap-4">
-      <h2 className="text-[1.8rem] md:text-[2rem] font-thin">
+      <h2 className="text-[1.8rem] md:text-[2rem] font-bold">
         Book an Appointment
       </h2>
       <input

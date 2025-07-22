@@ -2,10 +2,10 @@ import Image from "next/image";
 
 const Testimonial = () => {
   return (
-    <div className=" bg-orange-50 flex flex-col items-center justify-center gap-10 py-20">
+    <div className="flex flex-col items-center justify-center gap-10 py-20">
       <Image src="/apostrophe.png" alt="testimonial" width={150} height={0} />
       <div className="flex flex-col items-center gap-5">
-        <p className="lg:w-[40vw] px-4 md:p-0 text-center font-thin text-xl">
+        <p className="lg:w-[40vw] px-4 md:p-0 text-center font-thin">
           From the moment I walked into ELODIA BEAUTY & SPA, I felt completely
           at peace. The atmosphere is so calming, and the staff truly go above
           and beyond to make you feel special. My skin has never looked better,

@@ -5,10 +5,10 @@ const page = () => {
   return (
     <div className="pt-28 pb-16 flex flex-col gap-5 px-4 lg:px-0">
       <div className="flex flex-col gap-5 items-center justify-center">
-        <h2 className="text-[1rem] lg:text-[3rem] font-extralight">
+        <h2 className="text-[2rem] font-bold">
           Welcome to Elodia Beauty & Spa
         </h2>
-        <p className="lg:w-[60rem] font-thin text-center text-xl">
+        <p className="lg:w-[60rem] font-thin text-center">
           Welcome to ELODIA BEAUTY & SPA. Imagine stepping into a haven where
           the everyday stresses melt away, and a renewed sense of well-being
           takes over. Revival Med Spa offers this escape at our convenient
@@ -36,10 +36,8 @@ const page = () => {
             <div className="absolute bg-orange-50 -z-0 w-[30rem] h-[25rem] -top-10"></div>
           </div>
           <div className="flex flex-col gap-5 md:gap-10 p-4 md:p-0 ">
-            <h3 className="text-[2rem] lg:text-[3.5rem] font-extralight">
-              AB & Spa
-            </h3>
-            <p className="md:w-[30vw] font-thin text-xl">
+            <h3 className="text-[2rem] font-bold">AB & Spa</h3>
+            <p className="md:w-[30vw] font-thin">
               At AB & Spa, we invite you to prioritize your inner harmony and
               outer radiance with our exclusive wellbeing experience. This
               carefully curated journey begins with your entrance to the blue
@@ -56,10 +54,8 @@ const page = () => {
 
       <div className="flex flex-col md:flex-row justify-center items-center gap-5 md:gap-10 lg:gap-20 py-20">
         <div className="flex flex-col gap-5 md:gap-10 p-4 md:p-0 ">
-          <h3 className="text-[2rem] lg:text-[3.5rem] font-extralight">
-            Your Wellbeing
-          </h3>
-          <p className="md:w-[30vw] font-thin text-xl">
+          <h3 className="text-[2rem] font-bold">Your Wellbeing</h3>
+          <p className="md:w-[30vw] font-thin">
             Our commitment lies in offering a diverse range of services, from
             our invigorating Finnish sauna and serene geothermal spa to our
             specialized facial and body treatments, all delivered with
@@ -94,8 +90,8 @@ const page = () => {
 
       <Testimonial />
       <div className="flex flex-col gap-5 items-center justify-center">
-        <h2 className="text-[3rem] font-extralight">OUR TEAM</h2>
-        <p className="md:w-[70rem] font-thin text-center text-xl">
+        <h2 className="text-[2rem] font-bold">OUR TEAM</h2>
+        <p className="md:w-[70rem] font-thin text-center">
           Our Expert Team & Comprehensive Services. Our team of skilled and
           licensed practitioners are passionate about helping you achieve your
           unique aesthetic and wellness goals. We offer a comprehensive menu of
