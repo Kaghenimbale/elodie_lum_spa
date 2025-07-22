@@ -12,7 +12,7 @@ const Navbar = () => {
   // const navlinks = ["HOME", "ABOUT US", "SERVICES", "CONTACT"];
   const commonLinks = ["HOME", "ABOUT US", "SERVICES", "CONTACT"];
   const userLinks = ["userProfile"];
-  const adminLinks = ["admin"];
+  const adminLinks = ["admin", "manage-services"];
   const [open, setOpen] = useState(false);
   const [user, setUser] = useState<User | null>(null);
   const [hasMounted, setHasMounted] = useState(false);
@@ -76,7 +76,9 @@ const Navbar = () => {
                       : navlink.toLowerCase().replace(" ", "_")
                   }
                 >
-                  {navlink === "admin" || navlink === "userProfile"
+                  {navlink === "admin" ||
+                  navlink === "userProfile" ||
+                  navlink === "manage-services"
                     ? navlink.toLocaleUpperCase()
                     : navlink}
                 </Link>
