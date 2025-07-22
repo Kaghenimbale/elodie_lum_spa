@@ -92,7 +92,7 @@ const Page = () => {
         <div className="flex flex-col gap-2">
           <label htmlFor="email">Email</label>
           <input
-            className="p-4 md:w-[25rem] border border-gray-400"
+            className="w-full p-2 border rounded border-gray-400"
             type="email"
             name="email"
             value={data.email}
@@ -106,7 +106,7 @@ const Page = () => {
           <label htmlFor="password">Password</label>
           <div className="flex relative items-center justify-center">
             <input
-              className="p-4 md:w-[22rem] border-y-[1px] border-l-[1px] border-gray-400"
+              className="w-full p-2 border rounded border-gray-400"
               type={showPassword ? "text" : "password"}
               placeholder="Password"
               name="password"
@@ -116,7 +116,7 @@ const Page = () => {
             />
             <div
               onClick={() => setShowPassword(!showPassword)}
-              className="flex justify-center items-center bg-white w-[3rem] py-4 border-y-[1px] border-r-[1px] border-gray-400"
+              className="flex justify-center items-center bg-white w-[3rem] p-2 border rounded border-gray-400"
             >
               {showPassword ? (
                 <IoEyeOff className="text-2xl" />
