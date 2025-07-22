@@ -13,29 +13,19 @@ const Navbar = () => {
   const commonLinks = ["HOME", "ABOUT US", "SERVICES", "CONTACT"];
   const userLinks = ["userProfile"];
   const adminLinks = ["admin", "manage-services"];
+
   const [open, setOpen] = useState(false);
   const [user, setUser] = useState<User | null>(null);
   const [hasMounted, setHasMounted] = useState(false);
+
   const router = useRouter();
 
-  const isLoggedIn = !!user;
-  const isAdmin = user?.email === process.env.NEXT_PUBLIC_ADMIN_EMAIL;
-
-  const navlinks = [
-    ...commonLinks,
-    ...(isLoggedIn ? (isAdmin ? adminLinks : userLinks) : []),
-  ];
-
-  const handleMenuToggle = () => {
-    setOpen((prev) => !prev);
-  };
-
-  // Listen for Firebase auth changes
+  // Track auth state
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
+      setHasMounted(true);
     });
-    setHasMounted(true);
     return () => unsubscribe();
   }, []);
 
@@ -47,6 +37,10 @@ const Navbar = () => {
     };
   }, [open]);
 
+  const handleMenuToggle = () => {
+    setOpen((prev) => !prev);
+  };
+
   const handleLogout = async () => {
     try {
       await signOut(auth);
@@ -56,6 +50,17 @@ const Navbar = () => {
       console.error("Logout error:", error.message);
     }
   };
+
+  // Don't render anything until mounted (fixes Vercel issue)
+  if (!hasMounted) return null;
+
+  const isLoggedIn = !!user;
+  const isAdmin = user?.email === process.env.NEXT_PUBLIC_ADMIN_EMAIL;
+
+  const navlinks = [
+    ...commonLinks,
+    ...(isLoggedIn ? (isAdmin ? adminLinks : userLinks) : []),
+  ];
 
   return (
     <nav className="flex bg-orange-50 transition-colors duration-500 fixed left-0 right-0 top-0 z-50 px-5 md:px-10 py-3">
