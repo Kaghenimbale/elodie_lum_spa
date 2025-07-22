@@ -7,7 +7,7 @@ const Form = () => {
         Book an Appointment
       </h2>
       <input
-        className="p-4 md:w-[25rem] border-[1px] border-gray-400"
+        className="w-full p-2 border rounded border-gray-400"
         type="name"
         placeholder="Name"
         name="name"
@@ -15,7 +15,7 @@ const Form = () => {
       />
 
       <input
-        className="p-4 md:w-[25rem] border-[1px] border-gray-400"
+        className="w-full p-2 border rounded border-gray-400"
         type="email"
         placeholder="Email address"
         name="email"
@@ -24,7 +24,7 @@ const Form = () => {
 
       <select
         name="service"
-        className="font-thin p-4 md:w-[25rem] border-[1px] border-gray-400"
+        className="font-thin w-full p-2 border rounded border-gray-400"
       >
         <option className="font-thin" value="">
           Type of service
@@ -50,13 +50,13 @@ const Form = () => {
       </select>
 
       <input
-        className="p-4 w-full md:w-[25rem] border-[1px] border-gray-400 font-thin"
+        className="w-full p-2 rounded border-[1px] border-gray-400 font-thin"
         type="date"
         placeholder="Prefered Date"
         name="date"
         required
       />
-      <button className="text-white text-[0.9rem] bg-cyan-800 w-fit hover:bg-cyan-700 transition-all duration-300 ease-in-out">
+      <button className="text-white text-[0.9rem] bg-cyan-800 hover:bg-cyan-700 transition-all duration-300 ease-in-out w-full p-2 border rounded">
         MAKE AN APPOINTEMENT
       </button>
     </form>
