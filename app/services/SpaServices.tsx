@@ -14,6 +14,7 @@ const SpaServices = () => {
   const [loading, setLoading] = useState(true);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [userEmail, setUserEmail] = useState<string | null>(null);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -63,8 +64,17 @@ const SpaServices = () => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setUserEmail(user.email);
+        if (
+          process.env.NEXT_PUBLIC_ADMIN_EMAIL &&
+          user.email === process.env.NEXT_PUBLIC_ADMIN_EMAIL
+        ) {
+          setIsAdmin(true);
+        } else {
+          setIsAdmin(false);
+        }
       } else {
         setUserEmail(null);
+        setIsAdmin(false);
       }
     });
 
@@ -133,7 +143,7 @@ const SpaServices = () => {
                 <span>${service.price}.00 CAD</span>
               </>
             )}
-            {userEmail === process.env.NEXT_PUBLIC_ADMIN_EMAIL ? (
+            {isAdmin ? (
               <div className="flex gap-2 mt-2">
                 <button
                   onClick={() => handleEdit(service)}

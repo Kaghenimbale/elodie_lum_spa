@@ -74,7 +74,7 @@ const page = () => {
     );
   }
   return (
-    <div className="max-w-md mx-auto bg-white shadow-lg p-6 rounded-xl mt-4 w-[100vw] h-[80vh] flex flex-col gap-5 justify-center">
+    <div className="max-w-md mx-auto bg-white shadow-lg p-6 rounded-xl my-36 flex flex-col gap-5 justify-center">
       <div className="w-full flex flex-col gap-5 items-center justify-center">
         <div className="bg-cyan-800 w-[4rem] h-[4rem] flex items-center justify-center rounded-full">
           <BiUser className="text-white text-4xl" />
