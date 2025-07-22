@@ -1,6 +1,8 @@
+"use client";
+
 import Image from "next/image";
-import React from "react";
 import Form from "./Form";
+import SpaServices from "./SpaServices";
 
 const page = () => {
   return (
@@ -68,202 +70,13 @@ const page = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 items-center p-4">
-        <div className="relative flex justify-center overflow-hidden md:w-[14rem] lg:w-[18rem] xl:w-[23rem] h-[500px]">
-          <Image
-            src="/banner1.jpg"
-            alt="image beauty spa"
-            width={400}
-            height={500}
-            className="object-cover w-full h-full transition-transform duration-300 transform hover:scale-105"
-          />
-          <div className="w-[15rem] md:w-[350px] h-[250px] absolute bottom-6 bg-white flex flex-col gap-2 justify-center items-center">
-            <h3 className="">Basic Elodia Facial</h3>
-            <p className="font-thin text-center">
-              A foundational facial designed to cleanse, hydrate, and refresh
-              your skin, leaving you with a healthy glow. Perfect for all skin
-              types.
-            </p>
-            <span>$90.00 CAD</span>
-            <button className="text-white text-[0.9rem] bg-cyan-800 w-fit hover:bg-cyan-700 transition-all duration-300 ease-in-out">
-              READ MORE
-            </button>
-          </div>
-        </div>
-        <div className="relative flex justify-center overflow-hidden md:w-[14rem] lg:w-[18rem] xl:w-[23rem] h-[500px]">
-          <Image
-            src="/banner2.jpg"
-            alt="image beauty spa"
-            width={400}
-            height={500}
-            className="object-cover w-full h-full transition-transform duration-300 transform hover:scale-105"
-          />
-          <div className="w-[15rem] md:w-[350px] h-[250px] absolute bottom-6 bg-white flex flex-col gap-2 justify-center items-center">
-            <h3 className="">EBS Advance Facial</h3>
-            <p className="font-thin text-center">
-              Targeted treatment for enhanced skin concerns. This advanced
-              facial deeply nourishes, firms, and brightens, providing visible
-              results.
-            </p>
-            <span>$150.00 CAD</span>
-            <button className="text-white text-[0.9rem] bg-cyan-800 w-fit hover:bg-cyan-700 transition-all duration-300 ease-in-out">
-              READ MORE
-            </button>
-          </div>
-        </div>
-        <div className="relative flex justify-center overflow-hidden md:w-[14rem] lg:w-[18rem] xl:w-[23rem] h-[500px]">
-          <Image
-            src="/banner3.jpg"
-            alt="image beauty spa"
-            width={400}
-            height={500}
-            className="object-cover w-full h-full transition-transform duration-300 transform hover:scale-105"
-          />
-          <div className="w-[15rem] md:w-[350px] h-[250px] absolute bottom-6 bg-white flex flex-col gap-2 justify-center items-center">
-            <h3 className="">EBS Bio Microneedling</h3>
-            <p className="font-thin text-center">
-              Innovative microneedling to stimulate collagen production. Reduces
-              fine lines, scars, and improves skin texture for a smoother,
-              firmer look.
-            </p>
-            <span>$200.00 CAD</span>
-            <button className="text-white text-[0.9rem] bg-cyan-800 w-fit hover:bg-cyan-700 transition-all duration-300 ease-in-out">
-              READ MORE
-            </button>
-          </div>
-        </div>
-
-        <div className="relative flex justify-center overflow-hidden md:w-[14rem] lg:w-[18rem] xl:w-[23rem] h-[500px]">
-          <Image
-            src="/banner1.jpg"
-            alt="image beauty spa"
-            width={400}
-            height={500}
-            className="object-cover w-full h-full transition-transform duration-300 transform hover:scale-105"
-          />
-          <div className="w-[15rem] md:w-[350px] h-[250px] absolute bottom-6 bg-white flex flex-col gap-2 justify-center items-center">
-            <h3 className="">Basic Elodia Facial</h3>
-            <p className="font-thin text-center">
-              A foundational facial designed to cleanse, hydrate, and refresh
-              your skin, leaving you with a healthy glow. Perfect for all skin
-              types.
-            </p>
-            <span>$90.00 CAD</span>
-            <button className="text-white text-[0.9rem] bg-cyan-800 w-fit hover:bg-cyan-700 transition-all duration-300 ease-in-out">
-              READ MORE
-            </button>
-          </div>
-        </div>
-        <div className="relative flex justify-center overflow-hidden md:w-[14rem] lg:w-[18rem] xl:w-[23rem] h-[500px]">
-          <Image
-            src="/banner2.jpg"
-            alt="image beauty spa"
-            width={400}
-            height={500}
-            className="object-cover w-full h-full transition-transform duration-300 transform hover:scale-105"
-          />
-          <div className="w-[15rem] md:w-[350px] h-[250px] absolute bottom-6 bg-white flex flex-col gap-2 justify-center items-center">
-            <h3 className="">EBS Advance Facial</h3>
-            <p className="font-thin text-center">
-              Targeted treatment for enhanced skin concerns. This advanced
-              facial deeply nourishes, firms, and brightens, providing visible
-              results.
-            </p>
-            <span>$150.00 CAD</span>
-            <button className="text-white text-[0.9rem] bg-cyan-800 w-fit hover:bg-cyan-700 transition-all duration-300 ease-in-out">
-              READ MORE
-            </button>
-          </div>
-        </div>
-        <div className="relative flex justify-center overflow-hidden md:w-[14rem] lg:w-[18rem] xl:w-[23rem] h-[500px]">
-          <Image
-            src="/banner3.jpg"
-            alt="image beauty spa"
-            width={400}
-            height={500}
-            className="object-cover w-full h-full transition-transform duration-300 transform hover:scale-105"
-          />
-          <div className="w-[15rem] md:w-[350px] h-[250px] absolute bottom-6 bg-white flex flex-col gap-2 justify-center items-center">
-            <h3 className="">EBS Bio Microneedling</h3>
-            <p className="font-thin text-center">
-              Innovative microneedling to stimulate collagen production. Reduces
-              fine lines, scars, and improves skin texture for a smoother,
-              firmer look.
-            </p>
-            <span>$200.00 CAD</span>
-            <button className="text-white text-[0.9rem] bg-cyan-800 w-fit hover:bg-cyan-700 transition-all duration-300 ease-in-out">
-              READ MORE
-            </button>
-          </div>
-        </div>
-
-        <div className="relative flex justify-center overflow-hidden md:w-[14rem] lg:w-[18rem] xl:w-[23rem] h-[500px]">
-          <Image
-            src="/banner1.jpg"
-            alt="image beauty spa"
-            width={400}
-            height={500}
-            className="object-cover w-full h-full transition-transform duration-300 transform hover:scale-105"
-          />
-          <div className="w-[15rem] md:w-[350px] h-[250px] absolute bottom-6 bg-white flex flex-col gap-2 justify-center items-center">
-            <h3 className="">Basic Elodia Facial</h3>
-            <p className="font-thin text-center">
-              A foundational facial designed to cleanse, hydrate, and refresh
-              your skin, leaving you with a healthy glow. Perfect for all skin
-              types.
-            </p>
-            <span>$90.00 CAD</span>
-            <button className="text-white text-[0.9rem] bg-cyan-800 w-fit hover:bg-cyan-700 transition-all duration-300 ease-in-out">
-              READ MORE
-            </button>
-          </div>
-        </div>
-        <div className="relative flex justify-center overflow-hidden md:w-[14rem] lg:w-[18rem] xl:w-[23rem] h-[500px]">
-          <Image
-            src="/banner2.jpg"
-            alt="image beauty spa"
-            width={400}
-            height={500}
-            className="object-cover w-full h-full transition-transform duration-300 transform hover:scale-105"
-          />
-          <div className="w-[15rem] md:w-[350px] h-[250px] absolute bottom-6 bg-white flex flex-col gap-2 justify-center items-center">
-            <h3 className="">EBS Advance Facial</h3>
-            <p className="font-thin text-center">
-              Targeted treatment for enhanced skin concerns. This advanced
-              facial deeply nourishes, firms, and brightens, providing visible
-              results.
-            </p>
-            <span>$150.00 CAD</span>
-            <button className="text-white text-[0.9rem] bg-cyan-800 w-fit hover:bg-cyan-700 transition-all duration-300 ease-in-out">
-              READ MORE
-            </button>
-          </div>
-        </div>
-        <div className="relative flex justify-center overflow-hidden md:w-[14rem] lg:w-[18rem] xl:w-[23rem] h-[500px]">
-          <Image
-            src="/banner3.jpg"
-            alt="image beauty spa"
-            width={400}
-            height={500}
-            className="object-cover w-full h-full transition-transform duration-300 transform hover:scale-105"
-          />
-          <div className="w-[15rem] md:w-[350px] h-[250px] absolute bottom-6 bg-white flex flex-col gap-2 justify-center items-center">
-            <h3 className="">EBS Bio Microneedling</h3>
-            <p className="font-thin text-center">
-              Innovative microneedling to stimulate collagen production. Reduces
-              fine lines, scars, and improves skin texture for a smoother,
-              firmer look.
-            </p>
-            <span>$200.00 CAD</span>
-            <button className="text-white text-[0.9rem] bg-cyan-800 w-fit hover:bg-cyan-700 transition-all duration-300 ease-in-out">
-              READ MORE
-            </button>
-          </div>
-        </div>
+      <div>
+        <SpaServices />
       </div>
+
       <div className="flex flex-col lg:flex-row gap-10">
         <Form />
-        <div className="bg-gray-50 md:w-[55rem] flex flex-col gap-5 p-6">
+        <div className="bg-gray-50 md:w-[50rem] flex flex-col gap-5 p-6">
           <h2 className="text-[2rem] font-thin">EB & SPA Center</h2>
           <p className="font-thin">
             Indulge in luxury treatments tailored to reveal your natural beauty
