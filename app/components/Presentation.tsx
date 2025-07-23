@@ -2,17 +2,21 @@
 
 const Presentation = () => {
   return (
-    <div className="bg-center h-[85vh] mt-16 bg-[url('/bg3.jpg')] flex col justify-center items-center transition-colors duration-500">
-      <div className="flex flex-col gap-12 w-[90vw] md:w-[65vw]">
-        <h1 className="text-white md:text-[3rem] font-bold">
+    <section className="relative h-[85vh] mt-16 bg-[url('/bg3.jpg')] bg-cover bg-center flex items-center justify-center">
+      {/* Overlay */}
+      <div className="absolute inset-0 bg-black/40 z-0" />
+
+      {/* Content */}
+      <div className="relative z-10 px-4 w-full max-w-6xl flex flex-col items-start gap-6 text-white text-wrap break-words">
+        <h1 className="text-[1.5rem] md:text-[2.5rem] font-bold leading-snug break-words">
           At Elodia Beauty & SPA, your beauty is our priority. Welcome to a
           haven of splendor created especially for you.
         </h1>
-        <button className="w-fit px-4 py-2 rounded bg-white text-cyan-900 hover:bg-cyan-900 hover:text-white transition-all duration-300 ease-in-out">
+        <button className="px-6 py-3 rounded bg-white text-cyan-900 hover:bg-cyan-900 hover:text-white transition-all duration-300">
           VIEW MORE
         </button>
       </div>
-    </div>
+    </section>
   );
 };
 

@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import Form from "./Letter/Form";
 import {
@@ -12,155 +14,203 @@ import {
 
 const Footer = () => {
   const date = new Date();
+
+  const handleStripePayment = async () => {
+    const res = await fetch("/api/checkout", { method: "POST" });
+    const data = await res.json();
+    window.location.href = data.url;
+  };
+
   return (
-    <div className="bg-orange-50 flex flex-col gap-10 items-center justify-center py-10">
-      <div className="flex flex-col gap-6 justify-center items-center p-4 md:p-0">
-        <h2 className="text-[1.8rem] md:text-[2rem] font-bold">
-          Join our email list for exclusive offers and the latest news.
-        </h2>
-        <Form />
-      </div>
-      <div className="w-[20rem] h-[1px] bg-gray-400"></div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:w-[95vw] xl:grid-cols-4 gap-4 justify-items-center">
-        <div className="flex flex-col gap-5">
-          <h3 className="text-xl font-bold">ELODIA BEAUTY & SPA</h3>
-          <span className="font-thin w-[10rem]">
-            Explore luxury treatments designed to enhance your natural beauty
-            and boost your confidence
-          </span>
-          <Link
-            href="/signIn"
-            className="text-white text-[0.9rem] bg-cyan-800 w-fit hover:bg-cyan-700 transition-all duration-300 ease-in-out px-4 py-2 rounded"
-          >
-            SUBSCRIBE
-          </Link>
+    <footer className="bg-orange-50 py-12">
+      <div className="max-w-7xl mx-auto px-6 flex flex-col items-center gap-10">
+        {/* Email Signup */}
+        <div className="flex flex-col gap-6 max-w-3xl w-full text-center items-center">
+          <h2 className="text-2xl md:text-3xl font-bold">
+            Join our email list for exclusive offers and the latest news.
+          </h2>
+          <Form />
         </div>
-        <div className="flex flex-col gap-4">
-          <h3 className="text-xl font-bold">Important Links</h3>
-          <div className="flex flex-col gap-2 deco">
-            <li>
-              <a
-                className="font-thin hover:no-underline hover:text-cyan-900"
-                href="/"
-              >
-                Book Online
-              </a>
-            </li>
-            <li>
-              <a
-                className="font-thin hover:no-underline hover:text-cyan-900"
-                href="/"
-              >
-                Purchase a Gift Certificate
-              </a>
-            </li>
-            <li>
-              <a
-                className="font-thin hover:no-underline hover:text-cyan-900"
-                href="/"
-              >
-                Spa Promotions
-              </a>
-            </li>
-            <li>
-              <a
-                className="font-thin hover:no-underline hover:text-cyan-900"
-                href="/"
-              >
-                Exclusive Offer & Events
-              </a>
-            </li>
-            <li>
-              <a
-                className="font-thin hover:no-underline hover:text-cyan-900"
-                href="/"
-              >
-                Blog and News
-              </a>
-            </li>
+
+        {/* Divider */}
+        <div className="w-full max-w-3xl h-[1px] bg-gray-400" />
+
+        {/* Main Footer Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-10 max-w-7xl w-full justify-items-center md:justify-items-start text-center md:text-left">
+          {/* About */}
+          <div className="flex flex-col gap-5 max-w-xs">
+            <h3 className="text-xl font-bold">ELODIA BEAUTY & SPA</h3>
+            <p className="font-thin">
+              Explore luxury treatments designed to enhance your natural beauty
+              and boost your confidence.
+            </p>
+            <Link
+              href="/signIn"
+              className="inline-block w-fit bg-cyan-800 text-white text-sm px-5 py-2 rounded hover:bg-cyan-700 transition"
+            >
+              SUBSCRIBE
+            </Link>
           </div>
-        </div>
-        <div className="flex flex-col gap-6">
-          <h3 className="text-xl font-bold">Contact Us</h3>
-          <div className="flex flex-col gap-4 font-thin">
-            <span>
-              598 Concession str, Hamilton, <br /> Ontario, L8V 1B3, Canada
-            </span>
-            <span>elodiabspa@gmail.com</span>
-            <span>Phone: +1(289) 206-1802</span>
+
+          {/* Important Links */}
+          <div className="flex flex-col gap-3 max-w-xs">
+            <h3 className="text-xl font-bold">Important Links</h3>
+            <ul className="space-y-2 list-none">
+              {[
+                "Book Online",
+                "Purchase a Gift Certificate",
+                "Spa Promotions",
+                "Exclusive Offer & Events",
+                "Blog and News",
+              ].map((item) => (
+                <li key={item}>
+                  <a
+                    href="/"
+                    className="font-thin text-cyan-900 hover:underline hover:opacity-80 transition"
+                  >
+                    {item}
+                  </a>
+                </li>
+              ))}
+            </ul>
           </div>
-          <div className="">
-            <ul className="flex gap-4">
-              <li className="a">
-                <a href="https://www.instagram.com/elodia_beauty_and_spa?igsh=MWI2YWN0a3NzNGZvbA%3D%3D">
-                  <FaInstagram className="text-cyan-900 text-2xl" />
+
+          {/* Contact */}
+          <div className="flex flex-col gap-4 max-w-xs font-thin">
+            <h3 className="text-xl font-bold text-center md:text-left">
+              Contact Us
+            </h3>
+            <address className="not-italic whitespace-pre-line">
+              598 Concession str, Hamilton, <br />
+              Ontario, L8V 1B3, Canada
+            </address>
+            <a href="mailto:elodiabspa@gmail.com" className="hover:underline">
+              elodiabspa@gmail.com
+            </a>
+            <a href="tel:+12892061802" className="hover:underline">
+              Phone: +1 (289) 206-1802
+            </a>
+            <ul className="flex gap-6 mt-4 justify-center md:justify-start">
+              <li>
+                <a
+                  href="https://www.instagram.com/elodia_beauty_and_spa"
+                  aria-label="Instagram"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-cyan-900 hover:text-cyan-700 transition text-2xl"
+                >
+                  <FaInstagram />
                 </a>
               </li>
-              <li className="a">
-                <a href="https://www.facebook.com/profile.php?id=61567223621147&mibextid=wwXIfr&rdid=w1IMe9quOL5G1nIE&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F18uaNEQTAJ%2F%3Fmibextid%3DwwXIfr#">
-                  <FaFacebook className="text-cyan-900 text-2xl" />
+              <li>
+                <a
+                  href="https://www.facebook.com/profile.php?id=61567223621147"
+                  aria-label="Facebook"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-cyan-900 hover:text-cyan-700 transition text-2xl"
+                >
+                  <FaFacebook />
                 </a>
               </li>
-              <li className="a">
-                <a href="https://www.tiktok.com/@elodiabeautyandspa?_t=ZM-8ulSXBqXmQJ&_r=1">
-                  <FaTiktok className="text-cyan-900 text-2xl" />
+              <li>
+                <a
+                  href="https://www.tiktok.com/@elodiabeautyandspa"
+                  aria-label="TikTok"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-cyan-900 hover:text-cyan-700 transition text-2xl"
+                >
+                  <FaTiktok />
                 </a>
               </li>
             </ul>
           </div>
-        </div>
-        <div className="flex flex-col gap-6">
-          <h3 className="text-xl font-bold">Opening Hours</h3>
-          <div className="w-[20rem]">
-            <div className="flex justify-between font-thin">
-              <span>Monday to Tuesday</span>
-              <span className="text-nowrap">10 AM - 7 PM</span>
+
+          {/* Opening Hours + Payments */}
+          <div className="flex flex-col gap-6 max-w-xs">
+            <h3 className="text-xl font-bold text-center md:text-left">
+              Opening Hours
+            </h3>
+            <div className="space-y-2 font-thin">
+              <div className="flex justify-between">
+                <span>Monday to Tuesday</span>
+                <span>10 AM - 7 PM</span>
+              </div>
+              <div className="flex justify-between">
+                <span>Wednesday to Thursday</span>
+                <span>10 AM - 6 PM</span>
+              </div>
+              <div className="flex justify-between">
+                <span>Saturday</span>
+                <span>2 AM - 6 PM</span>
+              </div>
+              <div className="flex justify-between">
+                <span>Sunday</span>
+                <span>2 AM - 6 PM</span>
+              </div>
             </div>
-            <div className="flex justify-between font-thin">
-              <span>Wednesday to Thursday</span>
-              <span className="text-nowrap">10 AM - 6 PM</span>
-            </div>
-            <div className="flex justify-between font-thin">
-              <span>Saturday</span>
-              <span className="text-nowrap">2 AM - 6 PM</span>
-            </div>
-            <div className="flex justify-between font-thin">
-              <span>Sunday</span>
-              <span className="text-nowrap">2 AM - 6 PM</span>
-            </div>
+
+            <ul className="flex gap-4 justify-center md:justify-start mt-4">
+              {[
+                {
+                  label: "Visa",
+                  icon: <FaCcVisa />,
+                  onClick: () => {}, // Add handlers if needed
+                },
+                {
+                  label: "PayPal",
+                  icon: <FaCcPaypal />,
+                  onClick: () => {}, // Add handlers if needed
+                },
+                {
+                  label: "Stripe",
+                  icon: <FaCcStripe />,
+                  onClick: handleStripePayment,
+                },
+                {
+                  label: "Mastercard",
+                  icon: <FaCcMastercard />,
+                  onClick: () => {}, // Add handlers if needed
+                },
+              ].map(({ label, icon, onClick }) => (
+                <li key={label}>
+                  <button
+                    aria-label={`Pay with ${label}`}
+                    onClick={onClick}
+                    className="p-1 rounded hover:bg-cyan-100 transition"
+                    style={{
+                      width: 32,
+                      height: 32,
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                    type="button"
+                  >
+                    <span
+                      className="text-cyan-950 text-xl"
+                      style={{ width: 20, height: 20 }}
+                    >
+                      {icon}
+                    </span>
+                  </button>
+                </li>
+              ))}
+            </ul>
           </div>
-          <ul className="flex gap-4">
-            <li>
-              <a href="http://">
-                <FaCcVisa className="text-cyan-950 text-2xl" />
-              </a>
-            </li>
-            <li>
-              <a href="http://">
-                <FaCcPaypal className="text-cyan-950 text-2xl" />
-              </a>
-            </li>
-            <li>
-              <a href="http://">
-                <FaCcStripe className="text-cyan-950 text-2xl" />
-              </a>
-            </li>
-            <li>
-              <a href="http://">
-                <FaCcMastercard className="text-cyan-950 text-2xl" />
-              </a>
-            </li>
-          </ul>
+        </div>
+
+        {/* Divider */}
+        <div className="w-full max-w-3xl h-[1px] bg-gray-400" />
+
+        {/* Copyright */}
+        <div className="flex flex-col md:flex-row gap-2 justify-center text-center font-thin text-sm text-gray-600">
+          <span>&copy;{date.getFullYear()}</span>
+          <span>Qode Interactive, All Rights Reserved</span>
         </div>
       </div>
-      <div className="w-[20rem] h-[1px] bg-gray-400"></div>
-      <div className="flex gap-2 flex-col md:flex-row items-center">
-        <span className="font-thin">&copy;{date.getFullYear()}</span>
-        <span className="font-thin text-center">
-          Qode Interactive, All Right is Preserved
-        </span>
-      </div>
-    </div>
+    </footer>
   );
 };
 

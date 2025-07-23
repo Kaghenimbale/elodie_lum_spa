@@ -1,43 +1,48 @@
+"use client";
+
 import Calender from "./Calender";
 
 const Hours = () => {
   return (
-    <div className="flex items-center justify-center bg-[url('/bg2.jpg')] bg-cover bg-no-repeat bg-center py-4 lg:py-10">
-      <div className="md:w-[90vw] xl:w-[60vw] flex flex-col lg:flex-row gap-4 lg:gap-0 items-center justify-between">
-        <div className="flex flex-col gap-10 p-4 md:p-0">
-          <h3 className="text-[2rem] text-center md:text-left font-bold">
+    <section className="flex items-center justify-center bg-[url('/bg2.jpg')] bg-cover bg-no-repeat bg-center py-16 px-4">
+      <div className="w-full max-w-7xl flex flex-col lg:flex-row items-center justify-between gap-12 bg-white/80 backdrop-blur-md rounded-lg p-6 md:p-10 shadow-xl">
+        {/* Working Hours Text */}
+        <div className="flex flex-col gap-8 w-full lg:w-1/2">
+          <h3 className="text-3xl font-bold text-cyan-950 text-center lg:text-left">
             Working Hours
           </h3>
-          <p className="md:w-[30rem] font-thin">
+          <p className="text-gray-700 font-light leading-relaxed text-center lg:text-left">
             We’re here to welcome you throughout the week with flexible hours
-            designed to suit your lifestyle.Whether you're planning a quick
+            designed to suit your lifestyle. Whether you're planning a quick
             treatment or a full pampering session, there’s always time to relax
             at ELODIA Beauty and Spa.
           </p>
-          <div className="w-[20rem]">
-            <div className="flex justify-between font-thin">
-              <span>Monday to Tuesday</span>
-              <span className="text-nowrap">10 AM - 7 PM</span>
-            </div>
-            <div className="flex justify-between font-thin">
-              <span>Wednesday to Thursday</span>
-              <span className="text-nowrap">10 AM - 6 PM</span>
-            </div>
-            <div className="flex justify-between font-thin">
-              <span>Saturday</span>
-              <span className="text-nowrap">2 AM - 6 PM</span>
-            </div>
-            <div className="flex justify-between font-thin">
-              <span>Sunday</span>
-              <span className="text-nowrap">2 AM - 6 PM</span>
-            </div>
+
+          {/* Schedule */}
+          <div className="w-full max-w-md space-y-2 mx-auto lg:mx-0">
+            {[
+              { days: "Monday to Tuesday", hours: "10 AM - 7 PM" },
+              { days: "Wednesday to Thursday", hours: "10 AM - 6 PM" },
+              { days: "Saturday", hours: "2 PM - 6 PM" },
+              { days: "Sunday", hours: "2 PM - 6 PM" },
+            ].map(({ days, hours }, i) => (
+              <div
+                key={i}
+                className="flex justify-between font-light text-gray-800"
+              >
+                <span>{days}</span>
+                <span className="whitespace-nowrap">{hours}</span>
+              </div>
+            ))}
           </div>
         </div>
-        <div className="w-[18rem] md:w-[25rem] p-1">
+
+        {/* Calendar */}
+        <div className="w-full max-w-sm">
           <Calender />
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
