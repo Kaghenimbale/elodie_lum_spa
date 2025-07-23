@@ -100,7 +100,7 @@ const SpaServices = () => {
       {services.map((service) => (
         <div
           key={service.id}
-          className="relative flex justify-center overflow-hidden md:w-[14rem] lg:w-[18rem] xl:w-[23rem] h-[500px]"
+          className="relative flex justify-center overflow-hidden w-full max-w-xs md:max-w-sm lg:max-w-md xl:max-w-lg h-[500px]"
         >
           <Image
             src={service.imageUrl}
@@ -111,7 +111,7 @@ const SpaServices = () => {
             loading="lazy"
           />
 
-          <div className="w-[15rem] md:w-[350px] h-[270px] absolute bottom-6 bg-white flex flex-col gap-2 justify-center items-center p-4 shadow-lg rounded-lg">
+          <div className="absolute bottom-6 bg-white p-4 shadow-lg rounded-lg w-[90%] max-w-md mx-auto flex flex-col gap-2 justify-center items-center">
             {editingId === service.id ? (
               <>
                 <input
@@ -131,7 +131,8 @@ const SpaServices = () => {
                     })
                   }
                   placeholder="Description"
-                  className="border p-1 w-full"
+                  className="border p-1 w-full resize-none break-words overflow-wrap"
+                  rows={4}
                 />
                 <input
                   value={formData.price}
@@ -150,9 +151,15 @@ const SpaServices = () => {
               </>
             ) : (
               <>
-                <h3 className="text-xl font-semibold">{service.name}</h3>
-                <p className="font-thin text-center">{service.description}</p>
-                <span>${service.price}.00 CAD</span>
+                <h3 className="text-xl font-semibold break-words text-center">
+                  {service.name}
+                </h3>
+                <p className="font-thin text-center text-sm w-full break-words overflow-wrap hyphens-auto">
+                  {service.description}
+                </p>
+                <span className="text-center block">
+                  ${service.price}.00 CAD
+                </span>
               </>
             )}
 
