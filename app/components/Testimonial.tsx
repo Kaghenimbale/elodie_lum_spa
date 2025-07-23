@@ -70,6 +70,7 @@ const Testimonial = () => {
             src="/apostrophe.png"
             alt="testimonial"
             width={150}
+            priority
             height={0}
           />
           <h2 className="text-3xl font-bold mb-6 text-center">

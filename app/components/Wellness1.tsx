@@ -28,6 +28,7 @@ const Wellness1 = () => {
             <Image
               src="/bg4.jpg"
               alt=""
+              priority
               width={600}
               height={0}
               className="object-cover w-full h-full transition-transform duration-300 transform hover:scale-105"
@@ -37,132 +38,78 @@ const Wellness1 = () => {
         </div>
       </div>
 
-      <div className="md:w-[80vw] xl:w-[60vw] flex flex-col lg:flex-row justify-between gap-20">
-        <div className="flex flex-col gap-10">
-          <div className="flex gap-10 hover:opacity-60 opacity-100">
-            <Image src="/aroma.png" alt="icon" width={80} height={80} />
-            <div className="flex flex-col gap-4 hover:cursor-text">
-              <div className="flex justify-between">
-                <h3 className="text-nowrap">Deluxe Aroma Therapy,</h3>
-                <div className="underline w-full lg:w-[10rem] border-b-[1px] border-gray-300"></div>
-                <span className="text-nowrap">
-                  from <span>$48</span>
-                </span>
-              </div>
-              <p className="font-thin">
-                Relax and rejuvenate with essential oil blends.
-              </p>
-            </div>
-          </div>
-          <div className="flex gap-10 hover:opacity-60 opacity-100">
-            <Image src="/bol2.png" alt="icon" width={80} height={80} />
-            <div className="flex flex-col gap-4 hover:cursor-text">
-              <div className="flex justify-between">
-                <h3 className="text-nowrap">Sauna relax</h3>
-                <div className="underline w-full lg:w-[10rem] border-b-[1px] border-gray-300"></div>
-                <span className="text-nowrap">
-                  from <span>$36</span>
-                </span>
-              </div>
-              <p className="font-thin">
-                Promotes muscle relaxation and cleansing.
-              </p>
-            </div>
-          </div>
-          <div className="flex gap-10 hover:opacity-60 opacity-100">
+      <div className="mx-auto px-4 py-10 max-w-7xl grid grid-cols-1 md:grid-cols-2 gap-8">
+        {[
+          {
+            icon: "/aroma.png",
+            title: "Deluxe Aroma Therapy",
+            price: "$48",
+            desc: "Relax and rejuvenate with essential oil blends.",
+          },
+          {
+            icon: "/bol2.png",
+            title: "Sauna Relax",
+            price: "$36",
+            desc: "Promotes muscle relaxation and cleansing.",
+          },
+          {
+            icon: "/massage-des-pieds.png",
+            title: "Geothermal Spa",
+            price: "$36",
+            desc: "Therapeutic mineral bath experience.",
+          },
+          {
+            icon: "/bois.png",
+            title: "Finnish Sauna",
+            price: "$36",
+            desc: "Purify and revitalize in classic sauna.",
+          },
+          {
+            icon: "/massage2.png",
+            title: "Face Masks",
+            price: "$48",
+            desc: "Hydrate and revitalize your skin.",
+          },
+          {
+            icon: "/detente.png",
+            title: "Full Body Massage",
+            price: "$48",
+            desc: "Deep relaxation and muscle tension relief.",
+          },
+          {
+            icon: "/sauna4.png",
+            title: "Extended Aroma Therapy",
+            price: "$48",
+            desc: "Enhance well-being through aromatic oils.",
+          },
+          {
+            icon: "/sauna2.png",
+            title: "Aroma Therapy Express",
+            price: "$36",
+            desc: "Quick aromatic refresh for mind and spirit.",
+          },
+        ].map(({ icon, title, price, desc }, i) => (
+          <div
+            key={i}
+            className="flex gap-6 items-start hover:opacity-80 transition-opacity"
+          >
             <Image
-              src="/massage-des-pieds.png"
-              alt="icon"
+              src={icon}
+              alt={title}
               width={80}
               height={80}
+              className="shrink-0"
             />
-            <div className="flex flex-col gap-4 hover:cursor-text">
-              <div className="flex justify-between">
-                <h3 className="text-nowrap">Geothermal spa</h3>
-                <div className="underline w-full lg:w-[10rem] border-b-[1px] border-gray-300"></div>
-                <span className="text-nowrap">
-                  from <span>$36</span>
-                </span>
+            <div className="flex flex-col gap-2">
+              <div className="flex flex-wrap justify-between items-center gap-2">
+                <h3 className="text-lg font-semibold">{title}</h3>
+                <span className="text-sm text-gray-600">from {price}</span>
               </div>
-              <p className="font-thin">Therapeutic mineral bath experience.</p>
+              <div className="w-full border-b border-gray-300" />
+              <p className="text-sm text-gray-600">{desc}</p>
             </div>
           </div>
-          <div className="flex gap-10 hover:opacity-60 opacity-100">
-            <Image src="/bois.png" alt="icon" width={80} height={80} />
-            <div className="flex flex-col gap-4 hover:cursor-text">
-              <div className="flex justify-between">
-                <h3 className="text-nowrap">Finnish sauna</h3>
-                <div className="underline w-full lg:w-[10rem] border-b-[1px] border-gray-300"></div>
-                <span className="text-nowrap">
-                  from <span>$36</span>
-                </span>
-              </div>
-              <p className="font-thin">
-                Purify and revitalize in classic sauna.
-              </p>
-            </div>
-          </div>
-        </div>
-        <div className="flex flex-col gap-10">
-          <div className="flex gap-10 hover:opacity-60 opacity-100">
-            <Image src="/massage2.png" alt="icon" width={80} height={80} />
-            <div className="flex flex-col gap-4 hover:cursor-text">
-              <div className="flex justify-between">
-                <h3 className="text-nowrap">Face masks</h3>
-                <div className="underline w-full lg:w-[10rem] border-b-[1px] border-gray-300"></div>
-                <span className="text-nowrap">
-                  from <span>$48</span>
-                </span>
-              </div>
-              <p className="font-thin">Hydrate and revitalize your skin.</p>
-            </div>
-          </div>
-          <div className="flex gap-10 hover:opacity-60 opacity-100">
-            <Image src="/detente.png" alt="icon" width={80} height={80} />
-            <div className="flex flex-col gap-4 hover:cursor-text">
-              <div className="flex justify-between">
-                <h3 className="text-nowrap">Full body massage</h3>
-                <div className="underline w-full lg:w-[10rem] border-b-[1px] border-gray-300"></div>
-                <span className="text-nowrap">
-                  from <span>$48</span>
-                </span>
-              </div>
-              <p className="font-thin">
-                Deep relaxation and muscle tension relief.
-              </p>
-            </div>
-          </div>
-          <div className="flex gap-10 hover:opacity-60 opacity-100">
-            <Image src="/sauna4.png" alt="icon" width={80} height={80} />
-            <div className="flex flex-col gap-4 hover:cursor-text">
-              <div className="flex justify-between">
-                <h3 className="text-nowrap">Extended Aroma Therapy</h3>
-                <div className="underline w-full lg:w-[10rem] border-b-[1px] border-gray-300"></div>
-                <span className="text-nowrap">
-                  from <span>$48</span>
-                </span>
-              </div>
-              <p className="font-thin">
-                Enhance well-being through aromatic oils.
-              </p>
-            </div>
-          </div>
-          <div className="flex gap-10 hover:opacity-60 opacity-100">
-            <Image src="/sauna2.png" alt="icon" width={80} height={80} />
-            <div className="flex flex-col gap-4 hover:cursor-text">
-              <div className="flex justify-between">
-                <h3 className="text-nowrap">Aroma Therapy Express,</h3>
-                <div className="underline w-full lg:w-[10rem] border-b-[1px] border-gray-300"></div>
-                <span className="text-nowrap">
-                  from <span>$36</span>
-                </span>
-              </div>
-              <p className="font-thin">
-                Quick aromatic refresh for mind and spirit.
-              </p>
-            </div>
-          </div>
-        </div>
+        ))}
       </div>
     </div>
   );

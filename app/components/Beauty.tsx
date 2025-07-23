@@ -21,7 +21,13 @@ const Beauty = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
         <div className="w-[20rem] flex items-center flex-col gap-6 opacity-50 hover:opacity-100">
-          <Image src="/bol.png" alt="icons sauna" width={100} height={30} />
+          <Image
+            src="/bol.png"
+            priority
+            alt="icons sauna"
+            width={100}
+            height={30}
+          />
           <div className="flex flex-col gap-6 items-center">
             <h3 className="text-xl font-medium">Hair Removal</h3>
             <p className="text-center font-thin">
@@ -32,7 +38,13 @@ const Beauty = () => {
           </div>
         </div>
         <div className="w-[20rem] flex items-center flex-col gap-6 opacity-50 hover:opacity-100">
-          <Image src="/detente.png" alt="icons sauna" width={100} height={30} />
+          <Image
+            src="/detente.png"
+            priority
+            alt="icons sauna"
+            width={100}
+            height={30}
+          />
           <div className="flex flex-col gap-6 items-center">
             <h3 className="text-xl font-medium">Basic Elodia Facial</h3>
             <p className="text-center font-thin">
@@ -43,7 +55,13 @@ const Beauty = () => {
           </div>
         </div>
         <div className="w-[20rem] flex items-center flex-col gap-6 opacity-50 hover:opacity-100">
-          <Image src="/sauna2.png" alt="icons sauna" width={100} height={30} />
+          <Image
+            src="/sauna2.png"
+            priority
+            alt="icons sauna"
+            width={100}
+            height={30}
+          />
           <div className="flex flex-col gap-6 items-center">
             <h3 className="text-xl font-medium">Massage</h3>
             <p className="text-center font-thin">

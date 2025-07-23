@@ -8,6 +8,7 @@ const Wellness = () => {
           <Image
             src="/bg1.jpg"
             alt=""
+            priority
             width={600}
             height={0}
             className="object-cover w-full h-full transition-transform duration-300 transform hover:scale-105"

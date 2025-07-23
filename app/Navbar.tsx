@@ -165,6 +165,7 @@ const Navbar = () => {
                   src={user.photoURL}
                   alt="Profile"
                   width={50}
+                  priority
                   height={50}
                   className="rounded-full border border-gray-300"
                 />
