@@ -8,7 +8,7 @@ const Presentation = () => {
           At Elodia Beauty & SPA, your beauty is our priority. Welcome to a
           haven of splendor created especially for you.
         </h1>
-        <button className="w-fit bg-white text-cyan-900 hover:bg-cyan-900 hover:text-white transition-all duration-300 ease-in-out">
+        <button className="w-fit px-4 py-2 rounded bg-white text-cyan-900 hover:bg-cyan-900 hover:text-white transition-all duration-300 ease-in-out">
           VIEW MORE
         </button>
       </div>
