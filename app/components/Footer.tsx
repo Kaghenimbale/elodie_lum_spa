@@ -7,10 +7,7 @@ import {
   FaCcVisa,
   FaFacebook,
   FaInstagram,
-  FaLinkedin,
-  FaPinterest,
   FaTiktok,
-  FaTwitter,
 } from "react-icons/fa";
 
 const Footer = () => {
@@ -33,7 +30,7 @@ const Footer = () => {
           </span>
           <Link
             href="/signIn"
-            className="text-white text-[0.9rem] bg-cyan-800 w-fit hover:bg-cyan-700 transition-all duration-300 ease-in-out"
+            className="text-white text-[0.9rem] bg-cyan-800 w-fit hover:bg-cyan-700 transition-all duration-300 ease-in-out px-4 py-2 rounded"
           >
             SUBSCRIBE
           </Link>

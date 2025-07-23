@@ -23,7 +23,7 @@ const Wellness = () => {
           soothe your senses, relax your mind, and revitalize your body. Indulge
           in an experience tailored for your ultimate well-being.
         </p>
-        <button className="text-white text-[0.9rem] bg-cyan-800 w-fit hover:bg-cyan-700 transition-all duration-300 ease-in-out">
+        <button className="text-white text-[0.9rem] bg-cyan-800 w-fit px-4 py-2 rounded hover:bg-cyan-700 transition-all duration-300 ease-in-out">
           BOOK NOW
         </button>
       </div>

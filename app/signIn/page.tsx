@@ -31,7 +31,6 @@ const Page = () => {
     e.preventDefault();
 
     try {
-      // ✅ First check what methods are available for this email
       const methods = await fetchSignInMethodsForEmail(auth, data.email);
 
       if (methods.includes("google.com") && !methods.includes("password")) {
@@ -41,20 +40,19 @@ const Page = () => {
         return;
       }
 
-      // ✅ Otherwise, proceed with email/password login
       const userCredential = await signInWithEmailAndPassword(
         auth,
         data.email,
         data.password
       );
-      // console.log("Logged in:", userCredential.user.email);
-      onAuthStateChanged(auth, (user) => {
-        if (user?.email === "kaghenimbale@gmail.com") {
-          router.push("/admin");
-        } else {
-          router.push("/userProfile");
-        }
-      });
+
+      const user = userCredential.user;
+
+      if (user.email === "kaghenimbale@gmail.com") {
+        router.push("/admin");
+      } else {
+        router.push("/userProfile");
+      }
     } catch (error: any) {
       console.error("Login error:", error.message);
       alert(error.message);
@@ -77,7 +75,7 @@ const Page = () => {
     <div className="flex items-center justify-center">
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col gap-4 bg-slate-100 shadow-black shadow-sm p-6 my-36"
+        className="p-6 border rounded-lg shadow-lg w-full max-w-md space-y-2 bg-white my-36"
       >
         <div className="w-[100%] flex justify-center">
           <div className="bg-slate-200 shadow-black shadow-sm w-[4rem] h-[4rem] flex items-center justify-center rounded-full">
@@ -102,28 +100,35 @@ const Page = () => {
           />
         </div>
 
-        <div className="flex flex-col gap-2">
-          <label htmlFor="password">Password</label>
-          <div className="flex relative items-center justify-center">
+        <div className="flex flex-col gap-2 w-full">
+          <label htmlFor="password" className="font-medium">
+            Password
+          </label>
+
+          <div className="relative w-full">
             <input
-              className="w-full p-2 border rounded border-gray-400"
-              type={showPassword ? "text" : "password"}
-              placeholder="Password"
+              id="password"
               name="password"
+              type={showPassword ? "text" : "password"}
+              placeholder="Enter your password"
               value={data.password}
               onChange={handleChange}
               required
+              className="w-full p-2 pr-10 border border-gray-400 rounded focus:outline-none focus:ring-2 focus:ring-cyan-600"
             />
-            <div
+
+            <button
+              type="button"
               onClick={() => setShowPassword(!showPassword)}
-              className="flex justify-center items-center bg-white w-[3rem] p-2 border rounded border-gray-400"
+              className="absolute right-2 top-1/2 -translate-y-1/2 p-1 text-gray-600 hover:text-gray-800"
+              aria-label="Toggle password visibility"
             >
               {showPassword ? (
-                <IoEyeOff className="text-2xl" />
+                <IoEyeOff className="text-xl" />
               ) : (
-                <IoEye className="text-2xl" />
+                <IoEye className="text-xl" />
               )}
-            </div>
+            </button>
           </div>
         </div>
 
@@ -135,11 +140,11 @@ const Page = () => {
         </button>
 
         {/* Google Login Button */}
-        <div className="flex justify-center">
+        <div className="flex">
           <button
             type="button"
             onClick={handleGoogleLogin}
-            className="flex items-center gap-3 bg-white border border-gray-300 text-gray-700 px-6 py-3 rounded shadow hover:shadow-md transition duration-200"
+            className="flex items-center gap-3 bg-white border border-gray-300 text-gray-700 px-6 py-2 rounded shadow hover:shadow-md transition duration-200"
           >
             <FcGoogle className="text-2xl" />
             Sign in with Google

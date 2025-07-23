@@ -19,7 +19,7 @@ const Wellness1 = () => {
             <li>Silica mud mask (face and body)</li>
             <li>Use of soft towel and bathrobe</li>
           </ul>
-          <button className="text-white text-[0.9rem] bg-cyan-800 w-fit hover:bg-cyan-700 transition-all duration-300 ease-in-out">
+          <button className="text-white text-[0.9rem] bg-cyan-800 w-fit hover:bg-cyan-700 transition-all duration-300 ease-in-out px-4 py-2 rounded">
             BOOK NOW
           </button>
         </div>
@@ -37,7 +37,7 @@ const Wellness1 = () => {
         </div>
       </div>
 
-      <div className="md:w-[80vw] lg:w-[65vw] flex flex-col lg:flex-row justify-between gap-20">
+      <div className="md:w-[80vw] xl:w-[60vw] flex flex-col lg:flex-row justify-between gap-20">
         <div className="flex flex-col gap-10">
           <div className="flex gap-10 hover:opacity-60 opacity-100">
             <Image src="/aroma.png" alt="icon" width={80} height={80} />

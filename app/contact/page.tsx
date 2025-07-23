@@ -92,12 +92,16 @@ const page = () => {
           <Location /> LOCATION
         </div>
       </div>
-      <form action="" onSubmit={handleSubmit} className="flex flex-col gap-4">
-        <h2 className="text-[2rem] font-bold">Drop Us a Line</h2>
+      <form
+        action=""
+        onSubmit={handleSubmit}
+        className="p-6 border rounded-lg shadow-lg w-full max-w-md space-y-1 bg-white"
+      >
+        <h2 className="text-[2rem] font-bold">Book Your Appointment</h2>
         <div className="flex flex-col gap-2">
           <label htmlFor="name">Name:</label>
           <input
-            className="p-4 w-[90vw] md:w-[25rem] border-[1px] border-gray-400"
+            className="w-full p-2 border rounded border-gray-400"
             type="name"
             placeholder="Name"
             name="name"
@@ -111,7 +115,7 @@ const page = () => {
           <label htmlFor="email">Email:</label>
         </div>
         <input
-          className="p-4 w-[90vw]  md:w-[25rem] border-[1px] border-gray-400"
+          className="w-full p-2 border rounded border-gray-400"
           type="email"
           placeholder="Email address"
           name="email"
@@ -124,7 +128,7 @@ const page = () => {
           <label htmlFor="service">Type of Service:</label>
           <select
             name="service"
-            className="font-thin p-4 w-[90vw]  md:w-[25rem] border-[1px] border-gray-400"
+            className="font-thin w-full p-2 border roundedborder-gray-400"
             value={message.service}
             onChange={handleChange}
             required
@@ -144,7 +148,7 @@ const page = () => {
         <div className="flex flex-col gap-2">
           <label htmlFor="date">Date:</label>
           <input
-            className="p-4 w-[90vw] md:w-[25rem] border-[1px] border-gray-400 font-thin"
+            className="w-full p-2 border roundedborder-gray-400 font-thin"
             type="date"
             placeholder="Prefered Date"
             name="date"
@@ -157,7 +161,7 @@ const page = () => {
         <div className="flex flex-col gap-2">
           <label htmlFor="message">Message:</label>
           <textarea
-            className="p-4 w-[90vw] md:w-[25rem] h-[10rem] border-[1px] border-gray-400 font-thin"
+            className="w-full p-2 border rounded border-gray-400 font-thin"
             placeholder="Message"
             name="message"
             value={message.message}
@@ -167,7 +171,7 @@ const page = () => {
         </div>
         <button
           type="submit"
-          className="text-white text-[0.9rem] bg-cyan-800 w-fit hover:bg-cyan-700 transition-all duration-300 ease-in-out"
+          className="text-white text-[0.9rem] bg-cyan-800 w-fit px-4 py-2 rounded hover:bg-cyan-700 transition-all duration-300 ease-in-out"
         >
           SEND
         </button>

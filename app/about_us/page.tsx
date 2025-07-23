@@ -45,7 +45,7 @@ const page = () => {
               body. Indulge in complete comfort with the use of soft towels and
               a plush bathrobe, ensuring a truly restorative escape.
             </p>
-            <button className="text-white text-[0.9rem] bg-cyan-800 w-fit hover:bg-cyan-700 transition-all duration-300 ease-in-out">
+            <button className="text-white text-[0.9rem] bg-cyan-800 w-fit px-4 py-2 rounded hover:bg-cyan-700 transition-all duration-300 ease-in-out">
               BOOK NOW
             </button>
           </div>
@@ -65,12 +65,12 @@ const page = () => {
             balance and renewed vitality begins here, at AB & Spa, where your
             well-being is our utmost priority.
           </p>
-          <ul className="list-disc font-thin text-xl">
+          <ul className="list-disc font-thin list-item">
             <li>Entrance to the blue lagoon</li>
             <li>Silica mud mask(face and body)</li>
             <li>Use of soft towel and bathrobe</li>
           </ul>
-          <button className="text-white text-[0.9rem] bg-cyan-800 w-fit hover:bg-cyan-700 transition-all duration-300 ease-in-out">
+          <button className="text-white text-[0.9rem] bg-cyan-800 w-fit px-4 py-2 rounded hover:bg-cyan-700 transition-all duration-300 ease-in-out">
             BOOK NOW
           </button>
         </div>
@@ -89,6 +89,7 @@ const page = () => {
       </div>
 
       <Testimonial />
+
       <div className="flex flex-col gap-5 items-center justify-center">
         <h2 className="text-[2rem] font-bold">OUR TEAM</h2>
         <p className="md:w-[70rem] font-thin text-center">
