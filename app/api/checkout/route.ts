@@ -20,8 +20,8 @@ export async function POST() {
         quantity: 1,
       },
     ],
-    success_url: "http://localhost:3000//success",
-    cancel_url: "http://localhost:3000//cancel",
+    success_url: "https://elodie-lum-spa.vercel.app//success",
+    cancel_url: "https://elodie-lum-spa.vercel.app//cancel",
   });
 
   return NextResponse.json({ url: session.url });
