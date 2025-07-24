@@ -15,7 +15,6 @@ const SpaServices = () => {
   const [editingId, setEditingId] = useState<string | null>(null);
   const [userEmail, setUserEmail] = useState<string | null>(null);
   const [isAdmin, setIsAdmin] = useState(false);
-  const [authChecked, setAuthChecked] = useState(false);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -40,10 +39,14 @@ const SpaServices = () => {
 
   useEffect(() => {
     const auth = getAuth(app);
+
     const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user?.email) {
+      if (user && user.email) {
         setUserEmail(user.email);
-        if (process.env.NEXT_PUBLIC_ADMIN_EMAIL === user.email) {
+        if (
+          process.env.NEXT_PUBLIC_ADMIN_EMAIL &&
+          user.email === process.env.NEXT_PUBLIC_ADMIN_EMAIL
+        ) {
           setIsAdmin(true);
         } else {
           setIsAdmin(false);
@@ -52,7 +55,6 @@ const SpaServices = () => {
         setUserEmail(null);
         setIsAdmin(false);
       }
-      setAuthChecked(true);
     });
 
     return () => unsubscribe();
@@ -88,14 +90,6 @@ const SpaServices = () => {
     return (
       <div className="w-full h-auto flex items-center justify-center">
         <ClipLoader color="#164E63" size={50} />
-      </div>
-    );
-  }
-
-  if (!services.length) {
-    return (
-      <div className="text-center mt-10 text-red-500">
-        No services available. Please try again later.
       </div>
     );
   }
@@ -136,7 +130,7 @@ const SpaServices = () => {
                     })
                   }
                   placeholder="Description"
-                  className="border p-1 w-full resize-none"
+                  className="border p-1 w-full resize-none break-words overflow-wrap"
                   rows={4}
                 />
                 <input
@@ -156,17 +150,19 @@ const SpaServices = () => {
               </>
             ) : (
               <>
-                <h3 className="text-xl font-semibold text-center">
+                <h3 className="text-xl font-semibold break-words text-center">
                   {service.name}
                 </h3>
-                <p className="text-sm text-center">{service.description}</p>
+                <p className="font-thin text-center text-sm w-full break-words overflow-wrap hyphens-auto">
+                  {service.description}
+                </p>
                 <span className="text-center block">
                   ${service.price}.00 CAD
                 </span>
               </>
             )}
 
-            {authChecked && isAdmin ? (
+            {isAdmin ? (
               <div className="flex gap-2 mt-2">
                 <button
                   onClick={() => handleEdit(service)}
