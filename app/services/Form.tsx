@@ -1,8 +1,11 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { getServices } from "@/lib/getServices";
 
 const page = () => {
+  const [services, setServices] = useState<any[]>([]);
+
   const [message, setMessage] = useState({
     name: "",
     email: "",
@@ -10,6 +13,19 @@ const page = () => {
     date: "",
     message: "",
   });
+
+  useEffect(() => {
+    const fetchServices = async () => {
+      try {
+        const data = await getServices();
+        setServices(data);
+      } catch (err) {
+        console.error("Error fetching services:", err);
+      }
+    };
+
+    fetchServices();
+  }, []);
 
   const handleChange = (e: any) => {
     setMessage({ ...message, [e.target.name]: e.target.value });
@@ -93,15 +109,11 @@ const page = () => {
             onChange={handleChange}
             required
           >
-            <option className="font-thin" value="SAUNA">
-              Basic Elodia Facial($90.00 CAD)
-            </option>
-            <option className="font-thin" value="FACIAL">
-              EBS Advance Facial($150.00 CAD)
-            </option>
-            <option className="font-thin" value="MASSAGE">
-              EBS Bio Microneedling($200.00 CAD)
-            </option>
+            {services.map((service) => (
+              <option key={service.id} className="font-thin" value="SAUNA">
+                {service.name}(${service.price}.00 CAD)
+              </option>
+            ))}
           </select>
         </div>
 
