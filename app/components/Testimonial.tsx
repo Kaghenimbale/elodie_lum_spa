@@ -46,7 +46,7 @@ const Testimonial = () => {
 
   if (loading) {
     return (
-      <div className="w-full h-[60vh] flex items-center justify-center">
+      <div className="w-full h-auto flex items-center justify-center">
         <ClipLoader color="#164E63" size={50} />
       </div>
     );
