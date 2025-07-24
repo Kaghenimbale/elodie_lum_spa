@@ -1,16 +1,49 @@
+"use client";
+
+import { useState } from "react";
+
 const Form = () => {
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      const res = await fetch("/api/subscribe", {
+        method: "POST",
+        body: JSON.stringify({ email }),
+        headers: { "Content-Type": "application/json" },
+      });
+
+      if (res.ok) {
+        setMessage("Thanks for subscribing! Check your inbox.");
+        setEmail("");
+      } else {
+        setMessage("Something went wrong. Try again.");
+      }
+    } catch (err) {
+      setMessage("Error connecting to server.");
+    }
+  };
   return (
-    <form className="flex flex-col md:flex-row gap-4">
+    <form onSubmit={handleSubmit} className="flex flex-col items-center gap-4">
       <input
-        className="w-full lg:w-[20rem] p-2 border rounded border-gray-400"
         type="email"
+        required
         placeholder="Email address"
-        name="email"
-        id=""
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        className="px-4 py-2 border rounded w-[300px]"
       />
-      <button className="text-white text-[0.9rem] bg-cyan-800 w-full lg:w-[10rem] p-2 border rounded hover:bg-cyan-700 transition-all duration-300 ease-in-out">
+      <button
+        type="submit"
+        className="bg-cyan-800 text-white px-6 py-2 rounded hover:bg-cyan-700"
+      >
         SUBSCRIBE
       </button>
+      {message && (
+        <p className="text-sm text-center text-green-700">{message}</p>
+      )}
     </form>
   );
 };

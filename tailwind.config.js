@@ -6,7 +6,10 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      // Enable smooth scrolling
+      scrollBehavior: ["responsive"],
+    },
   },
   plugins: [],
 };
