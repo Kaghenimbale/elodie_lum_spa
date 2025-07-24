@@ -10,6 +10,7 @@ import {
   FaFacebook,
   FaInstagram,
   FaTiktok,
+  FaWhatsapp,
 } from "react-icons/fa";
 
 const Footer = () => {
@@ -48,7 +49,7 @@ const Footer = () => {
               href="/signIn"
               className="inline-block w-fit bg-cyan-800 text-white text-sm px-5 py-2 rounded hover:bg-cyan-700 transition"
             >
-              SUBSCRIBE
+              SIGN IN
             </Link>
           </div>
 
@@ -56,18 +57,16 @@ const Footer = () => {
           <div className="flex flex-col gap-3 max-w-xs">
             <h3 className="text-xl font-bold">Important Links</h3>
             <ul className="space-y-2 list-none">
-              {["Services", "Contact", "FAQs", "About_Us", "Location"].map(
-                (item) => (
-                  <li key={item}>
-                    <Link
-                      href="/"
-                      className="font-thin text-cyan-900 hover:underline hover:opacity-80 transition"
-                    >
-                      {item.toLocaleLowerCase()}
-                    </Link>
-                  </li>
-                )
-              )}
+              {["Services", "Contact", "About_Us"].map((item) => (
+                <li key={item}>
+                  <Link
+                    href={item.toLocaleLowerCase()}
+                    className="font-thin hover:underline hover:opacity-80 transition"
+                  >
+                    {item}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
@@ -80,15 +79,18 @@ const Footer = () => {
               598 Concession str, Hamilton, <br />
               Ontario, L8V 1B3, Canada
             </address>
-            <a href="mailto:elodiabspa@gmail.com" className="hover:underline">
-              elodiabspa@gmail.com
-            </a>
-            <a href="tel:+12892061802" className="hover:underline">
-              Phone: +1 (289) 206-1802
-            </a>
+            <Link
+              href="mailto:Elodiabspa@gmail.com"
+              className="hover:underline"
+            >
+              Elodiabspa@gmail.com
+            </Link>
+            <Link href="tel:+14376650194" className="hover:underline">
+              Phone: +1 (437) 665-0194
+            </Link>
             <ul className="flex gap-6 mt-4 justify-center md:justify-start">
               <li>
-                <a
+                <Link
                   href="https://www.instagram.com/elodia_beauty_and_spa"
                   aria-label="Instagram"
                   target="_blank"
@@ -96,10 +98,10 @@ const Footer = () => {
                   className="text-cyan-900 hover:text-cyan-700 transition text-2xl"
                 >
                   <FaInstagram />
-                </a>
+                </Link>
               </li>
               <li>
-                <a
+                <Link
                   href="https://www.facebook.com/profile.php?id=61567223621147"
                   aria-label="Facebook"
                   target="_blank"
@@ -107,10 +109,10 @@ const Footer = () => {
                   className="text-cyan-900 hover:text-cyan-700 transition text-2xl"
                 >
                   <FaFacebook />
-                </a>
+                </Link>
               </li>
               <li>
-                <a
+                <Link
                   href="https://www.tiktok.com/@elodiabeautyandspa"
                   aria-label="TikTok"
                   target="_blank"
@@ -118,7 +120,18 @@ const Footer = () => {
                   className="text-cyan-900 hover:text-cyan-700 transition text-2xl"
                 >
                   <FaTiktok />
-                </a>
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="https://"
+                  aria-label="whatsapp"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-cyan-900 hover:text-cyan-700 transition text-2xl"
+                >
+                  <FaWhatsapp />
+                </Link>
               </li>
             </ul>
           </div>
@@ -203,12 +216,11 @@ const Footer = () => {
         {/* Copyright */}
         <div className="flex flex-col md:flex-row gap-2 justify-center text-center font-thin text-sm text-gray-600">
           <span>&copy;{date.getFullYear()}</span>
-          <Link href="/">&copy;{date.getFullYear()}</Link>
           <Link href="/">elodiabeauty&spa</Link>
-          <Link href="/">Privacy policy</Link>
-          <Link href="/">Terms of service</Link>
-          <Link href="/">Refund policy</Link>
-          <Link href="/">Contact information</Link>
+          <Link href="/policies/privacy-policy">Privacy policy</Link>
+          <Link href="/policies/terms-of-service">Terms of service</Link>
+          <Link href="/policies/refund-policy">Refund policy</Link>
+          <Link href="/contact">Contact information</Link>
         </div>
       </div>
     </footer>
