@@ -205,9 +205,9 @@ const Navbar = () => {
             className="absolute top-6 right-6"
             onClick={() => {
               setOpen(false);
-              document.body.style.position = "fixed";
-              document.body.style.right = "0";
-              document.body.style.left = "0";
+              document.body.style.position = "";
+              document.body.style.right = "";
+              document.body.style.left = "";
             }}
           >
             <IoCloseCircle className="text-3xl" />
