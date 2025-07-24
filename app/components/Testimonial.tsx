@@ -61,7 +61,7 @@ const Testimonial = () => {
         </div>
 
         {loading ? (
-          <ClipLoader color="#164E63" size={50} />
+          <ClipLoader color="#164E63" />
         ) : (
           <div className="w-full flex flex-col gap-6">
             {testimonials.map(({ id, name, message, rating }) => (
