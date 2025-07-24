@@ -86,14 +86,6 @@ const SpaServices = () => {
     setFormData({ name: "", description: "", price: "" });
   };
 
-  // if (loading) {
-  //   return (
-  //     <div className="w-full h-auto flex items-center justify-center">
-  //       <ClipLoader color="#164E63" size={50} />
-  //     </div>
-  //   );
-  // }
-
   return (
     <div
       className={
