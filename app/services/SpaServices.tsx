@@ -8,6 +8,7 @@ import { ClipLoader } from "react-spinners";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { app } from "@/firebase/config";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const SpaServices = () => {
   const [services, setServices] = useState<any[]>([]);
@@ -15,6 +16,7 @@ const SpaServices = () => {
   const [editingId, setEditingId] = useState<string | null>(null);
   const [userEmail, setUserEmail] = useState<string | null>(null);
   const [isAdmin, setIsAdmin] = useState(false);
+  const pathname = usePathname();
 
   const [formData, setFormData] = useState({
     name: "",
@@ -180,7 +182,7 @@ const SpaServices = () => {
                 </div>
               ) : (
                 <Link
-                  href="#contact-us"
+                  href={pathname === "/" ? "/services" : "#contact-us"}
                   className="text-white bg-cyan-900 hover:bg-cyan-700 transition duration-300 px-4 py-2 rounded"
                 >
                   BOOK NOW

@@ -95,7 +95,11 @@ const Testimonial = () => {
           type="button"
           onClick={() => {
             setDisplay(true);
-            document.body.style.overflow = "hidden";
+            // document.body.style.height = "100vh";
+            // document.body.style.width = "100vw";
+            document.body.style.position = "fixed";
+            document.body.style.right = "0";
+            document.body.style.left = "0";
           }}
           className="bg-cyan-700 hover:bg-cyan-600 text-white px-4 py-2 rounded"
         >
@@ -109,7 +113,9 @@ const Testimonial = () => {
             type="button"
             onClick={() => {
               setDisplay(false);
-              document.body.style.overflow = "";
+              document.body.style.position = "";
+              document.body.style.right = "";
+              document.body.style.left = "";
             }}
             className="absolute right-10 top-10 bg-cyan-700 hover:bg-cyan-600 text-white px-4 py-2 rounded"
           >

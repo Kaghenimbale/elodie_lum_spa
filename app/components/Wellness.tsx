@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 
 const Wellness = () => {
   return (
@@ -34,9 +35,12 @@ const Wellness = () => {
           soothe your senses, relax your mind, and revitalize your body. Indulge
           in an experience tailored for your ultimate well-being.
         </p>
-        <button className="self-center md:self-start text-white text-sm font-medium bg-cyan-800 px-6 py-2 rounded hover:bg-cyan-700 transition-all duration-300">
+        <Link
+          href="services"
+          className="self-center md:self-start text-white text-sm font-medium bg-cyan-800 px-6 py-2 rounded hover:bg-cyan-700 transition-all duration-300"
+        >
           BOOK NOW
-        </button>
+        </Link>
       </div>
     </section>
   );

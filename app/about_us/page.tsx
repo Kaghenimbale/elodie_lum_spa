@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Testimonial from "../components/Testimonial";
+import Link from "next/link";
 
 const page = () => {
   return (
@@ -45,9 +46,12 @@ const page = () => {
               body. Indulge in complete comfort with the use of soft towels and
               a plush bathrobe, ensuring a truly restorative escape.
             </p>
-            <button className="text-white text-[0.9rem] bg-cyan-800 w-fit px-4 py-2 rounded hover:bg-cyan-700 transition-all duration-300 ease-in-out">
+            <Link
+              href="/services"
+              className="text-white text-[0.9rem] bg-cyan-800 w-fit px-4 py-2 rounded hover:bg-cyan-700 transition-all duration-300 ease-in-out"
+            >
               BOOK NOW
-            </button>
+            </Link>
           </div>
         </div>
       </div>
@@ -70,9 +74,12 @@ const page = () => {
             <li>Silica mud mask(face and body)</li>
             <li>Use of soft towel and bathrobe</li>
           </ul>
-          <button className="text-white text-[0.9rem] bg-cyan-800 w-fit px-4 py-2 rounded hover:bg-cyan-700 transition-all duration-300 ease-in-out">
+          <Link
+            href="/services"
+            className="text-white text-[0.9rem] bg-cyan-800 w-fit px-4 py-2 rounded hover:bg-cyan-700 transition-all duration-300 ease-in-out"
+          >
             BOOK NOW
-          </button>
+          </Link>
         </div>
         <div className="relative flex items-center justify-center">
           <div className="relative flex justify-center overflow-hidden w-[18rem] lg:w-[500px] h-[400px] z-10">
