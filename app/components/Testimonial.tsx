@@ -44,14 +44,6 @@ const Testimonial = () => {
     fetchTestimonials();
   }, []);
 
-  if (loading) {
-    return (
-      <div className="w-full h-auto flex items-center justify-center">
-        <ClipLoader color="#164E63" size={50} />
-      </div>
-    );
-  }
-
   return (
     <Fragment>
       <div className="max-w-4xl mx-auto p-4 md:p-10 flex flex-col items-center gap-6">
@@ -68,8 +60,8 @@ const Testimonial = () => {
           </h2>
         </div>
 
-        {testimonials.length === 0 ? (
-          <p className="text-center mt-4">No testimonials yet.</p>
+        {loading ? (
+          <ClipLoader color="#164E63" size={50} />
         ) : (
           <div className="w-full flex flex-col gap-6">
             {testimonials.map(({ id, name, message, rating }) => (
