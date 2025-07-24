@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+
 const Presentation = () => {
   return (
     <section className="relative h-[85vh] mt-16 bg-[url('/bg3.jpg')] bg-cover bg-center flex items-center justify-center">
@@ -12,9 +14,12 @@ const Presentation = () => {
           At Elodia Beauty & SPA, your beauty is our priority. Welcome to a
           haven of splendor created especially for you.
         </h1>
-        <button className="px-6 py-3 rounded bg-white text-cyan-900 hover:bg-cyan-900 hover:text-white transition-all duration-300">
+        <Link
+          href="/about_us"
+          className="px-6 py-3 rounded bg-white text-cyan-900 hover:bg-cyan-900 hover:text-white transition-all duration-300"
+        >
           VIEW MORE
-        </button>
+        </Link>
       </div>
     </section>
   );

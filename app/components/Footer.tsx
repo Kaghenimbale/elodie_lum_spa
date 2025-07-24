@@ -56,22 +56,18 @@ const Footer = () => {
           <div className="flex flex-col gap-3 max-w-xs">
             <h3 className="text-xl font-bold">Important Links</h3>
             <ul className="space-y-2 list-none">
-              {[
-                "Book Online",
-                "Purchase a Gift Certificate",
-                "Spa Promotions",
-                "Exclusive Offer & Events",
-                "Blog and News",
-              ].map((item) => (
-                <li key={item}>
-                  <a
-                    href="/"
-                    className="font-thin text-cyan-900 hover:underline hover:opacity-80 transition"
-                  >
-                    {item}
-                  </a>
-                </li>
-              ))}
+              {["Services", "Contact", "FAQs", "About_Us", "Location"].map(
+                (item) => (
+                  <li key={item}>
+                    <Link
+                      href="/"
+                      className="font-thin text-cyan-900 hover:underline hover:opacity-80 transition"
+                    >
+                      {item.toLocaleLowerCase()}
+                    </Link>
+                  </li>
+                )
+              )}
             </ul>
           </div>
 
@@ -207,7 +203,12 @@ const Footer = () => {
         {/* Copyright */}
         <div className="flex flex-col md:flex-row gap-2 justify-center text-center font-thin text-sm text-gray-600">
           <span>&copy;{date.getFullYear()}</span>
-          <span>Qode Interactive, All Rights Reserved</span>
+          <Link href="/">&copy;{date.getFullYear()}</Link>
+          <Link href="/">elodiabeauty&spa</Link>
+          <Link href="/">Privacy policy</Link>
+          <Link href="/">Terms of service</Link>
+          <Link href="/">Refund policy</Link>
+          <Link href="/">Contact information</Link>
         </div>
       </div>
     </footer>
