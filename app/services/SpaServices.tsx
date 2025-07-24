@@ -40,14 +40,10 @@ const SpaServices = () => {
 
   useEffect(() => {
     const auth = getAuth(app);
-
     const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user && user.email) {
+      if (user?.email) {
         setUserEmail(user.email);
-        if (
-          process.env.NEXT_PUBLIC_ADMIN_EMAIL &&
-          user.email === process.env.NEXT_PUBLIC_ADMIN_EMAIL
-        ) {
+        if (process.env.NEXT_PUBLIC_ADMIN_EMAIL === user.email) {
           setIsAdmin(true);
         } else {
           setIsAdmin(false);
@@ -56,6 +52,7 @@ const SpaServices = () => {
         setUserEmail(null);
         setIsAdmin(false);
       }
+      setAuthChecked(true);
     });
 
     return () => unsubscribe();
@@ -91,6 +88,14 @@ const SpaServices = () => {
     return (
       <div className="w-full h-screen flex items-center justify-center">
         <ClipLoader color="#164E63" size={50} />
+      </div>
+    );
+  }
+
+  if (!services.length) {
+    return (
+      <div className="text-center mt-10 text-red-500">
+        No services available. Please try again later.
       </div>
     );
   }
@@ -131,7 +136,7 @@ const SpaServices = () => {
                     })
                   }
                   placeholder="Description"
-                  className="border p-1 w-full resize-none break-words overflow-wrap"
+                  className="border p-1 w-full resize-none"
                   rows={4}
                 />
                 <input
@@ -151,12 +156,10 @@ const SpaServices = () => {
               </>
             ) : (
               <>
-                <h3 className="text-xl font-semibold break-words text-center">
+                <h3 className="text-xl font-semibold text-center">
                   {service.name}
                 </h3>
-                <p className="font-thin text-center text-sm w-full break-words overflow-wrap hyphens-auto">
-                  {service.description}
-                </p>
+                <p className="text-sm text-center">{service.description}</p>
                 <span className="text-center block">
                   ${service.price}.00 CAD
                 </span>
@@ -180,7 +183,7 @@ const SpaServices = () => {
               </div>
             ) : (
               <Link
-                href="/services"
+                href="#contact-us"
                 className="text-white bg-cyan-900 hover:bg-cyan-700 transition duration-300 px-4 py-2 rounded"
               >
                 BOOK NOW

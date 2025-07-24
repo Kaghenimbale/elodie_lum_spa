@@ -3,15 +3,7 @@
 import Image from "next/image";
 import { Fragment, useEffect, useState } from "react";
 import { db } from "@/firebase/config";
-import {
-  collection,
-  query,
-  orderBy,
-  getDocs,
-  limit,
-  DocumentData,
-  QuerySnapshot,
-} from "firebase/firestore";
+import { collection, query, orderBy, getDocs, limit } from "firebase/firestore";
 import { ClipLoader } from "react-spinners";
 import TestimonialForm from "./TestimonialForm";
 import { IoClose } from "react-icons/io5";
@@ -35,15 +27,13 @@ const Testimonial = () => {
         const q = query(
           collection(db, "testimonials"),
           orderBy("createdAt", "desc"),
-          limit(10) // Load only 10 testimonials
+          limit(10)
         );
-
         const snapshot = await getDocs(q);
         const testimonialsData = snapshot.docs.map((doc) => ({
           id: doc.id,
           ...(doc.data() as Omit<Testimonial, "id">),
         }));
-
         setTestimonials(testimonialsData);
       } catch (error) {
         console.error("Failed to load testimonials", error);
@@ -51,16 +41,16 @@ const Testimonial = () => {
         setLoading(false);
       }
     };
-
     fetchTestimonials();
   }, []);
 
-  if (loading)
+  if (loading) {
     return (
-      <div className="w-full h-screen flex items-center justify-center">
+      <div className="w-full h-[60vh] flex items-center justify-center">
         <ClipLoader color="#164E63" size={50} />
       </div>
     );
+  }
 
   return (
     <Fragment>
@@ -81,30 +71,34 @@ const Testimonial = () => {
         {testimonials.length === 0 ? (
           <p className="text-center mt-4">No testimonials yet.</p>
         ) : (
-          testimonials.map(({ id, name, message, rating }) => (
-            <div key={id} className="flex flex-col items-center gap-3">
-              <p className="text-gray-700 text-center">{message}</p>
-              <div className="flex gap-2 items-center">
-                <div className="flex space-x-1">
-                  {[1, 2, 3, 4, 5].map((star) => (
-                    <span
-                      key={star}
-                      className={`text-xl ${
-                        rating >= star ? "text-yellow-400" : "text-gray-300"
-                      }`}
-                      aria-hidden="true"
-                    >
-                      ★
-                    </span>
-                  ))}
+          <div className="w-full flex flex-col gap-6">
+            {testimonials.map(({ id, name, message, rating }) => (
+              <div
+                key={id}
+                className="flex flex-col items-center gap-3 border rounded-lg p-4 shadow-md"
+              >
+                <p className="text-gray-700 text-center">{message}</p>
+                <div className="flex gap-2 items-center">
+                  <div className="flex space-x-1">
+                    {[1, 2, 3, 4, 5].map((star) => (
+                      <span
+                        key={star}
+                        className={`text-xl ${
+                          rating >= star ? "text-yellow-400" : "text-gray-300"
+                        }`}
+                        aria-hidden="true"
+                      >
+                        ★
+                      </span>
+                    ))}
+                  </div>
+                  <p className="font-semibold text-lg">By {name}</p>
                 </div>
-                <p className="font-semibold text-lg">By {name}</p>
               </div>
-            </div>
-          ))
+            ))}
+          </div>
         )}
 
-        {/* Trigger button */}
         <button
           type="button"
           onClick={() => {
@@ -117,7 +111,6 @@ const Testimonial = () => {
         </button>
       </div>
 
-      {/* Modal */}
       {display && (
         <div className="fixed inset-0 z-50 flex items-center justify-center backdrop-blur-3xl bg-black/30">
           <button

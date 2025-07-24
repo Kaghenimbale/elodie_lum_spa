@@ -76,7 +76,7 @@ const page = () => {
 
       <div className="flex flex-col lg:flex-row gap-10">
         <Form />
-        <div className="bg-gray-50 md:w-[50rem] flex flex-col gap-5 p-6">
+        <div className="bg-gray-50 md:w-[50rem] flex flex-col gap-5 p-6 h-fit">
           <h2 className="text-[2rem] font-bold">EB & SPA Center</h2>
           <p className="font-thin">
             Indulge in luxury treatments tailored to reveal your natural beauty
