@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 
 const Wellness1 = () => {
   const services = [
@@ -74,9 +75,12 @@ const Wellness1 = () => {
             <li>Silica mud mask (face and body)</li>
             <li>Use of soft towel and bathrobe</li>
           </ul>
-          <button className="self-start bg-cyan-800 text-white text-sm px-5 py-2 rounded hover:bg-cyan-700 transition duration-300">
+          <Link
+            href="/services"
+            className="self-start bg-cyan-800 text-white text-sm px-5 py-2 rounded hover:bg-cyan-700 transition duration-300"
+          >
             BOOK NOW
-          </button>
+          </Link>
         </div>
 
         {/* Image */}

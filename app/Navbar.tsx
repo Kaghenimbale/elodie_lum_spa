@@ -130,7 +130,12 @@ const Navbar = () => {
 
           {/* Mobile menu button */}
           <button
-            onClick={handleMenuToggle}
+            onClick={() => {
+              setOpen(true);
+              document.body.style.position = "fixed";
+              document.body.style.right = "0";
+              document.body.style.left = "0";
+            }}
             type="button"
             className="md:hidden"
           >
@@ -198,7 +203,12 @@ const Navbar = () => {
           <button
             type="button"
             className="absolute top-6 right-6"
-            onClick={() => setOpen(false)}
+            onClick={() => {
+              setOpen(false);
+              document.body.style.position = "fixed";
+              document.body.style.right = "0";
+              document.body.style.left = "0";
+            }}
           >
             <IoCloseCircle className="text-3xl" />
           </button>
