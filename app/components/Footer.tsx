@@ -165,7 +165,7 @@ const Footer = () => {
                 {
                   label: "Visa",
                   icon: <FaCcVisa />,
-                  onClick: () => {}, // Add handlers if needed
+                  onClick: handleStripePayment, // Add handlers if needed
                 },
                 {
                   label: "PayPal",
