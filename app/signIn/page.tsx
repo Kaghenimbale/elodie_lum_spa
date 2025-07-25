@@ -77,9 +77,9 @@ const Page = () => {
         onSubmit={handleSubmit}
         className="p-6 border rounded-lg shadow-lg w-full max-w-md space-y-2 bg-white my-36"
       >
-        <div className="w-[100%] flex justify-center">
-          <div className="bg-slate-200 shadow-black shadow-sm w-[4rem] h-[4rem] flex items-center justify-center rounded-full">
-            <BiUser className="text-[3rem]" />
+        <div className="w-full flex justify-center">
+          <div className="bg-slate-100 shadow-md w-16 h-16 flex items-center justify-center rounded-full hover:shadow-lg transition-shadow duration-300">
+            <BiUser className="text-3xl text-slate-700" />
           </div>
         </div>
 
