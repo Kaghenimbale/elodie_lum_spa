@@ -1,13 +1,25 @@
 import Location from "./Location";
 import Form from "../services/Form";
+import Image from "next/image";
 
 const page = () => {
   return (
     <div className="pt-[4.5rem] pb-16 flex flex-col gap-5 px-4 lg:px-0 items-center justify-center">
-      <div className="w-full h-[60vh] lg:h-[80vh] bg-[url('/bg-contact.jpg')] bg-cover bg-bottom flex items-center justify-center">
-        <h2 className="text-[1.8rem] md:text-[2.25rem] text-white font-bold px-4 text-center max-w-4xl">
-          Contact Us
-        </h2>
+      <div className="relative w-full h-[60vh] lg:h-[80vh]">
+        <Image
+          src="/bg-contact.webp"
+          alt="Contact background"
+          fill
+          priority
+          quality={100}
+          className="object-cover object-bottom"
+          sizes="100vw"
+        />
+        <div className="absolute inset-0 flex items-center justify-center">
+          <h2 className="text-[1.8rem] md:text-[2.25rem] text-white font-bold px-4 text-center max-w-4xl">
+            Contact Us
+          </h2>
+        </div>
       </div>
 
       <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-10 lg:gap-20 max-w-7xl mx-auto px-4 py-12 w-full lg:w-[70vw]">
