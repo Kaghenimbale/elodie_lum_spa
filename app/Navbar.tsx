@@ -30,9 +30,21 @@ const Navbar = () => {
 
   // Lock body scroll when menu is open
   useEffect(() => {
-    document.body.style.overflow = open ? "hidden" : "";
+    if (open) {
+      document.body.style.position = "fixed";
+      document.body.style.right = "0";
+      document.body.style.left = "0";
+    } else {
+      document.body.style.position = "";
+      document.body.style.right = "";
+      document.body.style.left = "";
+    }
+
     return () => {
-      document.body.style.overflow = "";
+      // Cleanup in case component unmounts while menu is open
+      document.body.style.position = "";
+      document.body.style.right = "";
+      document.body.style.left = "";
     };
   }, [open]);
 
@@ -132,9 +144,6 @@ const Navbar = () => {
           <button
             onClick={() => {
               setOpen(true);
-              document.body.style.position = "fixed";
-              document.body.style.right = "0";
-              document.body.style.left = "0";
             }}
             type="button"
             className="md:hidden"
@@ -205,9 +214,6 @@ const Navbar = () => {
             className="absolute top-6 right-6"
             onClick={() => {
               setOpen(false);
-              document.body.style.position = "";
-              document.body.style.right = "";
-              document.body.style.left = "";
             }}
           >
             <IoCloseCircle className="text-3xl" />
