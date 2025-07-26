@@ -75,7 +75,7 @@ const Navbar = () => {
       <div className="flex justify-between items-center w-full">
         <Link href="/">
           <Image
-            width={150}
+            width={140}
             height={0}
             src="/logo.png"
             priority
