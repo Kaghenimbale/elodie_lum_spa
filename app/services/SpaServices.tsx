@@ -104,13 +104,24 @@ const SpaServices = () => {
             key={service.id}
             className="relative flex justify-center overflow-hidden w-full max-w-xs md:max-w-sm lg:max-w-md xl:max-w-lg h-[500px]"
           >
-            <Image
+            {/* <Image
               src={service.imageUrl}
               alt={service.name}
               width={400}
               height={500}
               className="object-cover w-full h-full transition-transform duration-300 transform hover:scale-105"
               loading="lazy"
+            /> */}
+
+            <Image
+              src={`${service.imageUrl}?tr=w-400,h-500,q-80,f-auto`}
+              alt={service.name}
+              width={400}
+              height={500}
+              className="object-cover w-full h-full transition-transform duration-300 transform hover:scale-105"
+              loading="lazy"
+              placeholder="blur"
+              blurDataURL="/blur-placeholder.jpg" // optional local base64 or tiny image
             />
 
             <div className="absolute bottom-6 bg-white p-4 shadow-lg rounded-lg w-[90%] max-w-md mx-auto flex flex-col gap-2 justify-center items-center">

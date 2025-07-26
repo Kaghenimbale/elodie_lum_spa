@@ -95,8 +95,6 @@ const Testimonial = () => {
           type="button"
           onClick={() => {
             setDisplay(true);
-            // document.body.style.height = "100vh";
-            // document.body.style.width = "100vw";
             document.body.style.position = "fixed";
             document.body.style.right = "0";
             document.body.style.left = "0";
