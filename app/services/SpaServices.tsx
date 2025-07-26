@@ -119,6 +119,13 @@ const SpaServices = () => {
               alt={service.name}
               loading="lazy"
               lqip={{ active: true }}
+              transformation={[
+                {
+                  width: 400,
+                  height: 500,
+                  quality: 20,
+                },
+              ]}
               className="object-cover w-full h-full transition-transform duration-300 transform hover:scale-105"
             />
 
