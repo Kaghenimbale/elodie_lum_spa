@@ -44,6 +44,25 @@ const Testimonial = () => {
     fetchTestimonials();
   }, []);
 
+  useEffect(() => {
+    if (display) {
+      document.body.style.position = "fixed";
+      document.body.style.right = "0";
+      document.body.style.left = "0";
+    } else {
+      document.body.style.position = "";
+      document.body.style.right = "";
+      document.body.style.left = "";
+    }
+
+    return () => {
+      // Cleanup in case component unmounts while menu is open
+      document.body.style.position = "";
+      document.body.style.right = "";
+      document.body.style.left = "";
+    };
+  }, [display]);
+
   return (
     <Fragment>
       <div className="max-w-4xl mx-auto p-4 md:p-10 flex flex-col items-center gap-6">
@@ -95,9 +114,6 @@ const Testimonial = () => {
           type="button"
           onClick={() => {
             setDisplay(true);
-            document.body.style.position = "fixed";
-            document.body.style.right = "0";
-            document.body.style.left = "0";
           }}
           className="bg-cyan-700 hover:bg-cyan-600 text-white px-4 py-2 rounded"
         >
@@ -111,9 +127,6 @@ const Testimonial = () => {
             type="button"
             onClick={() => {
               setDisplay(false);
-              document.body.style.position = "";
-              document.body.style.right = "";
-              document.body.style.left = "";
             }}
             className="absolute right-10 top-10 bg-cyan-700 hover:bg-cyan-600 text-white px-4 py-2 rounded"
           >
