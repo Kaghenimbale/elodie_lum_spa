@@ -27,7 +27,7 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto px-6 flex flex-col items-center gap-10">
         {/* Email Signup */}
         <div className="flex flex-col gap-6 max-w-3xl w-full text-center items-center">
-          <h2 className="text-2xl md:text-3xl font-bold">
+          <h2 className="text-[1.5rem] md:text-[1.8rem] font-bold">
             Join our email list for exclusive offers and the latest news.
           </h2>
           <Form />
