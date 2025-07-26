@@ -9,6 +9,7 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { app } from "@/firebase/config";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { IKImage } from "imagekitio-react";
 
 const SpaServices = () => {
   const [services, setServices] = useState<any[]>([]);
@@ -113,7 +114,15 @@ const SpaServices = () => {
               loading="lazy"
             /> */}
 
-            <Image
+            <IKImage
+              src={`${service.imageUrl}?tr=w-400,h-500,q-80,f-auto`} // dynamic ImageKit URL
+              alt={service.name}
+              loading="lazy"
+              lqip={{ active: true }}
+              className="object-cover w-full h-full transition-transform duration-300 transform hover:scale-105"
+            />
+
+            {/* <Image
               src={`${service.imageUrl}?tr=w-400,h-500,q-80,f-auto`}
               alt={service.name}
               width={400}
@@ -122,7 +131,7 @@ const SpaServices = () => {
               loading="lazy"
               placeholder="blur"
               blurDataURL="/blur-placeholder.jpg" // optional local base64 or tiny image
-            />
+            /> */}
 
             <div className="absolute bottom-6 bg-white p-4 shadow-lg rounded-lg w-[90%] max-w-md mx-auto flex flex-col gap-2 justify-center items-center">
               {editingId === service.id ? (
