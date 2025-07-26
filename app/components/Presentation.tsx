@@ -4,7 +4,7 @@ import Link from "next/link";
 
 const Presentation = () => {
   return (
-    <section className="relative h-[85vh] mt-16 bg-[url('/bg3.jpg')] bg-cover bg-center flex items-center justify-center">
+    <section className="relative h-[85vh] mt-16 bg-[url('/bg3.webp')] bg-cover bg-center flex items-center justify-center">
       {/* Overlay */}
       <div className="absolute inset-0 bg-black/40 z-0" />
 
