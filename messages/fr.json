@@ -37,5 +37,70 @@
       { "days": "Samedi", "hours": "14h00 - 18h00" },
       { "days": "Dimanche", "hours": "14h00 - 18h00" }
     ]
+  },
+  "wellness1": {
+    "title": "Votre bien-être",
+    "description": "Priorisez votre harmonie intérieure et votre éclat extérieur grâce à notre expérience bien-être exclusive. Ce voyage soigneusement conçu commence par votre entrée au lagon bleu, suivi d’un masque purifiant à la boue de silice pour le visage et le corps. Profitez d’un confort absolu avec l’utilisation de serviettes douces et d’un peignoir moelleux, pour une évasion véritablement réparatrice.",
+    "items": [
+      "Entrée au lagon bleu",
+      "Masque à la boue de silice (visage et corps)",
+      "Utilisation de serviette douce et de peignoir"
+    ],
+    "link": "RÉSERVER MAINTENANT",
+    "serviceList": [
+      {
+        "icon": "/aroma.png",
+        "title": "Aromathérapie Deluxe",
+        "price": "$48",
+        "desc": "Détendez-vous et revitalisez-vous avec des mélanges d’huiles essentielles."
+      },
+      {
+        "icon": "/bol2.png",
+        "title": "Sauna Relax",
+        "price": "$36",
+        "desc": "Favorise la relaxation musculaire et le nettoyage du corps."
+      },
+      {
+        "icon": "/massage-des-pieds.png",
+        "title": "Spa Géothermal",
+        "price": "$36",
+        "desc": "Expérience thérapeutique de bain minéral."
+      },
+      {
+        "icon": "/bois.png",
+        "title": "Sauna Finlandais",
+        "price": "$36",
+        "desc": "Purifiez et revitalisez-vous dans un sauna classique."
+      },
+      {
+        "icon": "/massage2.png",
+        "title": "Masques Visage",
+        "price": "$48",
+        "desc": "Hydratez et revitalisez votre peau."
+      },
+      {
+        "icon": "/detente.png",
+        "title": "Massage Corps Complet",
+        "price": "$48",
+        "desc": "Relaxation profonde et soulagement des tensions musculaires."
+      },
+      {
+        "icon": "/sauna4.png",
+        "title": "Aromathérapie Prolongée",
+        "price": "$48",
+        "desc": "Améliorez votre bien-être grâce aux huiles aromatiques."
+      },
+      {
+        "icon": "/sauna2.png",
+        "title": "Aromathérapie Express",
+        "price": "$36",
+        "desc": "Rafraîchissement aromatique rapide pour l’esprit et le corps."
+      }
+    ]
+  },
+  "place": {
+    "title": "Un lieu de véritable splendeur",
+    "description": "Là où commence votre voyage vers la détente, la beauté et la confiance en soi. Ici, vous découvrirez une sélection soignée de soins luxueux, de forfaits spa personnalisés et d’une expertise dédiée rien que pour vous. Notre site web est votre guide vers tout ce que nous offrons — des soins du visage revitalisants et des thérapies corporelles aux promotions exclusives et à la prise de rendez-vous simplifiée. Conçu avec élégance et simplicité, notre espace en ligne reflète l’atmosphère paisible que vous retrouverez dans notre spa. Prenez votre temps, explorez nos services et réservez votre moment de splendeur dès aujourd’hui. Car chez ELODIA BEAUTY & SPA, votre beauté et votre bien-être comptent réellement.",
+    "link": "RÉSERVER MAINTENANT"
   }
 }

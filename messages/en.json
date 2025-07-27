@@ -30,12 +30,77 @@
   },
   "hours": {
     "title": "Working Hours",
-    "decsription": "We’re here to welcome you throughout the week with flexible hours designed to suit your lifestyle. Whether you're planning a quick treatment or a full pampering session, there’s always time to relax at ELODIA Beauty and Spa.",
+    "description": "We’re here to welcome you throughout the week with flexible hours designed to suit your lifestyle. Whether you're planning a quick treatment or a full pampering session, there’s always time to relax at ELODIA Beauty and Spa.",
     "schedule": [
       { "days": "Monday to Tuesday", "hours": "10 AM - 7 PM" },
       { "days": "Wednesday to Thursday", "hours": "10 AM - 6 PM" },
       { "days": "Saturday", "hours": "2 PM - 6 PM" },
       { "days": "Sunday", "hours": "2 PM - 6 PM" }
     ]
+  },
+  "wellness1": {
+    "title": "Your Wellbeing",
+    "description": "Prioritize your inner harmony and outer radiance with our exclusive wellbeing experience. This carefully curated journey begins with your entrance to the blue lagoon, followed by a purifying silica mud mask for both face and body. Indulge in complete comfort with the use of soft towels and a plush bathrobe, ensuring a truly restorative escape.",
+    "items": [
+      "Entrance to the blue lagoon",
+      "Silica mud mask (face and body)",
+      "Use of soft towel and bathrobe"
+    ],
+    "link": "BOOK NOW",
+    "serviceList": [
+      {
+        "icon": "/aroma.png",
+        "title": "Deluxe Aroma Therapy",
+        "price": "$48",
+        "desc": "Relax and rejuvenate with essential oil blends."
+      },
+      {
+        "icon": "/bol2.png",
+        "title": "Sauna Relax",
+        "price": "$36",
+        "desc": "Promotes muscle relaxation and cleansing."
+      },
+      {
+        "icon": "/massage-des-pieds.png",
+        "title": "Geothermal Spa",
+        "price": "$36",
+        "desc": "Therapeutic mineral bath experience."
+      },
+      {
+        "icon": "/bois.png",
+        "title": "Finnish Sauna",
+        "price": "$36",
+        "desc": "Purify and revitalize in classic sauna."
+      },
+      {
+        "icon": "/massage2.png",
+        "title": "Face Masks",
+        "price": "$48",
+        "desc": "Hydrate and revitalize your skin."
+      },
+      {
+        "icon": "/detente.png",
+        "title": "Full Body Massage",
+        "price": "$48",
+        "desc": "Deep relaxation and muscle tension relief."
+      },
+      {
+        "icon": "/sauna4.png",
+        "title": "Extended Aroma Therapy",
+        "price": "$48",
+        "desc": "Enhance well-being through aromatic oils."
+      },
+      {
+        "icon": "/sauna2.png",
+        "title": "Aroma Therapy Express",
+        "price": "$36",
+        "desc": "Quick aromatic refresh for mind and spirit."
+      }
+    ]
+  },
+  "place": {
+    "title": "A Place of True Splendor",
+    "description": "Where your journey to relaxation, beauty, and self-confidence begins. Here, you’ll discover a curated selection of luxurious treatments, personalized spa packages, and expert care tailored just for you. Our website is your guide to everything we offer — from rejuvenating facials and body therapies to exclusive promotions and effortless appointment booking. Designed with elegance and simplicity, our online space reflects the peaceful atmosphere you’ll find inside our spa. Take your time, explore our services, and book your moment of splendor today. Because at ELODIA BEAUTY & SPA, your beauty and well-being truly matter.",
+    "link": "BOOK NOW"
   }
 }

@@ -1,59 +1,18 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
 
 const Wellness1 = () => {
-  const services = [
-    {
-      icon: "/aroma.png",
-      title: "Deluxe Aroma Therapy",
-      price: "$48",
-      desc: "Relax and rejuvenate with essential oil blends.",
-    },
-    {
-      icon: "/bol2.png",
-      title: "Sauna Relax",
-      price: "$36",
-      desc: "Promotes muscle relaxation and cleansing.",
-    },
-    {
-      icon: "/massage-des-pieds.png",
-      title: "Geothermal Spa",
-      price: "$36",
-      desc: "Therapeutic mineral bath experience.",
-    },
-    {
-      icon: "/bois.png",
-      title: "Finnish Sauna",
-      price: "$36",
-      desc: "Purify and revitalize in classic sauna.",
-    },
-    {
-      icon: "/massage2.png",
-      title: "Face Masks",
-      price: "$48",
-      desc: "Hydrate and revitalize your skin.",
-    },
-    {
-      icon: "/detente.png",
-      title: "Full Body Massage",
-      price: "$48",
-      desc: "Deep relaxation and muscle tension relief.",
-    },
-    {
-      icon: "/sauna4.png",
-      title: "Extended Aroma Therapy",
-      price: "$48",
-      desc: "Enhance well-being through aromatic oils.",
-    },
-    {
-      icon: "/sauna2.png",
-      title: "Aroma Therapy Express",
-      price: "$36",
-      desc: "Quick aromatic refresh for mind and spirit.",
-    },
-  ];
+  const t = useTranslations("wellness1");
+  const items = t.raw("items");
+  const services = t.raw("serviceList") as {
+    icon: any;
+    title: string;
+    price: string;
+    desc: string;
+  }[];
 
   return (
     <section className="flex flex-col items-center py-16 px-4 space-y-16 bg-white">
@@ -61,25 +20,20 @@ const Wellness1 = () => {
       <div className="flex flex-col md:flex-row justify-center items-center gap-12 lg:gap-20">
         {/* Text content */}
         <div className="flex flex-col gap-6 md:gap-10 max-w-xl">
-          <h3 className="text-3xl font-bold text-cyan-950">Your Wellbeing</h3>
+          <h3 className="text-3xl font-bold text-cyan-950">{t("title")}</h3>
           <p className="text-gray-700 font-light leading-relaxed">
-            Prioritize your inner harmony and outer radiance with our exclusive
-            wellbeing experience. This carefully curated journey begins with
-            your entrance to the blue lagoon, followed by a purifying silica mud
-            mask for both face and body. Indulge in complete comfort with the
-            use of soft towels and a plush bathrobe, ensuring a truly
-            restorative escape.
+            {t("description")}
           </p>
           <ul className="list-disc list-inside text-gray-700 font-light space-y-1">
-            <li>Entrance to the blue lagoon</li>
-            <li>Silica mud mask (face and body)</li>
-            <li>Use of soft towel and bathrobe</li>
+            {items.map((item: string, index: number) => (
+              <li key={index}>{item}</li>
+            ))}
           </ul>
           <Link
             href="/services"
             className="self-start bg-cyan-800 text-white text-sm px-5 py-2 rounded hover:bg-cyan-700 transition duration-300"
           >
-            BOOK NOW
+            {t("link")}
           </Link>
         </div>
 
