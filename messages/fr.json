@@ -102,5 +102,10 @@
     "title": "Un lieu de véritable splendeur",
     "description": "Là où commence votre voyage vers la détente, la beauté et la confiance en soi. Ici, vous découvrirez une sélection soignée de soins luxueux, de forfaits spa personnalisés et d’une expertise dédiée rien que pour vous. Notre site web est votre guide vers tout ce que nous offrons — des soins du visage revitalisants et des thérapies corporelles aux promotions exclusives et à la prise de rendez-vous simplifiée. Conçu avec élégance et simplicité, notre espace en ligne reflète l’atmosphère paisible que vous retrouverez dans notre spa. Prenez votre temps, explorez nos services et réservez votre moment de splendeur dès aujourd’hui. Car chez ELODIA BEAUTY & SPA, votre beauté et votre bien-être comptent réellement.",
     "link": "RÉSERVER MAINTENANT"
+  },
+  "footer": {
+    "title": "Inscrivez-vous à notre liste e-mail pour recevoir des offres exclusives et les dernières nouveautés.",
+    "description": "Découvrez des soins de luxe conçus pour sublimer votre beauté naturelle et renforcer votre confiance.",
+    "link": "S'INSCRIRE"
   }
 }

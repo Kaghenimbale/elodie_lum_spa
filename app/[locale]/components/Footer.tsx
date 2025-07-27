@@ -12,9 +12,16 @@ import {
   FaTiktok,
   FaWhatsapp,
 } from "react-icons/fa";
+import { useTranslations } from "next-intl";
 
 const Footer = () => {
   const date = new Date();
+  const t = useTranslations("hours");
+  const t1 = useTranslations("footer");
+  const schedule = t.raw("schedule") as {
+    days: any;
+    hours: string;
+  }[];
 
   const handleStripePayment = async () => {
     const res = await fetch("/api/checkout", { method: "POST" });
@@ -28,7 +35,7 @@ const Footer = () => {
         {/* Email Signup */}
         <div className="flex flex-col gap-6 max-w-3xl w-full text-center items-center">
           <h2 className="text-[1.5rem] md:text-[1.8rem] font-bold">
-            Join our email list for exclusive offers and the latest news.
+            {t1("title")}
           </h2>
           <Form />
         </div>
@@ -41,15 +48,12 @@ const Footer = () => {
           {/* About */}
           <div className="flex flex-col gap-5 max-w-xs">
             <h3 className="text-xl font-bold">ELODIA BEAUTY & SPA</h3>
-            <p className="font-thin">
-              Explore luxury treatments designed to enhance your natural beauty
-              and boost your confidence.
-            </p>
+            <p className="font-thin">{t1("description")}</p>
             <Link
               href="/signIn"
               className="inline-block w-fit bg-cyan-800 text-white text-sm px-5 py-2 rounded hover:bg-cyan-700 transition"
             >
-              SIGN IN
+              {t1("link")}
             </Link>
           </div>
 
@@ -141,23 +145,16 @@ const Footer = () => {
             <h3 className="text-xl font-bold text-center md:text-left">
               Opening Hours
             </h3>
-            <div className="space-y-2 font-thin">
-              <div className="flex justify-between">
-                <span>Monday to Tuesday</span>
-                <span>10 AM - 7 PM</span>
-              </div>
-              <div className="flex justify-between">
-                <span>Wednesday to Thursday</span>
-                <span>10 AM - 6 PM</span>
-              </div>
-              <div className="flex justify-between">
-                <span>Saturday</span>
-                <span>2 AM - 6 PM</span>
-              </div>
-              <div className="flex justify-between">
-                <span>Sunday</span>
-                <span>2 AM - 6 PM</span>
-              </div>
+            <div className="w-full max-w-md space-y-2 mx-auto lg:mx-0">
+              {schedule.map(({ days, hours }, i) => (
+                <div
+                  key={i}
+                  className="flex justify-between font-light text-gray-800"
+                >
+                  <span>{days}</span>
+                  <span className="whitespace-nowrap">{hours}</span>
+                </div>
+              ))}
             </div>
 
             <ul className="flex gap-4 justify-center md:justify-start mt-4">
