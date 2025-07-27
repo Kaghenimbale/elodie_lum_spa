@@ -22,5 +22,20 @@
         "description": "Let tension melt away with our customized massages. Whether you're seeking stress relief or muscle recovery, our techniques help you feel lighter, relaxed, and renewed."
       }
     ]
+  },
+  "wellness": {
+    "title": "Wellness & Spa",
+    "description": "Escape to our serene Wellness & Spa. Discover a haven where tranquility meets rejuvenation. Our expert treatments are designed to soothe your senses, relax your mind, and revitalize your body. Indulge in an experience tailored for your ultimate well-being.",
+    "link": "BOOK NOW"
+  },
+  "hours": {
+    "title": "Working Hours",
+    "decsription": "We’re here to welcome you throughout the week with flexible hours designed to suit your lifestyle. Whether you're planning a quick treatment or a full pampering session, there’s always time to relax at ELODIA Beauty and Spa.",
+    "schedule": [
+      { "days": "Monday to Tuesday", "hours": "10 AM - 7 PM" },
+      { "days": "Wednesday to Thursday", "hours": "10 AM - 6 PM" },
+      { "days": "Saturday", "hours": "2 PM - 6 PM" },
+      { "days": "Sunday", "hours": "2 PM - 6 PM" }
+    ]
   }
 }

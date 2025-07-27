@@ -22,5 +22,20 @@
         "description": "Laissez la tension s’envoler avec nos massages personnalisés. Que vous recherchiez une détente ou une récupération musculaire, nos techniques vous procurent légèreté, détente et renouveau."
       }
     ]
+  },
+  "wellness": {
+    "title": "Bien-être & Spa",
+    "description": "Évadez-vous dans notre havre de paix Bien-être & Spa. Découvrez un lieu où la tranquillité rencontre la régénération. Nos soins experts sont conçus pour apaiser vos sens, détendre votre esprit et revitaliser votre corps. Offrez-vous une expérience conçue pour votre bien-être ultime.",
+    "link": "RÉSERVER MAINTENANT"
+  },
+  "hours": {
+    "title": "Heures d'ouverture",
+    "description": "Nous sommes là pour vous accueillir tout au long de la semaine avec des horaires flexibles adaptés à votre mode de vie. Que vous planifiiez un soin rapide ou une séance de détente complète, il y a toujours un moment pour se relaxer chez ELODIA Beauty and Spa.",
+    "schedule": [
+      { "days": "Lundi à Mardi", "hours": "10h00 - 19h00" },
+      { "days": "Mercredi à Jeudi", "hours": "10h00 - 18h00" },
+      { "days": "Samedi", "hours": "14h00 - 18h00" },
+      { "days": "Dimanche", "hours": "14h00 - 18h00" }
+    ]
   }
 }
