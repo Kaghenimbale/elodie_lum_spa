@@ -2,5 +2,25 @@
   "Presentation": {
     "title": "Chez Elodia Beauty & SPA, votre beauté est notre priorité. Bienvenue dans un havre de splendeur créé spécialement pour vous.",
     "link": "VOIR PLUS"
+  },
+  "beauty": {
+    "description": "Votre beauté est notre priorité absolue ; elle est au cœur de tout ce que nous faisons. Chez ELODIA BEAUTY & SPA, nous vous proposons un espace luxueux où élégance et confort se marient. Chaque détail est pensé pour vous aider à vous détendre, à vous ressourcer et à rayonner. Que ce soit votre première ou votre dixième visite, vous vous sentirez comme chez vous. Entrez dans un univers de splendeur créé spécialement pour vous.",
+    "services": [
+      {
+        "icon": "/bol.png",
+        "title": "Épilation",
+        "description": "Dites adieu aux poils indésirables avec nos services d'épilation douce. Conçus pour tous les types de peau, nos soins laissent votre peau lisse, propre et éclatante pendant des semaines."
+      },
+      {
+        "icon": "/detente.png",
+        "title": "Soin Visage Elodia",
+        "description": "Rafraîchissez votre visage avec notre soin signature combinant nettoyage en profondeur et pierres volcaniques chaudes. Idéal pour les peaux fatiguées ou ternes, il restaure l'hydratation et l'éclat naturel."
+      },
+      {
+        "icon": "/sauna2.png",
+        "title": "Massage",
+        "description": "Laissez la tension s’envoler avec nos massages personnalisés. Que vous recherchiez une détente ou une récupération musculaire, nos techniques vous procurent légèreté, détente et renouveau."
+      }
+    ]
   }
 }

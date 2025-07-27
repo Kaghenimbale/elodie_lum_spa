@@ -2,5 +2,25 @@
   "Presentation": {
     "title": "At Elodia Beauty & SPA, your beauty is our priority. Welcome to a haven of splendor created especially for you.",
     "link": "VIEW MORE"
+  },
+  "beauty": {
+    "description": "Your beauty truly matters to us — it’s at the heart of everything we do. At ELODIA BEAUTY & SPA, we offer a luxurious space where elegance meets comfort. Each detail is designed to help you relax, recharge, and shine. Whether it's your first visit or your tenth, you'll feel right at home. Step into a world of splendor made just for you.",
+    "services": [
+      {
+        "icon": "/bol.png",
+        "title": "Hair Removal",
+        "description": "Say goodbye to unwanted hair with our gentle waxing services. Designed for all skin types, our treatments leave your skin smooth, clean, and glowing for weeks."
+      },
+      {
+        "icon": "/detente.png",
+        "title": "Basic Elodia Facial",
+        "description": "Refresh your face with our signature facial that combines deep cleansing and warm volcanic stones. Ideal for tired or dull skin, it restores hydration and natural radiance."
+      },
+      {
+        "icon": "/sauna2.png",
+        "title": "Massage",
+        "description": "Let tension melt away with our customized massages. Whether you're seeking stress relief or muscle recovery, our techniques help you feel lighter, relaxed, and renewed."
+      }
+    ]
   }
 }
