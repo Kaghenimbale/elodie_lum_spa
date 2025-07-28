@@ -1,25 +1,17 @@
 import Image from "next/image";
 import Testimonial from "../components/Testimonial";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 
 const page = () => {
+  const t = useTranslations("about-us");
+  const t1 = useTranslations("wellness1");
+  const items = t1.raw("items");
   return (
     <div className="pt-28 pb-16 flex flex-col gap-5 px-4 lg:px-0">
       <div className="flex flex-col gap-5 items-center justify-center">
-        <h2 className="text-[2rem] font-bold">
-          Welcome to Elodia Beauty & Spa
-        </h2>
-        <p className="lg:w-[60rem] font-thin text-center">
-          Welcome to ELODIA BEAUTY & SPA. Imagine stepping into a haven where
-          the everyday stresses melt away, and a renewed sense of well-being
-          takes over. Revival Med Spa offers this escape at our convenient
-          locations across NYC, Brooklyn, and Long Island. We’ve thoughtfully
-          combined the peaceful ambiance of a luxury spa with the transformative
-          power of cutting-edge medical aesthetics and wellness solutions to
-          provide you with an unparalleled experience. At Revival Med Spa, our
-          mission is simple: to empower you to look and feel your absolute best
-          through personalized care and the most advanced treatments available.
-        </p>
+        <h2 className="text-[2rem] font-bold">{t("title")}</h2>
+        <p className="lg:w-[60rem] font-thin text-center">{t("description")}</p>
       </div>
 
       <div>
@@ -38,19 +30,12 @@ const page = () => {
           </div>
           <div className="flex flex-col gap-5 md:gap-10 p-4 md:p-0 ">
             <h3 className="text-[2rem] font-bold">AB & Spa</h3>
-            <p className="md:w-[30vw] font-thin">
-              At AB & Spa, we invite you to prioritize your inner harmony and
-              outer radiance with our exclusive wellbeing experience. This
-              carefully curated journey begins with your entrance to the blue
-              lagoon, followed by a purifying silica mud mask for both face and
-              body. Indulge in complete comfort with the use of soft towels and
-              a plush bathrobe, ensuring a truly restorative escape.
-            </p>
+            <p className="md:w-[30vw] font-thin">{t("about-us-abs")}</p>
             <Link
               href="/services"
               className="text-white text-[0.9rem] bg-cyan-800 w-fit px-4 py-2 rounded hover:bg-cyan-700 transition-all duration-300 ease-in-out"
             >
-              BOOK NOW
+              {t("link")}
             </Link>
           </div>
         </div>
@@ -58,27 +43,18 @@ const page = () => {
 
       <div className="flex flex-col md:flex-row justify-center items-center gap-5 md:gap-10 lg:gap-20 py-20">
         <div className="flex flex-col gap-5 md:gap-10 p-4 md:p-0 ">
-          <h3 className="text-[2rem] font-bold">Your Wellbeing</h3>
-          <p className="md:w-[30vw] font-thin">
-            Our commitment lies in offering a diverse range of services, from
-            our invigorating Finnish sauna and serene geothermal spa to our
-            specialized facial and body treatments, all delivered with
-            meticulous attention and heartfelt care. We believe in fostering a
-            community of wellness, where guests can escape the everyday, relieve
-            stress, and emerge feeling completely revitalized. Your journey to
-            balance and renewed vitality begins here, at AB & Spa, where your
-            well-being is our utmost priority.
-          </p>
+          <h3 className="text-[2rem] font-bold">{t1("title")}</h3>
+          <p className="md:w-[30vw] font-thin">{t("description1")}</p>
           <ul className="list-disc font-thin list-item">
-            <li>Entrance to the blue lagoon</li>
-            <li>Silica mud mask(face and body)</li>
-            <li>Use of soft towel and bathrobe</li>
+            {items.map((item: string, index: number) => (
+              <li key={index}>{item}</li>
+            ))}
           </ul>
           <Link
             href="/services"
             className="text-white text-[0.9rem] bg-cyan-800 w-fit px-4 py-2 rounded hover:bg-cyan-700 transition-all duration-300 ease-in-out"
           >
-            BOOK NOW
+            {t("link")}
           </Link>
         </div>
         <div className="relative flex items-center justify-center">
@@ -98,22 +74,9 @@ const page = () => {
       <Testimonial />
 
       <div className="flex flex-col gap-5 items-center justify-center">
-        <h2 className="text-[2rem] font-bold">OUR TEAM</h2>
+        <h2 className="text-[2rem] font-bold">{t("team-title")}</h2>
         <p className="md:w-[70rem] font-thin text-center">
-          Our Expert Team & Comprehensive Services. Our team of skilled and
-          licensed practitioners are passionate about helping you achieve your
-          unique aesthetic and wellness goals. We offer a comprehensive menu of
-          services tailored to your individual needs, including: Advanced
-          Aesthetic Treatments: Customized facials, chemical peels,
-          microdermabrasion, Diamond Glow, and more. Revitalizing Laser
-          Therapies: Hair removal, skin resurfacing, vein treatments, and more.
-          The Latest in Injectables: Botox, dermal fillers, and other advanced
-          cosmetic injectables to restore volume, smooth lines, and enhance your
-          natural features. Luxurious Face & Body Care: Relaxing massages, body
-          wraps, and specialized treatments. Revitalizing IV Shots & Drips:
-          Boost your energy, immunity, and overall wellness from the inside out.
-          Weight Loss Programs: Personalized plans to help you achieve your
-          weight management goals safely and effectively. And More!
+          {t("team-description")}
         </p>
       </div>
     </div>

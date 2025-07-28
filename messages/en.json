@@ -107,5 +107,50 @@
     "title": "Join our email list for exclusive offers and the latest news.",
     "description": "Explore luxury treatments designed to enhance your natural beauty and boost your confidence.",
     "link": "SIGN IN"
+  },
+  "about-us": {
+    "title": "Welcome to Elodia Beauty & Spa",
+    "description": "Welcome to ELODIA BEAUTY & SPA. Imagine stepping into a haven where the everyday stresses melt away, and a renewed sense of well-being takes over. Revival Med Spa offers this escape at our convenient locations across NYC, Brooklyn, and Long Island. We’ve thoughtfully combined the peaceful ambiance of a luxury spa with the transformative power of cutting-edge medical aesthetics and wellness solutions to provide you with an unparalleled experience. At Revival Med Spa, our mission is simple: to empower you to look and feel your absolute best through personalized care and the most advanced treatments available.",
+    "description1": "Our commitment lies in offering a diverse range of services, from our invigorating Finnish sauna and serene geothermal spa to our specialized facial and body treatments, all delivered with meticulous attention and heartfelt care. We believe in fostering a community of wellness, where guests can escape the everyday, relieve stress, and emerge feeling completely revitalized. Your journey to balance and renewed vitality begins here, at AB & Spa, where your well-being is our utmost priority.",
+    "about-us-abs": "At AB & Spa, we invite you to prioritize your inner harmony and outer radiance with our exclusive wellbeing experience. This carefully curated journey begins with your entrance to the blue lagoon, followed by a purifying silica mud mask for both face and body. Indulge in complete comfort with the use of soft towels and a plush bathrobe, ensuring a truly restorative escape.",
+    "link": "BOOK NOW",
+    "team-title": "OUR TEAM",
+    "team-description": "Our Expert Team & Comprehensive Services. Our team of skilled and licensed practitioners are passionate about helping you achieve your unique aesthetic and wellness goals. We offer a comprehensive menu of services tailored to your individual needs, including: Advanced Aesthetic Treatments: Customized facials, chemical peels, microdermabrasion, Diamond Glow, and more. Revitalizing Laser Therapies: Hair removal, skin resurfacing, vein treatments, and more. The Latest in Injectables: Botox, dermal fillers, and other advanced cosmetic injectables to restore volume, smooth lines, and enhance your natural features. Luxurious Face & Body Care: Relaxing massages, body wraps, and specialized treatments. Revitalizing IV Shots & Drips: Boost your energy, immunity, and overall wellness from the inside out. Weight Loss Programs: Personalized plans to help you achieve your weight management goals safely and effectively. And More!"
+  },
+  "service": {
+    "title": "Spa Packages and Body Treatments",
+    "description": "Explore luxury treatments designed to enhance your natural beauty and boost your confidence. At our spa, every service is crafted to help you feel renewed, radiant, and deeply relaxed. Whether you're seeking a moment of calm, a full-body transformation, or a complete wellness escape, our carefully curated spa packages deliver the results you deserve. Our body treatments are more than skin-deep — they detoxify, smooth, and invigorate your entire being. From nourishing body wraps to exfoliating scrubs and sculpting therapies, each session is customized to your needs and desired outcomes. Indulge in the harmony of beauty and wellness — because self-care is not a luxury, it’s a necessity.",
+    "icons": [
+      {
+        "title": "OIL THERAPY",
+        "icon": "/aroma.png"
+      },
+      {
+        "title": "DAY SPA",
+        "icon": "/massage.png"
+      },
+      {
+        "title": "FACIAL",
+        "icon": "/detente.png"
+      },
+      {
+        "title": "MASSAGE",
+        "icon": "/massage-des-pieds.png"
+      }
+    ],
+    "title1": "EB & SPA Center",
+    "description1": "Indulge in luxury treatments tailored to reveal your natural beauty and elevate your self-confidence. Our expert team combines science and artistry to deliver personalized care in a serene, spa-like setting. From rejuvenating facials to advanced body treatments, each service is designed with your well-being in mind. Experience the perfect blend of elegance, innovation, and results-driven care. Because you deserve to feel radiant, confident, and completely refreshed.",
+    "features": [
+      "Luxury Experience",
+      "Confidence Boosting",
+      "Natural Beauty Enhancement",
+      "Personalized Care"
+    ]
+  },
+  "contact": {
+    "title": "Contact Us",
+    "email": "Email",
+    "phone": "Phone",
+    "Address": "Address"
   }
 }

@@ -17,6 +17,7 @@ import { useTranslations } from "next-intl";
 const Footer = () => {
   const date = new Date();
   const t = useTranslations("hours");
+  const tc = useTranslations("contact");
   const t1 = useTranslations("footer");
   const schedule = t.raw("schedule") as {
     days: any;
@@ -80,17 +81,17 @@ const Footer = () => {
               Contact Us
             </h3>
             <address className="not-italic whitespace-pre-line">
-              598 Concession str, Hamilton, <br />
+              {tc("Address")}: 598 Concession str, Hamilton, <br />
               Ontario, L8V 1B3, Canada
             </address>
             <Link
               href="mailto:Elodiabspa@gmail.com"
               className="hover:underline"
             >
-              Elodiabspa@gmail.com
+              {tc("email")}: Elodiabspa@gmail.com
             </Link>
             <Link href="tel:+14376650194" className="hover:underline">
-              Phone: +1 (437) 665-0194
+              {tc("phone")}: +1 (437) 665-0194
             </Link>
             <ul className="flex gap-6 mt-4 justify-center md:justify-start">
               <li>

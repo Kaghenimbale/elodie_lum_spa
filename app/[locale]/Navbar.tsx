@@ -8,6 +8,7 @@ import { IoCloseCircle } from "react-icons/io5";
 import { signOut, onAuthStateChanged, User } from "firebase/auth";
 import { auth } from "@/firebase/config";
 import { useRouter } from "next/navigation";
+import LanguageSwitcher from "./components/LanguageSwitcher";
 
 const Navbar = () => {
   const commonLinks = ["HOME", "ABOUT US", "SERVICES", "CONTACT"];
@@ -220,6 +221,7 @@ const Navbar = () => {
           </button>
         </div>
       )}
+      <LanguageSwitcher />
     </nav>
   );
 };

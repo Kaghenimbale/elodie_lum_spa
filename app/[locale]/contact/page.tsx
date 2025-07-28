@@ -1,8 +1,15 @@
 import Location from "./Location";
 import Form from "../services/Form";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 
 const page = () => {
+  const t = useTranslations("contact");
+  const t1 = useTranslations("hours");
+  const schedule = t1.raw("schedule") as {
+    days: any;
+    hours: string;
+  }[];
   return (
     <div className="pt-[4.5rem] pb-16 flex flex-col gap-5 px-4 lg:px-0 items-center justify-center">
       <div className="relative w-full h-[60vh] lg:h-[80vh]">
@@ -17,7 +24,7 @@ const page = () => {
         />
         <div className="absolute inset-0 flex items-center justify-center">
           <h2 className="text-[1.8rem] md:text-[2.25rem] text-white font-bold px-4 text-center max-w-4xl">
-            Contact Us
+            {t("title")}
           </h2>
         </div>
       </div>
@@ -30,25 +37,21 @@ const page = () => {
             <h3 className="text-xl font-bold mb-4">EB & SPA</h3>
             <div className="flex flex-col gap-3 font-thin text-gray-800">
               <span>
-                598 Concession str, Hamilton, Ontario, L8V 1B3, Canada
+                {t("Address")}: 598 Concession str, Hamilton, Ontario, L8V 1B3,
+                Canada
               </span>
-              <span>elodiabspa@gmail.com</span>
-              <span>Phone: +1 (289) 206-1802</span>
+              <span>{t("email")}: elodiabspa@gmail.com</span>
+              <span>{t("phone")}: +1 (289) 206-1802</span>
             </div>
           </div>
 
           {/* Opening Hours */}
           <div>
-            <h3 className="text-xl font-bold mb-4">Opening Hours</h3>
+            <h3 className="text-xl font-bold mb-4">{t1("title")}</h3>
             <div className="w-full max-w-sm space-y-3 font-thin text-gray-700">
-              {[
-                { day: "Monday to Tuesday", hours: "10 AM - 7 PM" },
-                { day: "Wednesday to Thursday", hours: "10 AM - 6 PM" },
-                { day: "Saturday", hours: "2 AM - 6 PM" },
-                { day: "Sunday", hours: "2 AM - 6 PM" },
-              ].map(({ day, hours }) => (
-                <div key={day} className="flex justify-between">
-                  <span>{day}</span>
+              {schedule.map(({ days, hours }) => (
+                <div key={days} className="flex justify-between">
+                  <span>{days}</span>
                   <span className="whitespace-nowrap">{hours}</span>
                 </div>
               ))}
