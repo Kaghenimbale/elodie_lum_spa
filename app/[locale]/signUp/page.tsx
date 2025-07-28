@@ -6,7 +6,6 @@ import { useState, FormEvent } from "react";
 import {
   createUserWithEmailAndPassword,
   fetchSignInMethodsForEmail,
-  onAuthStateChanged,
   signInWithPopup,
 } from "firebase/auth";
 import { auth, googleProvider } from "@/firebase/config";
@@ -14,10 +13,14 @@ import { useRouter } from "next/navigation";
 import { FcGoogle } from "react-icons/fc";
 import { createUserInFirestore } from "@/lib/userService";
 import { IoEye, IoEyeOff } from "react-icons/io5";
+import { ClipLoader } from "react-spinners";
 
 const Page = () => {
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
   const [data, setData] = useState({
     email: "",
     password: "",
@@ -30,17 +33,20 @@ const Page = () => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setErrorMessage("");
+    setSuccessMessage("");
 
     if (data.password.length < 6) {
-      alert("Password must be at least 6 characters");
+      setErrorMessage("Password must be at least 6 characters");
       return;
     }
 
     try {
+      setLoading(true);
       const methods = await fetchSignInMethodsForEmail(auth, data.email);
 
       if (methods.includes("google.com")) {
-        alert(
+        setErrorMessage(
           "This email is already registered with Google. Please use 'Sign in with Google'."
         );
         return;
@@ -66,30 +72,31 @@ const Page = () => {
         }),
       });
 
-      // console.log("Referral code:", referralCode);
-
-      alert("Account created successfully!");
+      setSuccessMessage("Account created successfully!");
       router.push("/userProfile");
     } catch (error: any) {
+      setErrorMessage(error.message);
       console.error("Error creating user:", error.message);
-      alert(error.message);
+    } finally {
+      setLoading(false);
+      setData({ email: "", password: "", referralCode: "" });
     }
-
-    setData({ email: "", password: "", referralCode: "" });
   };
 
   const handleGoogleLogin = async () => {
     try {
+      setLoading(true);
+      setErrorMessage("");
+      setSuccessMessage("");
+
       const result = await signInWithPopup(auth, googleProvider);
       const user = result.user;
 
-      // 1. Create user profile in Firestore (generates referralCode)
       const referralCode = await createUserInFirestore(
         user,
         data.referralCode || null
       );
 
-      // 2. Send referral email to user
       await fetch("/api/send-referral", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -99,17 +106,18 @@ const Page = () => {
         }),
       });
 
-      alert("Account created successfully!");
+      setSuccessMessage("Account created successfully!");
 
-      // ✅ Use the user object immediately to route
       if (user.email === "kaghenimbale@gmail.com") {
         router.push("/admin");
       } else {
         router.push("/userProfile");
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error("Google Sign-In Error:", error);
-      alert("Failed to sign in with Google");
+      setErrorMessage("Failed to sign in with Google");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -128,6 +136,11 @@ const Page = () => {
         <h2 className="text-[1.8rem] md:text-[2rem] font-bold">
           Create a New account
         </h2>
+
+        {errorMessage && <p className="text-red-600 text-sm">{errorMessage}</p>}
+        {successMessage && (
+          <p className="text-green-600 text-sm">{successMessage}</p>
+        )}
 
         <div className="flex flex-col gap-2">
           <label htmlFor="email">Email</label>
@@ -188,9 +201,9 @@ const Page = () => {
 
         <button
           type="submit"
-          className="text-white text-[0.9rem] bg-cyan-800 shadow-sm shadow-cyan-950 hover:bg-cyan-700 transition-all duration-300 ease-in-out px-4 py-2"
+          className="flex justify-center items-center gap-2 text-white text-[0.9rem] bg-cyan-800 shadow-sm shadow-cyan-950 hover:bg-cyan-700 transition-all duration-300 ease-in-out px-4 py-2"
         >
-          Create account
+          {loading ? <ClipLoader size={20} color="#fff" /> : "Create account"}
         </button>
 
         <div className="flex w-fit justify-center top-7">

@@ -9,6 +9,7 @@ import { signOut, onAuthStateChanged, User } from "firebase/auth";
 import { auth } from "@/firebase/config";
 import { useRouter } from "next/navigation";
 import LanguageSwitcher from "./components/LanguageSwitcher";
+import ClipLoader from "react-spinners/ClipLoader";
 
 const Navbar = () => {
   const commonLinks = ["HOME", "ABOUT US", "SERVICES", "CONTACT"];
@@ -18,6 +19,9 @@ const Navbar = () => {
   const [open, setOpen] = useState(false);
   const [user, setUser] = useState<User | null>(null);
   const [authReady, setAuthReady] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState<string | null>(null);
+
   const router = useRouter();
 
   // Track auth state
@@ -42,24 +46,36 @@ const Navbar = () => {
     }
 
     return () => {
-      // Cleanup in case component unmounts while menu is open
       document.body.style.position = "";
       document.body.style.right = "";
       document.body.style.left = "";
     };
   }, [open]);
 
+  // Clear message after 3 seconds
+  useEffect(() => {
+    if (message) {
+      const timer = setTimeout(() => setMessage(null), 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [message]);
+
   const handleMenuToggle = () => {
     setOpen((prev) => !prev);
   };
 
   const handleLogout = async () => {
+    setLoading(true);
+    setMessage(null);
     try {
       await signOut(auth);
-      alert("Logged out successfully");
+      setMessage("Logged out successfully.");
       router.push("/signUp");
     } catch (error: any) {
       console.error("Logout error:", error.message);
+      setMessage("Error logging out. Please try again.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -124,9 +140,12 @@ const Navbar = () => {
 
               <button
                 onClick={handleLogout}
-                className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 text-sm"
+                disabled={loading}
+                className={`flex items-center justify-center bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 text-sm ${
+                  loading ? "cursor-not-allowed opacity-70" : ""
+                }`}
               >
-                Logout
+                {loading ? <ClipLoader size={18} color="#fff" /> : "Logout"}
               </button>
             </div>
           )}
@@ -143,9 +162,7 @@ const Navbar = () => {
 
           {/* Mobile menu button */}
           <button
-            onClick={() => {
-              setOpen(true);
-            }}
+            onClick={() => setOpen(true)}
             type="button"
             className="md:hidden"
           >
@@ -195,9 +212,12 @@ const Navbar = () => {
                   handleLogout();
                   setOpen(false);
                 }}
-                className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700"
+                disabled={loading}
+                className={`flex items-center justify-center bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 ${
+                  loading ? "cursor-not-allowed opacity-70" : ""
+                }`}
               >
-                Logout
+                {loading ? <ClipLoader size={18} color="#fff" /> : "Logout"}
               </button>
             </>
           ) : (
@@ -213,14 +233,20 @@ const Navbar = () => {
           <button
             type="button"
             className="absolute top-6 right-6"
-            onClick={() => {
-              setOpen(false);
-            }}
+            onClick={() => setOpen(false)}
           >
             <IoCloseCircle className="text-3xl" />
           </button>
         </div>
       )}
+
+      {/* Message */}
+      {message && (
+        <div className="fixed bottom-5 right-5 bg-green-600 text-white px-4 py-2 rounded shadow-lg z-50">
+          {message}
+        </div>
+      )}
+
       <LanguageSwitcher />
     </nav>
   );
