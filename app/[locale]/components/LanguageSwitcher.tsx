@@ -15,7 +15,7 @@ const LanguageSwitcher = () => {
   return (
     <div className="">
       <select
-        className="outline-none w-[55px] h-[35px] p-2 fixed top-28 bg-cyan-950 text-white right-20"
+        className="outline-none w-[55px] h-[35px] p-2 fixed top-28 bg-cyan-950 text-white right-4 rounded-sm mg:right-10"
         name=""
         id=""
         value="🌐"

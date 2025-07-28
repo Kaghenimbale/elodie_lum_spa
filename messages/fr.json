@@ -152,5 +152,14 @@
     "email": "E-mail",
     "phone": "Téléphone",
     "Address": "Adresse"
+  },
+  "services": {
+    "edit": "Modifier",
+    "delete": "Supprimer",
+    "save": "Enregistrer"
+  },
+  "form-letter": {
+    "placeholder": "Adresse e-mail",
+    "button": "S’ABONNER"
   }
 }

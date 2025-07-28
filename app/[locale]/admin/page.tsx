@@ -76,6 +76,9 @@ export default function AdminPage() {
                   <span className="font-semibold">Date:</span> {b.date}
                 </p>
                 <p>
+                  <span className="font-semibold">Time:</span> {b.time}
+                </p>
+                <p>
                   <span className="font-semibold">Message:</span>{" "}
                   {b.message || "Aucun"}
                 </p>
@@ -90,6 +93,7 @@ export default function AdminPage() {
                   <th className="px-4 py-3 text-left">Email</th>
                   <th className="px-4 py-3 text-left">Service</th>
                   <th className="px-4 py-3 text-left">Date</th>
+                  <th className="px-4 py-3 text-left">Time</th>
                   <th className="px-4 py-3 text-left">Message</th>
                 </tr>
               </thead>
@@ -103,6 +107,7 @@ export default function AdminPage() {
                     <td className="px-4 py-3">{b.email}</td>
                     <td className="px-4 py-3">{b.service}</td>
                     <td className="px-4 py-3">{b.date}</td>
+                    <td className="px-4 py-3">{b.time}</td>
                     <td className="px-4 py-3">{b.message || "Aucun"}</td>
                   </tr>
                 ))}

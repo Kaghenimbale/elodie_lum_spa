@@ -5,6 +5,7 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
+import frLocale from "@fullcalendar/core/locales/fr";
 
 const Calender = () => {
   const [events, setEvents] = useState([
@@ -27,6 +28,7 @@ const Calender = () => {
   return (
     <div className="bg-white">
       <FullCalendar
+        locale={frLocale}
         plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
         initialView="dayGridMonth"
         headerToolbar={{

@@ -10,6 +10,7 @@ import { app } from "@/firebase/config";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { IKImage } from "imagekitio-react";
+import { useTranslations } from "next-intl";
 
 const SpaServices = () => {
   const [services, setServices] = useState<any[]>([]);
@@ -18,6 +19,7 @@ const SpaServices = () => {
   const [userEmail, setUserEmail] = useState<string | null>(null);
   const [isAdmin, setIsAdmin] = useState(false);
   const pathname = usePathname();
+  const t = useTranslations("services");
 
   const [formData, setFormData] = useState({
     name: "",
@@ -168,7 +170,7 @@ const SpaServices = () => {
                     onClick={handleUpdate}
                     className="bg-green-600 text-white px-2 py-1 rounded"
                   >
-                    Save
+                    {t("save")}
                   </button>
                 </>
               ) : (
@@ -191,13 +193,13 @@ const SpaServices = () => {
                     onClick={() => handleEdit(service)}
                     className="bg-blue-700 text-white text-sm hover:bg-cyan-700 transition duration-300 px-4 py-2 rounded"
                   >
-                    Edit
+                    {t("edit")}
                   </button>
                   <button
                     onClick={() => handleDelete(service.id)}
                     className="bg-red-700 text-white text-sm hover:bg-red-600 transition duration-300 px-4 py-2 rounded"
                   >
-                    Delete
+                    {t("delete")}
                   </button>
                 </div>
               ) : (
