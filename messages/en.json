@@ -156,7 +156,8 @@
   "services": {
     "edit": "Edit",
     "delete": "Delete",
-    "save": "Save"
+    "save": "Save",
+    "book": "VIEW MORE"
   },
   "form-letter": {
     "placeholder": "Email address",

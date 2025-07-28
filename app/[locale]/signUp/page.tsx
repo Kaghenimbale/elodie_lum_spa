@@ -206,7 +206,7 @@ const Page = () => {
           {loading ? <ClipLoader size={20} color="#fff" /> : "Create account"}
         </button>
 
-        <div className="flex w-fit justify-center top-7">
+        <div className="flex justify-center top-7">
           <button
             type="button"
             onClick={handleGoogleLogin}
