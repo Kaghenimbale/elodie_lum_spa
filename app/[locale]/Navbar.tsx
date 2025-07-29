@@ -259,7 +259,7 @@ const Navbar = () => {
           ref={userModalRef}
           className="
             fixed
-            top-16
+            top-20
             right-4
             bg-white
             shadow-lg
@@ -273,6 +273,22 @@ const Navbar = () => {
             z-50
           "
         >
+          <div className="flex justify-center">
+            {user?.photoURL ? (
+              <Image
+                src={user.photoURL}
+                alt="Profile"
+                width={50}
+                height={50}
+                className="rounded-full border border-gray-300"
+                priority
+              />
+            ) : (
+              <span className="text-2xl font-bold rounded-full flex items-center justify-center w-[3rem] h-[3rem] bg-cyan-800 text-white">
+                {user?.email![0].toUpperCase()}
+              </span>
+            )}
+          </div>
           <div className="flex items-center gap-2 p-1">
             <span className="inline-flex h-[7px] w-[7px] rounded-full bg-green-400 opacity-75 animate-ping" />
             <span className="text-sm text-gray-800 font-medium">Connected</span>
