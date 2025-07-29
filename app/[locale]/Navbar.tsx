@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { MdMenu } from "react-icons/md";
 import { IoCloseCircle } from "react-icons/io5";
+import { Dialog } from "@headlessui/react";
 import { signOut, onAuthStateChanged, User } from "firebase/auth";
 import { auth } from "@/firebase/config";
 import { useRouter } from "next/navigation";
@@ -24,7 +25,6 @@ const Navbar = () => {
 
   const router = useRouter();
 
-  // Track auth state
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
@@ -33,36 +33,12 @@ const Navbar = () => {
     return () => unsubscribe();
   }, []);
 
-  // Lock body scroll when menu is open
-  useEffect(() => {
-    if (open) {
-      document.body.style.position = "fixed";
-      document.body.style.right = "0";
-      document.body.style.left = "0";
-    } else {
-      document.body.style.position = "";
-      document.body.style.right = "";
-      document.body.style.left = "";
-    }
-
-    return () => {
-      document.body.style.position = "";
-      document.body.style.right = "";
-      document.body.style.left = "";
-    };
-  }, [open]);
-
-  // Clear message after 3 seconds
   useEffect(() => {
     if (message) {
       const timer = setTimeout(() => setMessage(null), 3000);
       return () => clearTimeout(timer);
     }
   }, [message]);
-
-  const handleMenuToggle = () => {
-    setOpen((prev) => !prev);
-  };
 
   const handleLogout = async () => {
     setLoading(true);
@@ -101,7 +77,7 @@ const Navbar = () => {
         </Link>
 
         <div className="flex items-center gap-4 md:gap-6">
-          {/* Desktop Links */}
+          {/* Desktop nav */}
           <ul className="hidden md:flex gap-4 xl:gap-14 items-center">
             {navlinks.map((navlink) => (
               <li key={navlink}>
@@ -120,7 +96,7 @@ const Navbar = () => {
             ))}
           </ul>
 
-          {/* Authenticated user display */}
+          {/* Authenticated user */}
           {authReady && user && (
             <div className="hidden md:flex items-center gap-3">
               {user.photoURL ? (
@@ -150,7 +126,7 @@ const Navbar = () => {
             </div>
           )}
 
-          {/* Connexion button if not logged in */}
+          {/* Connexion button */}
           {authReady && !user && (
             <Link
               href="/signUp"
@@ -160,7 +136,7 @@ const Navbar = () => {
             </Link>
           )}
 
-          {/* Mobile menu button */}
+          {/* Mobile menu toggle */}
           <button
             onClick={() => setOpen(true)}
             type="button"
@@ -171,76 +147,81 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Mobile Menu */}
-      {open && (
-        <div className="fixed inset-0 bg-white backdrop-blur-3xl z-50 flex flex-col items-center justify-center gap-8 text-cyan-900">
-          {navlinks.map((navlink) => (
-            <Link
-              key={navlink}
-              href={
-                navlink.toLowerCase() === "home"
-                  ? "/"
-                  : "/" + navlink.toLowerCase().replace(" ", "_")
-              }
-              onClick={() => setOpen(false)}
-              className="text-xl"
-            >
-              {navlink}
-            </Link>
-          ))}
-
-          {/* Auth info in mobile menu */}
-          {authReady && user ? (
-            <>
-              {user.photoURL ? (
-                <Image
-                  src={user.photoURL}
-                  alt="Profile"
-                  width={50}
-                  priority
-                  height={50}
-                  className="rounded-full border border-gray-300"
-                />
-              ) : (
-                <span className="text-center text-2xl font-bold rounded-full flex items-center justify-center w-[3rem] h-[3rem] bg-cyan-800 text-white">
-                  {user.email![0].toUpperCase()}
-                </span>
-              )}
-
-              <button
-                onClick={() => {
-                  handleLogout();
-                  setOpen(false);
-                }}
-                disabled={loading}
-                className={`flex items-center justify-center bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 ${
-                  loading ? "cursor-not-allowed opacity-70" : ""
-                }`}
+      {/* Mobile Menu with HeadlessUI Dialog */}
+      <Dialog
+        open={open}
+        onClose={() => setOpen(false)}
+        className="relative z-50 md:hidden"
+      >
+        <div className="fixed inset-0 bg-white/90 backdrop-blur-2xl flex items-center justify-center px-6">
+          <Dialog.Panel className="w-full max-w-sm flex flex-col items-center gap-8">
+            {navlinks.map((navlink) => (
+              <Link
+                key={navlink}
+                href={
+                  navlink.toLowerCase() === "home"
+                    ? "/"
+                    : "/" + navlink.toLowerCase().replace(" ", "_")
+                }
+                onClick={() => setOpen(false)}
+                className="text-xl font-medium"
               >
-                {loading ? <ClipLoader size={18} color="#fff" /> : "Logout"}
-              </button>
-            </>
-          ) : (
-            <Link
-              href="/signUp"
+                {navlink}
+              </Link>
+            ))}
+
+            {authReady && user ? (
+              <>
+                {user.photoURL ? (
+                  <Image
+                    src={user.photoURL}
+                    alt="Profile"
+                    width={50}
+                    height={50}
+                    className="rounded-full border border-gray-300"
+                    priority
+                  />
+                ) : (
+                  <span className="text-2xl font-bold rounded-full flex items-center justify-center w-[3rem] h-[3rem] bg-cyan-800 text-white">
+                    {user.email![0].toUpperCase()}
+                  </span>
+                )}
+
+                <button
+                  onClick={() => {
+                    handleLogout();
+                    setOpen(false);
+                  }}
+                  disabled={loading}
+                  className={`flex items-center justify-center bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 ${
+                    loading ? "cursor-not-allowed opacity-70" : ""
+                  }`}
+                >
+                  {loading ? <ClipLoader size={18} color="#fff" /> : "Logout"}
+                </button>
+              </>
+            ) : (
+              <Link
+                href="/signUp"
+                onClick={() => setOpen(false)}
+                className="bg-cyan-900 text-white px-4 py-2 rounded hover:bg-cyan-700"
+              >
+                CONNEXION
+              </Link>
+            )}
+
+            <button
+              type="button"
+              className="absolute top-6 right-6"
               onClick={() => setOpen(false)}
-              className="bg-cyan-900 text-white px-4 py-2 rounded hover:bg-cyan-700"
             >
-              CONNEXION
-            </Link>
-          )}
-
-          <button
-            type="button"
-            className="absolute top-6 right-6"
-            onClick={() => setOpen(false)}
-          >
-            <IoCloseCircle className="text-3xl" />
-          </button>
+              <IoCloseCircle className="text-3xl" />
+            </button>
+          </Dialog.Panel>
         </div>
-      )}
+      </Dialog>
 
-      {/* Message */}
+      {/* Message display */}
       {message && (
         <div className="fixed bottom-5 right-5 bg-green-600 text-white px-4 py-2 rounded shadow-lg z-50">
           {message}

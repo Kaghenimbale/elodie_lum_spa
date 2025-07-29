@@ -1,12 +1,14 @@
 "use client";
 
 import Image from "next/image";
-import { Fragment, useEffect, useState } from "react";
-import { db } from "@/firebase/config";
+import { useEffect, useState, Fragment } from "react";
+import { db, auth } from "@/firebase/config";
 import { collection, query, orderBy, getDocs, limit } from "firebase/firestore";
+import { onAuthStateChanged, User } from "firebase/auth";
 import { ClipLoader } from "react-spinners";
 import TestimonialForm from "./TestimonialForm";
 import { IoClose } from "react-icons/io5";
+import { Dialog, Transition } from "@headlessui/react";
 
 type Testimonial = {
   id: string;
@@ -19,8 +21,11 @@ type Testimonial = {
 const Testimonial = () => {
   const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
   const [loading, setLoading] = useState(true);
-  const [display, setDisplay] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [user, setUser] = useState<User | null>(null);
+  const [isAdmin, setIsAdmin] = useState(false);
 
+  // Fetch testimonials
   useEffect(() => {
     const fetchTestimonials = async () => {
       try {
@@ -41,30 +46,23 @@ const Testimonial = () => {
         setLoading(false);
       }
     };
+
     fetchTestimonials();
   }, []);
 
+  // Check authenticated user
   useEffect(() => {
-    if (display) {
-      document.body.style.position = "fixed";
-      document.body.style.right = "0";
-      document.body.style.left = "0";
-    } else {
-      document.body.style.position = "";
-      document.body.style.right = "";
-      document.body.style.left = "";
-    }
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+      const adminEmail = process.env.NEXT_PUBLIC_ADMIN_EMAIL;
+      setIsAdmin(currentUser?.email === adminEmail);
+    });
 
-    return () => {
-      // Cleanup in case component unmounts while menu is open
-      document.body.style.position = "";
-      document.body.style.right = "";
-      document.body.style.left = "";
-    };
-  }, [display]);
+    return () => unsubscribe();
+  }, []);
 
   return (
-    <Fragment>
+    <>
       <div className="max-w-4xl mx-auto p-4 md:p-10 flex flex-col items-center gap-6">
         <div className="flex flex-col items-center">
           <Image
@@ -97,7 +95,6 @@ const Testimonial = () => {
                         className={`text-xl ${
                           rating >= star ? "text-yellow-400" : "text-gray-300"
                         }`}
-                        aria-hidden="true"
                       >
                         ★
                       </span>
@@ -110,32 +107,58 @@ const Testimonial = () => {
           </div>
         )}
 
-        <button
-          type="button"
-          onClick={() => {
-            setDisplay(true);
-          }}
-          className="bg-cyan-700 hover:bg-cyan-600 text-white px-4 py-2 rounded"
-        >
-          Rate Our Service
-        </button>
-      </div>
-
-      {display && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center backdrop-blur-3xl bg-black/30">
+        {/* Show only to admin */}
+        {isAdmin && (
           <button
             type="button"
-            onClick={() => {
-              setDisplay(false);
-            }}
-            className="absolute right-10 top-10 bg-cyan-700 hover:bg-cyan-600 text-white px-4 py-2 rounded"
+            onClick={() => setIsOpen(true)}
+            className="bg-cyan-700 hover:bg-cyan-600 text-white px-4 py-2 rounded"
           >
-            <IoClose size={24} />
+            Rate Our Service
           </button>
-          <TestimonialForm />
-        </div>
-      )}
-    </Fragment>
+        )}
+      </div>
+
+      {/* Modal */}
+      <Transition appear show={isOpen} as={Fragment}>
+        <Dialog as="div" className="relative z-50" onClose={setIsOpen}>
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <div className="fixed inset-0 bg-black/30 backdrop-blur-sm" />
+          </Transition.Child>
+
+          <div className="fixed inset-0 flex items-center justify-center p-4">
+            <Transition.Child
+              as={Fragment}
+              enter="ease-out duration-300"
+              enterFrom="opacity-0 scale-90"
+              enterTo="opacity-100 scale-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100 scale-100"
+              leaveTo="opacity-0 scale-90"
+            >
+              <Dialog.Panel className="relative w-full max-w-xl rounded-lg bg-white p-6 shadow-xl">
+                <button
+                  type="button"
+                  onClick={() => setIsOpen(false)}
+                  className="absolute top-4 right-4 text-gray-600 hover:text-gray-900"
+                >
+                  <IoClose size={24} />
+                </button>
+                <TestimonialForm />
+              </Dialog.Panel>
+            </Transition.Child>
+          </div>
+        </Dialog>
+      </Transition>
+    </>
   );
 };
 
