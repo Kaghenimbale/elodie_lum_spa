@@ -381,19 +381,20 @@ const SpaServices = () => {
           className="fixed inset-0 bg-black/30 backdrop-blur-sm"
           aria-hidden="true"
         />
-        <div className="fixed inset-0 flex items-center justify-center p-4 overflow-y-auto">
-          <Dialog.Panel className="w-full max-w-3xl rounded-xl shadow-2xl bg-white p-4 md:p-6 space-y-6 border-t-4 border-cyan-800">
-            <Dialog.Title className="text-2xl font-bold text-gray-900 text-center">
+
+        <div className="fixed inset-0 flex items-start justify-center p-2 sm:p-4 overflow-y-auto">
+          <Dialog.Panel className="relative w-full max-w-3xl rounded-xl shadow-2xl bg-white p-4 sm:p-6 space-y-1 border-t-4 border-cyan-800">
+            <Dialog.Title className="text-xl sm:text-2xl font-bold text-gray-900 text-center">
               {selectedService?.name}
             </Dialog.Title>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="flex flex-col gap-2 md:grid md:grid-cols-2">
               <IKImage
                 src={`${selectedService?.imageUrl}?tr=w-500,h-400,q-80,f-auto`}
                 alt={selectedService?.name}
                 loading="lazy"
                 lqip={{ active: true }}
-                className="rounded-xl object-cover w-full h-full max-h-[400px] shadow"
+                className="rounded-xl object-cover object-top w-full h-[200px] sm:h-[300px] md:h-full max-h-[400px] shadow"
               />
 
               <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
@@ -404,7 +405,7 @@ const SpaServices = () => {
                   placeholder="Your Name"
                   value={bookingFormData.name}
                   onChange={handleBookingChange}
-                  className="w-full border p-2 rounded-md"
+                  className="w-full border p-3 rounded-md text-sm"
                   disabled={bookingLoading}
                 />
                 <input
@@ -414,7 +415,7 @@ const SpaServices = () => {
                   placeholder="Your Email"
                   value={bookingFormData.email}
                   onChange={handleBookingChange}
-                  className="w-full border p-2 rounded-md"
+                  className="w-full border p-3 rounded-md text-sm"
                   disabled={bookingLoading}
                 />
                 <input
@@ -422,16 +423,15 @@ const SpaServices = () => {
                   name="service"
                   readOnly
                   value={bookingFormData.service}
-                  className="w-full border p-2 rounded-md bg-gray-100"
+                  className="w-full border p-3 rounded-md text-sm bg-gray-100"
                 />
                 <input
                   type="text"
                   name="price"
                   readOnly
                   value={`$${bookingFormData.price}.00 CAD`}
-                  className="w-full border p-2 rounded-md bg-gray-100"
+                  className="w-full border p-3 rounded-md text-sm bg-gray-100"
                 />
-
                 <input
                   type="date"
                   name="date"
@@ -439,7 +439,7 @@ const SpaServices = () => {
                   min={getToday()}
                   value={bookingFormData.date}
                   onChange={handleBookingChange}
-                  className="w-full border p-2 rounded-md"
+                  className="w-full border p-3 rounded-md text-sm"
                   disabled={bookingLoading}
                 />
                 <select
@@ -447,7 +447,7 @@ const SpaServices = () => {
                   required
                   value={bookingFormData.hour}
                   onChange={handleBookingChange}
-                  className="w-full border p-2 rounded-md"
+                  className="w-full border p-3 rounded-md text-sm"
                   disabled={bookingLoading}
                 >
                   <option value="">Select Hour</option>
@@ -463,7 +463,7 @@ const SpaServices = () => {
                   value={bookingFormData.message}
                   onChange={handleBookingChange}
                   rows={3}
-                  className="w-full border p-2 rounded-md"
+                  className="w-full border p-3 rounded-md text-sm"
                   disabled={bookingLoading}
                 />
 
@@ -472,7 +472,7 @@ const SpaServices = () => {
                     type="submit"
                     onClick={handleBookNowClick}
                     disabled={bookingLoading}
-                    className="w-full bg-cyan-900 text-white py-2 rounded-md hover:bg-cyan-700 transition"
+                    className="w-full bg-cyan-900 text-white py-3 rounded-md hover:bg-cyan-700 transition"
                   >
                     {bookingLoading ? (
                       <ClipLoader size={20} color="#fff" />
@@ -486,7 +486,7 @@ const SpaServices = () => {
                       type="button"
                       onClick={handleConfirmBooking}
                       disabled={bookingLoading}
-                      className="w-full bg-green-600 text-white py-2 rounded-md hover:bg-green-700 transition"
+                      className="w-full bg-green-600 text-white py-3 rounded-md hover:bg-green-700 transition"
                     >
                       {bookingLoading ? (
                         <ClipLoader size={20} color="#fff" />
@@ -498,7 +498,7 @@ const SpaServices = () => {
                       type="button"
                       onClick={() => setShowConfirmButton(false)}
                       disabled={bookingLoading}
-                      className="w-full mt-2 bg-gray-300 text-gray-700 py-2 rounded-md hover:bg-gray-400 transition"
+                      className="w-full mt-2 bg-gray-300 text-gray-700 py-3 rounded-md hover:bg-gray-400 transition"
                     >
                       Cancel
                     </button>
