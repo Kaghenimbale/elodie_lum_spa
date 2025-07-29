@@ -399,7 +399,10 @@ const SpaServices = () => {
             object-top sm:object-top md:object-center object-cover"
               />
 
-              <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
+              <form
+                className="p-4 border rounded-xl shadow-xl w-full max-w-md space-y-4 bg-white"
+                onSubmit={(e) => e.preventDefault()}
+              >
                 <input
                   type="text"
                   name="name"
@@ -407,7 +410,7 @@ const SpaServices = () => {
                   placeholder="Your Name"
                   value={bookingFormData.name}
                   onChange={handleBookingChange}
-                  className="w-full border p-3 rounded-md text-sm"
+                  className="w-full p-2 border rounded border-gray-300 outline-none"
                   disabled={bookingLoading}
                 />
                 <input
@@ -417,7 +420,7 @@ const SpaServices = () => {
                   placeholder="Your Email"
                   value={bookingFormData.email}
                   onChange={handleBookingChange}
-                  className="w-full border p-3 rounded-md text-sm"
+                  className="w-full p-2 border rounded border-gray-300 outline-none"
                   disabled={bookingLoading}
                 />
                 <input
@@ -425,14 +428,14 @@ const SpaServices = () => {
                   name="service"
                   readOnly
                   value={bookingFormData.service}
-                  className="w-full border p-3 rounded-md text-sm bg-gray-100"
+                  className="w-full p-2 border rounded border-gray-300 outline-none"
                 />
                 <input
                   type="text"
                   name="price"
                   readOnly
                   value={`$${bookingFormData.price}.00 CAD`}
-                  className="w-full border p-3 rounded-md text-sm bg-gray-100"
+                  className="w-full p-2 border rounded border-gray-300 outline-none"
                 />
                 <input
                   type="date"
@@ -441,7 +444,7 @@ const SpaServices = () => {
                   min={getToday()}
                   value={bookingFormData.date}
                   onChange={handleBookingChange}
-                  className="w-full border p-3 rounded-md text-sm"
+                  className="w-full p-2 border rounded border-gray-300 outline-none"
                   disabled={bookingLoading}
                 />
                 <select
@@ -449,7 +452,7 @@ const SpaServices = () => {
                   required
                   value={bookingFormData.hour}
                   onChange={handleBookingChange}
-                  className="w-full border p-3 rounded-md text-sm"
+                  className="w-full p-2 border rounded border-gray-300 outline-none"
                   disabled={bookingLoading}
                 >
                   <option value="">Select Hour</option>
@@ -465,7 +468,7 @@ const SpaServices = () => {
                   value={bookingFormData.message}
                   onChange={handleBookingChange}
                   rows={3}
-                  className="w-full border p-3 rounded-md text-sm"
+                  className="w-full p-2 border rounded border-gray-300 outline-none"
                   disabled={bookingLoading}
                 />
 

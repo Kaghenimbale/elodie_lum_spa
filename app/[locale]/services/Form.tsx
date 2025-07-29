@@ -128,7 +128,7 @@ const Page = () => {
           <div key={field.name} className="flex flex-col gap-2">
             <label htmlFor={field.name}>{field.label}:</label>
             <input
-              className="w-full p-2 border rounded border-gray-300 focus:ring-2 focus:ring-cyan-600 outline-none"
+              className="w-full p-2 border rounded border-gray-300 outline-none"
               type={field.type}
               placeholder={field.placeholder}
               name={field.name}
@@ -143,7 +143,7 @@ const Page = () => {
           <label htmlFor="service">Type of Service:</label>
           <select
             name="service"
-            className="w-full p-2 border rounded border-gray-300 focus:ring-2 focus:ring-cyan-600 outline-none"
+            className="w-full p-2 border rounded border-gray-300 outline-none"
             value={message.service}
             onChange={handleChange}
             required
@@ -162,7 +162,7 @@ const Page = () => {
         <div className="flex flex-col gap-2">
           <label htmlFor="date">Date (according to spa hours):</label>
           <input
-            className={`w-full p-2 border rounded focus:ring-2 outline-none ${dateError ? "border-red-500" : "border-gray-300 focus:ring-cyan-600"}`}
+            className={`w-full p-2 border rounded outline-none ${dateError ? "border-red-500" : "border-gray-300"}`}
             type="date"
             name="date"
             value={message.date}
@@ -184,7 +184,7 @@ const Page = () => {
             Preferred Time:
           </label>
           <input
-            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-cyan-600"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm outline-none"
             type="time"
             name="time"
             min="10:00"
@@ -206,7 +206,7 @@ const Page = () => {
         <div className="flex flex-col gap-2">
           <label htmlFor="message">Message:</label>
           <textarea
-            className="w-full p-2 border rounded border-gray-300 focus:ring-2 focus:ring-cyan-600 outline-none"
+            className="w-full p-2 border rounded border-gray-300 outline-none"
             placeholder="Message"
             name="message"
             value={message.message}
