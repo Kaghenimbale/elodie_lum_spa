@@ -384,7 +384,7 @@ const SpaServices = () => {
 
         {/* Responsive vertical alignment: top on mobile, center on desktop */}
         <div className="fixed inset-0 flex items-start md:items-center justify-center p-2 sm:p-4 overflow-y-auto">
-          <Dialog.Panel className="relative w-full max-w-3xl rounded-xl shadow-2xl bg-white p-4 sm:p-6 space-y-1 border-t-4 border-cyan-800">
+          <Dialog.Panel className="relative w-[90vw] lg:max-w-3xl rounded-xl shadow-2xl bg-white p-4 sm:p-6 space-y-1 border-t-4 border-cyan-800">
             <Dialog.Title className="text-xl sm:text-2xl font-bold text-gray-900 text-center">
               {selectedService?.name}
             </Dialog.Title>
@@ -437,16 +437,19 @@ const SpaServices = () => {
                   value={`$${bookingFormData.price}.00 CAD`}
                   className="w-full p-2 border rounded border-gray-300 outline-none"
                 />
-                <input
-                  type="date"
-                  name="date"
-                  required
-                  min={getToday()}
-                  value={bookingFormData.date}
-                  onChange={handleBookingChange}
-                  className="w-full p-2 border rounded border-gray-300 outline-none"
-                  disabled={bookingLoading}
-                />
+                <div className="flex flex-col gap-2">
+                  <label htmlFor="date">Date (according to spa hours):</label>
+                  <input
+                    type="date"
+                    name="date"
+                    required
+                    min={getToday()}
+                    value={bookingFormData.date}
+                    onChange={handleBookingChange}
+                    className="w-[18rem] p-2 border rounded border-gray-300 outline-none"
+                    disabled={bookingLoading}
+                  />
+                </div>
                 <select
                   name="hour"
                   required
