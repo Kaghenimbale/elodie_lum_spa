@@ -1,0 +1,166 @@
+{
+  "Presentation": {
+    "title": "Chez Elodia Beauty & SPA, votre beauté est notre priorité. Bienvenue dans un havre de splendeur créé spécialement pour vous.",
+    "link": "VOIR PLUS"
+  },
+  "beauty": {
+    "description": "Votre beauté est notre priorité absolue ; elle est au cœur de tout ce que nous faisons. Chez ELODIA BEAUTY & SPA, nous vous proposons un espace luxueux où élégance et confort se marient. Chaque détail est pensé pour vous aider à vous détendre, à vous ressourcer et à rayonner. Que ce soit votre première ou votre dixième visite, vous vous sentirez comme chez vous. Entrez dans un univers de splendeur créé spécialement pour vous.",
+    "services": [
+      {
+        "icon": "/bol.png",
+        "title": "Épilation",
+        "description": "Dites adieu aux poils indésirables avec nos services d'épilation douce. Conçus pour tous les types de peau, nos soins laissent votre peau lisse, propre et éclatante pendant des semaines."
+      },
+      {
+        "icon": "/detente.png",
+        "title": "Soin Visage Elodia",
+        "description": "Rafraîchissez votre visage avec notre soin signature combinant nettoyage en profondeur et pierres volcaniques chaudes. Idéal pour les peaux fatiguées ou ternes, il restaure l'hydratation et l'éclat naturel."
+      },
+      {
+        "icon": "/sauna2.png",
+        "title": "Massage",
+        "description": "Laissez la tension s’envoler avec nos massages personnalisés. Que vous recherchiez une détente ou une récupération musculaire, nos techniques vous procurent légèreté, détente et renouveau."
+      }
+    ]
+  },
+  "wellness": {
+    "title": "Bien-être & Spa",
+    "description": "Évadez-vous dans notre havre de paix Bien-être & Spa. Découvrez un lieu où la tranquillité rencontre la régénération. Nos soins experts sont conçus pour apaiser vos sens, détendre votre esprit et revitaliser votre corps. Offrez-vous une expérience conçue pour votre bien-être ultime.",
+    "link": "RÉSERVER MAINTENANT"
+  },
+  "hours": {
+    "title": "Heures d'ouverture",
+    "description": "Nous sommes là pour vous accueillir tout au long de la semaine avec des horaires flexibles adaptés à votre mode de vie. Que vous planifiiez un soin rapide ou une séance de détente complète, il y a toujours un moment pour se relaxer chez ELODIA Beauty and Spa.",
+    "schedule": [
+      { "days": "Lundi à Mardi", "hours": "10h00 - 19h00" },
+      { "days": "Mercredi à Jeudi", "hours": "10h00 - 18h00" },
+      { "days": "Samedi", "hours": "14h00 - 18h00" },
+      { "days": "Dimanche", "hours": "14h00 - 18h00" }
+    ]
+  },
+  "wellness1": {
+    "title": "Votre bien-être",
+    "description": "Priorisez votre harmonie intérieure et votre éclat extérieur grâce à notre expérience bien-être exclusive. Ce voyage soigneusement conçu commence par votre entrée au lagon bleu, suivi d’un masque purifiant à la boue de silice pour le visage et le corps. Profitez d’un confort absolu avec l’utilisation de serviettes douces et d’un peignoir moelleux, pour une évasion véritablement réparatrice.",
+    "items": [
+      "Entrée au lagon bleu",
+      "Masque à la boue de silice (visage et corps)",
+      "Utilisation de serviette douce et de peignoir"
+    ],
+    "link": "RÉSERVER MAINTENANT",
+    "serviceList": [
+      {
+        "icon": "/aroma.png",
+        "title": "Aromathérapie Deluxe",
+        "price": "$48",
+        "desc": "Détendez-vous et revitalisez-vous avec des mélanges d’huiles essentielles."
+      },
+      {
+        "icon": "/bol2.png",
+        "title": "Sauna Relax",
+        "price": "$36",
+        "desc": "Favorise la relaxation musculaire et le nettoyage du corps."
+      },
+      {
+        "icon": "/massage-des-pieds.png",
+        "title": "Spa Géothermal",
+        "price": "$36",
+        "desc": "Expérience thérapeutique de bain minéral."
+      },
+      {
+        "icon": "/bois.png",
+        "title": "Sauna Finlandais",
+        "price": "$36",
+        "desc": "Purifiez et revitalisez-vous dans un sauna classique."
+      },
+      {
+        "icon": "/massage2.png",
+        "title": "Masques Visage",
+        "price": "$48",
+        "desc": "Hydratez et revitalisez votre peau."
+      },
+      {
+        "icon": "/detente.png",
+        "title": "Massage Corps Complet",
+        "price": "$48",
+        "desc": "Relaxation profonde et soulagement des tensions musculaires."
+      },
+      {
+        "icon": "/sauna4.png",
+        "title": "Aromathérapie Prolongée",
+        "price": "$48",
+        "desc": "Améliorez votre bien-être grâce aux huiles aromatiques."
+      },
+      {
+        "icon": "/sauna2.png",
+        "title": "Aromathérapie Express",
+        "price": "$36",
+        "desc": "Rafraîchissement aromatique rapide pour l’esprit et le corps."
+      }
+    ]
+  },
+  "place": {
+    "title": "Un lieu de véritable splendeur",
+    "description": "Là où commence votre voyage vers la détente, la beauté et la confiance en soi. Ici, vous découvrirez une sélection soignée de soins luxueux, de forfaits spa personnalisés et d’une expertise dédiée rien que pour vous. Notre site web est votre guide vers tout ce que nous offrons — des soins du visage revitalisants et des thérapies corporelles aux promotions exclusives et à la prise de rendez-vous simplifiée. Conçu avec élégance et simplicité, notre espace en ligne reflète l’atmosphère paisible que vous retrouverez dans notre spa. Prenez votre temps, explorez nos services et réservez votre moment de splendeur dès aujourd’hui. Car chez ELODIA BEAUTY & SPA, votre beauté et votre bien-être comptent réellement.",
+    "link": "RÉSERVER MAINTENANT"
+  },
+  "footer": {
+    "title": "Inscrivez-vous à notre liste e-mail pour recevoir des offres exclusives et les dernières nouveautés.",
+    "description": "Découvrez des soins de luxe conçus pour sublimer votre beauté naturelle et renforcer votre confiance.",
+    "link": "S'INSCRIRE"
+  },
+  "about-us": {
+    "title": "Bienvenue chez Elodia Beauty & Spa",
+    "description": "Bienvenue chez ELODIA BEAUTY & SPA. Imaginez un havre de paix où le stress quotidien disparaît pour laisser place à un profond sentiment de bien-être. Revival Med Spa vous offre cette escapade dans nos établissements situés à New York, Brooklyn et Long Island. Nous avons soigneusement combiné l’ambiance apaisante d’un spa de luxe avec la puissance transformatrice des soins esthétiques médicaux de pointe et des solutions de bien-être, afin de vous offrir une expérience inégalée. Chez Revival Med Spa, notre mission est simple : vous permettre de vous sentir et de paraître à votre meilleur grâce à des soins personnalisés et aux traitements les plus avancés disponibles.",
+    "description1": "Notre engagement est d'offrir une gamme variée de services, allant de notre sauna finlandais revigorant et de notre spa géothermique serein à nos soins spécialisés pour le visage et le corps, tous réalisés avec une attention méticuleuse et une bienveillance sincère. Nous croyons en la création d'une communauté axée sur le bien‑être, où nos hôtes peuvent s'évader du quotidien, réduire leur stress et ressortir totalement revitalisés. Votre voyage vers l'équilibre et une vitalité renouvelée commence ici, chez AB & Spa, où votre bien‑être est notre priorité absolue.",
+    "about-us-abs": "Chez AB & Spa, nous vous invitons à accorder la priorité à votre harmonie intérieure et à votre éclat extérieur grâce à notre expérience exclusive de bien-être. Ce voyage soigneusement conçu commence dès votre entrée dans le lagon bleu, suivi d’un masque purifiant à la boue de silice pour le visage et le corps. Profitez d’un confort total grâce à l’utilisation de serviettes douces et d’un peignoir moelleux, garantissant une escapade véritablement réparatrice.",
+    "link": "RÉSERVEZ MAINTENANT",
+    "team-title": "NOTRE ÉQUIPE",
+    "team-description": "Notre équipe d'experts et nos services complets. Notre équipe de praticiens qualifiés et certifiés est passionnée par le fait de vous aider à atteindre vos objectifs esthétiques et de bien-être uniques. Nous proposons un large éventail de services adaptés à vos besoins individuels, notamment : Soins esthétiques avancés : soins du visage personnalisés, peelings chimiques, microdermabrasion, Diamond Glow, et bien plus. Thérapies laser revitalisantes : épilation, resurfaçage de la peau, traitements des varices, etc. Dernières innovations en injectables : Botox, produits de comblement, et autres injectables cosmétiques avancés pour restaurer le volume, lisser les rides et mettre en valeur vos traits naturels. Soins luxueux pour le visage et le corps : massages relaxants, enveloppements corporels, et traitements spécialisés. Injections et perfusions revitalisantes : boostez votre énergie, votre immunité et votre bien-être global de l’intérieur. Programmes de perte de poids : plans personnalisés pour vous aider à atteindre vos objectifs de gestion du poids en toute sécurité et efficacité. Et bien plus encore !"
+  },
+  "service": {
+    "title": "Forfaits Spa et Soins du Corps",
+    "description": "Découvrez des soins luxueux conçus pour sublimer votre beauté naturelle et renforcer votre confiance en vous. Dans notre spa, chaque service est pensé pour vous aider à vous sentir renouvelé(e), rayonnant(e) et profondément détendu(e). Que vous recherchiez un moment de calme, une transformation corporelle complète ou une évasion bien-être totale, nos forfaits spa soigneusement élaborés vous offrent les résultats que vous méritez. Nos soins corporels vont au-delà de la surface — ils détoxifient, lissent et revitalisent l’ensemble de votre corps. Des enveloppements nourrissants aux gommages exfoliants en passant par les thérapies sculptantes, chaque séance est personnalisée selon vos besoins et vos objectifs. Offrez-vous l’harmonie entre beauté et bien-être — car prendre soin de soi n’est pas un luxe, c’est une nécessité.",
+    "icons": [
+      {
+        "title": "THÉRAPIE PAR LES HUILES",
+        "icon": "/aroma.png"
+      },
+      {
+        "title": "SPA JOURNALIER",
+        "icon": "/massage.png"
+      },
+      {
+        "title": "SOIN DU VISAGE",
+        "icon": "/detente.png"
+      },
+      {
+        "title": "MASSAGE",
+        "icon": "/massage-des-pieds.png"
+      }
+    ],
+    "title1": "Centre EB & SPA",
+    "description1": "Offrez-vous des soins de luxe conçus pour révéler votre beauté naturelle et renforcer votre confiance en vous. Notre équipe d’experts associe la science et l’art pour offrir un soin personnalisé dans un cadre serein et apaisant. Des soins du visage rajeunissants aux traitements corporels avancés, chaque service est pensé pour votre bien-être. Découvrez l’alliance parfaite entre élégance, innovation et efficacité. Parce que vous méritez de vous sentir rayonnant(e), confiant(e) et pleinement revitalisé(e).",
+    "features": [
+      "Expérience de luxe",
+      "Renforcement de la confiance",
+      "Sublimation de la beauté naturelle",
+      "Soins personnalisés"
+    ]
+  },
+  "contact": {
+    "title": "Contactez-nous",
+    "email": "E-mail",
+    "phone": "Téléphone",
+    "Address": "Adresse"
+  },
+  "services": {
+    "edit": "Modifier",
+    "delete": "Supprimer",
+    "save": "Enregistrer",
+    "book": "RÉSERVER MAINTENANT"
+  },
+  "form-letter": {
+    "placeholder": "Adresse e-mail",
+    "button": "S’ABONNER"
+  }
+}
