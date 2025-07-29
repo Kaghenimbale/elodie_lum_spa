@@ -382,7 +382,8 @@ const SpaServices = () => {
           aria-hidden="true"
         />
 
-        <div className="fixed inset-0 flex items-start justify-center p-2 sm:p-4 overflow-y-auto">
+        {/* Responsive vertical alignment: top on mobile, center on desktop */}
+        <div className="fixed inset-0 flex items-start md:items-center justify-center p-2 sm:p-4 overflow-y-auto">
           <Dialog.Panel className="relative w-full max-w-3xl rounded-xl shadow-2xl bg-white p-4 sm:p-6 space-y-1 border-t-4 border-cyan-800">
             <Dialog.Title className="text-xl sm:text-2xl font-bold text-gray-900 text-center">
               {selectedService?.name}
@@ -394,7 +395,8 @@ const SpaServices = () => {
                 alt={selectedService?.name}
                 loading="lazy"
                 lqip={{ active: true }}
-                className="rounded-xl object-cover object-top w-full h-[200px] sm:h-[300px] md:h-full max-h-[400px] shadow"
+                className="rounded-xl w-full h-[200px] sm:h-[300px] md:h-full max-h-[400px] shadow 
+            object-top sm:object-top md:object-center object-cover"
               />
 
               <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
