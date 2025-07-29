@@ -273,6 +273,11 @@ const Navbar = () => {
             z-50
           "
         >
+          <div className="flex items-center gap-2 p-1">
+            <span className="inline-flex h-[7px] w-[7px] rounded-full bg-green-400 opacity-75 animate-ping" />
+            <span className="text-sm text-gray-800 font-medium">Connected</span>
+          </div>
+
           <p className="font-semibold text-gray-800 truncate">
             {user?.displayName || user?.email}
           </p>

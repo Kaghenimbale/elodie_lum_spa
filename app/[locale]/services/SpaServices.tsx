@@ -34,10 +34,12 @@ const SpaServices = () => {
     name: "",
     email: "",
     service: "",
+    price: "",
     date: "",
     hour: "",
     message: "",
   });
+
   const [bookingLoading, setBookingLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
@@ -88,6 +90,7 @@ const SpaServices = () => {
         name: "",
         email: "",
         service: selectedService.name,
+        price: selectedService.price || "",
         date: "",
         hour: "",
         message: "",
@@ -223,6 +226,7 @@ const SpaServices = () => {
           name: bookingFormData.name,
           email: bookingFormData.email,
           service: bookingFormData.service,
+          price: bookingFormData.price, // <-- added
           date: bookingFormData.date,
           time: bookingFormData.hour,
           message: bookingFormData.message,
@@ -236,7 +240,8 @@ const SpaServices = () => {
         setBookingFormData({
           name: "",
           email: "",
-          service: selectedService?.name || "",
+          service: selectedService.name,
+          price: selectedService.price || "",
           date: "",
           hour: "",
           message: "",
@@ -419,6 +424,14 @@ const SpaServices = () => {
                   value={bookingFormData.service}
                   className="w-full border p-2 rounded-md bg-gray-100"
                 />
+                <input
+                  type="text"
+                  name="price"
+                  readOnly
+                  value={`$${bookingFormData.price}.00 CAD`}
+                  className="w-full border p-2 rounded-md bg-gray-100"
+                />
+
                 <input
                   type="date"
                   name="date"
