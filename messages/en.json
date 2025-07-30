@@ -162,5 +162,43 @@
   "form-letter": {
     "placeholder": "Email address",
     "button": "SUBSCRIBE"
+  },
+  "referAndEarn": {
+    "title": "Refer & Earn",
+    "description": "Share the beauty of relaxation. Invite your friends and both of you will receive exclusive rewards on your next spa visit!",
+    "benefits": [
+      {
+        "icon": "✓",
+        "text": "Earn 100 Points per referral"
+      },
+      {
+        "icon": "✓",
+        "text": "Friends get 10% off their first booking"
+      }
+    ],
+    "button": "Invite Friends"
+  },
+  "referAndEarn1": {
+    "title": "Refer & Earn",
+    "subtitle": "Bring Friends, Get Rewarded!",
+    "description": "Share the beauty of relaxation. Invite your friends and both of you will receive exclusive rewards on your next spa visit!",
+    "benefits": [
+      "Earn a Points per referral",
+      "Friends get 10% off their first booking"
+    ],
+    "inviteButton": "Invite Friends",
+    "sectionTitle": "How it works:",
+    "howItWorks": [
+      "You’ll get a referral card with your unique code.",
+      "Ask your friend to book using your referral code.",
+      "Every time someone books with your code, you earn points.",
+      "Collect points and unlock free services or exclusive discounts!"
+    ],
+    "callToAction": "SIGN UP",
+    "reminder": "It’s easy, rewarding, and a win-win for everyone!",
+    "highlighted": {
+      "question": "Got friends who could use our services? Send them our way!",
+      "rewards": "For every client you refer, you earn points. Rack up enough points and you could unlock free services as a thank-you from us."
+    }
   }
 }

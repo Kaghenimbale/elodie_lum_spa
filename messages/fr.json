@@ -162,5 +162,43 @@
   "form-letter": {
     "placeholder": "Adresse e-mail",
     "button": "S’ABONNER"
+  },
+  "referAndEarn": {
+    "title": "Parrainez et Gagnez",
+    "description": "Partagez le plaisir de la détente. Invitez vos amis et vous recevrez tous les deux des récompenses exclusives lors de votre prochaine visite au spa !",
+    "benefits": [
+      {
+        "icon": "✓",
+        "text": "Gagnez 100 points par parrainage"
+      },
+      {
+        "icon": "✓",
+        "text": "Les amis reçoivent 10 % de réduction sur leur première réservation"
+      }
+    ],
+    "button": "Inviter des amis"
+  },
+  "referAndEarn1": {
+    "title": "Parrainez et Gagnez",
+    "subtitle": "Invitez vos amis, recevez des récompenses !",
+    "description": "Partagez le plaisir de la détente. Invitez vos amis et vous recevrez tous les deux des récompenses exclusives lors de votre prochaine visite au spa !",
+    "benefits": [
+      "Gagnez des points par parrainage",
+      "Les amis reçoivent 10 % de réduction sur leur première réservation"
+    ],
+    "inviteButton": "Inviter des amis",
+    "sectionTitle": "Comment ça marche :",
+    "howItWorks": [
+      "Vous recevrez une carte de parrainage avec votre code unique.",
+      "Demandez à votre ami de réserver en utilisant votre code de parrainage.",
+      "Chaque fois que quelqu’un réserve avec votre code, vous gagnez des points.",
+      "Cumulez des points et débloquez des services gratuits ou des réductions exclusives !"
+    ],
+    "callToAction": "S’INSCRIRE",
+    "reminder": "C’est simple, gratifiant et tout le monde y gagne !",
+    "highlighted": {
+      "question": "Vous avez des amis qui pourraient utiliser nos services ? Envoyez-les chez nous !",
+      "rewards": "Pour chaque client que vous parrainez, vous gagnez des points. Cumulez suffisamment de points et vous pourriez débloquer des services gratuits en guise de remerciement."
+    }
   }
 }
