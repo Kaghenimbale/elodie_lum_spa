@@ -42,7 +42,6 @@ const Navbar = () => {
     }
   }, [message]);
 
-  // Close user modal when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -86,8 +85,9 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="flex bg-orange-50 transition-colors duration-500 fixed left-0 right-0 top-0 z-50 px-5 md:px-10 py-3">
-        <div className="flex justify-between items-center w-full">
+      <nav className="bg-orange-50 fixed top-0 left-0 right-0 z-50 shadow-md px-5 md:px-10 py-3">
+        <div className="flex justify-between items-center max-w-7xl mx-auto">
+          {/* Logo */}
           <Link href="/">
             <Image
               width={140}
@@ -99,8 +99,8 @@ const Navbar = () => {
           </Link>
 
           <div className="flex items-center gap-4 md:gap-6">
-            {/* Desktop nav */}
-            <ul className="hidden md:flex gap-4 xl:gap-14 items-center">
+            {/* Desktop Menu */}
+            <ul className="hidden md:flex gap-6 xl:gap-12 items-center">
               {navlinks.map((navlink) => (
                 <li key={navlink}>
                   <Link
@@ -109,6 +109,7 @@ const Navbar = () => {
                         ? "/"
                         : "/" + navlink.toLowerCase().replace(" ", "_")
                     }
+                    className="text-gray-800 hover:text-cyan-800 transition-colors font-medium"
                   >
                     {["admin", "userProfile", "manage-services"].includes(
                       navlink
@@ -120,13 +121,12 @@ const Navbar = () => {
               ))}
             </ul>
 
-            {/* Authenticated user (Desktop) */}
+            {/* User profile (desktop) */}
             {authReady && user && (
               <div className="hidden md:flex items-center gap-3 relative">
                 <button
                   onClick={() => setShowUserModal(!showUserModal)}
                   aria-label="User menu"
-                  type="button"
                 >
                   {user.photoURL ? (
                     <Image
@@ -134,8 +134,8 @@ const Navbar = () => {
                       alt="Profile"
                       width={35}
                       height={35}
-                      priority
                       className="rounded-full border border-gray-300"
+                      priority
                     />
                   ) : (
                     <span className="text-2xl font-bold rounded-full flex items-center justify-center w-[3rem] h-[3rem] bg-cyan-800 text-white">
@@ -146,20 +146,19 @@ const Navbar = () => {
               </div>
             )}
 
-            {/* Connexion button */}
+            {/* Connexion Button (desktop) */}
             {authReady && !user && (
               <Link
                 href="/signUp"
-                className="text-white hidden md:block bg-cyan-900 hover:bg-cyan-700 transition duration-300 px-4 py-2 rounded"
+                className="text-white hidden md:block bg-cyan-800 hover:bg-cyan-700 transition px-5 py-2 rounded-md font-medium"
               >
-                CONNEXION
+                Connexion
               </Link>
             )}
 
-            {/* Mobile menu toggle */}
+            {/* Mobile Menu Toggle */}
             <button
               onClick={() => setOpen(true)}
-              type="button"
               className="md:hidden"
               aria-label="Open menu"
             >
@@ -172,108 +171,97 @@ const Navbar = () => {
         <Dialog
           open={open}
           onClose={() => setOpen(false)}
-          className="relative z-50 md:hidden"
+          className="md:hidden"
         >
-          <div className="fixed inset-0 bg-white/90 backdrop-blur-2xl flex items-center justify-center px-6">
-            <Dialog.Panel className="w-full max-w-sm flex flex-col items-center gap-8">
-              {navlinks.map((navlink) => (
-                <Link
-                  key={navlink}
-                  href={
-                    navlink.toLowerCase() === "home"
-                      ? "/"
-                      : "/" + navlink.toLowerCase().replace(" ", "_")
-                  }
-                  onClick={() => setOpen(false)}
-                  className="text-xl font-medium"
-                >
-                  {navlink}
-                </Link>
-              ))}
-
-              {authReady && user ? (
-                <>
-                  {user.photoURL ? (
-                    <Image
-                      src={user.photoURL}
-                      alt="Profile"
-                      width={50}
-                      height={50}
-                      className="rounded-full border border-gray-300"
-                      priority
-                    />
-                  ) : (
-                    <span className="text-2xl font-bold rounded-full flex items-center justify-center w-[3rem] h-[3rem] bg-cyan-800 text-white">
-                      {user.email![0].toUpperCase()}
-                    </span>
-                  )}
-
-                  <button
-                    onClick={() => {
-                      handleLogout();
-                      setOpen(false);
-                    }}
-                    disabled={loading}
-                    className={`flex items-center justify-center bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 ${
-                      loading ? "cursor-not-allowed opacity-70" : ""
-                    }`}
-                  >
-                    {loading ? <ClipLoader size={18} color="#fff" /> : "Logout"}
-                  </button>
-                </>
-              ) : (
-                <Link
-                  href="/signUp"
-                  onClick={() => setOpen(false)}
-                  className="bg-cyan-900 text-white px-4 py-2 rounded hover:bg-cyan-700"
-                >
-                  CONNEXION
-                </Link>
-              )}
-
+          <div className="fixed inset-0 bg-white/90 backdrop-blur-xl flex items-center justify-center px-6 z-50">
+            <Dialog.Panel className="w-full max-w-sm mx-auto bg-white rounded-lg shadow-xl p-6 relative">
               <button
                 type="button"
-                className="absolute top-6 right-6"
+                className="absolute top-4 right-4 text-gray-700"
                 onClick={() => setOpen(false)}
                 aria-label="Close menu"
               >
-                <IoCloseCircle className="text-3xl" />
+                <IoCloseCircle className="text-3xl hover:text-red-600 transition" />
               </button>
+
+              <nav className="flex flex-col items-center gap-6 mt-10">
+                {navlinks.map((navlink) => (
+                  <Link
+                    key={navlink}
+                    href={
+                      navlink.toLowerCase() === "home"
+                        ? "/"
+                        : "/" + navlink.toLowerCase().replace(" ", "_")
+                    }
+                    onClick={() => setOpen(false)}
+                    className="text-lg font-medium text-gray-800 hover:text-cyan-800 transition"
+                  >
+                    {navlink}
+                  </Link>
+                ))}
+
+                {authReady && user ? (
+                  <>
+                    {user.photoURL ? (
+                      <Image
+                        src={user.photoURL}
+                        alt="Profile"
+                        width={50}
+                        height={50}
+                        className="rounded-full border border-gray-300"
+                        priority
+                      />
+                    ) : (
+                      <span className="text-2xl font-bold rounded-full flex items-center justify-center w-[3rem] h-[3rem] bg-cyan-800 text-white">
+                        {user.email![0].toUpperCase()}
+                      </span>
+                    )}
+                    <button
+                      onClick={() => {
+                        handleLogout();
+                        setOpen(false);
+                      }}
+                      disabled={loading}
+                      className={`w-full text-white bg-red-600 hover:bg-red-700 transition px-4 py-2 rounded ${
+                        loading ? "opacity-70 cursor-not-allowed" : ""
+                      }`}
+                    >
+                      {loading ? (
+                        <ClipLoader size={18} color="#fff" />
+                      ) : (
+                        "Logout"
+                      )}
+                    </button>
+                  </>
+                ) : (
+                  <Link
+                    href="/signUp"
+                    onClick={() => setOpen(false)}
+                    className="bg-cyan-800 hover:bg-cyan-700 text-white px-4 py-2 rounded transition"
+                  >
+                    Connexion
+                  </Link>
+                )}
+              </nav>
             </Dialog.Panel>
           </div>
         </Dialog>
 
-        {/* Toast Message */}
+        {/* Toast */}
         {message && (
           <div className="fixed bottom-5 right-5 bg-green-600 text-white px-4 py-2 rounded shadow-lg z-50">
             {message}
           </div>
         )}
-
-        <LanguageSwitcher />
       </nav>
 
-      {/* User modal OUTSIDE navbar */}
+      {/* User Modal Desktop */}
       {showUserModal && (
         <div
           ref={userModalRef}
-          className="
-            fixed
-            top-20
-            right-4
-            bg-white
-            shadow-lg
-            rounded-lg
-            p-4
-            w-64
-            max-w-[16rem]
-            max-h-60
-            overflow-auto
-            border
-            z-50
-          "
+          className="fixed top-20 right-4 bg-white shadow-lg rounded-lg p-4 w-64 max-h-60 overflow-auto border z-50"
         >
-          <div className="flex justify-center">
+          <div className="flex justify-center mb-2">
             {user?.photoURL ? (
               <Image
                 src={user.photoURL}
@@ -289,11 +277,10 @@ const Navbar = () => {
               </span>
             )}
           </div>
-          <div className="flex items-center gap-2 p-1">
+          <div className="flex items-center gap-2 mb-2">
             <span className="inline-flex h-[7px] w-[7px] rounded-full bg-green-400 opacity-75 animate-ping" />
             <span className="text-sm text-gray-800 font-medium">Connected</span>
           </div>
-
           <p className="font-semibold text-gray-800 truncate">
             {user?.displayName || user?.email}
           </p>
