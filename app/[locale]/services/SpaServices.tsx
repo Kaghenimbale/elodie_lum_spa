@@ -41,7 +41,7 @@ const SpaServices = () => {
     service: "",
     price: "",
     date: "",
-    hour: "",
+    time: "",
     message: "",
   });
 
@@ -94,10 +94,11 @@ const SpaServices = () => {
       setBookingFormData({
         name: "",
         email: "",
-        service: selectedService.name,
+        service:
+          locale === "fr" ? selectedService.name_fr : selectedService.name_en,
         price: selectedService.price || "",
         date: "",
-        hour: "",
+        time: "",
         message: "",
       });
       setError("");
@@ -213,7 +214,7 @@ const SpaServices = () => {
       !bookingFormData.name.trim() ||
       !bookingFormData.email.trim() ||
       !bookingFormData.date.trim() ||
-      !bookingFormData.hour.trim()
+      !bookingFormData.time.trim()
     ) {
       setError("Please fill in all required fields.");
       return;
@@ -238,7 +239,7 @@ const SpaServices = () => {
           service: bookingFormData.service,
           price: bookingFormData.price, // <-- added
           date: bookingFormData.date,
-          time: bookingFormData.hour,
+          time: bookingFormData.time,
           message: bookingFormData.message,
         }),
       });
@@ -253,7 +254,7 @@ const SpaServices = () => {
           service: selectedService.name,
           price: selectedService.price || "",
           date: "",
-          hour: "",
+          time: "",
           message: "",
         });
         setShowConfirmButton(false);
@@ -274,8 +275,6 @@ const SpaServices = () => {
       setBookingLoading(false);
     }
   };
-
-  console.log(services);
 
   return (
     <div
@@ -481,20 +480,22 @@ const SpaServices = () => {
                   />
                 </div>
                 <select
-                  name="hour"
+                  name="time"
                   required
-                  value={bookingFormData.hour}
+                  value={bookingFormData.time}
                   onChange={handleBookingChange}
                   className="w-full p-2 border rounded border-gray-300 outline-none"
-                  disabled={bookingLoading}
+                  disabled={bookingLoading || !bookingFormData.date}
                 >
                   <option value="">{t1("selectHour")}</option>
-                  {getAvailableHours(bookingFormData.date).map((hour) => (
-                    <option key={hour} value={hour}>
-                      {hour}
-                    </option>
-                  ))}
+                  {bookingFormData.date &&
+                    getAvailableHours(bookingFormData.date).map((hour) => (
+                      <option key={hour} value={hour}>
+                        {hour}
+                      </option>
+                    ))}
                 </select>
+
                 <textarea
                   name="message"
                   placeholder={t1("optionalMessage")}
