@@ -106,7 +106,11 @@
   "footer": {
     "title": "Join our email list for exclusive offers and the latest news.",
     "description": "Explore luxury treatments designed to enhance your natural beauty and boost your confidence.",
-    "link": "SIGN IN"
+    "link": "SIGN IN",
+    "privacy": "Privacy policy",
+    "terms": "Terms of service",
+    "refund": "Refund policy",
+    "contact": "Contact information"
   },
   "about-us": {
     "title": "Welcome to Elodia Beauty & Spa",
@@ -162,5 +166,130 @@
   "form-letter": {
     "placeholder": "Email address",
     "button": "SUBSCRIBE"
+  },
+  "referAndEarn": {
+    "title": "Refer & Earn",
+    "description": "Share the beauty of relaxation. Invite your friends and both of you will receive exclusive rewards on your next spa visit!",
+    "benefits": [
+      {
+        "icon": "✓",
+        "text": "Earn 100 Points per referral"
+      },
+      {
+        "icon": "✓",
+        "text": "Friends get 10% off their first booking"
+      }
+    ],
+    "button": "Invite Friends"
+  },
+  "referAndEarn1": {
+    "title": "Refer & Earn",
+    "subtitle": "Bring Friends, Get Rewarded!",
+    "description": "Share the beauty of relaxation. Invite your friends and both of you will receive exclusive rewards on your next spa visit!",
+    "benefits": [
+      "Earn a Points per referral",
+      "Friends get 10% off their first booking"
+    ],
+    "inviteButton": "Invite Friends",
+    "sectionTitle": "How it works:",
+    "howItWorks": [
+      "You’ll get a referral card with your unique code.",
+      "Ask your friend to book using your referral code.",
+      "Every time someone books with your code, you earn points.",
+      "Collect points and unlock free services or exclusive discounts!"
+    ],
+    "callToAction": "SIGN UP",
+    "reminder": "It’s easy, rewarding, and a win-win for everyone!",
+    "highlighted": {
+      "question": "Got friends who could use our services? Send them our way!",
+      "rewards": "For every client you refer, you earn points. Rack up enough points and you could unlock free services as a thank-you from us."
+    }
+  },
+  "testimonial": {
+    "title": "What Our Customers Say About Us",
+    "by": "By",
+    "rate": "Rate Our Service"
+  },
+  "booking": {
+    "title": "Book Your Appointment",
+    "name": "Name",
+    "email": "Email",
+    "service": "Type of Service",
+    "selectService": "Select a service",
+    "date": "Date (according to spa hours)",
+    "closedFridays": "We are closed on Fridays. Please choose another date.",
+    "spaHoursLabel": "Spa Working Hours",
+    "spaHours": {
+      "monTue": "Monday–Tuesday: 10 AM–7 PM",
+      "wedThu": "Wednesday–Thursday: 10 AM–6 PM",
+      "satSun": "Saturday–Sunday: 2 PM–6 PM",
+      "fridayClosed": "Closed on Fridays"
+    },
+    "time": "Preferred Time",
+    "message": "Message",
+    "bookNow": "BOOK NOW",
+    "success": "Booking request sent successfully! ✅",
+    "error": "Something went wrong 😔",
+    "errorSend": "Error sending booking request",
+    "confirmTitle": "Confirm Your Booking",
+    "confirm": {
+      "name": "Name",
+      "email": "Email",
+      "service": "Service",
+      "date": "Date",
+      "time": "Time",
+      "message": "Message"
+    },
+    "cancel": "Cancel",
+    "confirmBtn": "Confirm Booking"
+  },
+  "admin": {
+    "accessDenied": "Access Denied",
+    "bookedServices": "Booked Services",
+    "noBookedServices": "No booked services.",
+    "name": "Name",
+    "email": "Email",
+    "service": "Service",
+    "date": "Date",
+    "time": "Time",
+    "message": "Message",
+    "none": "None"
+  },
+  "upload": {
+    "title": "Add New Service",
+    "namePlaceholderEn": "Service Name (English)",
+    "namePlaceholderFr": "Service Name (French)",
+    "pricePlaceholder": "Price",
+    "descriptionPlaceholderEn": "Description (English)",
+    "descriptionPlaceholderFr": "Description (French)",
+    "fileRequired": "Please select a file",
+    "uploadError": "Error while uploading",
+    "uploadFailed": "Upload failed: ",
+    "successMessage": "✅ Service and image uploaded successfully!",
+    "uploading": "Uploading...",
+    "submit": "Submit"
+  },
+  "modal": {
+    "yourName": "Your Name",
+    "yourEmail": "Your Email",
+    "dateLabel": "Date (according to spa hours):",
+    "selectHour": "Select Hour",
+    "optionalMessage": "Message (optional)",
+    "bookNow": "Book Now",
+    "confirmBooking": "Confirm Booking",
+    "cancel": "Cancel"
+  },
+  "userCard": {
+    "title": "EB & Spa User Card",
+    "loginRequired": "🚫 Please log in to view your profile.",
+    "userNotFound": "⚠️ User data not found.",
+    "email": "Email",
+    "referralCode": "Your Referral Code",
+    "referredBy": "Referred By",
+    "none": "None",
+    "points": "Points",
+    "refereeInfo": "👥 Referee Info",
+    "refereeEmail": "Email",
+    "refereeReferralCode": "Referral Code"
   }
 }

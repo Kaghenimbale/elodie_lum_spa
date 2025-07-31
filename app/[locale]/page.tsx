@@ -1,4 +1,5 @@
 import Beauty from "./components/Beauty";
+import Earn from "./components/Earn";
 import Hours from "./components/Hours";
 import Place from "./components/Place";
 import Post from "./components/Post";
@@ -16,6 +17,7 @@ export default function Home() {
       <Hours />
       <Wellness1 />
       <Place />
+      <Earn />
       <Testimonial />
       {/* <Post /> */}
     </div>

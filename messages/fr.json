@@ -106,7 +106,11 @@
   "footer": {
     "title": "Inscrivez-vous à notre liste e-mail pour recevoir des offres exclusives et les dernières nouveautés.",
     "description": "Découvrez des soins de luxe conçus pour sublimer votre beauté naturelle et renforcer votre confiance.",
-    "link": "S'INSCRIRE"
+    "link": "S'INSCRIRE",
+    "privacy": "Politique de confidentialité",
+    "terms": "Conditions d'utilisation",
+    "refund": "Politique de remboursement",
+    "contact": "Informations de contact"
   },
   "about-us": {
     "title": "Bienvenue chez Elodia Beauty & Spa",
@@ -162,5 +166,130 @@
   "form-letter": {
     "placeholder": "Adresse e-mail",
     "button": "S’ABONNER"
+  },
+  "referAndEarn": {
+    "title": "Parrainez et Gagnez",
+    "description": "Partagez le plaisir de la détente. Invitez vos amis et vous recevrez tous les deux des récompenses exclusives lors de votre prochaine visite au spa !",
+    "benefits": [
+      {
+        "icon": "✓",
+        "text": "Gagnez 100 points par parrainage"
+      },
+      {
+        "icon": "✓",
+        "text": "Les amis reçoivent 10 % de réduction sur leur première réservation"
+      }
+    ],
+    "button": "Inviter des amis"
+  },
+  "referAndEarn1": {
+    "title": "Parrainez et Gagnez",
+    "subtitle": "Invitez vos amis, recevez des récompenses !",
+    "description": "Partagez le plaisir de la détente. Invitez vos amis et vous recevrez tous les deux des récompenses exclusives lors de votre prochaine visite au spa !",
+    "benefits": [
+      "Gagnez des points par parrainage",
+      "Les amis reçoivent 10 % de réduction sur leur première réservation"
+    ],
+    "inviteButton": "Inviter des amis",
+    "sectionTitle": "Comment ça marche :",
+    "howItWorks": [
+      "Vous recevrez une carte de parrainage avec votre code unique.",
+      "Demandez à votre ami de réserver en utilisant votre code de parrainage.",
+      "Chaque fois que quelqu’un réserve avec votre code, vous gagnez des points.",
+      "Cumulez des points et débloquez des services gratuits ou des réductions exclusives !"
+    ],
+    "callToAction": "S’INSCRIRE",
+    "reminder": "C’est simple, gratifiant et tout le monde y gagne !",
+    "highlighted": {
+      "question": "Vous avez des amis qui pourraient utiliser nos services ? Envoyez-les chez nous !",
+      "rewards": "Pour chaque client que vous parrainez, vous gagnez des points. Cumulez suffisamment de points et vous pourriez débloquer des services gratuits en guise de remerciement."
+    }
+  },
+  "testimonial": {
+    "title": "Ce que nos clients disent de nous",
+    "by": "Par",
+    "rate": "Évaluez notre service"
+  },
+  "booking": {
+    "title": "Réservez votre rendez-vous",
+    "name": "Nom",
+    "email": "E-mail",
+    "service": "Type de service",
+    "selectService": "Sélectionnez un service",
+    "date": "Date (selon les horaires du spa)",
+    "closedFridays": "Nous sommes fermés le vendredi. Veuillez choisir une autre date.",
+    "spaHoursLabel": "Horaires du spa",
+    "spaHours": {
+      "monTue": "Lundi–Mardi : 10h00–19h00",
+      "wedThu": "Mercredi–Jeudi : 10h00–18h00",
+      "satSun": "Samedi–Dimanche : 14h00–18h00",
+      "fridayClosed": "Fermé le vendredi"
+    },
+    "time": "Heure souhaitée",
+    "message": "Message",
+    "bookNow": "RÉSERVER",
+    "success": "Demande de réservation envoyée avec succès ! ✅",
+    "error": "Une erreur s'est produite 😔",
+    "errorSend": "Erreur lors de l'envoi de la demande de réservation",
+    "confirmTitle": "Confirmez votre réservation",
+    "confirm": {
+      "name": "Nom",
+      "email": "E-mail",
+      "service": "Service",
+      "date": "Date",
+      "time": "Heure",
+      "message": "Message"
+    },
+    "cancel": "Annuler",
+    "confirmBtn": "Confirmer la réservation"
+  },
+  "admin": {
+    "accessDenied": "Accès refusé",
+    "bookedServices": "Services réservés",
+    "noBookedServices": "Aucun service réservé.",
+    "name": "Nom",
+    "email": "Email",
+    "service": "Service",
+    "date": "Date",
+    "time": "Heure",
+    "message": "Message",
+    "none": "Aucun"
+  },
+  "upload": {
+    "title": "Ajouter un nouveau service",
+    "namePlaceholderEn": "Nom du service (anglais)",
+    "namePlaceholderFr": "Nom du service (français)",
+    "pricePlaceholder": "Prix",
+    "descriptionPlaceholderEn": "Description (anglais)",
+    "descriptionPlaceholderFr": "Description (français)",
+    "fileRequired": "Veuillez sélectionner un fichier",
+    "uploadError": "Erreur lors du téléchargement",
+    "uploadFailed": "Échec du téléchargement : ",
+    "successMessage": "✅ Service et image téléchargés avec succès !",
+    "uploading": "Téléchargement...",
+    "submit": "Envoyer"
+  },
+  "modal": {
+    "yourName": "Votre nom",
+    "yourEmail": "Votre email",
+    "dateLabel": "Date (selon les heures du spa) :",
+    "selectHour": "Sélectionner l'heure",
+    "optionalMessage": "Message (optionnel)",
+    "bookNow": "Réserver",
+    "confirmBooking": "Confirmer la réservation",
+    "cancel": "Annuler"
+  },
+  "userCard": {
+    "title": "Carte Utilisateur EB & Spa",
+    "loginRequired": "🚫 Veuillez vous connecter pour voir votre profil.",
+    "userNotFound": "⚠️ Données utilisateur introuvables.",
+    "email": "E-mail",
+    "referralCode": "Votre Code de Parrainage",
+    "referredBy": "Parrainé Par",
+    "none": "Aucun",
+    "points": "Points",
+    "refereeInfo": "👥 Informations sur le filleul",
+    "refereeEmail": "E-mail",
+    "refereeReferralCode": "Code de Parrainage"
   }
 }

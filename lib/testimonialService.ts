@@ -8,12 +8,14 @@ export const submitTestimonial = async ({
   email,
   rating,
   message,
+  message_fr,
 }: {
   userId: string;
   name: string;
   email: string;
   rating: number;
   message: string;
+  message_fr: string;
 }) => {
   try {
     await addDoc(collection(db, "testimonials"), {
@@ -22,6 +24,7 @@ export const submitTestimonial = async ({
       email,
       rating,
       message,
+      message_fr, // Save French version
       createdAt: serverTimestamp(),
     });
   } catch (error) {

@@ -9,11 +9,14 @@ import { ClipLoader } from "react-spinners";
 import TestimonialForm from "./TestimonialForm";
 import { IoClose } from "react-icons/io5";
 import { Dialog, Transition } from "@headlessui/react";
+import { useLocale } from "next-intl";
+import { useTranslations } from "use-intl";
 
 type Testimonial = {
   id: string;
   name: string;
   message: string;
+  message_fr: string;
   rating: number;
   createdAt: any;
 };
@@ -24,6 +27,9 @@ const Testimonial = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [user, setUser] = useState<User | null>(null);
   const [isAdmin, setIsAdmin] = useState(false);
+
+  const locale = useLocale();
+  const t = useTranslations("testimonial");
 
   // Fetch testimonials
   useEffect(() => {
@@ -72,21 +78,22 @@ const Testimonial = () => {
             height={150}
             loading="lazy"
           />
-          <h2 className="text-3xl font-bold mt-4 text-center">
-            What Our Customers Say About Us
-          </h2>
+          <h2 className="text-3xl font-bold mt-4 text-center">{t("title")}</h2>
         </div>
 
         {loading ? (
           <ClipLoader color="#164E63" />
         ) : (
           <div className="w-full flex flex-col gap-6">
-            {testimonials.map(({ id, name, message, rating }) => (
+            {testimonials.map(({ id, name, message, message_fr, rating }) => (
               <div
                 key={id}
                 className="flex flex-col items-center gap-3 border rounded-lg p-4 shadow-md"
               >
-                <p className="text-gray-700 text-center">{message}</p>
+                <p className="text-gray-700 text-center">
+                  {locale === "fr" ? message_fr : message}
+                </p>
+
                 <div className="flex gap-2 items-center">
                   <div className="flex space-x-1">
                     {[1, 2, 3, 4, 5].map((star) => (
@@ -100,7 +107,9 @@ const Testimonial = () => {
                       </span>
                     ))}
                   </div>
-                  <p className="font-semibold text-lg">By {name}</p>
+                  <p className="font-semibold text-lg">
+                    {t("by")} {name}
+                  </p>
                 </div>
               </div>
             ))}
@@ -114,7 +123,7 @@ const Testimonial = () => {
             onClick={() => setIsOpen(true)}
             className="bg-cyan-700 hover:bg-cyan-600 text-white px-4 py-2 rounded"
           >
-            Rate Our Service
+            {t("rate")}
           </button>
         )}
       </div>

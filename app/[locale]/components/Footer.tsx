@@ -12,7 +12,7 @@ import {
   FaTiktok,
   FaWhatsapp,
 } from "react-icons/fa";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 const Footer = () => {
   const date = new Date();
@@ -23,6 +23,8 @@ const Footer = () => {
     days: any;
     hours: string;
   }[];
+
+  const locale = useLocale();
 
   const handleStripePayment = async () => {
     const res = await fetch("/api/checkout", { method: "POST" });
@@ -62,13 +64,17 @@ const Footer = () => {
           <div className="flex flex-col gap-3 max-w-xs">
             <h3 className="text-xl font-bold">Important Links</h3>
             <ul className="space-y-2 list-none">
-              {["Services", "Contact", "About_Us"].map((item) => (
-                <li key={item}>
+              {[
+                { key: "about_us", en: "ABOUT US", fr: "À PROPOS" },
+                { key: "services", en: "SERVICES", fr: "SERVICES" },
+                { key: "contact", en: "CONTACT", fr: "CONTACT" },
+              ].map((item) => (
+                <li key={item.key}>
                   <Link
-                    href={item.toLocaleLowerCase()}
+                    href={item.key}
                     className="font-thin hover:underline hover:opacity-80 transition"
                   >
-                    {item}
+                    {locale === "fr" ? item.fr : item.en}
                   </Link>
                 </li>
               ))}
@@ -215,10 +221,10 @@ const Footer = () => {
         <div className="flex flex-col md:flex-row gap-2 justify-center text-center font-thin text-sm text-gray-600">
           <span>&copy;{date.getFullYear()}</span>
           <Link href="/">elodiabeauty&spa</Link>
-          <Link href="/policies/privacy-policy">Privacy policy</Link>
-          <Link href="/policies/terms-of-service">Terms of service</Link>
-          <Link href="/policies/refund-policy">Refund policy</Link>
-          <Link href="/contact">Contact information</Link>
+          <Link href="/policies/privacy-policy">{t1("privacy")}</Link>
+          <Link href="/policies/terms-of-service">{t1("terms")}</Link>
+          <Link href="/policies/refund-policy">{t1("refund")}</Link>
+          <Link href="/contact">{t1("contact")}</Link>
         </div>
       </div>
     </footer>
