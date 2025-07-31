@@ -106,7 +106,11 @@
   "footer": {
     "title": "Inscrivez-vous à notre liste e-mail pour recevoir des offres exclusives et les dernières nouveautés.",
     "description": "Découvrez des soins de luxe conçus pour sublimer votre beauté naturelle et renforcer votre confiance.",
-    "link": "S'INSCRIRE"
+    "link": "S'INSCRIRE",
+    "privacy": "Politique de confidentialité",
+    "terms": "Conditions d'utilisation",
+    "refund": "Politique de remboursement",
+    "contact": "Informations de contact"
   },
   "about-us": {
     "title": "Bienvenue chez Elodia Beauty & Spa",
