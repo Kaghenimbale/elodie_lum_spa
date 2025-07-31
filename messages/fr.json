@@ -274,5 +274,18 @@
     "bookNow": "Réserver",
     "confirmBooking": "Confirmer la réservation",
     "cancel": "Annuler"
+  },
+  "userCard": {
+    "title": "Carte Utilisateur EB & Spa",
+    "loginRequired": "🚫 Veuillez vous connecter pour voir votre profil.",
+    "userNotFound": "⚠️ Données utilisateur introuvables.",
+    "email": "E-mail",
+    "referralCode": "Votre Code de Parrainage",
+    "referredBy": "Parrainé Par",
+    "none": "Aucun",
+    "points": "Points",
+    "refereeInfo": "👥 Informations sur le filleul",
+    "refereeEmail": "E-mail",
+    "refereeReferralCode": "Code de Parrainage"
   }
 }

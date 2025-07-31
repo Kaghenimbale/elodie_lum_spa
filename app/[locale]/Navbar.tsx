@@ -11,11 +11,30 @@ import { auth } from "@/firebase/config";
 import { useRouter } from "next/navigation";
 import LanguageSwitcher from "./components/LanguageSwitcher";
 import ClipLoader from "react-spinners/ClipLoader";
+import { useLocale } from "next-intl";
 
 const Navbar = () => {
-  const commonLinks = ["HOME", "ABOUT US", "SERVICES", "CONTACT"];
-  const userLinks = ["userProfile"];
-  const adminLinks = ["admin", "manage-services"];
+  // const commonLinks = ["HOME", "ABOUT US", "SERVICES", "CONTACT"];
+  // const userLinks = ["userProfile"];
+  // const adminLinks = ["admin", "manage-services"];
+
+  const locale = useLocale();
+
+  const commonLinks1 = [
+    { key: "home", en: "HOME", fr: "ACCUEIL" },
+    { key: "about_us", en: "ABOUT US", fr: "À PROPOS" },
+    { key: "services", en: "SERVICES", fr: "SERVICES" },
+    { key: "contact", en: "CONTACT", fr: "CONTACT" },
+  ];
+
+  const userLinks1 = [
+    { key: "userProfile", en: "User Profile", fr: "Profil Utilisateur" },
+  ];
+
+  const adminLinks1 = [
+    { key: "admin", en: "Admin", fr: "Admin" },
+    { key: "manage-services", en: "Manage Services", fr: "Gérer les Services" },
+  ];
 
   const [open, setOpen] = useState(false);
   const [user, setUser] = useState<User | null>(null);
@@ -78,9 +97,14 @@ const Navbar = () => {
   const isLoggedIn = !!user;
   const isAdmin = user?.email === process.env.NEXT_PUBLIC_ADMIN_EMAIL;
 
-  const navlinks = [
-    ...commonLinks,
-    ...(authReady && isLoggedIn ? (isAdmin ? adminLinks : userLinks) : []),
+  // const navlinks = [
+  //   ...commonLinks,
+  //   ...(authReady && isLoggedIn ? (isAdmin ? adminLinks : userLinks) : []),
+  // ];
+
+  const navlinks1 = [
+    ...commonLinks1,
+    ...(authReady && isLoggedIn ? (isAdmin ? adminLinks1 : userLinks1) : []),
   ];
 
   return (
@@ -101,6 +125,19 @@ const Navbar = () => {
           <div className="flex items-center gap-4 md:gap-6">
             {/* Desktop Menu */}
             <ul className="hidden md:flex gap-6 xl:gap-12 items-center">
+              {navlinks1.map((navlink) => (
+                <li key={navlink.key}>
+                  <Link
+                    href={navlink.key === "home" ? "/" : "/" + navlink.key}
+                    className="text-gray-800 hover:text-cyan-800 transition-colors font-medium"
+                  >
+                    {locale === "fr" ? navlink.fr : navlink.en}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+
+            {/* <ul className="hidden md:flex gap-6 xl:gap-12 items-center">
               {navlinks.map((navlink) => (
                 <li key={navlink}>
                   <Link
@@ -119,7 +156,7 @@ const Navbar = () => {
                   </Link>
                 </li>
               ))}
-            </ul>
+            </ul> */}
 
             {/* Language Switcher Desktop */}
             <div className="hidden md:block">
@@ -190,7 +227,18 @@ const Navbar = () => {
               </button>
 
               <nav className="flex flex-col items-center gap-6 mt-10">
-                {navlinks.map((navlink) => (
+                {navlinks1.map((navlink) => (
+                  <Link
+                    key={navlink.key}
+                    href={navlink.key === "home" ? "/" : "/" + navlink.key}
+                    onClick={() => setOpen(false)}
+                    className="text-lg font-medium text-gray-800 hover:text-cyan-800 transition"
+                  >
+                    {locale === "fr" ? navlink.fr : navlink.en}
+                  </Link>
+                ))}
+
+                {/* {navlinks.map((navlink) => (
                   <Link
                     key={navlink}
                     href={
@@ -203,7 +251,7 @@ const Navbar = () => {
                   >
                     {navlink}
                   </Link>
-                ))}
+                ))} */}
 
                 {authReady && user ? (
                   <>

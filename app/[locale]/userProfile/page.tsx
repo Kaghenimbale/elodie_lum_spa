@@ -13,12 +13,14 @@ import {
 } from "firebase/firestore";
 import { BiUser } from "react-icons/bi";
 import { ClipLoader } from "react-spinners";
+import { useTranslations } from "next-intl";
 
 const Page = () => {
   const [user, setUser] = useState<User | null>(null);
   const [userData, setUserData] = useState<any>(null);
   const [refereeData, setRefereeData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const t = useTranslations("userCard");
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
@@ -64,40 +66,42 @@ const Page = () => {
         <div className="bg-cyan-800 w-[4rem] h-[4rem] flex items-center justify-center rounded-full">
           <BiUser className="text-white text-4xl" />
         </div>
-        <h3 className="text-2xl font-bold">EB & Spa User Card</h3>
+        <h3 className="text-2xl font-bold">{t("title")}</h3>
       </div>
 
       {!user ? (
         <p className="text-red-600 text-center font-medium">
-          🚫 Please log in to view your profile.
+          {t("loginRequired")}
         </p>
       ) : !userData ? (
         <p className="text-yellow-700 bg-yellow-100 p-2 rounded-md text-center">
-          ⚠️ User data not found.
+          {t("userNotFound")}
         </p>
       ) : (
         <>
           <p>
-            <strong>Email:</strong> {user.email}
+            <strong>{t("email")}:</strong> {user.email}
           </p>
           <p>
-            <strong>Your Referral Code:</strong> {userData.referralCode}
+            <strong>{t("referralCode")}:</strong> {userData.referralCode}
           </p>
           <p>
-            <strong>Referred By:</strong> {userData.referredBy || "None"}
+            <strong>{t("referredBy")}:</strong>{" "}
+            {userData.referredBy || t("none")}
           </p>
           <p>
-            <strong>Points:</strong> {userData.points}
+            <strong>{t("points")}:</strong> {userData.points}
           </p>
 
           {refereeData && (
             <div className="mt-4 bg-gray-100 p-4 rounded-md">
-              <h3 className="font-semibold mb-1">👥 Referee Info</h3>
+              <h3 className="font-semibold mb-1">{t("refereeInfo")}</h3>
               <p>
-                <strong>Email:</strong> {refereeData.email}
+                <strong>{t("refereeEmail")}:</strong> {refereeData.email}
               </p>
               <p>
-                <strong>Referral Code:</strong> {refereeData.referralCode}
+                <strong>{t("refereeReferralCode")}:</strong>{" "}
+                {refereeData.referralCode}
               </p>
             </div>
           )}

@@ -274,5 +274,18 @@
     "bookNow": "Book Now",
     "confirmBooking": "Confirm Booking",
     "cancel": "Cancel"
+  },
+  "userCard": {
+    "title": "EB & Spa User Card",
+    "loginRequired": "🚫 Please log in to view your profile.",
+    "userNotFound": "⚠️ User data not found.",
+    "email": "Email",
+    "referralCode": "Your Referral Code",
+    "referredBy": "Referred By",
+    "none": "None",
+    "points": "Points",
+    "refereeInfo": "👥 Referee Info",
+    "refereeEmail": "Email",
+    "refereeReferralCode": "Referral Code"
   }
 }
