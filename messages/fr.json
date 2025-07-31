@@ -253,14 +253,26 @@
   },
   "upload": {
     "title": "Ajouter un nouveau service",
-    "namePlaceholder": "Nom du service",
+    "namePlaceholderEn": "Nom du service (anglais)",
+    "namePlaceholderFr": "Nom du service (français)",
     "pricePlaceholder": "Prix",
-    "descriptionPlaceholder": "Description",
+    "descriptionPlaceholderEn": "Description (anglais)",
+    "descriptionPlaceholderFr": "Description (français)",
     "fileRequired": "Veuillez sélectionner un fichier",
-    "submit": "Soumettre",
-    "uploading": "Téléchargement...",
+    "uploadError": "Erreur lors du téléchargement",
+    "uploadFailed": "Échec du téléchargement : ",
     "successMessage": "✅ Service et image téléchargés avec succès !",
-    "uploadFailed": "❌ Échec du téléchargement : ",
-    "uploadError": "❌ Erreur lors du téléchargement"
+    "uploading": "Téléchargement...",
+    "submit": "Envoyer"
+  },
+  "modal": {
+    "yourName": "Votre nom",
+    "yourEmail": "Votre email",
+    "dateLabel": "Date (selon les heures du spa) :",
+    "selectHour": "Sélectionner l'heure",
+    "optionalMessage": "Message (optionnel)",
+    "bookNow": "Réserver",
+    "confirmBooking": "Confirmer la réservation",
+    "cancel": "Annuler"
   }
 }

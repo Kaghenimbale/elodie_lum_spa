@@ -15,13 +15,18 @@ export default function UploadPage() {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
+  // Add separate fields for English and French
   const [form, setForm] = useState({
-    name: "",
+    name_en: "",
+    name_fr: "",
     price: "",
-    description: "",
+    description_en: "",
+    description_fr: "",
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
@@ -67,7 +72,13 @@ export default function UploadPage() {
 
           router.push("/services");
           setMessage(t("successMessage"));
-          setForm({ name: "", price: "", description: "" });
+          setForm({
+            name_en: "",
+            name_fr: "",
+            price: "",
+            description_en: "",
+            description_fr: "",
+          });
           setFile(null);
         } else {
           console.error("Upload Error:", data);
@@ -96,9 +107,19 @@ export default function UploadPage() {
 
         <input
           type="text"
-          name="name"
-          placeholder={t("namePlaceholder")}
-          value={form.name}
+          name="name_en"
+          placeholder={t("namePlaceholderEn")}
+          value={form.name_en}
+          onChange={handleChange}
+          required
+          className="w-full p-2 border rounded"
+        />
+
+        <input
+          type="text"
+          name="name_fr"
+          placeholder={t("namePlaceholderFr")}
+          value={form.name_fr}
           onChange={handleChange}
           required
           className="w-full p-2 border rounded"
@@ -114,11 +135,19 @@ export default function UploadPage() {
           className="w-full p-2 border rounded"
         />
 
-        <input
-          type="text"
-          name="description"
-          placeholder={t("descriptionPlaceholder")}
-          value={form.description}
+        <textarea
+          name="description_en"
+          placeholder={t("descriptionPlaceholderEn")}
+          value={form.description_en}
+          onChange={handleChange}
+          required
+          className="w-full p-2 border rounded"
+        />
+
+        <textarea
+          name="description_fr"
+          placeholder={t("descriptionPlaceholderFr")}
+          value={form.description_fr}
           onChange={handleChange}
           required
           className="w-full p-2 border rounded"

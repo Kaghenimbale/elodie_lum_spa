@@ -8,7 +8,7 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { app } from "@/firebase/config";
 import { usePathname } from "next/navigation";
 import { IKImage } from "imagekitio-react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { Dialog } from "@headlessui/react";
 
 const SpaServices = () => {
@@ -22,11 +22,16 @@ const SpaServices = () => {
   const [showModal, setShowModal] = useState(false);
   const [selectedService, setSelectedService] = useState<any | null>(null);
 
+  const locale = useLocale();
+  const t1 = useTranslations("modal");
+
   // Separate state for editing service form
   const [editFormData, setEditFormData] = useState({
-    name: "",
-    description: "",
+    name_en: "",
+    name_fr: "",
     price: "",
+    description_en: "",
+    description_fr: "",
   });
 
   // Booking form & status
@@ -108,10 +113,13 @@ const SpaServices = () => {
 
   const handleEdit = (service: any) => {
     setEditingId(service.id);
+    console.log(service);
     setEditFormData({
-      name: service.name,
-      description: service.description,
+      name_en: service.name_en,
+      name_fr: service.name_fr,
       price: service.price,
+      description_en: service.description_en,
+      description_fr: service.description_fr,
     });
   };
 
@@ -125,9 +133,11 @@ const SpaServices = () => {
 
     setEditingId(null);
     setEditFormData({
-      name: "",
-      description: "",
+      name_en: "",
+      name_fr: "",
       price: "",
+      description_en: "",
+      description_fr: "",
     });
   };
 
@@ -265,6 +275,8 @@ const SpaServices = () => {
     }
   };
 
+  console.log(services);
+
   return (
     <div
       className={
@@ -294,14 +306,22 @@ const SpaServices = () => {
                 <>
                   <input
                     name="name"
-                    value={editFormData.name}
+                    value={
+                      locale === "fr"
+                        ? editFormData.name_fr
+                        : editFormData.name_en
+                    }
                     onChange={handleEditChange}
                     placeholder="Name"
                     className="border p-1 w-full"
                   />
                   <textarea
                     name="description"
-                    value={editFormData.description}
+                    value={
+                      locale === "fr"
+                        ? editFormData.description_fr
+                        : editFormData.description_en
+                    }
                     onChange={handleEditChange}
                     placeholder="Description"
                     className="border p-1 w-full resize-none break-words overflow-wrap"
@@ -324,11 +344,14 @@ const SpaServices = () => {
               ) : (
                 <>
                   <h3 className="text-xl font-semibold break-words text-center">
-                    {service.name}
+                    {locale === "fr" ? service.name_fr : service.name_en}
                   </h3>
                   <p className="font-thin text-center text-sm w-full break-words overflow-wrap hyphens-auto">
-                    {service.description}
+                    {locale === "fr"
+                      ? service.description_fr
+                      : service.description_en}
                   </p>
+
                   <span className="text-center block">
                     ${service.price}.00 CAD
                   </span>
@@ -386,7 +409,9 @@ const SpaServices = () => {
         <div className="fixed inset-0 flex items-start md:items-center justify-center p-2 sm:p-4 overflow-y-auto">
           <Dialog.Panel className="relative w-[90vw] lg:max-w-3xl rounded-xl shadow-2xl bg-white p-4 sm:p-6 space-y-1 border-t-4 border-cyan-800">
             <Dialog.Title className="text-xl sm:text-2xl font-bold text-gray-900 text-center">
-              {selectedService?.name}
+              {locale === "fr"
+                ? selectedService?.name_fr
+                : selectedService?.name_en}
             </Dialog.Title>
 
             <div className="flex flex-col gap-2 md:grid md:grid-cols-2">
@@ -396,7 +421,7 @@ const SpaServices = () => {
                 loading="lazy"
                 lqip={{ active: true }}
                 className="rounded-xl w-full h-[200px] sm:h-[300px] md:h-full max-h-[400px] shadow 
-            object-top sm:object-top md:object-center object-cover"
+        object-top sm:object-top md:object-center object-cover"
               />
 
               <form
@@ -407,7 +432,7 @@ const SpaServices = () => {
                   type="text"
                   name="name"
                   required
-                  placeholder="Your Name"
+                  placeholder={t1("yourName")}
                   value={bookingFormData.name}
                   onChange={handleBookingChange}
                   className="w-full p-2 border rounded border-gray-300 outline-none"
@@ -417,7 +442,7 @@ const SpaServices = () => {
                   type="email"
                   name="email"
                   required
-                  placeholder="Your Email"
+                  placeholder={t1("yourEmail")}
                   value={bookingFormData.email}
                   onChange={handleBookingChange}
                   className="w-full p-2 border rounded border-gray-300 outline-none"
@@ -427,9 +452,14 @@ const SpaServices = () => {
                   type="text"
                   name="service"
                   readOnly
-                  value={bookingFormData.service}
+                  value={
+                    locale === "fr"
+                      ? selectedService?.name_fr || bookingFormData.service
+                      : selectedService?.name_en || bookingFormData.service
+                  }
                   className="w-full p-2 border rounded border-gray-300 outline-none"
                 />
+
                 <input
                   type="text"
                   name="price"
@@ -438,7 +468,7 @@ const SpaServices = () => {
                   className="w-full p-2 border rounded border-gray-300 outline-none"
                 />
                 <div className="flex flex-col gap-2">
-                  <label htmlFor="date">Date (according to spa hours):</label>
+                  <label htmlFor="date">{t1("dateLabel")}</label>
                   <input
                     type="date"
                     name="date"
@@ -458,7 +488,7 @@ const SpaServices = () => {
                   className="w-full p-2 border rounded border-gray-300 outline-none"
                   disabled={bookingLoading}
                 >
-                  <option value="">Select Hour</option>
+                  <option value="">{t1("selectHour")}</option>
                   {getAvailableHours(bookingFormData.date).map((hour) => (
                     <option key={hour} value={hour}>
                       {hour}
@@ -467,7 +497,7 @@ const SpaServices = () => {
                 </select>
                 <textarea
                   name="message"
-                  placeholder="Message (optional)"
+                  placeholder={t1("optionalMessage")}
                   value={bookingFormData.message}
                   onChange={handleBookingChange}
                   rows={3}
@@ -485,7 +515,7 @@ const SpaServices = () => {
                     {bookingLoading ? (
                       <ClipLoader size={20} color="#fff" />
                     ) : (
-                      "Book Now"
+                      t1("bookNow")
                     )}
                   </button>
                 ) : (
@@ -499,7 +529,7 @@ const SpaServices = () => {
                       {bookingLoading ? (
                         <ClipLoader size={20} color="#fff" />
                       ) : (
-                        "Confirm Booking"
+                        t1("confirmBooking")
                       )}
                     </button>
                     <button
@@ -508,7 +538,7 @@ const SpaServices = () => {
                       disabled={bookingLoading}
                       className="w-full mt-2 bg-gray-300 text-gray-700 py-3 rounded-md hover:bg-gray-400 transition"
                     >
-                      Cancel
+                      {t1("cancel")}
                     </button>
                   </>
                 )}

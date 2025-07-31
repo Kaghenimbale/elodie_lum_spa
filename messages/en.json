@@ -253,14 +253,26 @@
   },
   "upload": {
     "title": "Add New Service",
-    "namePlaceholder": "Service Name",
+    "namePlaceholderEn": "Service Name (English)",
+    "namePlaceholderFr": "Service Name (French)",
     "pricePlaceholder": "Price",
-    "descriptionPlaceholder": "Description",
+    "descriptionPlaceholderEn": "Description (English)",
+    "descriptionPlaceholderFr": "Description (French)",
     "fileRequired": "Please select a file",
-    "submit": "Submit",
-    "uploading": "Uploading...",
+    "uploadError": "Error while uploading",
+    "uploadFailed": "Upload failed: ",
     "successMessage": "✅ Service and image uploaded successfully!",
-    "uploadFailed": "❌ Upload failed: ",
-    "uploadError": "❌ Error while uploading"
+    "uploading": "Uploading...",
+    "submit": "Submit"
+  },
+  "modal": {
+    "yourName": "Your Name",
+    "yourEmail": "Your Email",
+    "dateLabel": "Date (according to spa hours):",
+    "selectHour": "Select Hour",
+    "optionalMessage": "Message (optional)",
+    "bookNow": "Book Now",
+    "confirmBooking": "Confirm Booking",
+    "cancel": "Cancel"
   }
 }
