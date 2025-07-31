@@ -38,6 +38,7 @@ const Hours = () => {
 
         {/* Calendar */}
         <div className="w-full max-w-sm">
+          <h1 className="text-2xl font-bold mb-4">Book a Spa Appointment</h1>
           <Calender />
         </div>
       </div>

@@ -121,6 +121,11 @@ const Navbar = () => {
               ))}
             </ul>
 
+            {/* Language Switcher Desktop */}
+            <div className="hidden md:block">
+              <LanguageSwitcher />
+            </div>
+
             {/* User profile (desktop) */}
             {authReady && user && (
               <div className="hidden md:flex items-center gap-3 relative">
@@ -242,6 +247,7 @@ const Navbar = () => {
                     Connexion
                   </Link>
                 )}
+                <LanguageSwitcher />
               </nav>
             </Dialog.Panel>
           </div>
