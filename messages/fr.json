@@ -200,5 +200,67 @@
       "question": "Vous avez des amis qui pourraient utiliser nos services ? Envoyez-les chez nous !",
       "rewards": "Pour chaque client que vous parrainez, vous gagnez des points. Cumulez suffisamment de points et vous pourriez débloquer des services gratuits en guise de remerciement."
     }
+  },
+  "testimonial": {
+    "title": "Ce que nos clients disent de nous",
+    "by": "Par",
+    "rate": "Évaluez notre service"
+  },
+  "booking": {
+    "title": "Réservez votre rendez-vous",
+    "name": "Nom",
+    "email": "E-mail",
+    "service": "Type de service",
+    "selectService": "Sélectionnez un service",
+    "date": "Date (selon les horaires du spa)",
+    "closedFridays": "Nous sommes fermés le vendredi. Veuillez choisir une autre date.",
+    "spaHoursLabel": "Horaires du spa",
+    "spaHours": {
+      "monTue": "Lundi–Mardi : 10h00–19h00",
+      "wedThu": "Mercredi–Jeudi : 10h00–18h00",
+      "satSun": "Samedi–Dimanche : 14h00–18h00",
+      "fridayClosed": "Fermé le vendredi"
+    },
+    "time": "Heure souhaitée",
+    "message": "Message",
+    "bookNow": "RÉSERVER",
+    "success": "Demande de réservation envoyée avec succès ! ✅",
+    "error": "Une erreur s'est produite 😔",
+    "errorSend": "Erreur lors de l'envoi de la demande de réservation",
+    "confirmTitle": "Confirmez votre réservation",
+    "confirm": {
+      "name": "Nom",
+      "email": "E-mail",
+      "service": "Service",
+      "date": "Date",
+      "time": "Heure",
+      "message": "Message"
+    },
+    "cancel": "Annuler",
+    "confirmBtn": "Confirmer la réservation"
+  },
+  "admin": {
+    "accessDenied": "Accès refusé",
+    "bookedServices": "Services réservés",
+    "noBookedServices": "Aucun service réservé.",
+    "name": "Nom",
+    "email": "Email",
+    "service": "Service",
+    "date": "Date",
+    "time": "Heure",
+    "message": "Message",
+    "none": "Aucun"
+  },
+  "upload": {
+    "title": "Ajouter un nouveau service",
+    "namePlaceholder": "Nom du service",
+    "pricePlaceholder": "Prix",
+    "descriptionPlaceholder": "Description",
+    "fileRequired": "Veuillez sélectionner un fichier",
+    "submit": "Soumettre",
+    "uploading": "Téléchargement...",
+    "successMessage": "✅ Service et image téléchargés avec succès !",
+    "uploadFailed": "❌ Échec du téléchargement : ",
+    "uploadError": "❌ Erreur lors du téléchargement"
   }
 }

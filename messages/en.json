@@ -200,5 +200,67 @@
       "question": "Got friends who could use our services? Send them our way!",
       "rewards": "For every client you refer, you earn points. Rack up enough points and you could unlock free services as a thank-you from us."
     }
+  },
+  "testimonial": {
+    "title": "What Our Customers Say About Us",
+    "by": "By",
+    "rate": "Rate Our Service"
+  },
+  "booking": {
+    "title": "Book Your Appointment",
+    "name": "Name",
+    "email": "Email",
+    "service": "Type of Service",
+    "selectService": "Select a service",
+    "date": "Date (according to spa hours)",
+    "closedFridays": "We are closed on Fridays. Please choose another date.",
+    "spaHoursLabel": "Spa Working Hours",
+    "spaHours": {
+      "monTue": "Monday–Tuesday: 10 AM–7 PM",
+      "wedThu": "Wednesday–Thursday: 10 AM–6 PM",
+      "satSun": "Saturday–Sunday: 2 PM–6 PM",
+      "fridayClosed": "Closed on Fridays"
+    },
+    "time": "Preferred Time",
+    "message": "Message",
+    "bookNow": "BOOK NOW",
+    "success": "Booking request sent successfully! ✅",
+    "error": "Something went wrong 😔",
+    "errorSend": "Error sending booking request",
+    "confirmTitle": "Confirm Your Booking",
+    "confirm": {
+      "name": "Name",
+      "email": "Email",
+      "service": "Service",
+      "date": "Date",
+      "time": "Time",
+      "message": "Message"
+    },
+    "cancel": "Cancel",
+    "confirmBtn": "Confirm Booking"
+  },
+  "admin": {
+    "accessDenied": "Access Denied",
+    "bookedServices": "Booked Services",
+    "noBookedServices": "No booked services.",
+    "name": "Name",
+    "email": "Email",
+    "service": "Service",
+    "date": "Date",
+    "time": "Time",
+    "message": "Message",
+    "none": "None"
+  },
+  "upload": {
+    "title": "Add New Service",
+    "namePlaceholder": "Service Name",
+    "pricePlaceholder": "Price",
+    "descriptionPlaceholder": "Description",
+    "fileRequired": "Please select a file",
+    "submit": "Submit",
+    "uploading": "Uploading...",
+    "successMessage": "✅ Service and image uploaded successfully!",
+    "uploadFailed": "❌ Upload failed: ",
+    "uploadError": "❌ Error while uploading"
   }
 }

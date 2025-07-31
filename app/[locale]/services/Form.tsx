@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { getServices } from "@/lib/getServices";
 import ClipLoader from "react-spinners/ClipLoader";
 import { Dialog } from "@headlessui/react";
+import { useTranslations } from "next-intl";
 
 const spaHours = [
   { day: 1, start: "10:00", end: "19:00" }, // Monday
@@ -15,6 +16,8 @@ const spaHours = [
 ];
 
 const Page = () => {
+  const t = useTranslations("booking");
+
   const [services, setServices] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
@@ -53,7 +56,7 @@ const Page = () => {
     const day = selectedDate.getDay();
 
     if (day === 5) {
-      setDateError("We are closed on Fridays. Please choose another date.");
+      setDateError(t("closedFridays"));
       return;
     }
 
@@ -79,7 +82,7 @@ const Page = () => {
       const result = await res.json();
 
       if (res.ok) {
-        setSuccessMessage("Booking request sent successfully! ✅");
+        setSuccessMessage(t("success"));
         setMessage({
           name: "",
           email: "",
@@ -89,12 +92,12 @@ const Page = () => {
           message: "",
         });
       } else {
-        setErrorMessage("Something went wrong 😔");
+        setErrorMessage(t("error"));
         console.error(result.error);
       }
     } catch (err) {
       console.error("Booking error:", err);
-      setErrorMessage("Error sending booking request");
+      setErrorMessage(t("errorSend"));
     } finally {
       setLoading(false);
     }
@@ -112,17 +115,20 @@ const Page = () => {
         }}
         className="p-6 border rounded-xl shadow-xl w-full max-w-md space-y-4 bg-white"
       >
-        <h2 className="text-[2rem] font-bold text-center">
-          Book Your Appointment
-        </h2>
+        <h2 className="text-[2rem] font-bold text-center">{t("title")}</h2>
 
         {[
-          { name: "name", type: "text", label: "Name", placeholder: "Name" },
+          {
+            name: "name",
+            type: "text",
+            label: t("name"),
+            placeholder: t("name"),
+          },
           {
             name: "email",
             type: "email",
-            label: "Email",
-            placeholder: "Email address",
+            label: t("email"),
+            placeholder: t("email"),
           },
         ].map((field) => (
           <div key={field.name} className="flex flex-col gap-2">
@@ -140,7 +146,7 @@ const Page = () => {
         ))}
 
         <div className="flex flex-col gap-2">
-          <label htmlFor="service">Type of Service:</label>
+          <label htmlFor="service">{t("service")}:</label>
           <select
             name="service"
             className="w-full p-2 border rounded border-gray-300 outline-none"
@@ -149,7 +155,7 @@ const Page = () => {
             required
           >
             <option value="" disabled>
-              Select a service
+              {t("selectService")}
             </option>
             {services.map((service) => (
               <option key={service.id} value={service.name}>
@@ -160,9 +166,11 @@ const Page = () => {
         </div>
 
         <div className="flex flex-col gap-2">
-          <label htmlFor="date">Date (according to spa hours):</label>
+          <label htmlFor="date">{t("date")}:</label>
           <input
-            className={`w-full p-2 border rounded outline-none ${dateError ? "border-red-500" : "border-gray-300"}`}
+            className={`w-full p-2 border rounded outline-none ${
+              dateError ? "border-red-500" : "border-gray-300"
+            }`}
             type="date"
             name="date"
             value={message.date}
@@ -172,16 +180,16 @@ const Page = () => {
           />
           {dateError && <p className="text-sm text-red-600">{dateError}</p>}
           <p className="text-sm text-gray-500 flex flex-col">
-            <span>Monday–Tuesday: 10 AM–7 PM</span>
-            <span>Wednesday–Thursday: 10 AM–6 PM</span>
-            <span>Saturday–Sunday: 2 PM–6 PM</span>
-            <span className="text-red-500">Closed on Fridays</span>
+            <span>{t("spaHours.monTue")}</span>
+            <span>{t("spaHours.wedThu")}</span>
+            <span>{t("spaHours.satSun")}</span>
+            <span className="text-red-500">{t("spaHours.fridayClosed")}</span>
           </p>
         </div>
 
         <div className="flex flex-col gap-2">
           <label htmlFor="time" className="text-sm font-medium text-gray-700">
-            Preferred Time:
+            {t("time")}:
           </label>
           <input
             className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm outline-none"
@@ -194,20 +202,20 @@ const Page = () => {
             required
           />
           <div className="bg-cyan-50 border border-cyan-200 rounded-md p-3 text-sm text-cyan-800">
-            <p className="font-semibold mb-1">Spa Working Hours:</p>
+            <p className="font-semibold mb-1">{t("spaHoursLabel")}:</p>
             <ul className="list-disc list-inside space-y-1">
-              <li>Monday–Tuesday: 10 AM–7 PM</li>
-              <li>Wednesday–Thursday: 10 AM–6 PM</li>
-              <li>Saturday–Sunday: 2 PM–6 PM</li>
+              <li>{t("spaHours.monTue")}</li>
+              <li>{t("spaHours.wedThu")}</li>
+              <li>{t("spaHours.satSun")}</li>
             </ul>
           </div>
         </div>
 
         <div className="flex flex-col gap-2">
-          <label htmlFor="message">Message:</label>
+          <label htmlFor="message">{t("message")}:</label>
           <textarea
             className="w-full p-2 border rounded border-gray-300 outline-none"
-            placeholder="Message"
+            placeholder={t("message")}
             name="message"
             value={message.message}
             onChange={handleChange}
@@ -218,7 +226,7 @@ const Page = () => {
           type="submit"
           className="text-white text-[0.95rem] bg-cyan-800 w-full py-2 rounded hover:bg-cyan-700 transition-all duration-300 ease-in-out flex justify-center items-center gap-2"
         >
-          {loading ? <ClipLoader size={20} color="#ffffff" /> : "BOOK NOW"}
+          {loading ? <ClipLoader size={20} color="#ffffff" /> : t("bookNow")}
         </button>
 
         {successMessage && (
@@ -245,26 +253,26 @@ const Page = () => {
         <div className="fixed inset-0 flex items-center justify-center p-4">
           <Dialog.Panel className="w-full max-w-md rounded-xl shadow-2xl bg-white p-6 space-y-6 border-t-4 border-cyan-800">
             <Dialog.Title className="text-xl font-semibold text-gray-900">
-              Confirm Your Booking
+              {t("confirmTitle")}
             </Dialog.Title>
             <div className="text-sm space-y-1 text-gray-700">
               <p>
-                <strong>Name:</strong> {message.name}
+                <strong>{t("confirm.name")}:</strong> {message.name}
               </p>
               <p>
-                <strong>Email:</strong> {message.email}
+                <strong>{t("confirm.email")}:</strong> {message.email}
               </p>
               <p>
-                <strong>Service:</strong> {message.service}
+                <strong>{t("confirm.service")}:</strong> {message.service}
               </p>
               <p>
-                <strong>Date:</strong> {message.date}
+                <strong>{t("confirm.date")}:</strong> {message.date}
               </p>
               <p>
-                <strong>Time:</strong> {message.time}
+                <strong>{t("confirm.time")}:</strong> {message.time}
               </p>
               <p>
-                <strong>Message:</strong> {message.message}
+                <strong>{t("confirm.message")}:</strong> {message.message}
               </p>
             </div>
             <div className="flex justify-end gap-4 pt-4">
@@ -272,13 +280,13 @@ const Page = () => {
                 className="px-4 py-2 bg-gray-100 text-gray-700 rounded hover:bg-gray-200 border"
                 onClick={() => setShowModal(false)}
               >
-                Cancel
+                {t("cancel")}
               </button>
               <button
                 className="px-4 py-2 bg-cyan-800 text-white rounded hover:bg-cyan-700 shadow"
                 onClick={handleConfirm}
               >
-                Confirm Booking
+                {t("confirmBtn")}
               </button>
             </div>
           </Dialog.Panel>
