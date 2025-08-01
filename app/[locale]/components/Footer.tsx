@@ -73,6 +73,7 @@ const Footer = () => {
                   <Link
                     href={item.key}
                     className="font-thin hover:underline hover:opacity-80 transition"
+                    locale={locale}
                   >
                     {locale === "fr" ? item.fr : item.en}
                   </Link>
@@ -221,10 +222,18 @@ const Footer = () => {
         <div className="flex flex-col md:flex-row gap-2 justify-center text-center font-thin text-sm text-gray-600">
           <span>&copy;{date.getFullYear()}</span>
           <Link href="/">elodiabeauty&spa</Link>
-          <Link href="/policies/privacy-policy">{t1("privacy")}</Link>
-          <Link href="/policies/terms-of-service">{t1("terms")}</Link>
-          <Link href="/policies/refund-policy">{t1("refund")}</Link>
-          <Link href="/contact">{t1("contact")}</Link>
+          <Link href="/policies/privacy-policy" locale={locale}>
+            {t1("privacy")}
+          </Link>
+          <Link href="/policies/terms-of-service" locale={locale}>
+            {t1("terms")}
+          </Link>
+          <Link href="/policies/refund-policy" locale={locale}>
+            {t1("refund")}
+          </Link>
+          <Link href="/contact" locale={locale}>
+            {t1("contact")}
+          </Link>
         </div>
       </div>
     </footer>
