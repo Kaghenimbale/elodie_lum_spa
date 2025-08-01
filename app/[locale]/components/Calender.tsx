@@ -9,11 +9,14 @@ import frLocale from "@fullcalendar/core/locales/fr";
 import { Dialog } from "@headlessui/react";
 import { getServices } from "@/lib/getServices";
 import { ClipLoader } from "react-spinners";
+import { useLocale } from "next-intl";
 
 type Service = {
   id: string;
   name: string;
   price: number;
+  name_fr?: string;
+  name_en?: string;
 };
 
 type FormData = {
@@ -25,9 +28,9 @@ type FormData = {
 };
 
 const spaHours = [
-  { daysOfWeek: [1, 2], startTime: "10:00", endTime: "19:00" },
-  { daysOfWeek: [3, 4], startTime: "10:00", endTime: "18:00" },
-  { daysOfWeek: [6, 0], startTime: "14:00", endTime: "18:00" },
+  { daysOfWeek: [1, 2, 5], startTime: "10:00", endTime: "19:00" }, // Lundi, Mardi, Vendredi
+  { daysOfWeek: [3, 4], startTime: "10:00", endTime: "18:00" }, // Mercredi, Jeudi
+  { daysOfWeek: [6, 0], startTime: "14:00", endTime: "18:00" }, // Samedi, Dimanche
 ];
 
 const CalendarBooking = () => {
@@ -49,6 +52,7 @@ const CalendarBooking = () => {
     type: "success" | "error";
     text: string;
   } | null>(null);
+  const locale = useLocale();
 
   useEffect(() => {
     getServices().then((data: any[]) => {
@@ -56,6 +60,8 @@ const CalendarBooking = () => {
         id: item.id,
         name: item.name ?? "Unknown Service",
         price: item.price ?? 0,
+        name_fr: item.name_fr,
+        name_en: item.name_en,
       }));
       setServices(fullServices);
     });
@@ -158,7 +164,6 @@ const CalendarBooking = () => {
         selectMirror={true}
         dayMaxEvents={true}
         weekends={true}
-        hiddenDays={[5]}
         businessHours={spaHours}
         selectConstraint="businessHours"
         events={events}
@@ -213,7 +218,7 @@ const CalendarBooking = () => {
                 <option value="">Select a service</option>
                 {services.map((s) => (
                   <option key={s.id} value={s.name}>
-                    {s.name} (${s.price})
+                    {locale === "fr" ? s.name_fr : s.name_en}(${s.price})
                   </option>
                 ))}
               </select>

@@ -4,13 +4,14 @@ import React, { useEffect, useState } from "react";
 import { getServices } from "@/lib/getServices";
 import ClipLoader from "react-spinners/ClipLoader";
 import { Dialog } from "@headlessui/react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 const spaHours = [
   { day: 1, start: "10:00", end: "19:00" }, // Monday
   { day: 2, start: "10:00", end: "19:00" }, // Tuesday
   { day: 3, start: "10:00", end: "18:00" }, // Wednesday
   { day: 4, start: "10:00", end: "18:00" }, // Thursday
+  { day: 5, start: "10:00", end: "19:00" }, // Friday
   { day: 6, start: "14:00", end: "18:00" }, // Saturday
   { day: 0, start: "14:00", end: "18:00" }, // Sunday
 ];
@@ -24,15 +25,17 @@ const Page = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [dateError, setDateError] = useState("");
-
   const [message, setMessage] = useState({
     name: "",
     email: "",
     service: "",
+    price: "", // Add price here
     date: "",
     time: "",
     message: "",
   });
+
+  const locale = useLocale();
 
   useEffect(() => {
     const fetchServices = async () => {
@@ -55,13 +58,26 @@ const Page = () => {
     const selectedDate = new Date(e.target.value);
     const day = selectedDate.getDay();
 
-    if (day === 5) {
-      setDateError(t("closedFridays"));
+    const isOpenDay = spaHours.some((entry) => entry.day === day);
+    if (!isOpenDay) {
+      setDateError(t("spaClosed"));
       return;
     }
 
     setDateError("");
     handleChange(e);
+  };
+
+  const handleServiceChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedServiceName = e.target.value;
+    const selectedService = services.find(
+      (s) => s.name === selectedServiceName
+    );
+    setMessage({
+      ...message,
+      service: selectedServiceName,
+      price: selectedService ? selectedService.price : "",
+    });
   };
 
   const handleConfirm = async () => {
@@ -87,6 +103,7 @@ const Page = () => {
           name: "",
           email: "",
           service: "",
+          price: "",
           date: "",
           time: "",
           message: "",
@@ -151,7 +168,7 @@ const Page = () => {
             name="service"
             className="w-full p-2 border rounded border-gray-300 outline-none"
             value={message.service}
-            onChange={handleChange}
+            onChange={handleServiceChange}
             required
           >
             <option value="" disabled>
@@ -159,7 +176,8 @@ const Page = () => {
             </option>
             {services.map((service) => (
               <option key={service.id} value={service.name}>
-                {service.name} (${service.price}.00 CAD)
+                {locale === "fr" ? service.name_fr : service.name_en} ($
+                {service.price}.00 CAD)
               </option>
             ))}
           </select>
@@ -179,12 +197,12 @@ const Page = () => {
             required
           />
           {dateError && <p className="text-sm text-red-600">{dateError}</p>}
-          <p className="text-sm text-gray-500 flex flex-col">
+          {/* <p className="text-sm text-gray-500 flex flex-col">
             <span>{t("spaHours.monTue")}</span>
             <span>{t("spaHours.wedThu")}</span>
             <span>{t("spaHours.satSun")}</span>
             <span className="text-red-500">{t("spaHours.fridayClosed")}</span>
-          </p>
+          </p> */}
         </div>
 
         <div className="flex flex-col gap-2">
@@ -206,6 +224,7 @@ const Page = () => {
             <ul className="list-disc list-inside space-y-1">
               <li>{t("spaHours.monTue")}</li>
               <li>{t("spaHours.wedThu")}</li>
+              <li>{t("spaHours.fri")}</li>
               <li>{t("spaHours.satSun")}</li>
             </ul>
           </div>

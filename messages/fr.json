@@ -32,10 +32,10 @@
     "title": "Heures d'ouverture",
     "description": "Nous sommes là pour vous accueillir tout au long de la semaine avec des horaires flexibles adaptés à votre mode de vie. Que vous planifiiez un soin rapide ou une séance de détente complète, il y a toujours un moment pour se relaxer chez ELODIA Beauty and Spa.",
     "schedule": [
-      { "days": "Lundi à Mardi", "hours": "10h00 - 19h00" },
-      { "days": "Mercredi à Jeudi", "hours": "10h00 - 18h00" },
-      { "days": "Samedi", "hours": "14h00 - 18h00" },
-      { "days": "Dimanche", "hours": "14h00 - 18h00" }
+      { "days": "Lundi–Mardi", "hours": "10h00–19h00" },
+      { "days": "Mercredi–Jeudi", "hours": "10h00–18h00" },
+      { "days": "Vendredi", "hours": "10h00–19h00" },
+      { "days": "Samedi–Dimanche", "hours": "14h00–18h00" }
     ]
   },
   "wellness1": {
@@ -222,8 +222,8 @@
     "spaHours": {
       "monTue": "Lundi–Mardi : 10h00–19h00",
       "wedThu": "Mercredi–Jeudi : 10h00–18h00",
-      "satSun": "Samedi–Dimanche : 14h00–18h00",
-      "fridayClosed": "Fermé le vendredi"
+      "fri": "Vendredi : 10h00–19h00",
+      "satSun": "Samedi–Dimanche : 14h00–18h00"
     },
     "time": "Heure souhaitée",
     "message": "Message",

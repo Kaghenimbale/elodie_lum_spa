@@ -129,6 +129,7 @@ const Navbar = () => {
                 <li key={navlink.key}>
                   <Link
                     href={navlink.key === "home" ? "/" : "/" + navlink.key}
+                    locale={locale}
                     className="text-gray-800 hover:text-cyan-800 transition-colors font-medium"
                   >
                     {locale === "fr" ? navlink.fr : navlink.en}
@@ -231,6 +232,7 @@ const Navbar = () => {
                   <Link
                     key={navlink.key}
                     href={navlink.key === "home" ? "/" : "/" + navlink.key}
+                    locale={locale}
                     onClick={() => setOpen(false)}
                     className="text-lg font-medium text-gray-800 hover:text-cyan-800 transition"
                   >

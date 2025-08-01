@@ -171,11 +171,13 @@ const SpaServices = () => {
     const date = new Date(dateStr);
     const day = date.getDay();
 
-    if (day === 5) return []; // Friday closed
-
+    // Saturday (6) or Sunday (0)
     if (day === 0 || day === 6) {
       return ["14:00", "15:00", "16:00", "17:00", "18:00"];
-    } else if (day === 3 || day === 4) {
+    }
+
+    // Wednesday (3) or Thursday (4)
+    if (day === 3 || day === 4) {
       return [
         "10:00",
         "11:00",
@@ -187,7 +189,10 @@ const SpaServices = () => {
         "17:00",
         "18:00",
       ];
-    } else if (day === 1 || day === 2) {
+    }
+
+    // Monday (1), Tuesday (2), or Friday (5)
+    if (day === 1 || day === 2 || day === 5) {
       return [
         "10:00",
         "11:00",
@@ -201,6 +206,7 @@ const SpaServices = () => {
         "19:00",
       ];
     }
+
     return [];
   };
 
