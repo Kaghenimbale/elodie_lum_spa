@@ -84,7 +84,7 @@ const Navbar = () => {
     try {
       await signOut(auth);
       setMessage("Logged out successfully.");
-      router.push("/signUp");
+      router.push("/signIn");
     } catch (error: any) {
       console.error("Logout error:", error.message);
       setMessage("Error logging out. Please try again.");
@@ -97,11 +97,6 @@ const Navbar = () => {
   const isLoggedIn = !!user;
   const isAdmin = user?.email === process.env.NEXT_PUBLIC_ADMIN_EMAIL;
 
-  // const navlinks = [
-  //   ...commonLinks,
-  //   ...(authReady && isLoggedIn ? (isAdmin ? adminLinks : userLinks) : []),
-  // ];
-
   const navlinks1 = [
     ...commonLinks1,
     ...(authReady && isLoggedIn ? (isAdmin ? adminLinks1 : userLinks1) : []),
@@ -109,13 +104,13 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="bg-orange-50 fixed top-0 left-0 right-0 z-50 shadow-md px-5 md:px-10 py-3">
+      <nav className="bg-orange-50 fixed top-0 left-0 right-0 z-50 shadow-md px-5 md:px-10 py-3 h-[6.5rem]">
         <div className="flex justify-between items-center max-w-7xl mx-auto">
           {/* Logo */}
           <Link href="/">
             <Image
               width={140}
-              height={0}
+              height={40}
               src="/logo.png"
               priority
               alt="EBS logo"
@@ -130,6 +125,7 @@ const Navbar = () => {
                   <Link
                     href={navlink.key === "home" ? "/" : "/" + navlink.key}
                     locale={locale}
+                    prefetch
                     className="text-gray-800 hover:text-cyan-800 transition-colors font-medium"
                   >
                     {locale === "fr" ? navlink.fr : navlink.en}
@@ -137,27 +133,6 @@ const Navbar = () => {
                 </li>
               ))}
             </ul>
-
-            {/* <ul className="hidden md:flex gap-6 xl:gap-12 items-center">
-              {navlinks.map((navlink) => (
-                <li key={navlink}>
-                  <Link
-                    href={
-                      navlink.toLowerCase() === "home"
-                        ? "/"
-                        : "/" + navlink.toLowerCase().replace(" ", "_")
-                    }
-                    className="text-gray-800 hover:text-cyan-800 transition-colors font-medium"
-                  >
-                    {["admin", "userProfile", "manage-services"].includes(
-                      navlink
-                    )
-                      ? navlink.toUpperCase()
-                      : navlink}
-                  </Link>
-                </li>
-              ))}
-            </ul> */}
 
             {/* Language Switcher Desktop */}
             <div className="hidden md:block">
@@ -192,7 +167,8 @@ const Navbar = () => {
             {/* Connexion Button (desktop) */}
             {authReady && !user && (
               <Link
-                href="/signUp"
+                href="/signIn"
+                prefetch
                 className="text-white hidden md:block bg-cyan-800 hover:bg-cyan-700 transition px-5 py-2 rounded-md font-medium"
               >
                 Connexion
@@ -233,27 +209,13 @@ const Navbar = () => {
                     key={navlink.key}
                     href={navlink.key === "home" ? "/" : "/" + navlink.key}
                     locale={locale}
+                    prefetch
                     onClick={() => setOpen(false)}
                     className="text-lg font-medium text-gray-800 hover:text-cyan-800 transition"
                   >
                     {locale === "fr" ? navlink.fr : navlink.en}
                   </Link>
                 ))}
-
-                {/* {navlinks.map((navlink) => (
-                  <Link
-                    key={navlink}
-                    href={
-                      navlink.toLowerCase() === "home"
-                        ? "/"
-                        : "/" + navlink.toLowerCase().replace(" ", "_")
-                    }
-                    onClick={() => setOpen(false)}
-                    className="text-lg font-medium text-gray-800 hover:text-cyan-800 transition"
-                  >
-                    {navlink}
-                  </Link>
-                ))} */}
 
                 {authReady && user ? (
                   <>
@@ -290,8 +252,9 @@ const Navbar = () => {
                   </>
                 ) : (
                   <Link
-                    href="/signUp"
+                    href="/signIn"
                     onClick={() => setOpen(false)}
+                    prefetch
                     className="bg-cyan-800 hover:bg-cyan-700 text-white px-4 py-2 rounded transition"
                   >
                     Connexion

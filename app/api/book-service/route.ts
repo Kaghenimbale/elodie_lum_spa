@@ -63,42 +63,70 @@ export async function POST(req: Request) {
     }
 
     // Send email with optional .ics calendar event attachment
-    const response = await resend.emails.send({
+    const response = // Send confirmation email to the user
+      await resend.emails.send({
+        from: "Elodia Beauty & Spa <onboarding@resend.dev>",
+        to: email, // user email
+        subject: "📅 Your Booking Confirmation at Elodia Beauty & Spa",
+        html: `
+    <div style="font-family: Arial, sans-serif; color: #333;">
+      <h2 style="color: #2c7a7b;">Hi ${name},</h2>
+      <p>Thank you for booking with Elodia Beauty & Spa! Here are your appointment details:</p>
+      <ul style="line-height: 1.6;">
+        <li><strong>Service:</strong> ${service}</li>
+        <li><strong>Price:</strong> $${price}.00 CAD</li>
+        <li><strong>Date:</strong> ${date}</li>
+        <li><strong>Time:</strong> ${time}</li>
+      </ul>
+      ${
+        message
+          ? `<p><strong>Your note:</strong><br>${message.replace(/\n/g, "<br>")}</p>`
+          : ""
+      }
+      <p>We look forward to seeing you!</p>
+      <p style="color: #888;">Elodia Beauty & Spa</p>
+    </div>
+  `,
+        attachments: calendarEvent.success
+          ? [
+              {
+                filename: `booking-${service}-${date}.ics`,
+                content: calendarEvent.value!,
+              },
+            ]
+          : [],
+      });
+
+    // Send notification email to the admin
+    await resend.emails.send({
       from: "Elodia Beauty & Spa <onboarding@resend.dev>",
-      to: "kaghenimbale@gmail.com",
+      to: "kaghenimbale@gmail.com", // admin email
       subject: `🧖‍♀️ New Booking from ${name}`,
       html: `
-        <div style="
-          font-family: Arial, sans-serif; 
-          line-height: 1.6; 
-          color: #333333; 
-          background-color: #f9f9f9; 
-          padding: 20px; 
-          border-radius: 8px;
-          max-width: 600px;
-          margin: auto;
-          box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        ">
-          <h2 style="color: #2c7a7b; border-bottom: 2px solid #2c7a7b; padding-bottom: 8px;">
-            New Booking Request
-          </h2>
-          <p style="font-size: 16px;">
-            You have received a new booking request with the following details:
-          </p>
-          <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
-            <tr><td style="padding: 8px; font-weight: bold; width: 120px; background-color: #e6fffa;">Name:</td><td style="padding: 8px; background-color: #f0fdfa;">${name}</td></tr>
-            <tr><td style="padding: 8px; font-weight: bold; background-color: #e6fffa;">Email:</td><td style="padding: 8px; background-color: #f0fdfa;">${email}</td></tr>
-            <tr><td style="padding: 8px; font-weight: bold; background-color: #e6fffa;">Service:</td><td style="padding: 8px; background-color: #f0fdfa;">${service}</td></tr>
-            <tr><td style="padding: 8px; font-weight: bold; background-color: #e6fffa;">Price:</td><td style="padding: 8px; background-color: #f0fdfa;">${`$${price}.00 CAD`}</td></tr>
-            <tr><td style="padding: 8px; font-weight: bold; background-color: #e6fffa;">Date:</td><td style="padding: 8px; background-color: #f0fdfa;">${date}</td></tr>
-            <tr><td style="padding: 8px; font-weight: bold; background-color: #e6fffa;">Time:</td><td style="padding: 8px; background-color: #f0fdfa;">${time}</td></tr>
-            <tr><td style="padding: 8px; font-weight: bold; background-color: #e6fffa; vertical-align: top;">Message:</td><td style="padding: 8px; background-color: #f0fdfa;">${message ? message.replace(/\n/g, "<br>") : "N/A"}</td></tr>
-          </table>
-          <p style="font-size: 14px; color: #666; margin-top: 20px;">
-            This message was sent from Elodia Beauty & Spa booking system.
-          </p>
-        </div>
-      `,
+    <div style="
+      font-family: Arial, sans-serif; 
+      color: #333; 
+      background-color: #f9f9f9; 
+      padding: 20px; 
+      border-radius: 8px;
+      max-width: 600px;
+      margin: auto;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    ">
+      <h2 style="color: #2c7a7b; border-bottom: 2px solid #2c7a7b;">
+        New Booking Notification
+      </h2>
+      <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+        <tr><td style="padding: 8px; font-weight: bold;">Name:</td><td>${name}</td></tr>
+        <tr><td style="padding: 8px; font-weight: bold;">Email:</td><td>${email}</td></tr>
+        <tr><td style="padding: 8px; font-weight: bold;">Service:</td><td>${service}</td></tr>
+        <tr><td style="padding: 8px; font-weight: bold;">Price:</td><td>$${price}.00 CAD</td></tr>
+        <tr><td style="padding: 8px; font-weight: bold;">Date:</td><td>${date}</td></tr>
+        <tr><td style="padding: 8px; font-weight: bold;">Time:</td><td>${time}</td></tr>
+        <tr><td style="padding: 8px; font-weight: bold;">Message:</td><td>${message || "N/A"}</td></tr>
+      </table>
+    </div>
+  `,
       attachments: calendarEvent.success
         ? [
             {

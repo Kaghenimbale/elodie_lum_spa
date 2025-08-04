@@ -14,6 +14,7 @@ import { FcGoogle } from "react-icons/fc";
 import { createUserInFirestore } from "@/lib/userService";
 import { IoEye, IoEyeOff } from "react-icons/io5";
 import { ClipLoader } from "react-spinners";
+import { useTranslations } from "next-intl";
 
 const Page = () => {
   const router = useRouter();
@@ -26,6 +27,8 @@ const Page = () => {
     password: "",
     referralCode: "",
   });
+
+  const t = useTranslations("signUp");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setData({ ...data, [e.target.name]: e.target.value });
@@ -133,9 +136,7 @@ const Page = () => {
           </div>
         </div>
 
-        <h2 className="text-[1.8rem] md:text-[2rem] font-bold">
-          Create a New account
-        </h2>
+        <h2 className="text-[1.8rem] md:text-[2rem] font-bold">{t("title")}</h2>
 
         {errorMessage && <p className="text-red-600 text-sm">{errorMessage}</p>}
         {successMessage && (
@@ -143,11 +144,11 @@ const Page = () => {
         )}
 
         <div className="flex flex-col gap-2">
-          <label htmlFor="email">Email</label>
+          <label htmlFor="email">{t("emailLabel")}</label>
           <input
             className="w-full p-2 border rounded border-gray-400"
             type="email"
-            placeholder="mail@example.com"
+            placeholder={t("emailPlaceholder")}
             name="email"
             value={data.email}
             onChange={handleChange}
@@ -157,7 +158,7 @@ const Page = () => {
 
         <div className="flex flex-col gap-2 w-full">
           <label htmlFor="password" className="font-medium">
-            Password
+            {t("passwordLabel")}
           </label>
 
           <div className="relative w-full">
@@ -165,7 +166,7 @@ const Page = () => {
               id="password"
               name="password"
               type={showPassword ? "text" : "password"}
-              placeholder="Enter your password"
+              placeholder={t("passwordPlaceholder")}
               value={data.password}
               onChange={handleChange}
               required
@@ -188,22 +189,32 @@ const Page = () => {
         </div>
 
         <div className="flex flex-col gap-2">
-          <label htmlFor="referralCode">Referral Code (optional)</label>
+          <label htmlFor="referralCode">{t("referralLabel")}</label>
           <input
             className="w-full p-2 border rounded border-gray-400"
             type="text"
-            placeholder="Enter referral code"
+            placeholder={t("referralPlaceholder")}
             name="referralCode"
-            value={data.referralCode}
+            value={data.referralCode || ""}
             onChange={handleChange}
           />
         </div>
 
         <button
           type="submit"
-          className="flex justify-center items-center gap-2 text-white text-[0.9rem] bg-cyan-800 shadow-sm shadow-cyan-950 hover:bg-cyan-700 transition-all duration-300 ease-in-out px-4 py-2"
+          disabled={loading}
+          className={`w-full text-white text-[0.9rem] bg-cyan-800 shadow-sm shadow-cyan-950 hover:bg-cyan-700 transition-all duration-300 ease-in-out px-4 py-2 flex justify-center items-center gap-2 rounded ${
+            loading ? "cursor-not-allowed opacity-80" : ""
+          }`}
         >
-          {loading ? <ClipLoader size={20} color="#fff" /> : "Create account"}
+          {loading ? (
+            <>
+              <ClipLoader size={20} color="#fff" />
+              <span className="sr-only">{t("loading")}</span>
+            </>
+          ) : (
+            t("submit")
+          )}
         </button>
 
         <div className="flex justify-center top-7">
@@ -213,14 +224,14 @@ const Page = () => {
             className="flex items-center gap-3 bg-white border border-gray-300 text-gray-700 px-6 py-2 rounded shadow hover:shadow-md transition duration-200"
           >
             <FcGoogle className="text-2xl" />
-            Sign in with Google
+            {t("googleLogin")}
           </button>
         </div>
 
         <span className="flex gap-2">
-          Already have an account?
-          <Link href="/signIn" className="text-blue-700 underline">
-            Sign In
+          {t("alreadyAccount")}
+          <Link href="/signIn" prefetch className="text-blue-700 underline">
+            {t("signInLink")}
           </Link>
         </span>
       </form>

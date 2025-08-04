@@ -10,9 +10,20 @@ import { usePathname } from "next/navigation";
 import { IKImage } from "imagekitio-react";
 import { useLocale, useTranslations } from "next-intl";
 import { Dialog } from "@headlessui/react";
+import { loadStripe } from "@stripe/stripe-js";
+
+type ServiceType = {
+  id: string;
+  name_en: string;
+  name_fr: string;
+  description_en: string;
+  description_fr: string;
+  imageUrl: string;
+  price: number;
+};
 
 const SpaServices = () => {
-  const [services, setServices] = useState<any[]>([]);
+  const [services, setServices] = useState<ServiceType[]>([]);
   const [loading, setLoading] = useState(true);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [userEmail, setUserEmail] = useState<string | null>(null);
@@ -21,17 +32,34 @@ const SpaServices = () => {
   const t = useTranslations("services");
   const [showModal, setShowModal] = useState(false);
   const [selectedService, setSelectedService] = useState<any | null>(null);
+  const [loadedImages, setLoadedImages] = useState<{ [id: string]: boolean }>(
+    {}
+  );
 
   const locale = useLocale();
   const t1 = useTranslations("modal");
 
   // Separate state for editing service form
-  const [editFormData, setEditFormData] = useState({
+  // const [editFormData, setEditFormData] = useState({
+  //   name_en: "",
+  //   name_fr: "",
+  //   price: "",
+  //   description_en: "",
+  //   description_fr: "",
+  // });
+
+  const [editFormData, setEditFormData] = useState<{
+    name_en: string;
+    name_fr: string;
+    description_en: string;
+    description_fr: string;
+    price: string; // 👈 on garde string ici, car input.value est toujours une string
+  }>({
     name_en: "",
     name_fr: "",
-    price: "",
     description_en: "",
     description_fr: "",
+    price: "",
   });
 
   // Booking form & status
@@ -129,7 +157,15 @@ const SpaServices = () => {
 
     await updateService(editingId, editFormData);
     setServices((prev) =>
-      prev.map((s) => (s.id === editingId ? { ...s, ...editFormData } : s))
+      (prev || []).map((s) =>
+        s.id === editingId
+          ? {
+              ...s,
+              ...editFormData,
+              price: Number(editFormData.price), // ✅ convert string to number
+            }
+          : s
+      )
     );
 
     setEditingId(null);
@@ -236,47 +272,45 @@ const SpaServices = () => {
     setSuccess("");
 
     try {
-      const res = await fetch("/api/book-service", {
+      const res = await fetch("/api/create-checkout-session", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: bookingFormData.name,
-          email: bookingFormData.email,
-          service: bookingFormData.service,
-          price: bookingFormData.price, // <-- added
-          date: bookingFormData.date,
-          time: bookingFormData.time,
-          message: bookingFormData.message,
-        }),
+        body: JSON.stringify(bookingFormData),
       });
 
-      const result = await res.json();
+      const session = await res.json();
 
       if (res.ok) {
-        setSuccess("Booking request sent successfully! ✅");
-        setBookingFormData({
-          name: "",
-          email: "",
-          service: selectedService.name,
-          price: selectedService.price || "",
-          date: "",
-          time: "",
-          message: "",
-        });
-        setShowConfirmButton(false);
+        const stripe = await loadStripe(
+          process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
+        );
 
-        // Close modal after 3 seconds
-        setTimeout(() => {
-          setShowModal(false);
-          setSuccess("");
-        }, 3000);
+        const stripeInstance = await stripe;
+        // const res = await fetch("/api/book-service", {
+        //   method: "POST",
+        //   headers: { "Content-Type": "application/json" },
+        //   body: JSON.stringify({
+        //     name: bookingFormData.name,
+        //     email: bookingFormData.email,
+        //     service: bookingFormData.service,
+        //     price: bookingFormData.price, // <-- added
+        //     date: bookingFormData.date,
+        //     time: bookingFormData.time,
+        //     message: bookingFormData.message,
+        //   }),
+        // });
+
+        // const result = await res.json();
+
+        if (stripeInstance) {
+          await stripeInstance.redirectToCheckout({ sessionId: session.id });
+        }
       } else {
-        setError("Something went wrong 😔");
-        console.error(result.error);
+        setError(session.error || "Stripe session creation failed.");
       }
     } catch (err) {
-      console.error("Booking error:", err);
-      setError("Error sending booking request");
+      setError("Something went wrong during Stripe checkout.");
+      console.error(err);
     } finally {
       setBookingLoading(false);
     }
@@ -292,18 +326,33 @@ const SpaServices = () => {
     >
       {loading ? (
         <ClipLoader color="#164E63" />
+      ) : services.length === 0 ? (
+        <div className="text-center py-8 text-gray-600 text-lg">
+          {t("no_services_available")}
+        </div>
       ) : (
         services.map((service) => (
           <div
             key={service.id}
             className="relative flex justify-center overflow-hidden w-full max-w-xs md:max-w-sm lg:max-w-md xl:max-w-lg h-[500px]"
           >
+            {/* Skeleton Loader */}
+            {!loadedImages[service.id] && (
+              <div className="absolute inset-0 animate-pulse bg-gray-200 rounded-md z-0" />
+            )}
+
+            {/* Actual Image */}
             <IKImage
               src={`${service.imageUrl}?tr=w-400,h-500,q-80,f-auto`}
-              alt={service.name}
+              alt={locale === "fr" ? service.name_fr : service.name_en}
               loading="lazy"
               lqip={{ active: true }}
-              className="object-cover w-full h-full transition-transform duration-300 transform hover:scale-105"
+              className={`object-cover w-full h-full transition-transform duration-300 transform hover:scale-105 ${
+                loadedImages[service.id] ? "opacity-100" : "opacity-0"
+              }`}
+              onLoad={() =>
+                setLoadedImages((prev) => ({ ...prev, [service.id]: true }))
+              }
             />
 
             <div className="absolute bottom-6 bg-white p-4 shadow-lg rounded-lg w-[90%] max-w-md mx-auto flex flex-col gap-2 justify-center items-center">
@@ -481,7 +530,7 @@ const SpaServices = () => {
                     min={getToday()}
                     value={bookingFormData.date}
                     onChange={handleBookingChange}
-                    className="w-[18rem] p-2 border rounded border-gray-300 outline-none"
+                    className="w-[15rem] h-[2.8rem] md:w-full p-2 border rounded border-gray-300 outline-none"
                     disabled={bookingLoading}
                   />
                 </div>
@@ -490,7 +539,7 @@ const SpaServices = () => {
                   required
                   value={bookingFormData.time}
                   onChange={handleBookingChange}
-                  className="w-full p-2 border rounded border-gray-300 outline-none"
+                  className="w-[15rem] h-[2.8rem] md:w-full p-2 border rounded border-gray-300 outline-none"
                   disabled={bookingLoading || !bookingFormData.date}
                 >
                   <option value="">{t1("selectHour")}</option>
