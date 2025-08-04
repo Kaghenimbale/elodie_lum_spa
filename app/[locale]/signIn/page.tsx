@@ -123,7 +123,7 @@ const Page = () => {
   return (
     <div className="flex flex-col lg:flex-row items-center justify-center min-h-screen bg-gray-50 px-4 md:px-8">
       {/* Presentation Section */}
-      <div className="hidden lg:flex flex-col justify-center w-full max-w-md p-6 space-y-4">
+      <div className="lg:flex flex-col justify-center w-full max-w-md p-6 space-y-4 mt-24">
         <h1 className="text-[2.25rem] font-bold text-cyan-800">
           {t("welcomeBackTitle")}
         </h1>
