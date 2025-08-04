@@ -124,18 +124,16 @@ const Page = () => {
     <div className="flex flex-col lg:flex-row items-center justify-center min-h-screen bg-gray-50 px-4 md:px-8">
       {/* Presentation Section */}
       <div className="hidden lg:flex flex-col justify-center w-full max-w-md p-6 space-y-4">
-        <h1 className="text-[2.25rem] font-bold text-cyan-800">Welcome Back</h1>
-        <p className="text-gray-600 text-lg">
-          We're glad to see you again. Log in to access your bookings, track
-          your history, and discover exclusive offers tailored for you.
-        </p>
+        <h1 className="text-[2.25rem] font-bold text-cyan-800">
+          {t("welcomeBackTitle")}
+        </h1>
+        <p className="text-gray-600 text-lg">{t("welcomeBackDescription")}</p>
         <div className="border-l-4 border-cyan-700 pl-4">
-          <p className="text-gray-500 italic">
-            “Your comfort is our priority. Let us take care of your next
-            relaxation experience.”
-          </p>
+          <p className="text-gray-500 italic">{t("welcomeBackQuote")}</p>
         </div>
-        <div className="pt-4 text-sm text-gray-400">— Elodia Beauty & Spa</div>
+        <div className="pt-4 text-sm text-gray-400">
+          {t("welcomeBackAuthor")}
+        </div>
       </div>
 
       {/* Form Section */}
