@@ -13,6 +13,7 @@ export async function POST(req: Request) {
       mode: "payment",
       success_url: `${process.env.NEXT_PUBLIC_BASE_URL}/booking-success`,
       cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL}/`,
+      customer_email: email,
       line_items: [
         {
           price_data: {

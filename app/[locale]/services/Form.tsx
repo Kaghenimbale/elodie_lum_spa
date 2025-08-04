@@ -69,13 +69,15 @@ const Page = () => {
   };
 
   const handleServiceChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedServiceName = e.target.value;
-    const selectedService = services.find(
-      (s) => s.name === selectedServiceName
-    );
+    const selectedServiceId = e.target.value;
+    const selectedService = services.find((s) => s.id === selectedServiceId);
+
     setMessage({
       ...message,
-      service: selectedServiceName,
+      service:
+        selectedService && locale === "fr"
+          ? selectedService.name_fr
+          : selectedService?.name_en || "",
       price: selectedService ? selectedService.price : "",
     });
   };
@@ -87,34 +89,33 @@ const Page = () => {
     setShowModal(false);
 
     try {
-      const res = await fetch("/api/book-service", {
+      const res = await fetch("/api/create-checkout-session", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(message),
       });
 
+      console.log(message);
+
       const result = await res.json();
 
-      if (res.ok) {
-        setSuccessMessage(t("success"));
-        setMessage({
-          name: "",
-          email: "",
-          service: "",
-          price: "",
-          date: "",
-          time: "",
-          message: "",
-        });
-      } else {
-        setErrorMessage(t("error"));
-        console.error(result.error);
+      if (!res.ok) {
+        throw new Error(result?.error || "Failed to initiate payment.");
       }
-    } catch (err) {
-      console.error("Booking error:", err);
-      setErrorMessage(t("errorSend"));
+
+      // Load Stripe and redirect
+      const stripe = await (
+        await import("@stripe/stripe-js")
+      ).loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
+
+      if (stripe) {
+        await stripe.redirectToCheckout({ sessionId: result.id });
+      } else {
+        throw new Error("Stripe failed to load.");
+      }
+    } catch (err: any) {
+      console.error("Stripe Checkout error:", err);
+      setErrorMessage("Payment could not be initiated.");
     } finally {
       setLoading(false);
     }
@@ -175,7 +176,7 @@ const Page = () => {
               {t("selectService")}
             </option>
             {services.map((service) => (
-              <option key={service.id} value={service.name}>
+              <option key={service.id} value={service.id}>
                 {locale === "fr" ? service.name_fr : service.name_en} ($
                 {service.price}.00 CAD)
               </option>
@@ -284,6 +285,10 @@ const Page = () => {
               <p>
                 <strong>{t("confirm.service")}:</strong> {message.service}
               </p>
+              <p>
+                <strong>{t("confirm.price")}:</strong> ${message.price} CAD
+              </p>
+
               <p>
                 <strong>{t("confirm.date")}:</strong> {message.date}
               </p>

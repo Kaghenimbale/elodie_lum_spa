@@ -236,6 +236,7 @@
       "name": "Name",
       "email": "Email",
       "service": "Service",
+      "price": "Price",
       "date": "Date",
       "time": "Time",
       "message": "Message"
