@@ -236,6 +236,7 @@
       "name": "Name",
       "email": "Email",
       "service": "Service",
+      "price": "Price",
       "date": "Date",
       "time": "Time",
       "message": "Message"
@@ -315,7 +316,11 @@
     "noAccount": "If you don't have an account, please",
     "signUp": "Sign Up",
     "errorMessage": "An error occurred.",
-    "warningMessage": "Please check your credentials."
+    "warningMessage": "Please check your credentials.",
+    "welcomeBackTitle": "Welcome Back",
+    "welcomeBackDescription": "We're glad to see you again. Log in to access your bookings, track your history, and discover exclusive offers tailored for you.",
+    "welcomeBackQuote": "“Your comfort is our priority. Let us take care of your next relaxation experience.”",
+    "welcomeBackAuthor": "— Elodia Beauty & Spa"
   },
   "signUp": {
     "title": "Create a New Account",
@@ -329,6 +334,12 @@
     "googleLogin": "Sign in with Google",
     "alreadyAccount": "Already have an account?",
     "signInLink": "Sign In",
-    "loading": "Loading..."
+    "loading": "Loading...",
+    "signupSectionTitle": "Welcome to Our Platform",
+    "signupSectionDescription": "Join thousands of happy users who trust us to book the best spa services. Create your account now and enjoy exclusive offers, easy booking, and personalized experiences tailored just for you.",
+    "signupFeature1": "Secure and easy sign-up process",
+    "signupFeature2": "Access to exclusive discounts and promotions",
+    "signupFeature3": "Personalized service recommendations",
+    "signupFeature4": "Fast, reliable booking system"
   }
 }

@@ -14,6 +14,7 @@ import {
 import { BiUser } from "react-icons/bi";
 import { ClipLoader } from "react-spinners";
 import { useTranslations } from "next-intl";
+import ReferEarn from "../components/ReferEarn";
 
 const Page = () => {
   const [user, setUser] = useState<User | null>(null);
@@ -61,52 +62,62 @@ const Page = () => {
   }
 
   return (
-    <div className="max-w-md mx-auto bg-white shadow-lg p-6 rounded-xl my-36 flex flex-col gap-5 justify-center">
-      <div className="w-full flex flex-col gap-5 items-center justify-center">
-        <div className="bg-cyan-800 w-[4rem] h-[4rem] flex items-center justify-center rounded-full">
-          <BiUser className="text-white text-4xl" />
+    <div className="container mx-auto px-4 py-12">
+      <div className="flex flex-col lg:flex-row items-start justify-center gap-8">
+        {/* Refer & Earn Section */}
+        <div className="w-full lg:w-1/2 bg-white shadow-lg p-6 rounded-xl">
+          <ReferEarn />
         </div>
-        <h3 className="text-2xl font-bold">{t("title")}</h3>
-      </div>
 
-      {!user ? (
-        <p className="text-red-600 text-center font-medium">
-          {t("loginRequired")}
-        </p>
-      ) : !userData ? (
-        <p className="text-yellow-700 bg-yellow-100 p-2 rounded-md text-center">
-          {t("userNotFound")}
-        </p>
-      ) : (
-        <>
-          <p>
-            <strong>{t("email")}:</strong> {user.email}
-          </p>
-          <p>
-            <strong>{t("referralCode")}:</strong> {userData.referralCode}
-          </p>
-          <p>
-            <strong>{t("referredBy")}:</strong>{" "}
-            {userData.referredBy || t("none")}
-          </p>
-          <p>
-            <strong>{t("points")}:</strong> {userData.points}
-          </p>
-
-          {refereeData && (
-            <div className="mt-4 bg-gray-100 p-4 rounded-md">
-              <h3 className="font-semibold mb-1">{t("refereeInfo")}</h3>
-              <p>
-                <strong>{t("refereeEmail")}:</strong> {refereeData.email}
-              </p>
-              <p>
-                <strong>{t("refereeReferralCode")}:</strong>{" "}
-                {refereeData.referralCode}
-              </p>
+        {/* User Card */}
+        <div className="w-full lg:w-1/2 bg-white shadow-lg p-6 rounded-xl flex flex-col gap-5 justify-center lg:mt-20">
+          <div className="w-full flex flex-col gap-5 items-center justify-center">
+            <div className="bg-cyan-800 w-16 h-16 flex items-center justify-center rounded-full">
+              <BiUser className="text-white text-4xl" />
             </div>
+            <h3 className="text-2xl font-bold text-center">{t("title")}</h3>
+          </div>
+
+          {!user ? (
+            <p className="text-red-600 text-center font-medium">
+              {t("loginRequired")}
+            </p>
+          ) : !userData ? (
+            <p className="text-yellow-700 bg-yellow-100 p-2 rounded-md text-center">
+              {t("userNotFound")}
+            </p>
+          ) : (
+            <>
+              <p>
+                <strong>{t("email")}:</strong> {user.email}
+              </p>
+              <p>
+                <strong>{t("referralCode")}:</strong> {userData.referralCode}
+              </p>
+              <p>
+                <strong>{t("referredBy")}:</strong>{" "}
+                {userData.referredBy || t("none")}
+              </p>
+              <p>
+                <strong>{t("points")}:</strong> {userData.points}
+              </p>
+
+              {refereeData && (
+                <div className="mt-4 bg-gray-100 p-4 rounded-md">
+                  <h3 className="font-semibold mb-1">{t("refereeInfo")}</h3>
+                  <p>
+                    <strong>{t("refereeEmail")}:</strong> {refereeData.email}
+                  </p>
+                  <p>
+                    <strong>{t("refereeReferralCode")}:</strong>{" "}
+                    {refereeData.referralCode}
+                  </p>
+                </div>
+              )}
+            </>
           )}
-        </>
-      )}
+        </div>
+      </div>
     </div>
   );
 };

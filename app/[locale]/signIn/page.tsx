@@ -121,10 +121,25 @@ const Page = () => {
   };
 
   return (
-    <div className="flex items-center justify-center">
+    <div className="flex flex-col lg:flex-row items-center justify-center min-h-screen bg-gray-50 px-4 md:px-8">
+      {/* Presentation Section */}
+      <div className="hidden lg:flex flex-col justify-center w-full max-w-md p-6 space-y-4">
+        <h1 className="text-[2.25rem] font-bold text-cyan-800">
+          {t("welcomeBackTitle")}
+        </h1>
+        <p className="text-gray-600 text-lg">{t("welcomeBackDescription")}</p>
+        <div className="border-l-4 border-cyan-700 pl-4">
+          <p className="text-gray-500 italic">{t("welcomeBackQuote")}</p>
+        </div>
+        <div className="pt-4 text-sm text-gray-400">
+          {t("welcomeBackAuthor")}
+        </div>
+      </div>
+
+      {/* Form Section */}
       <form
         onSubmit={handleSubmit}
-        className="p-6 border rounded-lg shadow-lg w-full max-w-md space-y-2 bg-white my-36"
+        className="p-6 border rounded-lg shadow-lg w-full max-w-md space-y-4 bg-white my-10"
       >
         <div className="w-full flex justify-center">
           <div className="bg-slate-100 shadow-md w-16 h-16 flex items-center justify-center rounded-full hover:shadow-lg transition-shadow duration-300">
@@ -132,12 +147,14 @@ const Page = () => {
           </div>
         </div>
 
-        <h2 className="text-[1.8rem] md:text-[2rem] font-bold">{t("title")}</h2>
+        <h2 className="text-[1.8rem] md:text-[2rem] font-bold text-center">
+          {t("title")}
+        </h2>
 
         <div className="flex flex-col gap-2">
           <label htmlFor="email">{t("emailLabel")}</label>
           <input
-            className="w-full p-2 border rounded border-gray-400"
+            className="w-full p-2 border rounded border-gray-300 focus:outline-none focus:ring-2 focus:ring-cyan-600"
             type="email"
             name="email"
             value={data.email}
@@ -160,13 +177,12 @@ const Page = () => {
               value={data.password}
               onChange={handleChange}
               required
-              className="w-full p-2 pr-10 border border-gray-400 rounded focus:outline-none focus:ring-2 focus:ring-cyan-600"
+              className="w-full p-2 pr-10 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-cyan-600"
             />
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
               className="absolute right-2 top-1/2 -translate-y-1/2 p-1 text-gray-600 hover:text-gray-800"
-              aria-label="Toggle password visibility"
             >
               {showPassword ? (
                 <IoEyeOff className="text-xl" />
@@ -182,7 +198,7 @@ const Page = () => {
             type="button"
             onClick={handlePasswordReset}
             disabled={loading}
-            className="text-sm text-blue-600 hover:underline focus:outline-none"
+            className="text-sm text-blue-600 hover:underline"
           >
             {t("forgotPassword")}
           </button>
@@ -215,7 +231,7 @@ const Page = () => {
         <button
           type="submit"
           disabled={loading}
-          className={`w-full text-white text-[0.9rem] bg-cyan-800 shadow-sm shadow-cyan-950 hover:bg-cyan-700 transition-all duration-300 ease-in-out px-4 py-2 flex justify-center items-center gap-2 rounded ${
+          className={`w-full text-white text-[0.9rem] bg-cyan-800 hover:bg-cyan-700 px-4 py-2 rounded flex justify-center items-center gap-2 transition duration-300 ${
             loading ? "cursor-not-allowed opacity-80" : ""
           }`}
         >

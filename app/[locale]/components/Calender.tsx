@@ -112,37 +112,30 @@ const CalendarBooking = () => {
 
     try {
       setLoading(true);
-      const res = await fetch("/api/book-service", {
+
+      const res = await fetch("/api/create-checkout-session", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
 
-      if (!res.ok) {
-        const errorData = await res.json();
-        setMessage({
-          type: "error",
-          text: "Booking failed: " + (errorData.message || "Try again later."),
-        });
-      } else {
-        setMessage({ type: "success", text: "Booking successful!" });
-        setFormData({
-          name: "",
-          email: "",
-          service: "",
-          time: "",
-          message: "",
-        });
+      const data = await res.json();
 
-        // Optionally auto-close modal after success
-        setTimeout(() => {
-          setShowModal(false);
-          setMessage(null);
-        }, 2000);
+      if (!res.ok) {
+        throw new Error(data?.error || "Failed to initiate payment.");
+      }
+
+      // Redirect to Stripe Checkout
+      const stripe = await (
+        await import("@stripe/stripe-js")
+      ).loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
+
+      if (stripe) {
+        stripe.redirectToCheckout({ sessionId: data.id });
       }
     } catch (err) {
-      setMessage({ type: "error", text: "Unexpected error occurred." });
-      console.error("Booking error:", err);
+      console.error("Stripe Checkout error:", err);
+      setMessage({ type: "error", text: "Payment initiation failed." });
     } finally {
       setLoading(false);
     }
@@ -269,7 +262,7 @@ const CalendarBooking = () => {
                 onClick={handleBooking}
                 disabled={loading}
               >
-                Confirm
+                {loading ? "Processing..." : "Confirm & Pay"}
               </button>
             </div>
           </Dialog.Panel>
