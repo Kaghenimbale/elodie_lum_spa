@@ -142,7 +142,7 @@
         "icon": "/massage-des-pieds.png"
       }
     ],
-    "title1": "Centre EB & SPA",
+    "title1": "EB & SPA",
     "description1": "Offrez-vous des soins de luxe conçus pour révéler votre beauté naturelle et renforcer votre confiance en vous. Notre équipe d’experts associe la science et l’art pour offrir un soin personnalisé dans un cadre serein et apaisant. Des soins du visage rajeunissants aux traitements corporels avancés, chaque service est pensé pour votre bien-être. Découvrez l’alliance parfaite entre élégance, innovation et efficacité. Parce que vous méritez de vous sentir rayonnant(e), confiant(e) et pleinement revitalisé(e).",
     "features": [
       "Expérience de luxe",
@@ -244,9 +244,17 @@
     "confirmBtn": "Confirmer la réservation"
   },
   "admin": {
+    "filterName": "Filtrer par nom",
+    "filterEmail": "Filtrer par email",
+    "filterService": "Filtrer par service",
+    "filterDate": "Filtrer par date",
+    "cancel": "Annuler",
+    "delete": "Supprimer",
+    "actions": "Actions",
+    "confirmDelete": "Êtes-vous sûr de vouloir supprimer cette réservation ?",
     "accessDenied": "Accès refusé",
     "bookedServices": "Services réservés",
-    "noBookedServices": "Aucun service réservé.",
+    "noBookedServices": "Aucune réservation trouvée",
     "name": "Nom",
     "email": "Email",
     "service": "Service",
@@ -291,5 +299,36 @@
     "refereeInfo": "👥 Informations sur le filleul",
     "refereeEmail": "E-mail",
     "refereeReferralCode": "Code de Parrainage"
+  },
+  "signIn": {
+    "title": "Connectez-vous à votre compte",
+    "emailLabel": "Email",
+    "emailPlaceholder": "mail@exemple.com",
+    "passwordLabel": "Mot de passe",
+    "passwordPlaceholder": "Entrez votre mot de passe",
+    "forgotPassword": "Mot de passe oublié ?",
+    "resetSent": "E-mail de réinitialisation du mot de passe envoyé ! Vérifiez votre boîte de réception.",
+    "resetError": "Échec de l'envoi de l'e-mail de réinitialisation.",
+    "loginNow": "Se connecter",
+    "loading": "Chargement...",
+    "googleSignIn": "Se connecter avec Google",
+    "noAccount": "Si vous n'avez pas de compte, veuillez",
+    "signUp": "vous inscrire",
+    "errorMessage": "Une erreur est survenue.",
+    "warningMessage": "Veuillez vérifier vos identifiants."
+  },
+  "signUp": {
+    "title": "Créer un nouveau compte",
+    "emailLabel": "Email",
+    "emailPlaceholder": "mail@example.com",
+    "passwordLabel": "Mot de passe",
+    "passwordPlaceholder": "Entrez votre mot de passe",
+    "referralLabel": "Code de parrainage (optionnel)",
+    "referralPlaceholder": "Entrez le code de parrainage",
+    "submit": "Créer un compte",
+    "googleLogin": "Se connecter avec Google",
+    "alreadyAccount": "Vous avez déjà un compte ?",
+    "signInLink": "Se connecter",
+    "loading": "Chargement..."
   }
 }

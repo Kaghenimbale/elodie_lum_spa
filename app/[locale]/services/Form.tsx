@@ -186,7 +186,7 @@ const Page = () => {
         <div className="flex flex-col gap-2">
           <label htmlFor="date">{t("date")}:</label>
           <input
-            className={`w-full p-2 border rounded outline-none ${
+            className={`w-[15rem] h-[2.8rem] md:w-full p-2 border rounded outline-none ${
               dateError ? "border-red-500" : "border-gray-300"
             }`}
             type="date"
@@ -210,7 +210,7 @@ const Page = () => {
             {t("time")}:
           </label>
           <input
-            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm outline-none"
+            className="w-[15rem] h-[2.8rem] md:w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm outline-none"
             type="time"
             name="time"
             min="10:00"

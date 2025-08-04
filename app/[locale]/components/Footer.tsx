@@ -13,6 +13,7 @@ import {
   FaWhatsapp,
 } from "react-icons/fa";
 import { useLocale, useTranslations } from "next-intl";
+import Image from "next/image";
 
 const Footer = () => {
   const date = new Date();
@@ -136,13 +137,19 @@ const Footer = () => {
               </li>
               <li>
                 <Link
-                  href="https://"
-                  aria-label="whatsapp"
+                  href="https://www.fresha.com/book-now/elodia-beauty-spa-xyf2kz0o/services?lid=2695757&eid=4756102&share=true&pId=2608949"
+                  aria-label="fresha"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-cyan-900 hover:text-cyan-700 transition text-2xl"
                 >
-                  <FaWhatsapp />
+                  <Image
+                    src="/fresha-logo.png"
+                    alt="fresha"
+                    width={60}
+                    height={60}
+                    priority
+                  />
                 </Link>
               </li>
             </ul>
@@ -175,7 +182,7 @@ const Footer = () => {
                 {
                   label: "PayPal",
                   icon: <FaCcPaypal />,
-                  onClick: () => {}, // Add handlers if needed
+                  onClick: handleStripePayment, // Add handlers if needed
                 },
                 {
                   label: "Stripe",
@@ -185,7 +192,7 @@ const Footer = () => {
                 {
                   label: "Mastercard",
                   icon: <FaCcMastercard />,
-                  onClick: () => {}, // Add handlers if needed
+                  onClick: handleStripePayment, // Add handlers if needed
                 },
               ].map(({ label, icon, onClick }) => (
                 <li key={label}>
