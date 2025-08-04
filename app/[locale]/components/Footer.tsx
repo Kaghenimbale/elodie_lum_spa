@@ -55,6 +55,7 @@ const Footer = () => {
             <p className="font-thin">{t1("description")}</p>
             <Link
               href="/signIn"
+              locale={locale}
               className="inline-block w-fit bg-cyan-800 text-white text-sm px-5 py-2 rounded hover:bg-cyan-700 transition"
             >
               {t1("link")}
@@ -95,10 +96,15 @@ const Footer = () => {
             <Link
               href="mailto:Elodiabspa@gmail.com"
               className="hover:underline"
+              locale={locale}
             >
               {tc("email")}: Elodiabspa@gmail.com
             </Link>
-            <Link href="tel:+14376650194" className="hover:underline">
+            <Link
+              locale={locale}
+              href="tel:+14376650194"
+              className="hover:underline"
+            >
               {tc("phone")}: +1 (437) 665-0194
             </Link>
             <ul className="flex gap-6 mt-4 justify-center md:justify-start">
@@ -107,6 +113,7 @@ const Footer = () => {
                   href="https://www.instagram.com/elodia_beauty_and_spa"
                   aria-label="Instagram"
                   target="_blank"
+                  locale={locale}
                   rel="noopener noreferrer"
                   className="text-cyan-900 hover:text-cyan-700 transition text-2xl"
                 >
@@ -118,6 +125,7 @@ const Footer = () => {
                   href="https://www.facebook.com/profile.php?id=61567223621147"
                   aria-label="Facebook"
                   target="_blank"
+                  locale={locale}
                   rel="noopener noreferrer"
                   className="text-cyan-900 hover:text-cyan-700 transition text-2xl"
                 >
@@ -129,6 +137,7 @@ const Footer = () => {
                   href="https://www.tiktok.com/@elodiabeautyandspa"
                   aria-label="TikTok"
                   target="_blank"
+                  locale={locale}
                   rel="noopener noreferrer"
                   className="text-cyan-900 hover:text-cyan-700 transition text-2xl"
                 >
@@ -140,6 +149,7 @@ const Footer = () => {
                   href="https://www.fresha.com/book-now/elodia-beauty-spa-xyf2kz0o/services?lid=2695757&eid=4756102&share=true&pId=2608949"
                   aria-label="fresha"
                   target="_blank"
+                  locale={locale}
                   rel="noopener noreferrer"
                   className="text-cyan-900 hover:text-cyan-700 transition text-2xl"
                 >

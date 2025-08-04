@@ -1,11 +1,12 @@
 "use client";
 
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
 
 const Presentation = () => {
   const t = useTranslations("Presentation");
+  const locale = useLocale();
   return (
     <section className="relative h-[85vh] mt-16 bg-[url('/bg3.webp')] bg-cover bg-center flex items-center justify-center">
       {/* Overlay */}
@@ -19,6 +20,7 @@ const Presentation = () => {
         <Link
           href="/about_us"
           className="px-6 py-3 rounded bg-white text-cyan-900 hover:bg-cyan-900 hover:text-white transition-all duration-300"
+          locale={locale}
         >
           {t("link")}
         </Link>

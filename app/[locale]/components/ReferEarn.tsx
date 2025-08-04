@@ -1,9 +1,10 @@
 import React from "react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import Link from "next/link";
 
 const ReferEarn = () => {
   const t = useTranslations("referAndEarn1");
+  const locale = useLocale();
 
   const howItWorks = t.raw("howItWorks") as string[];
   return (
@@ -37,6 +38,7 @@ const ReferEarn = () => {
         <Link
           className="inline-block text-white text-sm font-medium bg-cyan-800 px-6 py-2 rounded hover:bg-cyan-700 transition-all duration-300"
           href="/signUp"
+          locale={locale}
         >
           {t("callToAction")}
         </Link>
