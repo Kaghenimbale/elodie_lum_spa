@@ -286,21 +286,21 @@ const SpaServices = () => {
         );
 
         const stripeInstance = await stripe;
-        // const res = await fetch("/api/book-service", {
-        //   method: "POST",
-        //   headers: { "Content-Type": "application/json" },
-        //   body: JSON.stringify({
-        //     name: bookingFormData.name,
-        //     email: bookingFormData.email,
-        //     service: bookingFormData.service,
-        //     price: bookingFormData.price, // <-- added
-        //     date: bookingFormData.date,
-        //     time: bookingFormData.time,
-        //     message: bookingFormData.message,
-        //   }),
-        // });
+        const res = await fetch("/api/book-service", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name: bookingFormData.name,
+            email: bookingFormData.email,
+            service: bookingFormData.service,
+            price: bookingFormData.price, // <-- added
+            date: bookingFormData.date,
+            time: bookingFormData.time,
+            message: bookingFormData.message,
+          }),
+        });
 
-        // const result = await res.json();
+        const result = await res.json();
 
         if (stripeInstance) {
           await stripeInstance.redirectToCheckout({ sessionId: session.id });
