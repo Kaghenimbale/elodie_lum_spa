@@ -18,11 +18,9 @@ const page = () => {
           alt="Contact background"
           fill
           priority
-          quality={75}
+          quality={100}
           className="object-cover object-bottom"
-          sizes="(max-width: 1024px) 100vw, 80vw"
-          placeholder="blur"
-          blurDataURL="/bg-contact-blur.webp"
+          sizes="100vw"
         />
         <div className="absolute inset-0 flex items-center justify-center">
           <h2 className="text-[1.8rem] md:text-[2.25rem] text-white font-bold px-4 text-center max-w-4xl">
