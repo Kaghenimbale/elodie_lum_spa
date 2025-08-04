@@ -1,11 +1,12 @@
 "use client";
 
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
 
 const Wellness1 = () => {
   const t = useTranslations("wellness1");
+  const locale = useLocale();
   const items = t.raw("items");
   const services = t.raw("serviceList") as {
     icon: any;
@@ -31,6 +32,7 @@ const Wellness1 = () => {
           </ul>
           <Link
             href="/services"
+            locale={locale}
             className="self-start bg-cyan-800 text-white text-sm px-5 py-2 rounded hover:bg-cyan-700 transition duration-300"
           >
             {t("link")}

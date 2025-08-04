@@ -1,11 +1,12 @@
 "use client";
 
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
 
 const Wellness = () => {
   const t = useTranslations("wellness");
+  const locale = useLocale();
   return (
     <section className="flex flex-col md:flex-row items-center justify-center gap-12 px-4 md:px-10 py-20 bg-white relative z-0">
       {/* Image & Background Box */}
@@ -37,6 +38,7 @@ const Wellness = () => {
         <Link
           href="services"
           className="self-center md:self-start text-white text-sm font-medium bg-cyan-800 px-6 py-2 rounded hover:bg-cyan-700 transition-all duration-300"
+          locale={locale}
         >
           {t("link")}
         </Link>

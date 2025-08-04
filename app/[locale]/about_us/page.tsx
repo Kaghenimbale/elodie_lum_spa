@@ -1,12 +1,13 @@
 import Image from "next/image";
 import Testimonial from "../components/Testimonial";
 import Link from "next/link";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 const page = () => {
   const t = useTranslations("about-us");
   const t1 = useTranslations("wellness1");
   const items = t1.raw("items");
+  const locale = useLocale();
   return (
     <div className="pt-28 pb-16 flex flex-col gap-5 px-4 lg:px-0">
       <div className="flex flex-col gap-5 items-center justify-center">
@@ -33,6 +34,7 @@ const page = () => {
             <p className="md:w-[30vw] font-thin">{t("about-us-abs")}</p>
             <Link
               href="/services"
+              locale={locale}
               className="text-white text-[0.9rem] bg-cyan-800 w-fit px-4 py-2 rounded hover:bg-cyan-700 transition-all duration-300 ease-in-out"
             >
               {t("link")}
@@ -52,6 +54,7 @@ const page = () => {
           </ul>
           <Link
             href="/services"
+            locale={locale}
             className="text-white text-[0.9rem] bg-cyan-800 w-fit px-4 py-2 rounded hover:bg-cyan-700 transition-all duration-300 ease-in-out"
           >
             {t("link")}

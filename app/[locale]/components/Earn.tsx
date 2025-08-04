@@ -1,11 +1,12 @@
 "use client";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
 const Earn = () => {
   const t = useTranslations("referAndEarn");
+  const locale = useLocale();
   const benefits = t.raw("benefits") as { icon: string; text: string }[];
   return (
     <>
@@ -32,6 +33,7 @@ const Earn = () => {
             <Link
               href="/refer-earn"
               className="inline-block text-white text-sm font-medium bg-cyan-800 px-6 py-2 rounded hover:bg-cyan-700 transition-all duration-300"
+              locale={locale}
             >
               {t("button")}
             </Link>
