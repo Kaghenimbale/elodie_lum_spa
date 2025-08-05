@@ -55,6 +55,7 @@ const Page = () => {
           type: "info",
           text: "This email is registered using Google. Please use 'Sign in with Google'.",
         });
+        setLoading(false); // early return, so stop loading
         return;
       }
 
@@ -63,19 +64,25 @@ const Page = () => {
         data.email,
         data.password
       );
+
       const user = userCredential.user;
 
+      // Navigate first, then delay loading off
       if (user.email === process.env.NEXT_PUBLIC_ADMIN_EMAIL) {
         router.push("/admin");
       } else {
         router.push("/userProfile");
       }
+
+      // Wait a bit before disabling loading
+      setTimeout(() => {
+        setLoading(false);
+      }, 500); // adjust this to 300ms-800ms if needed
     } catch (error: any) {
       setMessage({
         type: "error",
         text: error.message || "An unexpected error occurred.",
       });
-    } finally {
       setLoading(false);
     }
   };
@@ -90,10 +97,14 @@ const Page = () => {
       const result = await signInWithPopup(auth, googleProvider);
       const user = result.user;
       console.log("Google user logged in:", user.email);
+
       router.push("/userProfile");
+
+      setTimeout(() => {
+        setLoading(false);
+      }, 500);
     } catch (error) {
       setMessage({ type: "error", text: "Failed to sign in with Google" });
-    } finally {
       setLoading(false);
     }
   };
