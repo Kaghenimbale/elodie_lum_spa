@@ -1,23 +1,26 @@
 "use client";
 
 import Link from "next/link";
+import { useEffect, useState, FormEvent } from "react";
 import { BiUser } from "react-icons/bi";
-import { useState, FormEvent } from "react";
+import { FcGoogle } from "react-icons/fc";
+import { IoEye, IoEyeOff } from "react-icons/io5";
+import { ClipLoader } from "react-spinners";
+import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import {
   createUserWithEmailAndPassword,
   fetchSignInMethodsForEmail,
   signInWithPopup,
+  signOut,
 } from "firebase/auth";
 import { auth, googleProvider } from "@/firebase/config";
-import { useRouter } from "next/navigation";
-import { FcGoogle } from "react-icons/fc";
 import { createUserInFirestore } from "@/lib/userService";
-import { IoEye, IoEyeOff } from "react-icons/io5";
-import { ClipLoader } from "react-spinners";
-import { useTranslations } from "next-intl";
 
 const Page = () => {
   const router = useRouter();
+  const t = useTranslations("signUp");
+
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -28,7 +31,11 @@ const Page = () => {
     referralCode: "",
   });
 
-  const t = useTranslations("signUp");
+  // Force sign out on mount
+  useEffect(() => {
+    signOut(auth);
+    localStorage.clear();
+  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setData({ ...data, [e.target.name]: e.target.value });
@@ -46,12 +53,13 @@ const Page = () => {
 
     try {
       setLoading(true);
-      const methods = await fetchSignInMethodsForEmail(auth, data.email);
 
+      const methods = await fetchSignInMethodsForEmail(auth, data.email);
       if (methods.includes("google.com")) {
         setErrorMessage(
           "This email is already registered with Google. Please use 'Sign in with Google'."
         );
+        setLoading(false);
         return;
       }
 
@@ -78,8 +86,8 @@ const Page = () => {
       setSuccessMessage("Account created successfully!");
       router.push("/userProfile");
     } catch (error: any) {
-      setErrorMessage(error.message);
-      console.error("Error creating user:", error.message);
+      console.error("Error creating user:", error);
+      setErrorMessage(error.message || "Something went wrong");
     } finally {
       setLoading(false);
       setData({ email: "", password: "", referralCode: "" });
@@ -87,11 +95,11 @@ const Page = () => {
   };
 
   const handleGoogleLogin = async () => {
+    setErrorMessage("");
+    setSuccessMessage("");
+
     try {
       setLoading(true);
-      setErrorMessage("");
-      setSuccessMessage("");
-
       const result = await signInWithPopup(auth, googleProvider);
       const user = result.user;
 
