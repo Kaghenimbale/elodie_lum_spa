@@ -286,7 +286,9 @@
     "optionalMessage": "Message (optional)",
     "bookNow": "Book Now",
     "confirmBooking": "Confirm Booking",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "bookWithoutPayment": "Book without payment",
+    "bookWithPayment": "Book with payment"
   },
   "userCard": {
     "title": "EB & Spa User Card",

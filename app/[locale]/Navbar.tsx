@@ -14,10 +14,6 @@ import ClipLoader from "react-spinners/ClipLoader";
 import { useLocale } from "next-intl";
 
 const Navbar = () => {
-  // const commonLinks = ["HOME", "ABOUT US", "SERVICES", "CONTACT"];
-  // const userLinks = ["userProfile"];
-  // const adminLinks = ["admin", "manage-services"];
-
   const locale = useLocale();
 
   const commonLinks1 = [

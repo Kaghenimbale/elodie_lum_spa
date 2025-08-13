@@ -100,7 +100,7 @@ export async function POST(req: Request) {
     // Send notification email to the admin
     await resend.emails.send({
       from: "Elodia Beauty & Spa <onboarding@resend.dev>",
-      to: "kaghenimbale@gmail.com", // admin email
+      to: process.env.NEXT_PUBLIC_ADMIN_EMAIL!, // admin email
       subject: `🧖‍♀️ New Booking from ${name}`,
       html: `
     <div style="
