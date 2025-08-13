@@ -286,7 +286,9 @@
     "optionalMessage": "Message (optionnel)",
     "bookNow": "Réserver",
     "confirmBooking": "Confirmer la réservation",
-    "cancel": "Annuler"
+    "cancel": "Annuler",
+    "bookWithoutPayment": "Réserver sans paiement",
+    "bookWithPayment": "Réserver avec paiement"
   },
   "userCard": {
     "title": "Carte Utilisateur EB & Spa",

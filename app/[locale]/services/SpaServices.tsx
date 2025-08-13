@@ -35,6 +35,9 @@ const SpaServices = () => {
   const [loadedImages, setLoadedImages] = useState<{ [id: string]: boolean }>(
     {}
   );
+  const [paymentOption, setPaymentOption] = useState<
+    "no-payment" | "with-payment"
+  >("no-payment");
 
   const locale = useLocale();
   const t1 = useTranslations("modal");
@@ -272,45 +275,46 @@ const SpaServices = () => {
     setSuccess("");
 
     try {
-      const res = await fetch("/api/create-checkout-session", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(bookingFormData),
-      });
-
-      const session = await res.json();
-
-      if (res.ok) {
-        const stripe = await loadStripe(
-          process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
-        );
-
-        const stripeInstance = await stripe;
+      if (paymentOption === "no-payment") {
+        // ✅ Booking without payment
         const res = await fetch("/api/book-service", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            name: bookingFormData.name,
-            email: bookingFormData.email,
-            service: bookingFormData.service,
-            price: bookingFormData.price, // <-- added
-            date: bookingFormData.date,
-            time: bookingFormData.time,
-            message: bookingFormData.message,
-          }),
+          body: JSON.stringify(bookingFormData),
         });
 
         const result = await res.json();
 
-        if (stripeInstance) {
-          await stripeInstance.redirectToCheckout({ sessionId: session.id });
+        if (res.ok) {
+          setSuccess("✅ Booking confirmed successfully!");
+          setShowModal(false);
+        } else {
+          setError(result.error || "Failed to confirm booking.");
         }
       } else {
-        setError(session.error || "Stripe session creation failed.");
+        // 💳 Booking with payment
+        const res = await fetch("/api/create-checkout-session", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(bookingFormData),
+        });
+
+        const session = await res.json();
+
+        if (res.ok) {
+          const stripe = await loadStripe(
+            process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
+          );
+          if (stripe) {
+            await stripe.redirectToCheckout({ sessionId: session.id });
+          }
+        } else {
+          setError(session.error || "Stripe session creation failed.");
+        }
       }
     } catch (err) {
-      setError("Something went wrong during Stripe checkout.");
       console.error(err);
+      setError("Something went wrong during booking.");
     } finally {
       setBookingLoading(false);
     }
@@ -576,6 +580,30 @@ const SpaServices = () => {
                   </button>
                 ) : (
                   <>
+                    <div className="flex gap-4">
+                      <label className="flex items-center gap-2">
+                        <input
+                          type="radio"
+                          name="paymentOption"
+                          value="no-payment"
+                          checked={paymentOption === "no-payment"}
+                          onChange={() => setPaymentOption("no-payment")}
+                        />
+                        {t1("bookWithoutPayment")}
+                      </label>
+
+                      <label className="flex items-center gap-2">
+                        <input
+                          type="radio"
+                          name="paymentOption"
+                          value="with-payment"
+                          checked={paymentOption === "with-payment"}
+                          onChange={() => setPaymentOption("with-payment")}
+                        />
+                        {t1("bookWithPayment")}
+                      </label>
+                    </div>
+
                     <button
                       type="button"
                       onClick={handleConfirmBooking}
