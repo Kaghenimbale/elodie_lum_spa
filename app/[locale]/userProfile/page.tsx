@@ -21,6 +21,7 @@ const Page = () => {
   const [userData, setUserData] = useState<any>(null);
   const [refereeData, setRefereeData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const [copyMessage, setCopyMessage] = useState("");
   const t = useTranslations("userCard");
 
   useEffect(() => {
@@ -60,6 +61,10 @@ const Page = () => {
       </div>
     );
   }
+
+  const referralLink = userData
+    ? `${window.location.origin}/signUp?ref=${userData.referralCode}`
+    : "";
 
   return (
     <div className="container mx-auto px-4 py-12">
@@ -114,6 +119,45 @@ const Page = () => {
                   </p>
                 </div>
               )}
+
+              {/* Referral Share Section */}
+              <div className="mt-4 p-4 bg-blue-50 rounded-md flex flex-col gap-2">
+                <p>
+                  <strong>{t("shareReferral")}:</strong>
+                </p>
+                <input
+                  type="text"
+                  readOnly
+                  value={referralLink}
+                  className="w-full p-2 border rounded border-gray-300 outline-none"
+                />
+                <div className="flex gap-2 mt-2 items-center">
+                  <button
+                    onClick={() => {
+                      navigator.clipboard.writeText(referralLink);
+                      setCopyMessage(t("linkCopied"));
+                      setTimeout(() => setCopyMessage(""), 3000);
+                    }}
+                    className="bg-cyan-800 text-white py-2 px-4 rounded hover:bg-cyan-700 transition"
+                  >
+                    {t("copyLink")}
+                  </button>
+
+                  <a
+                    href={`https://wa.me/?text=${encodeURIComponent(referralLink)}`}
+                    target="_blank"
+                    className="bg-green-600 text-white py-2 px-4 rounded hover:bg-green-700 transition"
+                  >
+                    {t("shareWhatsApp")}
+                  </a>
+                </div>
+
+                {copyMessage && (
+                  <p className="text-green-600 mt-2 font-medium">
+                    {copyMessage}
+                  </p>
+                )}
+              </div>
             </>
           )}
         </div>

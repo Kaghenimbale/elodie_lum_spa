@@ -198,7 +198,7 @@
       "Chaque fois que quelqu’un réserve avec votre code, vous gagnez des points.",
       "Cumulez des points et débloquez des services gratuits ou des réductions exclusives !"
     ],
-    "callToAction": "S’INSCRIRE",
+    "callToAction": "RÉSERVER",
     "reminder": "C’est simple, gratifiant et tout le monde y gagne !",
     "highlighted": {
       "question": "Vous avez des amis qui pourraient utiliser nos services ? Envoyez-les chez nous !",
@@ -301,7 +301,11 @@
     "points": "Points",
     "refereeInfo": "👥 Informations sur le filleul",
     "refereeEmail": "E-mail",
-    "refereeReferralCode": "Code de Parrainage"
+    "refereeReferralCode": "Code de Parrainage",
+    "shareReferral": "Partagez votre lien de parrainage",
+    "copyLink": "Copier le lien",
+    "shareWhatsApp": "Partager sur WhatsApp",
+    "linkCopied": "Lien de parrainage copié !"
   },
   "signIn": {
     "title": "Connectez-vous à votre compte",
