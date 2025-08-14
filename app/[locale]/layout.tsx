@@ -7,6 +7,7 @@ import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import ImageKitProvider from "./providers/ImageKitProvider";
+import { Toaster } from "react-hot-toast";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -43,6 +44,7 @@ export default async function LocaleLayout({
         <NextIntlClientProvider>
           <Navbar />
           <ImageKitProvider>{children}</ImageKitProvider>
+          <Toaster position="top-right" reverseOrder={false} />
           <Footer />
         </NextIntlClientProvider>
       </body>

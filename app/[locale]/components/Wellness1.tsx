@@ -25,11 +25,11 @@ const Wellness1 = () => {
           <p className="text-gray-700 font-light leading-relaxed">
             {t("description")}
           </p>
-          <ul className="list-disc list-inside text-gray-700 font-light space-y-1">
+          {/* <ul className="list-disc list-inside text-gray-700 font-light space-y-1">
             {items.map((item: string, index: number) => (
               <li key={index}>{item}</li>
             ))}
-          </ul>
+          </ul> */}
           <Link
             href="/services"
             locale={locale}
@@ -55,7 +55,7 @@ const Wellness1 = () => {
       </div>
 
       {/* Services grid */}
-      <div className="w-full max-w-7xl grid grid-cols-1 sm:grid-cols-2 gap-8 p-4">
+      {/* <div className="w-full max-w-7xl grid grid-cols-1 sm:grid-cols-2 gap-8 p-4">
         {services.map(({ icon, title, price, desc }, i) => (
           <div
             key={i}
@@ -78,7 +78,7 @@ const Wellness1 = () => {
             </div>
           </div>
         ))}
-      </div>
+      </div> */}
     </section>
   );
 };

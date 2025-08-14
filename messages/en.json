@@ -198,7 +198,7 @@
       "Every time someone books with your code, you earn points.",
       "Collect points and unlock free services or exclusive discounts!"
     ],
-    "callToAction": "SIGN UP",
+    "callToAction": "BOOK NOW",
     "reminder": "It’s easy, rewarding, and a win-win for everyone!",
     "highlighted": {
       "question": "Got friends who could use our services? Send them our way!",
@@ -301,7 +301,11 @@
     "points": "Points",
     "refereeInfo": "👥 Referee Info",
     "refereeEmail": "Email",
-    "refereeReferralCode": "Referral Code"
+    "refereeReferralCode": "Referral Code",
+    "shareReferral": "Share your referral link",
+    "copyLink": "Copy Link",
+    "shareWhatsApp": "Share on WhatsApp",
+    "linkCopied": "Referral link copied!"
   },
   "signIn": {
     "title": "Login to your account",

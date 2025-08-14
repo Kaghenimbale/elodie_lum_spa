@@ -16,10 +16,21 @@ import {
 } from "firebase/auth";
 import { auth, googleProvider } from "@/firebase/config";
 import { createUserInFirestore } from "@/lib/userService";
+import { useSearchParams } from "next/navigation";
 
 const Page = () => {
   const router = useRouter();
   const t = useTranslations("signUp");
+
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    // Check if a referral code exists in the URL
+    const refFromURL = searchParams.get("ref");
+    if (refFromURL) {
+      setData((prev) => ({ ...prev, referralCode: refFromURL }));
+    }
+  }, [searchParams]);
 
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -222,11 +233,12 @@ const Page = () => {
           <div className="flex flex-col gap-2">
             <label htmlFor="referralCode">{t("referralLabel")}</label>
             <input
-              className="w-full p-2 border rounded border-gray-400"
+              className="w-full p-2 border rounded border-gray-400 bg-gray-100"
               type="text"
               placeholder={t("referralPlaceholder")}
               name="referralCode"
               value={data.referralCode || ""}
+              readOnly={!!searchParams.get("ref")}
               onChange={handleChange}
             />
           </div>

@@ -42,21 +42,12 @@ const SpaServices = () => {
   const locale = useLocale();
   const t1 = useTranslations("modal");
 
-  // Separate state for editing service form
-  // const [editFormData, setEditFormData] = useState({
-  //   name_en: "",
-  //   name_fr: "",
-  //   price: "",
-  //   description_en: "",
-  //   description_fr: "",
-  // });
-
   const [editFormData, setEditFormData] = useState<{
     name_en: string;
     name_fr: string;
     description_en: string;
     description_fr: string;
-    price: string; // 👈 on garde string ici, car input.value est toujours une string
+    price: string;
   }>({
     name_en: "",
     name_fr: "",
