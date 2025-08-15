@@ -165,7 +165,7 @@ const Page = () => {
         <div className="flex flex-col gap-2">
           <label htmlFor="email">{t("emailLabel")}</label>
           <input
-            className="w-full p-2 border rounded border-gray-300 focus:outline-none focus:ring-2 focus:ring-cyan-600"
+            className="w-full p-2 border rounded border-gray-400 bg-gray-100"
             type="email"
             name="email"
             value={data.email}
@@ -188,7 +188,7 @@ const Page = () => {
               value={data.password}
               onChange={handleChange}
               required
-              className="w-full p-2 pr-10 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-cyan-600"
+              className="w-full p-2 border rounded border-gray-400 bg-gray-100"
             />
             <button
               type="button"
