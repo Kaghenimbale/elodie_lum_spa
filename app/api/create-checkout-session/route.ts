@@ -14,7 +14,7 @@ export async function POST(req: Request) {
       success_url: `${process.env.NEXT_PUBLIC_BASE_URL}/booking-success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL}/`,
       customer_email: email,
-      client_reference_id: email, // optional
+      client_reference_id: email,
       line_items: [
         {
           price_data: {
@@ -22,7 +22,7 @@ export async function POST(req: Request) {
             product_data: {
               name: service,
             },
-            unit_amount: Math.round(Number(price) * 100), // ensure integer
+            unit_amount: Math.round(Number(price) * 100),
           },
           quantity: 1,
         },
