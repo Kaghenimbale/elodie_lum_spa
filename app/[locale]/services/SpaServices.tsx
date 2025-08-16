@@ -11,6 +11,7 @@ import { IKImage } from "imagekitio-react";
 import { useLocale, useTranslations } from "next-intl";
 import { Dialog } from "@headlessui/react";
 import { loadStripe } from "@stripe/stripe-js";
+import { fetchReferrerByEmail } from "@/lib/firebase";
 
 type ServiceType = {
   id: string;
@@ -38,6 +39,10 @@ const SpaServices = () => {
   const [paymentOption, setPaymentOption] = useState<
     "no-payment" | "with-payment"
   >("no-payment");
+  const [referrerInfo, setReferrerInfo] = useState<{
+    name: string;
+    code: string;
+  } | null>(null);
 
   const locale = useLocale();
   const t1 = useTranslations("modal");
@@ -65,6 +70,7 @@ const SpaServices = () => {
     date: "",
     time: "",
     message: "",
+    referredBy: "",
   });
 
   const [bookingLoading, setBookingLoading] = useState(false);
@@ -122,6 +128,7 @@ const SpaServices = () => {
         date: "",
         time: "",
         message: "",
+        referredBy: "",
       });
       setError("");
       setSuccess("");
@@ -180,12 +187,19 @@ const SpaServices = () => {
   };
 
   // Booking form input change handler
-  const handleBookingChange = (
+  const handleBookingChange = async (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
     >
   ) => {
-    setBookingFormData({ ...bookingFormData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setBookingFormData((prev) => ({ ...prev, [name]: value }));
+
+    if (name === "email" && value.includes("@")) {
+      const ref = await fetchReferrerByEmail(value); // Now TypeScript knows this exists
+      setReferrerInfo(ref);
+      setBookingFormData((prev) => ({ ...prev, referredBy: ref?.code || "" }));
+    }
   };
 
   // Get today's date formatted as YYYY-MM-DD
@@ -497,6 +511,13 @@ const SpaServices = () => {
                   className="w-full p-2 border rounded border-gray-300 outline-none"
                   disabled={bookingLoading}
                 />
+                {referrerInfo && (
+                  <p className="text-sm text-green-600">
+                    This client was referred by:{" "}
+                    <strong>{referrerInfo.name}</strong> (Code:{" "}
+                    {referrerInfo.code})
+                  </p>
+                )}
                 <input
                   type="text"
                   name="service"
