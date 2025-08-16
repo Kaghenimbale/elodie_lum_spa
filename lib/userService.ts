@@ -38,9 +38,9 @@ export const createUserInFirestore = async (
       const refereeRef = doc(db, "users", refereeDoc.id);
 
       // 3. Increment points
-      await updateDoc(refereeRef, {
-        points: increment(1),
-      });
+      // await updateDoc(refereeRef, {
+      //   points: increment(100),
+      // });
 
       const refereeData = refereeDoc.data();
 

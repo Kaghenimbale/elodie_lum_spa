@@ -4,16 +4,17 @@ import Stripe from "stripe";
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
 export async function POST(req: Request) {
-  const body = await req.json();
-  const { name, email, service, price, date, time, message } = body;
-
   try {
+    const body = await req.json();
+    const { name, email, service, price, date, time, message } = body;
+
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
       mode: "payment",
-      success_url: `${process.env.NEXT_PUBLIC_BASE_URL}/booking-success`,
+      success_url: `${process.env.NEXT_PUBLIC_BASE_URL}/booking-success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL}/`,
       customer_email: email,
+      client_reference_id: email,
       line_items: [
         {
           price_data: {
@@ -21,7 +22,7 @@ export async function POST(req: Request) {
             product_data: {
               name: service,
             },
-            unit_amount: Number(price) * 100,
+            unit_amount: Math.round(Number(price) * 100),
           },
           quantity: 1,
         },

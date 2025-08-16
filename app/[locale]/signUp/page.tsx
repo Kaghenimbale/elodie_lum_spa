@@ -130,7 +130,7 @@ const Page = () => {
 
       setSuccessMessage("Account created successfully!");
 
-      if (user.email === "kaghenimbale@gmail.com") {
+      if (user.email === process.env.NEXT_PUBLIC_ADMIN_EMAIL) {
         router.push("/admin");
       } else {
         router.push("/userProfile");
@@ -188,7 +188,7 @@ const Page = () => {
           <div className="flex flex-col gap-2">
             <label htmlFor="email">{t("emailLabel")}</label>
             <input
-              className="w-full p-2 border rounded border-gray-400"
+              className="w-full p-2 border rounded border-gray-400 bg-gray-100"
               type="email"
               placeholder={t("emailPlaceholder")}
               name="email"
@@ -212,7 +212,7 @@ const Page = () => {
                 value={data.password}
                 onChange={handleChange}
                 required
-                className="w-full p-2 pr-10 border border-gray-400 rounded focus:outline-none focus:ring-2 focus:ring-cyan-600"
+                className="w-full p-2 border rounded border-gray-400 bg-gray-100"
               />
               <button
                 type="button"
