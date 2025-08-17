@@ -4,9 +4,9 @@ import nodemailer from "nodemailer";
 
 export async function POST(req: Request) {
   try {
-    const { to, newUserEmail } = await req.json();
+    const { to, newUserEmail, earnedPoints, totalPoints } = await req.json();
 
-    if (!to || !newUserEmail) {
+    if (!to || !newUserEmail || earnedPoints == null || totalPoints == null) {
       return NextResponse.json(
         { error: "Missing required fields" },
         { status: 400 }
@@ -26,11 +26,13 @@ export async function POST(req: Request) {
     const mailOptions = {
       from: `"Elodia Beauty & Spa" <${process.env.EMAIL_USER}>`,
       to,
-      subject: "✨ You've Earned 1 Point – Thanks for Referring!",
+      subject: `✨ You've Earned ${earnedPoints} Point${
+        earnedPoints > 1 ? "s" : ""
+      } – Thanks for Referring!`,
       html: `
     <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #fff8f4; padding: 40px 20px; color: #333;">
       <div style="max-width: 600px; margin: auto; background: #ffffff; border-radius: 8px; padding: 30px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
-        <h1 style="color: #d16b86; text-align: center;">🎉 You’ve Earned a Point!</h1>
+        <h1 style="color: #d16b86; text-align: center;">🎉 You’ve Earned Points!</h1>
         <p style="font-size: 16px; line-height: 1.6; text-align: center;">
           Thank you for spreading the love 💖
         </p>
@@ -39,10 +41,15 @@ export async function POST(req: Request) {
           <strong style="color: #d16b86;">${newUserEmail}</strong>
         </p>
         <p style="font-size: 16px; line-height: 1.6;">
-          You've earned <strong>1 referral point</strong>! Keep sharing your code and unlock amazing rewards like discounts and free treatments at Elodia Beauty & Spa.
+          You've earned <strong>${earnedPoints} referral point${
+            earnedPoints > 1 ? "s" : ""
+          }</strong>! 🎁
+        </p>
+        <p style="font-size: 16px; line-height: 1.6;">
+          Your total balance is now: <strong>${totalPoints} points</strong>.
         </p>
         <div style="text-align: center; margin-top: 30px;">
-          <a href="https://elodiabeautyspa.com/referrals" style="background-color: #d16b86; color: #fff; padding: 12px 24px; border-radius: 5px; text-decoration: none; font-weight: bold;">
+          <a href="https://elodiabspa.com/userProfile" style="background-color: #d16b86; color: #fff; padding: 12px 24px; border-radius: 5px; text-decoration: none; font-weight: bold;">
             Share More – Earn More
           </a>
         </div>

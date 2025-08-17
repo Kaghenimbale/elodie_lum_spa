@@ -20,6 +20,7 @@ export const createUserInFirestore = async (
     referralCode: generateReferralCode(),
     referredBy: referralCode || null, // just record who referred them
     points: 0,
+    referralPaymentsCount: 0,
   };
 
   // 1. Save new user to Firestore

@@ -295,12 +295,12 @@ const SpaServices = () => {
           setShowModal(false);
 
           // 🎁 reward referrer if exists
-          if (bookingFormData.referredBy) {
-            await rewardReferrer(
-              bookingFormData.referredBy,
-              Number(bookingFormData.price)
-            );
-          }
+          // if (bookingFormData.referredBy) {
+          //   await rewardReferrer(
+          //     bookingFormData.referredBy,
+          //     Number(bookingFormData.price)
+          //   );
+          // }
         } else {
           setError(result.error || "Failed to confirm booking.");
         }
