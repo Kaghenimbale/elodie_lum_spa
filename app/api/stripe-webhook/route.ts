@@ -1,44 +1,64 @@
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
 import { db } from "@/firebase/config";
-import { collection, addDoc } from "firebase/firestore";
+import {
+  collection,
+  query,
+  where,
+  getDocs,
+  updateDoc,
+  increment,
+} from "firebase/firestore";
+
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
 export async function POST(req: Request) {
-  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
+  const sig = req.headers.get("stripe-signature") as string;
 
-  const payload = await req.text();
-  const sig = req.headers.get("stripe-signature")!;
+  let event: Stripe.Event;
 
-  let event;
   try {
+    const body = await req.text(); // webhook must use raw body
     event = stripe.webhooks.constructEvent(
-      payload,
+      body,
       sig,
       process.env.STRIPE_WEBHOOK_SECRET!
     );
-  } catch (err) {
-    console.error("Webhook signature verification failed:", err);
-    return new NextResponse("Webhook Error", { status: 400 });
+  } catch (err: any) {
+    return NextResponse.json(
+      { error: `Webhook Error: ${err.message}` },
+      { status: 400 }
+    );
   }
 
   if (event.type === "checkout.session.completed") {
     const session = event.data.object as Stripe.Checkout.Session;
-    const metadata = session.metadata; // store bookingFormData here in create-checkout-session
+    const metadata = session.metadata || {};
+    const price = Number(metadata.price || 0);
+    const referredBy = metadata.referredBy || "";
 
-    try {
-      await addDoc(collection(db, "bookings"), {
-        name: metadata?.name,
-        email: metadata?.email,
-        service: metadata?.service,
-        price: metadata?.price,
-        date: metadata?.date,
-        time: metadata?.time,
-        message: metadata?.message,
-        status: "paid",
-        createdAt: new Date(),
-      });
-    } catch (error) {
-      console.error("Error saving booking:", error);
+    if (referredBy) {
+      try {
+        // find referrer by referralCode
+        const q = query(
+          collection(db, "users"),
+          where("referralCode", "==", referredBy)
+        );
+        const snap = await getDocs(q);
+
+        if (!snap.empty) {
+          const referrerDoc = snap.docs[0].ref;
+          const rewardPoints = Math.floor(price * 0.05 * 10);
+
+          await updateDoc(referrerDoc, {
+            points: increment(rewardPoints),
+          });
+
+          console.log("✅ Referrer rewarded with", rewardPoints, "points");
+        }
+      } catch (err) {
+        console.error("Error rewarding referrer after payment:", err);
+      }
     }
   }
 

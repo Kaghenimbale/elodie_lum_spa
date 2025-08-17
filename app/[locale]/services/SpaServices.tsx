@@ -12,6 +12,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { Dialog } from "@headlessui/react";
 import { loadStripe } from "@stripe/stripe-js";
 import { fetchReferrerByEmail } from "@/lib/firebase";
+import { rewardReferrer } from "@/lib/rewards";
 
 type ServiceType = {
   id: string;
@@ -281,7 +282,6 @@ const SpaServices = () => {
 
     try {
       if (paymentOption === "no-payment") {
-        // ✅ Booking without payment
         const res = await fetch("/api/book-service", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -293,6 +293,14 @@ const SpaServices = () => {
         if (res.ok) {
           setSuccess("✅ Booking confirmed successfully!");
           setShowModal(false);
+
+          // 🎁 reward referrer if exists
+          if (bookingFormData.referredBy) {
+            await rewardReferrer(
+              bookingFormData.referredBy,
+              Number(bookingFormData.price)
+            );
+          }
         } else {
           setError(result.error || "Failed to confirm booking.");
         }
