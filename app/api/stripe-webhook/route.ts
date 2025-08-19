@@ -96,13 +96,36 @@ export async function POST(req: Request) {
         to: referrerData.email,
         subject: `✨ You've Earned ${pointsEarned} Point(s)!`,
         html: `
-          <h2>🎉 Congratulations!</h2>
-          <p>User <strong>${customerEmail}</strong> booked with your referral.</p>
-          <p>You earned <b>${pointsEarned}</b> point(s). Total: <b>${totalPoints}</b>.</p>
-        `,
+    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; border: 1px solid #eee; border-radius: 8px; padding: 20px; background-color: #fafafa;">
+      <h2 style="color: #333; text-align: center;">🎉 Congratulations!</h2>
+      <p style="font-size: 16px; color: #555;">
+        Hello <b>${referrerData.name || "Valued Guest"}</b>,
+      </p>
+      <p style="font-size: 15px; color: #555; line-height: 1.6;">
+        Great news! A new customer, <b>${customerEmail}</b>, has just booked a service using your referral code.  
+      </p>
+      <p style="font-size: 15px; color: #555; line-height: 1.6;">
+        As a reward, you’ve earned <b style="color:#008080;">${pointsEarned} point(s)</b>.  
+        Your total balance is now: <b style="color:#008080;">${totalPoints} point(s)</b>.
+      </p>
+      
+      <div style="text-align: center; margin: 25px 0;">
+        <a href="https://elodiabspa.com/rewards" 
+           style="background-color: #008080; color: #fff; padding: 12px 20px; border-radius: 6px; text-decoration: none; font-weight: bold;">
+          View My Rewards
+        </a>
+      </div>
+
+      <hr style="border: none; border-top: 1px solid #ddd; margin: 20px 0;" />
+      <p style="font-size: 13px; color: #888; text-align: center;">
+        Thank you for sharing Elodia Beauty & Spa with your friends.  
+        The more you refer, the more you earn! 💎
+      </p>
+    </div>
+  `,
       });
 
-      console.log("📧 Referral email sent to", referrerData.email);
+      // console.log("📧 Referral email sent to", referrerData.email);
     } catch (err) {
       console.error("🔥 Error handling referral points:", err);
     }
