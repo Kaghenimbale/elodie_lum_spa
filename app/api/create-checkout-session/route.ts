@@ -6,7 +6,8 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const { name, email, service, price, date, time, message } = body;
+    const { name, email, service, price, date, time, message, referredBy } =
+      body;
 
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
@@ -22,7 +23,7 @@ export async function POST(req: Request) {
             product_data: {
               name: service,
             },
-            unit_amount: Math.round(Number(price) * 100),
+            unit_amount: Math.round(Number(price) * 100), // convert to cents
           },
           quantity: 1,
         },
@@ -31,10 +32,11 @@ export async function POST(req: Request) {
         name,
         email,
         service,
-        price,
+        price: price.toString(),
         date,
         time,
         message,
+        referredBy: referredBy || "",
       },
     });
 

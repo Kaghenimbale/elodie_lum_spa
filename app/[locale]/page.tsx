@@ -19,7 +19,6 @@ export default function Home() {
       <Place />
       <Earn />
       <Testimonial />
-      {/* <Post /> */}
     </div>
   );
 }

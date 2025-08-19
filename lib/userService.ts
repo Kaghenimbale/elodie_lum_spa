@@ -6,8 +6,6 @@ import {
   collection,
   query,
   where,
-  updateDoc,
-  increment,
 } from "firebase/firestore";
 
 export const createUserInFirestore = async (
@@ -20,41 +18,21 @@ export const createUserInFirestore = async (
     uid: user.uid,
     email: user.email,
     referralCode: generateReferralCode(),
-    referredBy: referralCode || null,
+    referredBy: referralCode || null, // just record who referred them
     points: 0,
+    referralPaymentsCount: 0,
   };
 
   // 1. Save new user to Firestore
   await setDoc(userRef, newUser);
 
-  // 2. If referral code was used, find owner
+  // 2. If referral code was used, only save "referredBy"
   if (referralCode) {
     const usersRef = collection(db, "users");
     const q = query(usersRef, where("referralCode", "==", referralCode));
     const querySnapshot = await getDocs(q);
 
-    if (!querySnapshot.empty) {
-      const refereeDoc = querySnapshot.docs[0];
-      const refereeRef = doc(db, "users", refereeDoc.id);
-
-      // 3. Increment points
-      // await updateDoc(refereeRef, {
-      //   points: increment(100),
-      // });
-
-      const refereeData = refereeDoc.data();
-
-      // 4. Send them an email notification
-
-      await fetch("/api/referral-earned", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          to: refereeData.email,
-          newUserEmail: user.email,
-        }),
-      });
-    } else {
+    if (querySnapshot.empty) {
       console.warn("Referral code not found.");
     }
   }

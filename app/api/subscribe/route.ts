@@ -50,7 +50,7 @@ export async function POST(req: Request) {
             If you have any questions or want to book an appointment, feel free to reach out to us anytime.
           </p>
           <div style="text-align: center; margin: 30px 0;">
-            <a href="https://elodiaspa.com" target="_blank" style="display: inline-block; background-color: #035c68; color: #fff; text-decoration: none; padding: 12px 24px; border-radius: 6px; font-size: 16px;">
+            <a href="https://elodiabspa.com" target="_blank" style="display: inline-block; background-color: #035c68; color: #fff; text-decoration: none; padding: 12px 24px; border-radius: 6px; font-size: 16px;">
               Visit Our Website
             </a>
           </div>
