@@ -36,7 +36,7 @@ export async function POST(req: Request) {
         date,
         time,
         message,
-        referredBy: referredBy || "", // ✅ include referral code if present
+        referredBy: referredBy || "",
       },
     });
 
