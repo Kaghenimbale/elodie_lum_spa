@@ -9,6 +9,7 @@ import {
   getDocs,
   updateDoc,
   increment,
+  addDoc,
 } from "firebase/firestore";
 import { Resend } from "resend";
 
@@ -50,6 +51,63 @@ export async function POST(req: Request) {
       : 0;
 
     try {
+      // ✅ Save booking to Firestore
+      await addDoc(collection(db, "bookings"), {
+        name:
+          session.metadata?.name ||
+          session.customer_details?.name ||
+          "Anonymous",
+        email: customerEmail,
+        price: session.amount_total
+          ? (session.amount_total / 100).toString()
+          : "0", // string
+        service: session.metadata?.service || "Unknown Service",
+        date: session.metadata?.date || null, // string "YYYY-MM-DD"
+        time: session.metadata?.time || null, // string "HH:MM"
+        message: session.metadata?.message || null,
+        createdAt: new Date(), // Firestore timestamp
+        status: "paid",
+        sessionId: session.id,
+      });
+
+      console.log(`💾 Booking saved for ${customerEmail}`);
+
+      // ✅ Send booking confirmation to customer
+      await resend.emails.send({
+        from: "Elodia Beauty & Spa <onboarding@resend.dev>",
+        to: customerEmail,
+        subject: "💆 Booking Confirmation – Elodia Beauty & Spa",
+        html: `
+          <h2>Thank you for your booking!</h2>
+          <p>Your booking is confirmed for:</p>
+          <ul>
+            <li><b>Service:</b> ${session.metadata?.service || "Service"}</li>
+            <li><b>Date:</b> ${session.metadata?.date || "TBD"}</li>
+            <li><b>Time:</b> ${session.metadata?.time || "TBD"}</li>
+            <li><b>Amount Paid:</b> $${amountPaid}</li>
+          </ul>
+          <p>We look forward to welcoming you at Elodia Beauty & Spa ✨</p>
+        `,
+      });
+
+      // ✅ Send booking notification to spa admin
+      await resend.emails.send({
+        from: "Elodia Beauty & Spa <onboarding@resend.dev>",
+        to: "spa-admin@elodia.com", // ⬅️ replace with actual spa email
+        subject: "📩 New Booking Received",
+        html: `
+          <h2>New Booking Alert</h2>
+          <p><b>${customerEmail}</b> has booked a service.</p>
+          <ul>
+            <li><b>Service:</b> ${session.metadata?.service || "Service"}</li>
+            <li><b>Date:</b> ${session.metadata?.date || "TBD"}</li>
+            <li><b>Time:</b> ${session.metadata?.time || "TBD"}</li>
+            <li><b>Amount Paid:</b> $${amountPaid}</li>
+          </ul>
+        `,
+      });
+
+      // --- REFERRAL LOGIC ---
       const usersRef = collection(db, "users");
       const userQuery = query(usersRef, where("email", "==", customerEmail));
       const userSnapshot = await getDocs(userQuery);
@@ -75,59 +133,56 @@ export async function POST(req: Request) {
       const referrerRef = doc(db, "users", referrerDoc.id);
       const referrerData = referrerDoc.data();
 
-      const referralCount = payingUser.referralPaymentsCount || 0;
+      // Limit: max 2 referral rewards
+      const referralCount = referrerData.referralPaymentsCount || 0;
       if (referralCount >= 2) return NextResponse.json({ received: true });
 
       // Calculate points
       const pointsEarned = Math.round(amountPaid * 0.05 * 10);
 
       // Update Firestore
-      await updateDoc(referrerRef, { points: increment(pointsEarned) });
-      await updateDoc(payingUserRef, { referralPaymentsCount: increment(1) });
+      await updateDoc(referrerRef, {
+        points: increment(pointsEarned),
+        referralPaymentsCount: increment(1),
+      });
 
       const totalPoints = (referrerData.points || 0) + pointsEarned;
       console.log(
         `🎯 ${referrerData.email} earned ${pointsEarned} points. Total: ${totalPoints}`
       );
 
-      // Send email using Resend
+      // Send referral reward email
       await resend.emails.send({
         from: "Elodia Beauty & Spa <onboarding@resend.dev>",
         to: referrerData.email,
         subject: `✨ You've Earned ${pointsEarned} Point(s)!`,
         html: `
-    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; border: 1px solid #eee; border-radius: 8px; padding: 20px; background-color: #fafafa;">
-      <h2 style="color: #333; text-align: center;">🎉 Congratulations!</h2>
-      <p style="font-size: 16px; color: #555;">
-        Hello <b>${referrerData.name || "Valued Guest"}</b>,
-      </p>
-      <p style="font-size: 15px; color: #555; line-height: 1.6;">
-        Great news! A new customer, <b>${customerEmail}</b>, has just booked a service using your referral code.  
-      </p>
-      <p style="font-size: 15px; color: #555; line-height: 1.6;">
-        As a reward, you’ve earned <b style="color:#008080;">${pointsEarned} point(s)</b>.  
-        Your total balance is now: <b style="color:#008080;">${totalPoints} point(s)</b>.
-      </p>
-      
-      <div style="text-align: center; margin: 25px 0;">
-        <a href="https://elodiabspa.com/rewards" 
-           style="background-color: #008080; color: #fff; padding: 12px 20px; border-radius: 6px; text-decoration: none; font-weight: bold;">
-          View My Rewards
-        </a>
-      </div>
-
-      <hr style="border: none; border-top: 1px solid #ddd; margin: 20px 0;" />
-      <p style="font-size: 13px; color: #888; text-align: center;">
-        Thank you for sharing Elodia Beauty & Spa with your friends.  
-        The more you refer, the more you earn! 💎
-      </p>
-    </div>
-  `,
+          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; border: 1px solid #eee; border-radius: 8px; padding: 20px; background-color: #fafafa;">
+            <h2 style="color: #333; text-align: center;">🎉 Congratulations!</h2>
+            <p>Hello <b>${referrerData.name || "Valued Guest"}</b>,</p>
+            <p>
+              Great news! A new customer, <b>${customerEmail}</b>, has just booked a service using your referral code.  
+            </p>
+            <p>
+              As a reward, you’ve earned <b style="color:#008080;">${pointsEarned} point(s)</b>.  
+              Your total balance is now: <b style="color:#008080;">${totalPoints} point(s)</b>.
+            </p>
+            <div style="text-align: center; margin: 25px 0;">
+              <a href="https://elodiabspa.com/rewards" 
+                style="background-color: #008080; color: #fff; padding: 12px 20px; border-radius: 6px; text-decoration: none; font-weight: bold;">
+                View My Rewards
+              </a>
+            </div>
+            <hr style="border: none; border-top: 1px solid #ddd; margin: 20px 0;" />
+            <p style="font-size: 13px; color: #888; text-align: center;">
+              Thank you for sharing Elodia Beauty & Spa with your friends.  
+              The more you refer, the more you earn! 💎
+            </p>
+          </div>
+        `,
       });
-
-      // console.log("📧 Referral email sent to", referrerData.email);
     } catch (err) {
-      console.error("🔥 Error handling referral points:", err);
+      console.error("🔥 Error handling webhook:", err);
     }
   }
 

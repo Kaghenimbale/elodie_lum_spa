@@ -3,7 +3,13 @@
 import { useEffect, useState, useMemo } from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { db } from "@/firebase/config";
-import { collection, getDocs, deleteDoc, doc } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  deleteDoc,
+  doc,
+  Timestamp,
+} from "firebase/firestore";
 import { ClipLoader } from "react-spinners";
 import { useTranslations } from "next-intl";
 import { Dialog } from "@headlessui/react";
@@ -35,9 +41,18 @@ export default function AdminPage() {
         if (user.email === adminEmail) {
           const querySnapshot = await getDocs(collection(db, "bookings"));
           const results: any[] = [];
-          querySnapshot.forEach((doc) =>
-            results.push({ id: doc.id, ...doc.data() })
-          );
+          querySnapshot.forEach((doc) => {
+            const data = doc.data();
+            results.push({
+              id: doc.id,
+              ...data,
+              createdAtFormatted:
+                data.createdAt instanceof Timestamp
+                  ? data.createdAt.toDate().toLocaleString()
+                  : "N/A",
+              dateFormatted: data.date || "TBD",
+            });
+          });
           setBookings(results);
         }
       }
@@ -63,9 +78,11 @@ export default function AdminPage() {
   const filteredBookings = useMemo(() => {
     return bookings.filter((b) => {
       return (
-        b.name.toLowerCase().includes(filterName.toLowerCase()) &&
-        b.email.toLowerCase().includes(filterEmail.toLowerCase()) &&
-        b.service.toLowerCase().includes(filterService.toLowerCase()) &&
+        (b.name?.toLowerCase() || "").includes(filterName.toLowerCase()) &&
+        (b.email?.toLowerCase() || "").includes(filterEmail.toLowerCase()) &&
+        (b.service?.toLowerCase() || "").includes(
+          filterService.toLowerCase()
+        ) &&
         (filterDate === "" || b.date === filterDate)
       );
     });
@@ -127,6 +144,7 @@ export default function AdminPage() {
         <p className="text-gray-600">{t("noBookedServices")}</p>
       ) : (
         <>
+          {/* Mobile view */}
           <div className="md:hidden space-y-4 mt-6 w-full">
             {filteredBookings.map((b) => (
               <div
@@ -144,7 +162,12 @@ export default function AdminPage() {
                   {b.service}
                 </p>
                 <p>
-                  <span className="font-semibold">{t("date")}:</span> {b.date}
+                  <span className="font-semibold">{t("bookingDate")}:</span>{" "}
+                  {b.createdAtFormatted}
+                </p>
+                <p>
+                  <span className="font-semibold">{t("serviceDate")}:</span>{" "}
+                  {b.dateFormatted}
                 </p>
                 <p>
                   <span className="font-semibold">{t("time")}:</span> {b.time}
@@ -166,6 +189,7 @@ export default function AdminPage() {
             ))}
           </div>
 
+          {/* Desktop table */}
           <div className="hidden md:block overflow-x-auto mt-6 w-full">
             <table className="min-w-full border border-gray-300 rounded-xl bg-white shadow">
               <thead className="bg-cyan-900 text-white">
@@ -173,7 +197,8 @@ export default function AdminPage() {
                   <th className="px-4 py-3 text-left">{t("name")}</th>
                   <th className="px-4 py-3 text-left">{t("email")}</th>
                   <th className="px-4 py-3 text-left">{t("service")}</th>
-                  <th className="px-4 py-3 text-left">{t("date")}</th>
+                  <th className="px-4 py-3 text-left">{t("bookingDate")}</th>
+                  <th className="px-4 py-3 text-left">{t("serviceDate")}</th>
                   <th className="px-4 py-3 text-left">{t("time")}</th>
                   <th className="px-4 py-3 text-left">{t("message")}</th>
                   <th className="px-4 py-3 text-left">{t("actions")}</th>
@@ -188,7 +213,8 @@ export default function AdminPage() {
                     <td className="px-4 py-3">{b.name}</td>
                     <td className="px-4 py-3">{b.email}</td>
                     <td className="px-4 py-3">{b.service}</td>
-                    <td className="px-4 py-3">{b.date}</td>
+                    <td className="px-4 py-3">{b.createdAtFormatted}</td>
+                    <td className="px-4 py-3">{b.dateFormatted}</td>
                     <td className="px-4 py-3">{b.time}</td>
                     <td className="px-4 py-3">{b.message || t("none")}</td>
                     <td className="px-4 py-3">
