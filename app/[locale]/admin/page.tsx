@@ -9,6 +9,7 @@ import {
   deleteDoc,
   doc,
   Timestamp,
+  updateDoc,
 } from "firebase/firestore";
 import { ClipLoader } from "react-spinners";
 import { useTranslations } from "next-intl";
@@ -19,18 +20,31 @@ export default function AdminPage() {
   const [user, setUser] = useState<any>(null);
   const [bookings, setBookings] = useState<any[]>([]);
   const [confirmDialogOpen, setConfirmDialogOpen] = useState(false);
+  const [editDialogOpen, setEditDialogOpen] = useState(false);
   const [selectedBookingId, setSelectedBookingId] = useState<string | null>(
     null
   );
+  const [editBookingData, setEditBookingData] = useState<any>({
+    name: "",
+    email: "",
+    service: "",
+    date: "",
+    time: "",
+    message: "",
+  });
 
-  // Filters state
+  // Filters
   const [filterName, setFilterName] = useState("");
   const [filterEmail, setFilterEmail] = useState("");
   const [filterService, setFilterService] = useState("");
   const [filterDate, setFilterDate] = useState("");
+  const [filterType, setFilterType] = useState<
+    "all" | "today" | "week" | "custom"
+  >("all");
 
-  const adminEmail = "kaghenimbale@gmail.com";
+  const adminEmail = process.env.NEXT_PUBLIC_ADMIN_EMAIL;
 
+  // Fetch bookings
   useEffect(() => {
     const auth = getAuth();
 
@@ -61,6 +75,7 @@ export default function AdminPage() {
     return () => unsubscribe();
   }, []);
 
+  // Delete booking
   const handleDelete = async () => {
     if (!selectedBookingId) return;
     try {
@@ -74,156 +89,268 @@ export default function AdminPage() {
     }
   };
 
-  // Filter bookings with memoization
+  // Update booking
+  const handleUpdate = async () => {
+    if (!selectedBookingId) return;
+    try {
+      const bookingRef = doc(db, "bookings", selectedBookingId);
+      await updateDoc(bookingRef, editBookingData);
+      setBookings((prev) =>
+        prev.map((b) =>
+          b.id === selectedBookingId ? { ...b, ...editBookingData } : b
+        )
+      );
+    } catch (error) {
+      console.error("Error updating booking:", error);
+    } finally {
+      setEditDialogOpen(false);
+      setSelectedBookingId(null);
+    }
+  };
+
+  // Date helpers
+  const isSameDay = (date1: Date, date2: Date) =>
+    date1.toDateString() === date2.toDateString();
+
+  const isSameWeek = (date1: Date, date2: Date) => {
+    const startOfWeek = new Date(date2);
+    startOfWeek.setDate(date2.getDate() - date2.getDay());
+    const endOfWeek = new Date(startOfWeek);
+    endOfWeek.setDate(startOfWeek.getDate() + 6);
+    return date1 >= startOfWeek && date1 <= endOfWeek;
+  };
+
+  // Filter bookings
   const filteredBookings = useMemo(() => {
     return bookings.filter((b) => {
+      const bookingDate =
+        b.dateFormatted && !isNaN(Date.parse(b.dateFormatted))
+          ? new Date(b.dateFormatted)
+          : null;
+
+      let dateMatch = true;
+      if (filterType === "today" && bookingDate) {
+        dateMatch = isSameDay(bookingDate, new Date());
+      } else if (filterType === "week" && bookingDate) {
+        dateMatch = isSameWeek(bookingDate, new Date());
+      } else if (filterType === "custom" && filterDate && bookingDate) {
+        dateMatch = isSameDay(bookingDate, new Date(filterDate));
+      }
+
       return (
         (b.name?.toLowerCase() || "").includes(filterName.toLowerCase()) &&
         (b.email?.toLowerCase() || "").includes(filterEmail.toLowerCase()) &&
         (b.service?.toLowerCase() || "").includes(
           filterService.toLowerCase()
         ) &&
-        (filterDate === "" || b.date === filterDate)
+        dateMatch
       );
     });
-  }, [bookings, filterName, filterEmail, filterService, filterDate]);
+  }, [
+    bookings,
+    filterName,
+    filterEmail,
+    filterService,
+    filterType,
+    filterDate,
+  ]);
 
   if (!user)
     return (
-      <p className="w-[100vw] h-[100vh] flex items-center justify-center">
+      <p className="w-screen h-screen flex items-center justify-center">
         <ClipLoader color="#164E63" />
       </p>
     );
 
   if (user.email !== adminEmail)
     return (
-      <p className="p-4 text-center bg-red-100 text-red-700 rounded-md w-[100vw] h-[100vh] flex items-center justify-center">
+      <p className="p-4 text-center bg-red-100 text-red-700 rounded-md w-screen h-screen flex items-center justify-center">
         ⛔️ {t("accessDenied")}
       </p>
     );
 
   return (
-    <div className="p-6 w-full max-w-7xl mx-auto mt-24 flex flex-col items-center justify-center gap-5">
+    <div className="p-6 w-full max-w-7xl mx-auto mt-24 flex flex-col items-center gap-5">
       <h1 className="text-3xl font-bold text-cyan-900">
         📋 {t("bookedServices")}
       </h1>
 
       {/* Filters */}
-      <div className="w-full grid grid-cols-1 md:grid-cols-4 gap-4">
+      <div className="w-full grid grid-cols-1 md:grid-cols-5 gap-4">
         <input
           type="text"
           placeholder={t("filterName")}
           value={filterName}
           onChange={(e) => setFilterName(e.target.value)}
-          className="border border-gray-300 rounded px-3 py-2 w-full"
+          className="border border-gray-300 rounded-lg px-3 py-2 w-full shadow-sm focus:ring-2 focus:ring-cyan-600"
         />
         <input
           type="text"
           placeholder={t("filterEmail")}
           value={filterEmail}
           onChange={(e) => setFilterEmail(e.target.value)}
-          className="border border-gray-300 rounded px-3 py-2 w-full"
+          className="border border-gray-300 rounded-lg px-3 py-2 w-full shadow-sm focus:ring-2 focus:ring-cyan-600"
         />
         <input
           type="text"
           placeholder={t("filterService")}
           value={filterService}
           onChange={(e) => setFilterService(e.target.value)}
-          className="border border-gray-300 rounded px-3 py-2 w-full"
+          className="border border-gray-300 rounded-lg px-3 py-2 w-full shadow-sm focus:ring-2 focus:ring-cyan-600"
         />
-        <input
-          type="date"
-          placeholder={t("filterDate")}
-          value={filterDate}
-          onChange={(e) => setFilterDate(e.target.value)}
-          className="border border-gray-300 rounded px-3 py-2 w-full"
-        />
+        <select
+          value={filterType}
+          onChange={(e) => setFilterType(e.target.value as any)}
+          className="border border-gray-300 rounded-lg px-3 py-2 w-full shadow-sm focus:ring-2 focus:ring-cyan-600"
+        >
+          <option value="all">{t("filters.allBookings")}</option>
+          <option value="today">{t("filters.todayBookings")}</option>
+          <option value="week">{t("filters.thisWeekBookings")}</option>
+          <option value="custom">{t("filters.customDate")}</option>
+        </select>
+        {filterType === "custom" && (
+          <input
+            type="date"
+            value={filterDate}
+            onChange={(e) => setFilterDate(e.target.value)}
+            className="border border-gray-300 rounded-lg px-3 py-2 w-full shadow-sm focus:ring-2 focus:ring-cyan-600"
+          />
+        )}
       </div>
 
+      {/* Results */}
       {filteredBookings.length === 0 ? (
-        <p className="text-gray-600">{t("noBookedServices")}</p>
+        <p className="text-gray-500 text-center mt-6">
+          {t("noBookedServices")}
+        </p>
       ) : (
         <>
-          {/* Mobile view */}
+          {/* Mobile Cards */}
           <div className="md:hidden space-y-4 mt-6 w-full">
             {filteredBookings.map((b) => (
               <div
                 key={b.id}
-                className="border border-gray-300 rounded-lg shadow p-4 bg-white space-y-2"
+                className="border border-gray-200 rounded-xl shadow-sm p-4 bg-white"
               >
-                <p>
-                  <span className="font-semibold">{t("name")}:</span> {b.name}
-                </p>
-                <p>
-                  <span className="font-semibold">{t("email")}:</span> {b.email}
-                </p>
-                <p>
-                  <span className="font-semibold">{t("service")}:</span>{" "}
+                <h3 className="text-lg font-semibold text-cyan-800 mb-2">
                   {b.service}
-                </p>
-                <p>
-                  <span className="font-semibold">{t("bookingDate")}:</span>{" "}
-                  {b.createdAtFormatted}
-                </p>
-                <p>
-                  <span className="font-semibold">{t("serviceDate")}:</span>{" "}
-                  {b.dateFormatted}
-                </p>
-                <p>
-                  <span className="font-semibold">{t("time")}:</span> {b.time}
-                </p>
-                <p>
-                  <span className="font-semibold">{t("message")}:</span>{" "}
-                  {b.message || t("none")}
-                </p>
-                <button
-                  onClick={() => {
-                    setSelectedBookingId(b.id);
-                    setConfirmDialogOpen(true);
-                  }}
-                  className="mt-3 bg-red-600 hover:bg-red-800 text-white px-4 py-2 rounded"
-                >
-                  {t("delete")}
-                </button>
+                </h3>
+                <div className="space-y-1 text-sm text-gray-600">
+                  <p>
+                    <span className="font-medium">{t("name")}:</span> {b.name}
+                  </p>
+                  <p>
+                    <span className="font-medium">{t("email")}:</span> {b.email}
+                  </p>
+                  <p>
+                    <span className="font-medium">{t("bookingDate")}:</span>{" "}
+                    {b.createdAtFormatted}
+                  </p>
+                  <p>
+                    <span className="font-medium">{t("serviceDate")}:</span>{" "}
+                    {b.dateFormatted}
+                  </p>
+                  <p>
+                    <span className="font-medium">{t("time")}:</span> {b.time}
+                  </p>
+                  {b.message && (
+                    <p className="italic text-gray-500">
+                      <span className="font-medium">{t("message")}:</span>{" "}
+                      {b.message}
+                    </p>
+                  )}
+                </div>
+                <div className="mt-4 flex justify-end gap-2">
+                  <button
+                    onClick={() => {
+                      setSelectedBookingId(b.id);
+                      setEditBookingData({
+                        name: b.name,
+                        email: b.email,
+                        service: b.service,
+                        date: b.dateFormatted,
+                        time: b.time,
+                        message: b.message || "",
+                      });
+                      setEditDialogOpen(true);
+                    }}
+                    className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 rounded-md text-sm shadow-sm"
+                  >
+                    {t("edit")}
+                  </button>
+                  <button
+                    onClick={() => {
+                      setSelectedBookingId(b.id);
+                      setConfirmDialogOpen(true);
+                    }}
+                    className="bg-red-600 hover:bg-red-700 text-white px-3 py-1.5 rounded-md text-sm shadow-sm"
+                  >
+                    {t("delete")}
+                  </button>
+                </div>
               </div>
             ))}
           </div>
 
-          {/* Desktop table */}
+          {/* Desktop Table */}
           <div className="hidden md:block overflow-x-auto mt-6 w-full">
-            <table className="min-w-full border border-gray-300 rounded-xl bg-white shadow">
-              <thead className="bg-cyan-900 text-white">
+            <table className="min-w-full border border-gray-200 rounded-xl overflow-hidden shadow-sm">
+              <thead className="bg-cyan-900 text-white text-sm uppercase tracking-wide">
                 <tr>
                   <th className="px-4 py-3 text-left">{t("name")}</th>
                   <th className="px-4 py-3 text-left">{t("email")}</th>
                   <th className="px-4 py-3 text-left">{t("service")}</th>
-                  <th className="px-4 py-3 text-left">{t("bookingDate")}</th>
-                  <th className="px-4 py-3 text-left">{t("serviceDate")}</th>
+                  <th className="px-4 py-3 text-left text-nowrap">
+                    {t("bookingDate")}
+                  </th>
+                  <th className="px-4 py-3 text-left text-nowrap">
+                    {t("serviceDate")}
+                  </th>
                   <th className="px-4 py-3 text-left">{t("time")}</th>
                   <th className="px-4 py-3 text-left">{t("message")}</th>
-                  <th className="px-4 py-3 text-left">{t("actions")}</th>
+                  <th className="px-4 py-3 text-center">{t("actions")}</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody className="divide-y divide-gray-200 text-sm">
                 {filteredBookings.map((b) => (
-                  <tr
-                    key={b.id}
-                    className="border-t border-gray-200 hover:bg-gray-50"
-                  >
+                  <tr key={b.id} className="hover:bg-gray-50 transition-colors">
                     <td className="px-4 py-3">{b.name}</td>
                     <td className="px-4 py-3">{b.email}</td>
-                    <td className="px-4 py-3">{b.service}</td>
-                    <td className="px-4 py-3">{b.createdAtFormatted}</td>
+                    <td className="px-4 py-3 font-medium text-cyan-800">
+                      {b.service}
+                    </td>
+                    <td className="px-4 py-3">
+                      {b.createdAtFormatted.slice(0, 10)}
+                    </td>
                     <td className="px-4 py-3">{b.dateFormatted}</td>
                     <td className="px-4 py-3">{b.time}</td>
-                    <td className="px-4 py-3">{b.message || t("none")}</td>
-                    <td className="px-4 py-3">
+                    <td className="px-4 py-3 text-gray-600">
+                      {b.message || t("none")}
+                    </td>
+                    <td className="px-4 py-3 text-center flex justify-center gap-2">
+                      <button
+                        onClick={() => {
+                          setSelectedBookingId(b.id);
+                          setEditBookingData({
+                            name: b.name,
+                            email: b.email,
+                            service: b.service,
+                            date: b.dateFormatted,
+                            time: b.time,
+                            message: b.message || "",
+                          });
+                          setEditDialogOpen(true);
+                        }}
+                        className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 rounded-md text-sm shadow-sm"
+                      >
+                        {t("edit")}
+                      </button>
                       <button
                         onClick={() => {
                           setSelectedBookingId(b.id);
                           setConfirmDialogOpen(true);
                         }}
-                        className="bg-red-600 hover:bg-red-800 text-white px-4 py-2 rounded"
+                        className="bg-red-600 hover:bg-red-700 text-white px-3 py-1.5 rounded-md text-sm shadow-sm"
                       >
                         {t("delete")}
                       </button>
@@ -236,10 +363,11 @@ export default function AdminPage() {
         </>
       )}
 
+      {/* Confirm Delete Dialog */}
       <Dialog
         open={confirmDialogOpen}
         onClose={() => setConfirmDialogOpen(false)}
-        className="fixed z-50 inset-0 overflow-y-auto"
+        className="fixed z-50 inset-0 overflow-y-auto backdrop-blur-sm"
       >
         <div className="flex items-center justify-center min-h-screen px-4">
           <Dialog.Panel className="bg-white p-6 rounded-lg shadow-xl max-w-sm w-full">
@@ -258,6 +386,99 @@ export default function AdminPage() {
                 className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded"
               >
                 {t("delete")}
+              </button>
+            </div>
+          </Dialog.Panel>
+        </div>
+      </Dialog>
+
+      {/* Edit Booking Dialog */}
+      <Dialog
+        open={editDialogOpen}
+        onClose={() => setEditDialogOpen(false)}
+        className="fixed z-50 inset-0 overflow-y-auto"
+      >
+        <div className="flex items-center justify-center min-h-screen px-4">
+          <Dialog.Panel className="bg-white p-6 rounded-lg shadow-xl max-w-md w-full space-y-4">
+            <Dialog.Title className="text-lg font-semibold text-gray-800 mb-2">
+              {t("editBooking")}
+            </Dialog.Title>
+
+            <input
+              type="text"
+              placeholder={t("name")}
+              value={editBookingData.name}
+              onChange={(e) =>
+                setEditBookingData({ ...editBookingData, name: e.target.value })
+              }
+              className="border border-gray-300 rounded-lg px-3 py-2 w-full shadow-sm focus:ring-2 focus:ring-cyan-600"
+            />
+            <input
+              type="email"
+              placeholder={t("email")}
+              value={editBookingData.email}
+              onChange={(e) =>
+                setEditBookingData({
+                  ...editBookingData,
+                  email: e.target.value,
+                })
+              }
+              className="border border-gray-300 rounded-lg px-3 py-2 w-full shadow-sm focus:ring-2 focus:ring-cyan-600"
+            />
+            <input
+              type="text"
+              placeholder={t("service")}
+              value={editBookingData.service}
+              onChange={(e) =>
+                setEditBookingData({
+                  ...editBookingData,
+                  service: e.target.value,
+                })
+              }
+              className="border border-gray-300 rounded-lg px-3 py-2 w-full shadow-sm focus:ring-2 focus:ring-cyan-600"
+            />
+            <input
+              type="date"
+              placeholder={t("serviceDate")}
+              value={editBookingData.date}
+              onChange={(e) =>
+                setEditBookingData({ ...editBookingData, date: e.target.value })
+              }
+              className="border border-gray-300 rounded-lg px-3 py-2 w-full shadow-sm focus:ring-2 focus:ring-cyan-600"
+            />
+            <input
+              type="time"
+              placeholder={t("time")}
+              value={editBookingData.time}
+              onChange={(e) =>
+                setEditBookingData({ ...editBookingData, time: e.target.value })
+              }
+              className="border border-gray-300 rounded-lg px-3 py-2 w-full shadow-sm focus:ring-2 focus:ring-cyan-600"
+            />
+            <textarea
+              placeholder={t("message")}
+              value={editBookingData.message}
+              onChange={(e) =>
+                setEditBookingData({
+                  ...editBookingData,
+                  message: e.target.value,
+                })
+              }
+              className="border border-gray-300 rounded-lg px-3 py-2 w-full shadow-sm focus:ring-2 focus:ring-cyan-600"
+            />
+
+            <div className="flex justify-end space-x-3">
+              <button
+                onClick={() => setEditDialogOpen(false)}
+                className="bg-gray-200 hover:bg-gray-300 text-gray-800 px-4 py-2 rounded"
+              >
+                {t("cancel")}
+              </button>
+              <button
+                onClick={handleUpdate}
+                className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded"
+              >
+                {t("save")}
               </button>
             </div>
           </Dialog.Panel>

@@ -245,26 +245,33 @@
     "confirmBtn": "Confirmer la réservation"
   },
   "admin": {
-    "accessDenied": "Accès refusé",
+    "edit": "Modifier",
+    "delete": "Supprimer",
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "accessDenied": "Vous n'avez pas accès",
     "bookedServices": "Services Réservés",
     "filterName": "Filtrer par nom",
     "filterEmail": "Filtrer par email",
     "filterService": "Filtrer par service",
-    "filterDate": "Filtrer par date",
-    "noBookedServices": "Aucun service réservé trouvé",
+    "filters": {
+      "allBookings": "Toutes les réservations",
+      "todayBookings": "Réservations du jour",
+      "thisWeekBookings": "Réservations de la semaine",
+      "customDate": "Date personnalisée"
+    },
+    "noBookedServices": "Aucune réservation trouvée",
+    "confirmDelete": "Êtes-vous sûr de vouloir supprimer cette réservation ?",
+    "editBooking": "Modifier la réservation",
     "name": "Nom",
     "email": "Email",
     "service": "Service",
-    "date": "Date",
+    "bookingDate": "Réservé le",
+    "serviceDate": "Service le",
     "time": "Heure",
     "message": "Message",
     "actions": "Actions",
-    "delete": "Supprimer",
-    "cancel": "Annuler",
-    "confirmDelete": "Êtes-vous sûr de vouloir supprimer cette réservation ?",
-    "none": "Aucun",
-    "bookingDate": "Date de réservation",
-    "serviceDate": "Date du service"
+    "none": "Aucun"
   },
   "upload": {
     "title": "Ajouter un nouveau service",
