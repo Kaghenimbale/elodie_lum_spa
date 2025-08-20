@@ -181,7 +181,7 @@ export async function POST(req: Request) {
               Your total balance is now: <b style="color:#008080;">${totalPoints} point(s)</b>.
             </p>
             <div style="text-align: center; margin: 25px 0;">
-              <a href="https://elodiabspa.com/rewards" 
+              <a href="https://elodiabspa.com/userProfile" 
                 style="background-color: #008080; color: #fff; padding: 12px 20px; border-radius: 6px; text-decoration: none; font-weight: bold;">
                 View My Rewards
               </a>
