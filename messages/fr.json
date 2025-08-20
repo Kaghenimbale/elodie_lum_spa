@@ -314,7 +314,9 @@
     "shareReferral": "Partagez votre lien de parrainage",
     "copyLink": "Copier le lien",
     "shareWhatsApp": "Partager sur WhatsApp",
-    "linkCopied": "Lien de parrainage copié !"
+    "linkCopied": "Lien de parrainage copié !",
+    "convertPoints": "Convertir les points",
+    "dollarEquivalent": "Équivalent en dollars"
   },
   "signIn": {
     "title": "Connectez-vous à votre compte",

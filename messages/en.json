@@ -314,7 +314,9 @@
     "shareReferral": "Share your referral link",
     "copyLink": "Copy Link",
     "shareWhatsApp": "Share on WhatsApp",
-    "linkCopied": "Referral link copied!"
+    "linkCopied": "Referral link copied!",
+    "convertPoints": "Convert Points",
+    "dollarEquivalent": "Dollar Equivalent"
   },
   "signIn": {
     "title": "Login to your account",

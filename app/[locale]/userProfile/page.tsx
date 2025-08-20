@@ -22,6 +22,7 @@ const Page = () => {
   const [refereeData, setRefereeData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [copyMessage, setCopyMessage] = useState("");
+  const [convertedDollar, setConvertedDollar] = useState<number | null>(null); // new state
   const t = useTranslations("userCard");
 
   useEffect(() => {
@@ -66,6 +67,12 @@ const Page = () => {
     ? `${window.location.origin}/signUp?ref=${userData.referralCode}`
     : "";
 
+  const handleConvertPoints = () => {
+    if (!userData || !userData.points) return;
+    const dollars = userData.points / 10; // 10 points = $1
+    setConvertedDollar(dollars);
+  };
+
   return (
     <div className="container mx-auto px-4 py-12">
       <div className="flex flex-col lg:flex-row items-start justify-center gap-8">
@@ -106,6 +113,20 @@ const Page = () => {
               <p>
                 <strong>{t("points")}:</strong> {userData.points}
               </p>
+
+              {/* Button to convert points */}
+              <button
+                onClick={handleConvertPoints}
+                className="mt-2 bg-green-600 text-white py-2 px-4 rounded hover:bg-green-700 transition"
+              >
+                {t("convertPoints")}
+              </button>
+
+              {convertedDollar !== null && (
+                <p className="mt-2 text-blue-700 font-medium">
+                  {t("dollarEquivalent")}: ${convertedDollar.toFixed(2)}
+                </p>
+              )}
 
               {refereeData && (
                 <div className="mt-4 bg-gray-100 p-4 rounded-md">
