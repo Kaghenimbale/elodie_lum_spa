@@ -1,5 +1,4 @@
 "use client";
-
 import { useEffect, useState } from "react";
 import { onAuthStateChanged, User } from "firebase/auth";
 import { auth, db } from "@/firebase/config";
@@ -22,7 +21,9 @@ const Page = () => {
   const [refereeData, setRefereeData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [copyMessage, setCopyMessage] = useState("");
-  const [convertedDollar, setConvertedDollar] = useState<number | null>(null); // new state
+  const [convertedDollar, setConvertedDollar] = useState<number | null>(null);
+  const [claiming, setClaiming] = useState(false);
+  const [successMessage, setSuccessMessage] = useState("");
   const t = useTranslations("userCard");
 
   useEffect(() => {
@@ -48,12 +49,56 @@ const Page = () => {
           }
         }
       }
-
       setLoading(false);
     });
 
     return () => unsubscribe();
   }, []);
+
+  const referralLink = userData
+    ? `${window.location.origin}/signUp?ref=${userData.referralCode}`
+    : "";
+
+  const handleConvertPoints = () => {
+    if (!userData || !userData.points) return;
+    setConvertedDollar(userData.points / 10);
+  };
+
+  // ✅ New: Claim reward
+  const handleClaimReward = async () => {
+    if (!user || !userData || !userData.points || claiming) return;
+
+    setClaiming(true);
+    setSuccessMessage("");
+
+    const dollars = userData.points / 10;
+
+    try {
+      const res = await fetch("/api/claim-reward", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          uid: user.uid,
+          email: user.email,
+          points: userData.points,
+          dollars,
+        }),
+      });
+
+      if (res.ok) {
+        setUserData({ ...userData, points: 0 });
+        setConvertedDollar(0);
+        setSuccessMessage(`✅ ${t("emailSent")} $${dollars.toFixed(2)}`);
+      } else {
+        alert(t("errorClaimingReward"));
+      }
+    } catch (error) {
+      console.error(error);
+      alert(t("errorClaimingReward"));
+    } finally {
+      setClaiming(false);
+    }
+  };
 
   if (loading) {
     return (
@@ -63,25 +108,13 @@ const Page = () => {
     );
   }
 
-  const referralLink = userData
-    ? `${window.location.origin}/signUp?ref=${userData.referralCode}`
-    : "";
-
-  const handleConvertPoints = () => {
-    if (!userData || !userData.points) return;
-    const dollars = userData.points / 10; // 10 points = $1
-    setConvertedDollar(dollars);
-  };
-
   return (
     <div className="container mx-auto px-4 py-12">
       <div className="flex flex-col lg:flex-row items-start justify-center gap-8">
-        {/* Refer & Earn Section */}
         <div className="w-full lg:w-1/2 bg-white shadow-lg p-6 rounded-xl">
           <ReferEarn />
         </div>
 
-        {/* User Card */}
         <div className="w-full lg:w-1/2 bg-white shadow-lg p-6 rounded-xl flex flex-col gap-5 justify-center lg:mt-20">
           <div className="w-full flex flex-col gap-5 items-center justify-center">
             <div className="bg-cyan-800 w-16 h-16 flex items-center justify-center rounded-full">
@@ -114,7 +147,6 @@ const Page = () => {
                 <strong>{t("points")}:</strong> {userData.points}
               </p>
 
-              {/* Button to convert points */}
               <button
                 onClick={handleConvertPoints}
                 className="mt-2 bg-green-600 text-white py-2 px-4 rounded hover:bg-green-700 transition"
@@ -123,9 +155,26 @@ const Page = () => {
               </button>
 
               {convertedDollar !== null && (
-                <p className="mt-2 text-blue-700 font-medium">
-                  {t("dollarEquivalent")}: ${convertedDollar.toFixed(2)}
-                </p>
+                <>
+                  <p className="mt-2 text-blue-700 font-medium">
+                    {t("dollarEquivalent")}: ${convertedDollar.toFixed(2)}
+                  </p>
+
+                  <button
+                    onClick={handleClaimReward}
+                    disabled={claiming}
+                    className="mt-2 bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                  >
+                    {claiming && <ClipLoader color="#fff" />}
+                    {claiming ? t("processing") : t("claimReward")}
+                  </button>
+
+                  {successMessage && (
+                    <p className="mt-2 text-green-600 font-medium">
+                      {successMessage}
+                    </p>
+                  )}
+                </>
               )}
 
               {refereeData && (

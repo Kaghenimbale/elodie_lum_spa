@@ -316,7 +316,12 @@
     "shareWhatsApp": "Share on WhatsApp",
     "linkCopied": "Referral link copied!",
     "convertPoints": "Convert Points",
-    "dollarEquivalent": "Dollar Equivalent"
+    "dollarEquivalent": "Dollar Equivalent",
+    "claimReward": "Claim Reward",
+    "rewardClaimed": "Reward claimed successfully!",
+    "errorClaimingReward": "Error claiming reward.",
+    "processing": "Processing...",
+    "emailSent": "Email has been sent successfully for your reward of"
   },
   "signIn": {
     "title": "Login to your account",
