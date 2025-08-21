@@ -15,7 +15,7 @@ export async function POST(req: NextRequest) {
 
     // Reset points in Firestore (optional)
     const userRef = doc(db, "users", uid);
-    // await updateDoc(userRef, { points: 0 });
+    await updateDoc(userRef, { points: 0 });
 
     // -------- Send email to ADMIN --------
     await resend.emails.send({
