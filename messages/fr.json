@@ -327,6 +327,25 @@
     "emailSent": "L’email a été envoyé avec succès pour votre récompense de",
     "cancel": "Annuler"
   },
+  "calendar": {
+    "bookFor": "Réserver pour",
+    "name": "Nom",
+    "email": "Email",
+    "selectService": "Sélectionnez un service",
+    "message": "Message",
+    "fillFields": "Veuillez remplir tous les champs requis.",
+    "serviceNotFound": "Service sélectionné introuvable.",
+    "paymentError": "Échec de l'initiation du paiement.",
+    "bookingError": "Échec de la réservation.",
+    "bookingConfirmed": "Réservation confirmée !",
+    "choosePayment": "Voulez-vous payer maintenant ou plus tard ?",
+    "payNow": "Payer maintenant",
+    "bookWithoutPayment": "Réserver sans paiement",
+    "cancel": "Annuler",
+    "processing": "Traitement...",
+    "confirmAndPay": "Confirmer & Payer",
+    "confirmBooking": "Confirmer la réservation"
+  },
   "signIn": {
     "title": "Connectez-vous à votre compte",
     "emailLabel": "Email",

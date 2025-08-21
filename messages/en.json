@@ -327,6 +327,25 @@
     "emailSent": "Email has been sent successfully for your reward of",
     "cancel": "Cancel"
   },
+  "calendar": {
+    "bookFor": "Book for",
+    "name": "Name",
+    "email": "Email",
+    "selectService": "Select a service",
+    "message": "Message",
+    "fillFields": "Please fill in all required fields.",
+    "serviceNotFound": "Selected service not found.",
+    "paymentError": "Payment initiation failed.",
+    "bookingError": "Booking failed.",
+    "bookingConfirmed": "Booking confirmed!",
+    "choosePayment": "Do you want to pay now or later?",
+    "payNow": "Pay Now",
+    "bookWithoutPayment": "Book Without Payment",
+    "cancel": "Cancel",
+    "processing": "Processing...",
+    "confirmAndPay": "Confirm & Pay",
+    "confirmBooking": "Confirm Booking"
+  },
   "signIn": {
     "title": "Login to your account",
     "emailLabel": "Email",
