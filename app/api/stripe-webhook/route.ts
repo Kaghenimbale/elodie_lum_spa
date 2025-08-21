@@ -12,7 +12,6 @@ import {
   addDoc,
 } from "firebase/firestore";
 import { Resend } from "resend";
-import { createEvent } from "ics";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -37,6 +36,8 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Invalid signature" }, { status: 400 });
   }
 
+  console.log("🔔 Stripe event received:", event.type);
+
   if (event.type !== "checkout.session.completed") {
     return NextResponse.json({ received: true });
   }
@@ -51,65 +52,27 @@ export async function POST(req: Request) {
     ? Number(session.amount_total) / 100
     : 0;
 
-  const bookingData = {
-    name:
-      session.metadata?.name || session.customer_details?.name || "Anonymous",
-    email: customerEmail,
-    price: amountPaid.toString(),
-    service: session.metadata?.service || "Unknown Service",
-    date: session.metadata?.date || null,
-    time: session.metadata?.time || null,
-    message: session.metadata?.message || null,
-    createdAt: new Date(),
-    status: "paid",
-    sessionId: session.id,
-  };
-
-  // -------------------- Save booking to Firestore --------------------
+  // -------------------- Firestore Booking --------------------
   try {
-    await addDoc(collection(db, "bookings"), bookingData);
+    await addDoc(collection(db, "bookings"), {
+      name:
+        session.metadata?.name || session.customer_details?.name || "Anonymous",
+      email: customerEmail,
+      price: amountPaid.toString(),
+      service: session.metadata?.service || "Unknown Service",
+      date: session.metadata?.date || null,
+      time: session.metadata?.time || null,
+      message: session.metadata?.message || null,
+      createdAt: new Date(),
+      status: "paid",
+      sessionId: session.id,
+    });
     console.log(`💾 Booking saved for ${customerEmail}`);
   } catch (err) {
     console.error("🔥 Error saving booking to Firestore:", err);
   }
 
-  // -------------------- Create Calendar Event (.ics) --------------------
-  let calendarEventContent: string | undefined = undefined;
-  try {
-    if (bookingData.date && bookingData.time) {
-      const [year, month, day] = bookingData.date.split("-").map(Number);
-      const [hour, minute] = bookingData.time.split(":").map(Number);
-
-      const calendarEvent = await new Promise<{
-        success: boolean;
-        value?: string;
-        error?: any;
-      }>((resolve) => {
-        createEvent(
-          {
-            title: `Booking - ${bookingData.service}`,
-            description: bookingData.message || "No additional notes.",
-            start: [year, month, day, hour, minute],
-            duration: { hours: 1 },
-            status: "CONFIRMED",
-            organizer: { name: bookingData.name, email: bookingData.email },
-            attendees: [{ name: bookingData.name, email: bookingData.email }],
-          },
-          (error, value) => {
-            if (error) resolve({ success: false, error });
-            else resolve({ success: true, value });
-          }
-        );
-      });
-
-      if (calendarEvent.success) calendarEventContent = calendarEvent.value;
-      else console.error("❌ Calendar generation failed:", calendarEvent.error);
-    }
-  } catch (err) {
-    console.error("🔥 Calendar generation error:", err);
-  }
-
-  // -------------------- Send Customer Email with .ics --------------------
+  // -------------------- Customer Email --------------------
   try {
     await resend.emails.send({
       from: "Elodia Beauty & Spa <onboarding@resend.dev>",
@@ -119,28 +82,20 @@ export async function POST(req: Request) {
         <h2>Thank you for your booking!</h2>
         <p>Your booking is confirmed for:</p>
         <ul>
-          <li><b>Service:</b> ${bookingData.service}</li>
-          <li><b>Date:</b> ${bookingData.date || "TBD"}</li>
-          <li><b>Time:</b> ${bookingData.time || "TBD"}</li>
+          <li><b>Service:</b> ${session.metadata?.service || "Service"}</li>
+          <li><b>Date:</b> ${session.metadata?.date || "TBD"}</li>
+          <li><b>Time:</b> ${session.metadata?.time || "TBD"}</li>
           <li><b>Amount Paid:</b> $${amountPaid}</li>
         </ul>
         <p>We look forward to welcoming you at Elodia Beauty & Spa ✨</p>
       `,
-      attachments: calendarEventContent
-        ? [
-            {
-              filename: `booking-${bookingData.service}-${bookingData.date}.ics`,
-              content: calendarEventContent,
-            },
-          ]
-        : [],
     });
-    console.log(`✅ Customer email sent with calendar to ${customerEmail}`);
+    console.log(`✅ Customer email sent to ${customerEmail}`);
   } catch (err) {
-    console.error(`❌ Failed to send customer email:`, err);
+    console.error(`❌ Failed to send customer email to ${customerEmail}:`, err);
   }
 
-  // -------------------- Admin Email with .ics --------------------
+  // -------------------- Admin Email --------------------
   try {
     await resend.emails.send({
       from: "Elodia Beauty & Spa <onboarding@resend.dev>",
@@ -150,31 +105,29 @@ export async function POST(req: Request) {
         <h2>New Booking Alert</h2>
         <p><b>${customerEmail}</b> has booked a service.</p>
         <ul>
-          <li><b>Service:</b> ${bookingData.service}</li>
-          <li><b>Date:</b> ${bookingData.date || "TBD"}</li>
-          <li><b>Time:</b> ${bookingData.time || "TBD"}</li>
+          <li><b>Service:</b> ${session.metadata?.service || "Service"}</li>
+          <li><b>Date:</b> ${session.metadata?.date || "TBD"}</li>
+          <li><b>Time:</b> ${session.metadata?.time || "TBD"}</li>
           <li><b>Amount Paid:</b> $${amountPaid}</li>
         </ul>
       `,
-      attachments: calendarEventContent
-        ? [
-            {
-              filename: `booking-${bookingData.service}-${bookingData.date}.ics`,
-              content: calendarEventContent,
-            },
-          ]
-        : [],
     });
-    console.log(`✅ Admin email sent with calendar`);
+    console.log(
+      `✅ Admin email sent to ${process.env.NEXT_PUBLIC_ADMIN_EMAIL}`
+    );
   } catch (err) {
-    console.error("❌ Failed to send admin email:", err);
+    console.error(
+      `❌ Failed to send admin email to ${process.env.NEXT_PUBLIC_ADMIN_EMAIL}:`,
+      err
+    );
   }
 
-  // -------------------- Reward Paying User (optional) --------------------
+  // -------------------- Referral Logic --------------------
   try {
     const usersRef = collection(db, "users");
     const userQuery = query(usersRef, where("email", "==", customerEmail));
     const userSnapshot = await getDocs(userQuery);
+
     if (userSnapshot.empty) return NextResponse.json({ received: true });
 
     const payingUserDoc = userSnapshot.docs[0];
@@ -183,48 +136,70 @@ export async function POST(req: Request) {
 
     if (!payingUser.referredBy) return NextResponse.json({ received: true });
 
-    const referralCount = payingUser.referralPaymentsCount || 0;
-    if (referralCount >= 2) return NextResponse.json({ received: true });
+    const referrerQuery = query(
+      usersRef,
+      where("referralCode", "==", payingUser.referredBy)
+    );
+    const referrerSnapshot = await getDocs(referrerQuery);
 
-    const processedBookings = payingUser.processedBookings || [];
-    if (processedBookings.includes(session.id))
-      return NextResponse.json({ received: true });
+    if (referrerSnapshot.empty) return NextResponse.json({ received: true });
+
+    const referrerDoc = referrerSnapshot.docs[0];
+    const referrerRef = doc(db, "users", referrerDoc.id);
+    const referrerData = referrerDoc.data();
+
+    const referralCount = referrerData.referralPaymentsCount || 0;
+    if (referralCount >= 2) return NextResponse.json({ received: true });
 
     const pointsEarned = Math.round(amountPaid * 0.05 * 10);
 
-    await updateDoc(payingUserRef, {
+    await updateDoc(referrerRef, {
       points: increment(pointsEarned),
       referralPaymentsCount: increment(1),
-      processedBookings: [...processedBookings, session.id],
     });
 
-    const totalPoints = (payingUser.points || 0) + pointsEarned;
+    const totalPoints = (referrerData.points || 0) + pointsEarned;
+    console.log(
+      `🎯 ${referrerData.email} earned ${pointsEarned} points. Total: ${totalPoints}`
+    );
 
-    await resend.emails.send({
-      from: "Elodia Beauty & Spa <onboarding@resend.dev>",
-      to: payingUser.email,
-      subject: `✨ You've Earned ${pointsEarned} Point(s)!`,
-      html: `
-        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; border: 1px solid #eee; border-radius: 8px; padding: 20px; background-color: #fafafa;">
-          <h2 style="color: #333; text-align: center;">🎉 Congratulations!</h2>
-          <p>Hello <b>${payingUser.name || "Valued Guest"}</b>,</p>
-          <p>You have earned <b style="color:#008080;">${pointsEarned} point(s)</b> for your booking. Total: <b style="color:#008080;">${totalPoints} point(s)</b>.</p>
-          <div style="text-align: center; margin: 25px 0;">
-            <a href="https://elodiabspa.com/userProfile" style="background-color: #008080; color: #fff; padding: 12px 20px; border-radius: 6px; text-decoration: none; font-weight: bold;">View My Rewards</a>
+    // Send referral reward email
+    try {
+      await resend.emails.send({
+        from: "Elodia Beauty & Spa <onboarding@resend.dev>",
+        to: referrerData.email,
+        subject: `✨ You've Earned ${pointsEarned} Point(s)!`,
+        html: `
+          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; border: 1px solid #eee; border-radius: 8px; padding: 20px; background-color: #fafafa;">
+            <h2 style="color: #333; text-align: center;">🎉 Congratulations!</h2>
+            <p>Hello <b>${referrerData.name || "Valued Guest"}</b>,</p>
+            <p>
+              Great news! A new customer, <b>${customerEmail}</b>, has just booked a service using your referral code.  
+            </p>
+            <p>
+              As a reward, you’ve earned <b style="color:#008080;">${pointsEarned} point(s)</b>.  
+              Your total balance is now: <b style="color:#008080;">${totalPoints} point(s)</b>.
+            </p>
+            <div style="text-align: center; margin: 25px 0;">
+              <a href="https://elodiabspa.com/userProfile" 
+                style="background-color: #008080; color: #fff; padding: 12px 20px; border-radius: 6px; text-decoration: none; font-weight: bold;">
+                View My Rewards
+              </a>
+            </div>
+            <hr style="border: none; border-top: 1px solid #ddd; margin: 20px 0;" />
+            <p style="font-size: 13px; color: #888; text-align: center;">
+              Thank you for sharing Elodia Beauty & Spa with your friends.  
+              The more you refer, the more you earn! 💎
+            </p>
           </div>
-        </div>
-      `,
-      attachments: calendarEventContent
-        ? [
-            {
-              filename: `booking-${bookingData.service}-${bookingData.date}.ics`,
-              content: calendarEventContent,
-            },
-          ]
-        : [],
-    });
+        `,
+      });
+      console.log(`✅ Referral email sent to ${referrerData.email}`);
+    } catch (err) {
+      console.error(`❌ Failed to send referral email:`, err);
+    }
   } catch (err) {
-    console.error("🔥 Error handling rewards:", err);
+    console.error("🔥 Error handling referral logic:", err);
   }
 
   return NextResponse.json({ received: true });
