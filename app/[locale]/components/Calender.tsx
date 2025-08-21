@@ -9,7 +9,7 @@ import frLocale from "@fullcalendar/core/locales/fr";
 import { Dialog } from "@headlessui/react";
 import { getServices } from "@/lib/getServices";
 import { ClipLoader } from "react-spinners";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 type Service = {
   id: string;
@@ -28,9 +28,9 @@ type FormData = {
 };
 
 const spaHours = [
-  { daysOfWeek: [1, 2, 5], startTime: "10:00", endTime: "19:00" }, // Lundi, Mardi, Vendredi
-  { daysOfWeek: [3, 4], startTime: "10:00", endTime: "18:00" }, // Mercredi, Jeudi
-  { daysOfWeek: [6, 0], startTime: "14:00", endTime: "18:00" }, // Samedi, Dimanche
+  { daysOfWeek: [1, 2, 5], startTime: "10:00", endTime: "19:00" },
+  { daysOfWeek: [3, 4], startTime: "10:00", endTime: "18:00" },
+  { daysOfWeek: [6, 0], startTime: "14:00", endTime: "18:00" },
 ];
 
 const CalendarBooking = () => {
@@ -45,14 +45,15 @@ const CalendarBooking = () => {
     time: "",
     message: "",
   });
-
-  // Loading and message state for booking
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState<{
     type: "success" | "error";
     text: string;
   } | null>(null);
+
+  const [payNow, setPayNow] = useState<boolean | null>(null);
   const locale = useLocale();
+  const t = useTranslations("calendar"); // namespace for translation
 
   useEffect(() => {
     getServices().then((data: any[]) => {
@@ -70,7 +71,8 @@ const CalendarBooking = () => {
   const handleDateClick = (arg: any) => {
     setSelectedDate(arg.dateStr);
     setShowModal(true);
-    setMessage(null); // reset message each time modal opens
+    setMessage(null);
+    setPayNow(null);
   };
 
   const handleInputChange = (
@@ -91,16 +93,13 @@ const CalendarBooking = () => {
       !formData.service ||
       !formData.time
     ) {
-      setMessage({
-        type: "error",
-        text: "Please fill in all required fields.",
-      });
+      setMessage({ type: "error", text: t("fillFields") });
       return;
     }
 
     const selectedService = services.find((s) => s.name === formData.service);
     if (!selectedService) {
-      setMessage({ type: "error", text: "Selected service not found." });
+      setMessage({ type: "error", text: t("serviceNotFound") });
       return;
     }
 
@@ -108,34 +107,44 @@ const CalendarBooking = () => {
       ...formData,
       date: selectedDate,
       price: selectedService.price,
+      payNow,
     };
 
     try {
       setLoading(true);
 
-      const res = await fetch("/api/create-checkout-session", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
+      if (payNow) {
+        // Stripe Checkout flow
+        const res = await fetch("/api/create-checkout-session", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        });
 
-      const data = await res.json();
+        const data = await res.json();
+        if (!res.ok) throw new Error(data?.error || t("paymentError"));
 
-      if (!res.ok) {
-        throw new Error(data?.error || "Failed to initiate payment.");
+        const stripe = await (
+          await import("@stripe/stripe-js")
+        ).loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
+        if (stripe) stripe.redirectToCheckout({ sessionId: data.id });
+      } else {
+        // Book without payment
+        const res = await fetch("/api/book-service", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        });
+
+        if (!res.ok) throw new Error(t("bookingError"));
+
+        setMessage({ type: "success", text: t("bookingConfirmed") });
+        setShowModal(false);
+        setPayNow(null);
       }
-
-      // Redirect to Stripe Checkout
-      const stripe = await (
-        await import("@stripe/stripe-js")
-      ).loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
-
-      if (stripe) {
-        stripe.redirectToCheckout({ sessionId: data.id });
-      }
-    } catch (err) {
-      console.error("Stripe Checkout error:", err);
-      setMessage({ type: "error", text: "Payment initiation failed." });
+    } catch (err: any) {
+      console.error(err);
+      setMessage({ type: "error", text: err.message || t("bookingError") });
     } finally {
       setLoading(false);
     }
@@ -169,6 +178,7 @@ const CalendarBooking = () => {
           if (!loading) {
             setShowModal(false);
             setMessage(null);
+            setPayNow(null);
           }
         }}
         className="relative z-50"
@@ -180,13 +190,13 @@ const CalendarBooking = () => {
         <div className="fixed inset-0 flex items-center justify-center p-4">
           <Dialog.Panel className="w-full max-w-md bg-white p-6 rounded-xl shadow-lg">
             <Dialog.Title className="text-xl font-semibold mb-4">
-              Book for {selectedDate}
+              {t("bookFor")} {selectedDate}
             </Dialog.Title>
 
             <div className="space-y-3">
               <input
                 name="name"
-                placeholder="Name"
+                placeholder={t("name")}
                 className="w-full border p-2 rounded"
                 onChange={handleInputChange}
                 value={formData.name}
@@ -194,7 +204,7 @@ const CalendarBooking = () => {
               />
               <input
                 name="email"
-                placeholder="Email"
+                placeholder={t("email")}
                 type="email"
                 className="w-full border p-2 rounded"
                 onChange={handleInputChange}
@@ -208,10 +218,10 @@ const CalendarBooking = () => {
                 value={formData.service}
                 disabled={loading}
               >
-                <option value="">Select a service</option>
+                <option value="">{t("selectService")}</option>
                 {services.map((s) => (
                   <option key={s.id} value={s.name}>
-                    {locale === "fr" ? s.name_fr : s.name_en}(${s.price})
+                    {locale === "fr" ? s.name_fr : s.name_en} (${s.price})
                   </option>
                 ))}
               </select>
@@ -225,7 +235,7 @@ const CalendarBooking = () => {
               />
               <textarea
                 name="message"
-                placeholder="Message"
+                placeholder={t("message")}
                 className="w-full border p-2 rounded"
                 onChange={handleInputChange}
                 value={formData.message}
@@ -243,28 +253,53 @@ const CalendarBooking = () => {
               </p>
             )}
 
-            <div className="flex justify-end items-center gap-2 mt-4">
-              {loading && <ClipLoader size={25} color="#0e7490" />}
-              <button
-                className="px-4 py-2 bg-gray-200 rounded"
-                onClick={() => {
-                  if (!loading) {
-                    setShowModal(false);
-                    setMessage(null);
-                  }
-                }}
-                disabled={loading}
-              >
-                Cancel
-              </button>
-              <button
-                className="px-4 py-2 bg-cyan-700 text-white rounded disabled:opacity-60"
-                onClick={handleBooking}
-                disabled={loading}
-              >
-                {loading ? "Processing..." : "Confirm & Pay"}
-              </button>
-            </div>
+            {payNow === null ? (
+              <div className="flex flex-col gap-2 mt-4">
+                <p className="text-center font-medium">{t("choosePayment")}</p>
+                <div className="flex justify-center gap-2">
+                  <button
+                    className="px-4 py-2 bg-cyan-700 text-white rounded"
+                    onClick={() => setPayNow(true)}
+                  >
+                    {t("payNow")}
+                  </button>
+                  <button
+                    className="px-4 py-2 bg-gray-400 text-white rounded"
+                    onClick={() => setPayNow(false)}
+                  >
+                    {t("bookWithoutPayment")}
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <div className="flex justify-end items-center gap-2 mt-4">
+                {loading && <ClipLoader size={25} color="#0e7490" />}
+                <button
+                  className="px-4 py-2 bg-gray-200 rounded"
+                  onClick={() => {
+                    if (!loading) {
+                      setShowModal(false);
+                      setMessage(null);
+                      setPayNow(null);
+                    }
+                  }}
+                  disabled={loading}
+                >
+                  {t("cancel")}
+                </button>
+                <button
+                  className="px-4 py-2 bg-cyan-700 text-white rounded disabled:opacity-60"
+                  onClick={handleBooking}
+                  disabled={loading}
+                >
+                  {loading
+                    ? t("processing")
+                    : payNow
+                      ? t("confirmAndPay")
+                      : t("confirmBooking")}
+                </button>
+              </div>
+            )}
           </Dialog.Panel>
         </div>
       </Dialog>

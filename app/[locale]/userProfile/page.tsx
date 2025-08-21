@@ -1,5 +1,4 @@
 "use client";
-
 import { useEffect, useState } from "react";
 import { onAuthStateChanged, User } from "firebase/auth";
 import { auth, db } from "@/firebase/config";
@@ -22,6 +21,10 @@ const Page = () => {
   const [refereeData, setRefereeData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [copyMessage, setCopyMessage] = useState("");
+  const [convertedDollar, setConvertedDollar] = useState<number | null>(null);
+  const [claiming, setClaiming] = useState(false);
+  const [successMessage, setSuccessMessage] = useState("");
+  const [showModal, setShowModal] = useState(false); // <-- modal state
   const t = useTranslations("userCard");
 
   useEffect(() => {
@@ -47,12 +50,57 @@ const Page = () => {
           }
         }
       }
-
       setLoading(false);
     });
 
     return () => unsubscribe();
   }, []);
+
+  const referralLink = userData
+    ? `${window.location.origin}/signUp?ref=${userData.referralCode}`
+    : "";
+
+  const handleConvertPoints = () => {
+    if (!userData || !userData.points) return;
+    setConvertedDollar(userData.points / 10);
+    setShowModal(true); // <-- show modal when converting
+  };
+
+  const handleClaimReward = async () => {
+    if (!user || !userData || !userData.points || claiming) return;
+
+    setClaiming(true);
+    setSuccessMessage("");
+
+    const dollars = userData.points / 10;
+
+    try {
+      const res = await fetch("/api/claim-reward", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          uid: user.uid,
+          email: user.email,
+          points: userData.points,
+          dollars,
+        }),
+      });
+
+      if (res.ok) {
+        setUserData({ ...userData, points: 0 });
+        setConvertedDollar(0);
+        setSuccessMessage(`✅ ${t("emailSent")} $${dollars.toFixed(2)}`);
+      } else {
+        alert(t("errorClaimingReward"));
+      }
+    } catch (error) {
+      console.error(error);
+      alert(t("errorClaimingReward"));
+    } finally {
+      setClaiming(false);
+      setShowModal(false); // close modal after claiming
+    }
+  };
 
   if (loading) {
     return (
@@ -62,19 +110,13 @@ const Page = () => {
     );
   }
 
-  const referralLink = userData
-    ? `${window.location.origin}/signUp?ref=${userData.referralCode}`
-    : "";
-
   return (
     <div className="container mx-auto px-4 py-12">
       <div className="flex flex-col lg:flex-row items-start justify-center gap-8">
-        {/* Refer & Earn Section */}
         <div className="w-full lg:w-1/2 bg-white shadow-lg p-6 rounded-xl">
           <ReferEarn />
         </div>
 
-        {/* User Card */}
         <div className="w-full lg:w-1/2 bg-white shadow-lg p-6 rounded-xl flex flex-col gap-5 justify-center lg:mt-20">
           <div className="w-full flex flex-col gap-5 items-center justify-center">
             <div className="bg-cyan-800 w-16 h-16 flex items-center justify-center rounded-full">
@@ -106,6 +148,49 @@ const Page = () => {
               <p>
                 <strong>{t("points")}:</strong> {userData.points}
               </p>
+
+              <button
+                onClick={handleConvertPoints}
+                className="mt-2 bg-green-600 text-white py-2 px-4 rounded hover:bg-green-700 transition"
+              >
+                {t("convertPoints")}
+              </button>
+
+              {/* Modal */}
+              {showModal && convertedDollar !== null && (
+                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                  <div className="bg-white p-6 rounded-xl w-80 flex flex-col gap-4">
+                    <h3 className="text-xl font-bold text-center">
+                      {t("convertPoints")}
+                    </h3>
+                    <p className="text-center">
+                      {t("dollarEquivalent")}: ${convertedDollar.toFixed(2)}
+                    </p>
+                    <div className="flex gap-4 justify-center mt-4">
+                      <button
+                        onClick={handleClaimReward}
+                        disabled={claiming}
+                        className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                      >
+                        {claiming && <ClipLoader color="#fff" size={18} />}
+                        {claiming ? t("processing") : t("claimReward")}
+                      </button>
+                      <button
+                        onClick={() => setShowModal(false)}
+                        className="bg-gray-400 text-white py-2 px-4 rounded hover:bg-gray-500 transition"
+                      >
+                        {t("cancel")}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {successMessage && (
+                <p className="mt-2 text-green-600 font-medium">
+                  {successMessage}
+                </p>
+              )}
 
               {refereeData && (
                 <div className="mt-4 bg-gray-100 p-4 rounded-md">
@@ -144,7 +229,9 @@ const Page = () => {
                   </button>
 
                   <a
-                    href={`https://wa.me/?text=${encodeURIComponent(referralLink)}`}
+                    href={`https://wa.me/?text=${encodeURIComponent(
+                      referralLink
+                    )}`}
                     target="_blank"
                     className="bg-green-600 text-white py-2 px-4 rounded hover:bg-green-700 transition"
                   >

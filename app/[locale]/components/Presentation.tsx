@@ -18,9 +18,8 @@ const Presentation = () => {
           {t("title")}
         </h1>
         <Link
-          href="/about_us"
+          href={`${locale}/about_us`}
           className="px-6 py-3 rounded bg-white text-cyan-900 hover:bg-cyan-900 hover:text-white transition-all duration-300"
-          locale={locale}
         >
           {t("link")}
         </Link>

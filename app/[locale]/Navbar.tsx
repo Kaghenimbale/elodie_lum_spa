@@ -103,7 +103,7 @@ const Navbar = () => {
       <nav className="bg-orange-50 fixed top-0 left-0 right-0 z-50 shadow-md px-5 md:px-10 py-3 h-[6.5rem]">
         <div className="flex justify-between items-center max-w-7xl mx-auto">
           {/* Logo */}
-          <Link href="/">
+          <Link href={`/${locale}`}>
             <Image
               width={140}
               height={40}
@@ -119,8 +119,7 @@ const Navbar = () => {
               {navlinks1.map((navlink) => (
                 <li key={navlink.key}>
                   <Link
-                    href={navlink.key === "home" ? "/" : "/" + navlink.key}
-                    locale={locale}
+                    href={`/${locale}${navlink.key === "home" ? "" : "/" + navlink.key}`}
                     prefetch
                     className="text-gray-800 hover:text-cyan-800 transition-colors font-medium"
                   >
@@ -203,8 +202,7 @@ const Navbar = () => {
                 {navlinks1.map((navlink) => (
                   <Link
                     key={navlink.key}
-                    href={navlink.key === "home" ? "/" : "/" + navlink.key}
-                    locale={locale}
+                    href={`/${locale}${navlink.key === "home" ? "" : "/" + navlink.key}`}
                     prefetch
                     onClick={() => setOpen(false)}
                     className="text-lg font-medium text-gray-800 hover:text-cyan-800 transition"
@@ -248,7 +246,7 @@ const Navbar = () => {
                   </>
                 ) : (
                   <Link
-                    href="/signIn"
+                    href={`/${locale}/signIn`}
                     onClick={() => setOpen(false)}
                     prefetch
                     className="bg-cyan-800 hover:bg-cyan-700 text-white px-4 py-2 rounded transition"

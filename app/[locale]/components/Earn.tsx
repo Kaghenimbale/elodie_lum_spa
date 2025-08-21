@@ -31,9 +31,8 @@ const Earn = () => {
             </ul>
 
             <Link
-              href="/refer-earn"
+              href={`/${locale}/refer-earn`}
               className="inline-block text-white text-sm font-medium bg-cyan-800 px-6 py-2 rounded hover:bg-cyan-700 transition-all duration-300"
-              locale={locale}
             >
               {t("button")}
             </Link>

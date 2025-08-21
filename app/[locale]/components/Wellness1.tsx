@@ -19,8 +19,7 @@ const Wellness1 = () => {
             {t("description")}
           </p>
           <Link
-            href="/services"
-            locale={locale}
+            href={`${locale}/services`}
             className="self-start bg-cyan-800 text-white text-sm px-5 py-2 rounded hover:bg-cyan-700 transition duration-300"
           >
             {t("link")}
