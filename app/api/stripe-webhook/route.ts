@@ -134,6 +134,13 @@ export async function POST(req: Request) {
     const payingUserRef = doc(db, "users", payingUserDoc.id);
     const payingUser = payingUserDoc.data();
 
+    // Increment referralPaymentsCount for the paying user
+    await updateDoc(payingUserRef, {
+      referralPaymentsCount: increment(1),
+    });
+    console.log(`🔄 Updated referralPaymentsCount for ${customerEmail}`);
+
+    // Only proceed if this user was referred by someone
     if (!payingUser.referredBy) return NextResponse.json({ received: true });
 
     const referrerQuery = query(
@@ -155,7 +162,6 @@ export async function POST(req: Request) {
 
     await updateDoc(referrerRef, {
       points: increment(pointsEarned),
-      referralPaymentsCount: increment(1),
     });
 
     const totalPoints = (referrerData.points || 0) + pointsEarned;
