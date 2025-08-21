@@ -34,6 +34,9 @@ const Page = () => {
     time: "",
     message: "",
   });
+  const [paymentOption, setPaymentOption] = useState<
+    "no-payment" | "with-payment"
+  >("with-payment");
 
   const locale = useLocale();
 
@@ -89,33 +92,40 @@ const Page = () => {
     setShowModal(false);
 
     try {
-      const res = await fetch("/api/create-checkout-session", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(message),
-      });
+      if (paymentOption === "with-payment") {
+        // Stripe payment flow
+        const res = await fetch("/api/create-checkout-session", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(message),
+        });
 
-      console.log(message);
+        const result = await res.json();
 
-      const result = await res.json();
+        if (!res.ok)
+          throw new Error(result?.error || "Failed to initiate payment.");
 
-      if (!res.ok) {
-        throw new Error(result?.error || "Failed to initiate payment.");
-      }
+        const stripe = await (
+          await import("@stripe/stripe-js")
+        ).loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
 
-      // Load Stripe and redirect
-      const stripe = await (
-        await import("@stripe/stripe-js")
-      ).loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
-
-      if (stripe) {
-        await stripe.redirectToCheckout({ sessionId: result.id });
+        if (stripe) await stripe.redirectToCheckout({ sessionId: result.id });
+        else throw new Error("Stripe failed to load.");
       } else {
-        throw new Error("Stripe failed to load.");
+        // Book without payment (just save booking in Firestore)
+        const res = await fetch("/api/book-service", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(message),
+        });
+
+        if (!res.ok) throw new Error("Booking failed.");
+
+        setSuccessMessage(t("bookingConfirmed"));
       }
     } catch (err: any) {
-      console.error("Stripe Checkout error:", err);
-      setErrorMessage("Payment could not be initiated.");
+      console.error("Booking error:", err);
+      setErrorMessage(err.message || "Something went wrong.");
     } finally {
       setLoading(false);
     }
@@ -298,6 +308,32 @@ const Page = () => {
               <p>
                 <strong>{t("confirm.message")}:</strong> {message.message}
               </p>
+            </div>
+            <div className="flex flex-col gap-2">
+              <label className="font-medium">{t("paymentOption")}:</label>
+              <div className="flex gap-4">
+                <label className="flex items-center gap-2">
+                  <input
+                    type="radio"
+                    name="paymentOption"
+                    value="withPayment"
+                    checked={paymentOption === "with-payment"}
+                    onChange={() => setPaymentOption("with-payment")}
+                    required
+                  />
+                  {t("payNow")}
+                </label>
+                <label className="flex items-center gap-2">
+                  <input
+                    type="radio"
+                    name="paymentOption"
+                    value="withoutPayment"
+                    checked={paymentOption === "no-payment"}
+                    onChange={() => setPaymentOption("no-payment")}
+                  />
+                  {t("payLater")}
+                </label>
+              </div>
             </div>
             <div className="flex justify-end gap-4 pt-4">
               <button

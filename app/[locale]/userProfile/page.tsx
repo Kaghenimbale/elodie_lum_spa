@@ -24,6 +24,7 @@ const Page = () => {
   const [convertedDollar, setConvertedDollar] = useState<number | null>(null);
   const [claiming, setClaiming] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
+  const [showModal, setShowModal] = useState(false); // <-- modal state
   const t = useTranslations("userCard");
 
   useEffect(() => {
@@ -62,9 +63,9 @@ const Page = () => {
   const handleConvertPoints = () => {
     if (!userData || !userData.points) return;
     setConvertedDollar(userData.points / 10);
+    setShowModal(true); // <-- show modal when converting
   };
 
-  // ✅ New: Claim reward
   const handleClaimReward = async () => {
     if (!user || !userData || !userData.points || claiming) return;
 
@@ -97,6 +98,7 @@ const Page = () => {
       alert(t("errorClaimingReward"));
     } finally {
       setClaiming(false);
+      setShowModal(false); // close modal after claiming
     }
   };
 
@@ -154,27 +156,40 @@ const Page = () => {
                 {t("convertPoints")}
               </button>
 
-              {convertedDollar !== null && (
-                <>
-                  <p className="mt-2 text-blue-700 font-medium">
-                    {t("dollarEquivalent")}: ${convertedDollar.toFixed(2)}
-                  </p>
-
-                  <button
-                    onClick={handleClaimReward}
-                    disabled={claiming}
-                    className="mt-2 bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-                  >
-                    {claiming && <ClipLoader color="#fff" />}
-                    {claiming ? t("processing") : t("claimReward")}
-                  </button>
-
-                  {successMessage && (
-                    <p className="mt-2 text-green-600 font-medium">
-                      {successMessage}
+              {/* Modal */}
+              {showModal && convertedDollar !== null && (
+                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                  <div className="bg-white p-6 rounded-xl w-80 flex flex-col gap-4">
+                    <h3 className="text-xl font-bold text-center">
+                      {t("convertPoints")}
+                    </h3>
+                    <p className="text-center">
+                      {t("dollarEquivalent")}: ${convertedDollar.toFixed(2)}
                     </p>
-                  )}
-                </>
+                    <div className="flex gap-4 justify-center mt-4">
+                      <button
+                        onClick={handleClaimReward}
+                        disabled={claiming}
+                        className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                      >
+                        {claiming && <ClipLoader color="#fff" size={18} />}
+                        {claiming ? t("processing") : t("claimReward")}
+                      </button>
+                      <button
+                        onClick={() => setShowModal(false)}
+                        className="bg-gray-400 text-white py-2 px-4 rounded hover:bg-gray-500 transition"
+                      >
+                        {t("cancel")}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {successMessage && (
+                <p className="mt-2 text-green-600 font-medium">
+                  {successMessage}
+                </p>
               )}
 
               {refereeData && (
@@ -214,7 +229,9 @@ const Page = () => {
                   </button>
 
                   <a
-                    href={`https://wa.me/?text=${encodeURIComponent(referralLink)}`}
+                    href={`https://wa.me/?text=${encodeURIComponent(
+                      referralLink
+                    )}`}
                     target="_blank"
                     className="bg-green-600 text-white py-2 px-4 rounded hover:bg-green-700 transition"
                   >

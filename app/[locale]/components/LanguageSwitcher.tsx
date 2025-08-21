@@ -3,7 +3,6 @@
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { BiWorld } from "react-icons/bi";
-import { IoLanguage } from "react-icons/io5"; // You can choose any icon you like
 
 const LanguageSwitcher = () => {
   const router = useRouter();
@@ -11,17 +10,26 @@ const LanguageSwitcher = () => {
   const [currentLocale, setCurrentLocale] = useState("en");
 
   useEffect(() => {
-    const segments = pathname.split("/");
+    const segments = pathname?.split("/") || [];
     if (segments[1] === "en" || segments[1] === "fr") {
       setCurrentLocale(segments[1]);
+    } else {
+      setCurrentLocale("en"); // default locale
     }
   }, [pathname]);
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const newLocale = e.target.value;
-    const segments = pathname.split("/");
-    segments[1] = newLocale;
-    const newPath = segments.join("/");
+    const segments = pathname?.split("/") || [];
+
+    // Ensure locale is in first segment
+    if (segments[1] === "en" || segments[1] === "fr") {
+      segments[1] = newLocale;
+    } else {
+      segments.splice(1, 0, newLocale);
+    }
+
+    const newPath = segments.join("/") || "/";
     router.replace(newPath);
   };
 

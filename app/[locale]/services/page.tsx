@@ -13,7 +13,7 @@ const page = () => {
   }[];
   const features = t.raw("features") as string[];
   return (
-    <div className="pt-28 pb-16 flex flex-col gap-5 items-center px-4 md:px-0">
+    <div className="pt-36 pb-16 flex flex-col gap-5 items-center px-4 md:px-0">
       <div className="flex flex-col gap-5 items-center justify-center">
         <h2 className="text-[2rem] font-bold text-center md:text-start">
           {t("title")}
