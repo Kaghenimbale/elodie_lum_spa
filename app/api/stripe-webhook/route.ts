@@ -72,6 +72,34 @@ export async function POST(req: Request) {
     console.error("🔥 Error saving booking to Firestore:", err);
   }
 
+  // -------------------- Calendar Event (.ics) --------------------
+  let calendarLink = "";
+  try {
+    if (session.metadata?.date && session.metadata?.time) {
+      const eventStart = new Date(
+        `${session.metadata.date}T${session.metadata.time}`
+      );
+      const eventEnd = new Date(eventStart.getTime() + 60 * 60 * 1000); // 1 hour duration
+
+      const icsContent = `
+BEGIN:VCALENDAR
+VERSION:2.0
+BEGIN:VEVENT
+SUMMARY:${session.metadata?.service || "Spa Appointment"}
+DTSTART:${eventStart.toISOString().replace(/[-:]/g, "").split(".")[0]}Z
+DTEND:${eventEnd.toISOString().replace(/[-:]/g, "").split(".")[0]}Z
+DESCRIPTION:Your appointment at Elodia Beauty & Spa.
+LOCATION:Elodia Beauty & Spa
+END:VEVENT
+END:VCALENDAR
+`;
+      const icsBlob = Buffer.from(icsContent, "utf8").toString("base64");
+      calendarLink = `data:text/calendar;base64,${icsBlob}`;
+    }
+  } catch (err) {
+    console.error("⚠️ Error creating calendar link:", err);
+  }
+
   // -------------------- Customer Email --------------------
   try {
     await resend.emails.send({
@@ -88,6 +116,11 @@ export async function POST(req: Request) {
           <li><b>Amount Paid:</b> $${amountPaid}</li>
         </ul>
         <p>We look forward to welcoming you at Elodia Beauty & Spa ✨</p>
+        ${
+          calendarLink
+            ? `<p><a href="${calendarLink}" download="appointment.ics" style="background:#008080;color:#fff;padding:10px 15px;border-radius:5px;text-decoration:none;">Add to Calendar</a></p>`
+            : ""
+        }
       `,
     });
     console.log(`✅ Customer email sent to ${customerEmail}`);
@@ -110,6 +143,11 @@ export async function POST(req: Request) {
           <li><b>Time:</b> ${session.metadata?.time || "TBD"}</li>
           <li><b>Amount Paid:</b> $${amountPaid}</li>
         </ul>
+        ${
+          calendarLink
+            ? `<p><a href="${calendarLink}" download="appointment.ics" style="background:#008080;color:#fff;padding:10px 15px;border-radius:5px;text-decoration:none;">Add to Calendar</a></p>`
+            : ""
+        }
       `,
     });
     console.log(
@@ -134,32 +172,43 @@ export async function POST(req: Request) {
     const payingUserRef = doc(db, "users", payingUserDoc.id);
     const payingUser = payingUserDoc.data();
 
-    // Increment referralPaymentsCount for the paying user
+    const currentCount = payingUser.referralPaymentsCount || 0;
+
+    if (currentCount >= 2) {
+      console.log(
+        `⚠️ referralPaymentsCount already ${currentCount}. No increment. No reward.`
+      );
+      return NextResponse.json({ received: true });
+    }
+
     await updateDoc(payingUserRef, {
       referralPaymentsCount: increment(1),
     });
-    console.log(`🔄 Updated referralPaymentsCount for ${customerEmail}`);
 
-    // Only proceed if this user was referred by someone
+    const updatedCount = currentCount + 1;
+    console.log(
+      `🔄 Updated referralPaymentsCount for ${customerEmail}: ${updatedCount}`
+    );
+
     if (!payingUser.referredBy) return NextResponse.json({ received: true });
+
+    if (updatedCount > 2) {
+      console.log(`⚠️ Count exceeded 2. No reward.`);
+      return NextResponse.json({ received: true });
+    }
 
     const referrerQuery = query(
       usersRef,
       where("referralCode", "==", payingUser.referredBy)
     );
     const referrerSnapshot = await getDocs(referrerQuery);
-
     if (referrerSnapshot.empty) return NextResponse.json({ received: true });
 
     const referrerDoc = referrerSnapshot.docs[0];
     const referrerRef = doc(db, "users", referrerDoc.id);
     const referrerData = referrerDoc.data();
 
-    const referralCount = referrerData.referralPaymentsCount || 0;
-    if (referralCount >= 2) return NextResponse.json({ received: true });
-
     const pointsEarned = Math.round(amountPaid * 0.05 * 10);
-
     await updateDoc(referrerRef, {
       points: increment(pointsEarned),
     });
@@ -169,7 +218,6 @@ export async function POST(req: Request) {
       `🎯 ${referrerData.email} earned ${pointsEarned} points. Total: ${totalPoints}`
     );
 
-    // Send referral reward email
     try {
       await resend.emails.send({
         from: "Elodia Beauty & Spa <onboarding@resend.dev>",
@@ -179,25 +227,21 @@ export async function POST(req: Request) {
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; border: 1px solid #eee; border-radius: 8px; padding: 20px; background-color: #fafafa;">
             <h2 style="color: #333; text-align: center;">🎉 Congratulations!</h2>
             <p>Hello <b>${referrerData.name || "Valued Guest"}</b>,</p>
-            <p>
-              Great news! A new customer, <b>${customerEmail}</b>, has just booked a service using your referral code.  
-            </p>
-            <p>
-              As a reward, you’ve earned <b style="color:#008080;">${pointsEarned} point(s)</b>.  
-              Your total balance is now: <b style="color:#008080;">${totalPoints} point(s)</b>.
-            </p>
+            <p>Great news! A new customer, <b>${customerEmail}</b>, has just booked a service using your referral code.</p>
+            <p>As a reward, you’ve earned <b style="color:#008080;">${pointsEarned} point(s)</b>. Your total balance is now: <b style="color:#008080;">${totalPoints} point(s)</b>.</p>
             <div style="text-align: center; margin: 25px 0;">
-              <a href="https://elodiabspa.com/userProfile" 
-                style="background-color: #008080; color: #fff; padding: 12px 20px; border-radius: 6px; text-decoration: none; font-weight: bold;">
-                View My Rewards
-              </a>
+              <a href="https://elodiabspa.com/userProfile" style="background-color: #008080; color: #fff; padding: 12px 20px; border-radius: 6px; text-decoration: none; font-weight: bold;">View My Rewards</a>
             </div>
             <hr style="border: none; border-top: 1px solid #ddd; margin: 20px 0;" />
             <p style="font-size: 13px; color: #888; text-align: center;">
-              Thank you for sharing Elodia Beauty & Spa with your friends.  
-              The more you refer, the more you earn! 💎
+              Thank you for sharing Elodia Beauty & Spa with your friends. The more you refer, the more you earn! 💎
             </p>
           </div>
+          ${
+            calendarLink
+              ? `<p><a href="${calendarLink}" download="appointment.ics" style="background:#008080;color:#fff;padding:10px 15px;border-radius:5px;text-decoration:none;">Add to Calendar</a></p>`
+              : ""
+          }
         `,
       });
       console.log(`✅ Referral email sent to ${referrerData.email}`);
