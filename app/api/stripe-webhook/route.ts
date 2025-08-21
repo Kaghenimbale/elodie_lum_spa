@@ -122,7 +122,7 @@ export async function POST(req: Request) {
     );
   }
 
-  // -------------------- Referral Logic --------------------
+  // -------------------- Reward Paying User --------------------
   try {
     const usersRef = collection(db, "users");
     const userQuery = query(usersRef, where("email", "==", customerEmail));
@@ -134,72 +134,64 @@ export async function POST(req: Request) {
     const payingUserRef = doc(db, "users", payingUserDoc.id);
     const payingUser = payingUserDoc.data();
 
+    // Only reward if referredBy exists
     if (!payingUser.referredBy) return NextResponse.json({ received: true });
 
-    const referrerQuery = query(
-      usersRef,
-      where("referralCode", "==", payingUser.referredBy)
-    );
-    const referrerSnapshot = await getDocs(referrerQuery);
+    // Check paying user's referralPaymentsCount
+    const referralCount = payingUser.referralPaymentsCount || 0;
+    if (referralCount >= 2) {
+      console.log(
+        `❌ ${payingUser.email} already reached max referral rewards.`
+      );
+      return NextResponse.json({ received: true });
+    }
 
-    if (referrerSnapshot.empty) return NextResponse.json({ received: true });
+    // Prevent double-processing per booking
+    const processedBookings = payingUser.processedBookings || [];
+    if (processedBookings.includes(session.id)) {
+      console.log("Booking already processed for points");
+      return NextResponse.json({ received: true });
+    }
 
-    const referrerDoc = referrerSnapshot.docs[0];
-    const referrerRef = doc(db, "users", referrerDoc.id);
-    const referrerData = referrerDoc.data();
-
-    const referralCount = referrerData.referralPaymentsCount || 0;
-    if (referralCount >= 2) return NextResponse.json({ received: true });
-
+    // Calculate points
     const pointsEarned = Math.round(amountPaid * 0.05 * 10);
 
-    await updateDoc(referrerRef, {
+    // Update paying user's points and referralPaymentsCount
+    await updateDoc(payingUserRef, {
       points: increment(pointsEarned),
       referralPaymentsCount: increment(1),
+      processedBookings: [...processedBookings, session.id],
     });
 
-    const totalPoints = (referrerData.points || 0) + pointsEarned;
+    const totalPoints = (payingUser.points || 0) + pointsEarned;
     console.log(
-      `🎯 ${referrerData.email} earned ${pointsEarned} points. Total: ${totalPoints}`
+      `🎯 ${payingUser.email} earned ${pointsEarned} points. Total: ${totalPoints}`
     );
 
-    // Send referral reward email
-    try {
-      await resend.emails.send({
-        from: "Elodia Beauty & Spa <onboarding@resend.dev>",
-        to: referrerData.email,
-        subject: `✨ You've Earned ${pointsEarned} Point(s)!`,
-        html: `
-          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; border: 1px solid #eee; border-radius: 8px; padding: 20px; background-color: #fafafa;">
-            <h2 style="color: #333; text-align: center;">🎉 Congratulations!</h2>
-            <p>Hello <b>${referrerData.name || "Valued Guest"}</b>,</p>
-            <p>
-              Great news! A new customer, <b>${customerEmail}</b>, has just booked a service using your referral code.  
-            </p>
-            <p>
-              As a reward, you’ve earned <b style="color:#008080;">${pointsEarned} point(s)</b>.  
-              Your total balance is now: <b style="color:#008080;">${totalPoints} point(s)</b>.
-            </p>
-            <div style="text-align: center; margin: 25px 0;">
-              <a href="https://elodiabspa.com/userProfile" 
-                style="background-color: #008080; color: #fff; padding: 12px 20px; border-radius: 6px; text-decoration: none; font-weight: bold;">
-                View My Rewards
-              </a>
-            </div>
-            <hr style="border: none; border-top: 1px solid #ddd; margin: 20px 0;" />
-            <p style="font-size: 13px; color: #888; text-align: center;">
-              Thank you for sharing Elodia Beauty & Spa with your friends.  
-              The more you refer, the more you earn! 💎
-            </p>
+    // Send reward email to paying user
+    await resend.emails.send({
+      from: "Elodia Beauty & Spa <onboarding@resend.dev>",
+      to: payingUser.email,
+      subject: `✨ You've Earned ${pointsEarned} Point(s)!`,
+      html: `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; border: 1px solid #eee; border-radius: 8px; padding: 20px; background-color: #fafafa;">
+          <h2 style="color: #333; text-align: center;">🎉 Congratulations!</h2>
+          <p>Hello <b>${payingUser.name || "Valued Guest"}</b>,</p>
+          <p>
+            You have earned <b style="color:#008080;">${pointsEarned} point(s)</b> for your booking.
+            Your total balance is now: <b style="color:#008080;">${totalPoints} point(s)</b>.
+          </p>
+          <div style="text-align: center; margin: 25px 0;">
+            <a href="https://elodiabspa.com/userProfile" 
+              style="background-color: #008080; color: #fff; padding: 12px 20px; border-radius: 6px; text-decoration: none; font-weight: bold;">
+              View My Rewards
+            </a>
           </div>
-        `,
-      });
-      console.log(`✅ Referral email sent to ${referrerData.email}`);
-    } catch (err) {
-      console.error(`❌ Failed to send referral email:`, err);
-    }
+        </div>
+      `,
+    });
   } catch (err) {
-    console.error("🔥 Error handling referral logic:", err);
+    console.error("🔥 Error handling paying user rewards:", err);
   }
 
   return NextResponse.json({ received: true });
