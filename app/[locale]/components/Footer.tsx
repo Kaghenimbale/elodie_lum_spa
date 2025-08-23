@@ -73,7 +73,7 @@ const Footer = () => {
                 <li key={item.key}>
                   <Link
                     href={`/${locale}/${item.key}`}
-                    className="font-thin hover:underline hover:opacity-80 transition"
+                    className="hover:underline hover:opacity-80 text-gray-800 font-thin"
                   >
                     {locale === "fr" ? item.fr : item.en}
                   </Link>

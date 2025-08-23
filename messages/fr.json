@@ -274,7 +274,11 @@
     "time": "Heure",
     "message": "Message",
     "actions": "Actions",
-    "none": "Aucun"
+    "none": "Aucun",
+    "status": "Statut",
+    "delivered": "Fourni",
+    "notDelivered": "Non Fourni",
+    "delivery": "Fourni"
   },
   "upload": {
     "title": "Ajouter un nouveau service",

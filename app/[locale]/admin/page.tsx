@@ -170,7 +170,7 @@ export default function AdminPage() {
     );
 
   return (
-    <div className="p-6 w-full max-w-7xl mx-auto mt-24 flex flex-col items-center gap-5">
+    <div className="p-6 w-full max-w-[90vw] mx-auto mt-24 flex flex-col items-center gap-5">
       <h1 className="text-3xl font-bold text-cyan-900">
         📋 {t("bookedServices")}
       </h1>
@@ -293,67 +293,130 @@ export default function AdminPage() {
           </div>
 
           {/* Desktop Table */}
-          <div className="hidden md:block overflow-x-auto mt-6 w-full">
-            <table className="min-w-full border border-gray-200 rounded-xl overflow-hidden shadow-sm">
+          <div className="overflow-x-auto w-full">
+            <table className="min-w-[1300px] w-full border border-gray-200 rounded-xl overflow-hidden shadow-sm">
               <thead className="bg-cyan-900 text-white text-sm uppercase tracking-wide">
                 <tr>
-                  <th className="px-4 py-3 text-left">{t("name")}</th>
-                  <th className="px-4 py-3 text-left">{t("email")}</th>
-                  <th className="px-4 py-3 text-left">{t("service")}</th>
-                  <th className="px-4 py-3 text-left text-nowrap">
+                  <th className="px-4 py-3 text-left whitespace-nowrap">
+                    {t("name")}
+                  </th>
+                  <th className="px-4 py-3 text-left whitespace-nowrap">
+                    {t("email")}
+                  </th>
+                  <th className="px-4 py-3 text-left whitespace-nowrap">
+                    {t("service")}
+                  </th>
+                  <th className="px-4 py-3 text-left whitespace-nowrap">
                     {t("bookingDate")}
                   </th>
-                  <th className="px-4 py-3 text-left text-nowrap">
+                  <th className="px-4 py-3 text-left whitespace-nowrap">
                     {t("serviceDate")}
                   </th>
-                  <th className="px-4 py-3 text-left">{t("time")}</th>
-                  <th className="px-4 py-3 text-left">{t("message")}</th>
-                  <th className="px-4 py-3 text-center">{t("actions")}</th>
+                  <th className="px-4 py-3 text-left whitespace-nowrap">
+                    {t("time")}
+                  </th>
+                  <th className="px-4 py-3 text-left whitespace-nowrap">
+                    {t("message")}
+                  </th>
+                  <th className="px-4 py-3 text-left whitespace-nowrap">
+                    {t("status")}
+                  </th>
+                  <th className="px-4 py-3 text-center whitespace-nowrap">
+                    {t("actions")}
+                  </th>
+                  <th className="px-4 py-3 whitespace-nowrap">
+                    {t("delivery")}
+                  </th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200 text-sm">
                 {filteredBookings.map((b) => (
                   <tr key={b.id} className="hover:bg-gray-50 transition-colors">
-                    <td className="px-4 py-3">{b.name}</td>
-                    <td className="px-4 py-3">{b.email}</td>
-                    <td className="px-4 py-3 font-medium text-cyan-800">
+                    <td className="px-4 py-3 whitespace-nowrap">{b.name}</td>
+                    <td className="px-4 py-3 whitespace-nowrap">{b.email}</td>
+                    <td className="px-4 py-3 font-medium text-cyan-800 whitespace-nowrap">
                       {b.service}
                     </td>
-                    <td className="px-4 py-3">
+                    <td className="px-4 py-3 whitespace-nowrap">
                       {b.createdAtFormatted.slice(0, 10)}
                     </td>
-                    <td className="px-4 py-3">{b.dateFormatted}</td>
-                    <td className="px-4 py-3">{b.time}</td>
+                    <td className="px-4 py-3 whitespace-nowrap">
+                      {b.dateFormatted}
+                    </td>
+                    <td className="px-4 py-3 whitespace-nowrap">{b.time}</td>
                     <td className="px-4 py-3 text-gray-600">
                       {b.message || t("none")}
                     </td>
-                    <td className="px-4 py-3 text-center flex justify-center gap-2">
-                      <button
-                        onClick={() => {
-                          setSelectedBookingId(b.id);
-                          setEditBookingData({
-                            name: b.name,
-                            email: b.email,
-                            service: b.service,
-                            date: b.dateFormatted,
-                            time: b.time,
-                            message: b.message || "",
+                    <td className="px-4 py-3">
+                      <span
+                        className={`px-2 py-1 rounded-full text-xs font-semibold ${
+                          b.status === "pending"
+                            ? "bg-yellow-100 text-yellow-700"
+                            : b.status === "paid"
+                              ? "bg-green-100 text-green-700"
+                              : "bg-gray-100 text-gray-700"
+                        }`}
+                      >
+                        {b.status}
+                      </span>
+                    </td>
+                    <td className="px-4 py-3 text-center">
+                      <div className="flex justify-center items-center gap-2 h-full">
+                        <button
+                          onClick={() => {
+                            setSelectedBookingId(b.id);
+                            setEditBookingData({
+                              name: b.name,
+                              email: b.email,
+                              service: b.service,
+                              date: b.dateFormatted,
+                              time: b.time,
+                              message: b.message || "",
+                            });
+                            setEditDialogOpen(true);
+                          }}
+                          className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 rounded-md text-sm shadow-sm"
+                        >
+                          {t("edit")}
+                        </button>
+                        <button
+                          onClick={() => {
+                            setSelectedBookingId(b.id);
+                            setConfirmDialogOpen(true);
+                          }}
+                          className="bg-red-600 hover:bg-red-700 text-white px-3 py-1.5 rounded-md text-sm shadow-sm"
+                        >
+                          {t("delete")}
+                        </button>
+                      </div>
+                    </td>
+                    <td className="px-4 py-3">
+                      <select
+                        value={b.delivered ? "delivered" : "not-delivered"}
+                        onChange={async (e) => {
+                          const newDelivered = e.target.value === "delivered";
+                          await updateDoc(doc(db, "bookings", b.id), {
+                            delivered: newDelivered,
                           });
-                          setEditDialogOpen(true);
+                          setBookings((prev) =>
+                            prev.map((booking) =>
+                              booking.id === b.id
+                                ? { ...booking, delivered: newDelivered }
+                                : booking
+                            )
+                          );
                         }}
-                        className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 rounded-md text-sm shadow-sm"
+                        className={`px-2 py-1 rounded-full text-xs font-semibold ${
+                          b.delivered
+                            ? "bg-green-100 text-green-700"
+                            : "bg-yellow-100 text-yellow-700"
+                        }`}
                       >
-                        {t("edit")}
-                      </button>
-                      <button
-                        onClick={() => {
-                          setSelectedBookingId(b.id);
-                          setConfirmDialogOpen(true);
-                        }}
-                        className="bg-red-600 hover:bg-red-700 text-white px-3 py-1.5 rounded-md text-sm shadow-sm"
-                      >
-                        {t("delete")}
-                      </button>
+                        <option value="not-delivered">
+                          {t("notDelivered")}
+                        </option>
+                        <option value="delivered">{t("delivered")}</option>
+                      </select>
                     </td>
                   </tr>
                 ))}

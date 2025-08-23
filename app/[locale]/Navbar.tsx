@@ -105,7 +105,7 @@ const Navbar = () => {
           {/* Logo */}
           <Link href={`/${locale}`}>
             <Image
-              width={140}
+              width={100}
               height={40}
               src="/logo.png"
               priority

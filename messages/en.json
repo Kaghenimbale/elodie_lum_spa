@@ -274,7 +274,11 @@
     "time": "Time",
     "message": "Message",
     "actions": "Actions",
-    "none": "None"
+    "none": "None",
+    "status": "Status",
+    "delivered": "Provided",
+    "notDelivered": "Not Provided",
+    "delivery": "Provided"
   },
   "upload": {
     "title": "Add New Service",
