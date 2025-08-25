@@ -27,8 +27,8 @@ export async function POST(req: Request) {
       time,
       message: message || null,
       createdAt: Timestamp.now(),
-      status: "pending", // unpaid booking
-      sessionId: null, // no Stripe session
+      status: "pending",
+      sessionId: null,
     };
 
     // Save booking to Firestore
@@ -64,6 +64,16 @@ export async function POST(req: Request) {
       console.error("Calendar generation failed:", calendarEvent.error);
     }
 
+    // Google Calendar link
+    const startDate = `${date.replace(/-/g, "")}T${time.replace(/:/g, "")}00`;
+    const endHour = (hour + 1).toString().padStart(2, "0");
+    const endDate = `${date.replace(/-/g, "")}T${endHour}${time.split(":")[1]}00`;
+    const gCalLink = `https://calendar.google.com/calendar/r/eventedit?text=${encodeURIComponent(
+      `Booking - ${service}`
+    )}&dates=${startDate}/${endDate}&details=${encodeURIComponent(
+      message || "No notes"
+    )}&location=${encodeURIComponent("Elodia Beauty & Spa")}`;
+
     // Customer confirmation email
     await resend.emails.send({
       from: "Elodia Beauty & Spa <onboarding@resend.dev>",
@@ -80,6 +90,11 @@ export async function POST(req: Request) {
             <li><strong>Time:</strong> ${time}</li>
           </ul>
           ${message ? `<p><strong>Your note:</strong><br>${message.replace(/\n/g, "<br>")}</p>` : ""}
+          <p>
+            <a href="${gCalLink}" target="_blank" style="color: #fff; background-color: #2c7a7b; padding: 8px 16px; text-decoration: none; border-radius: 4px;">
+              Add to Google Calendar
+            </a>
+          </p>
           <p>We look forward to seeing you!</p>
           <p style="color: #888;">Elodia Beauty & Spa</p>
         </div>
