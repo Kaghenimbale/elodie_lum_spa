@@ -19,7 +19,7 @@ export async function POST(req: NextRequest) {
     });
 
     await resend.emails.send({
-      from: "no-reply@yourdomain.com",
+      from: "<onboarding@resend.dev>",
       to: email,
       subject: "Reset Your Password",
       html: `<p>Click the link to reset your password:</p>
