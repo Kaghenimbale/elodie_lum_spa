@@ -122,10 +122,22 @@ const Page = () => {
     setLoading(true);
 
     try {
-      await sendPasswordResetEmail(auth, data.email);
-      setResetEmailSent(true);
+      // Generate your reset link (or use Firebase link if needed)
+      const resetLink = `${window.location.origin}/reset-password?email=${data.email}`;
+
+      const res = await fetch("/api/send-reset-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: data.email, resetLink }),
+      });
+
+      if (res.ok) {
+        setResetEmailSent(true);
+      } else {
+        setResetError("Failed to send password reset email.");
+      }
     } catch (error: any) {
-      setResetError(error.message || "Failed to send password reset email.");
+      setResetError(error.message || "Something went wrong.");
     } finally {
       setLoading(false);
     }

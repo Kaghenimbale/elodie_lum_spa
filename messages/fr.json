@@ -329,7 +329,8 @@
     "errorClaimingReward": "Erreur lors de la réclamation de la récompense.",
     "processing": "Traitement en cours...",
     "emailSent": "L’email a été envoyé avec succès pour votre récompense de",
-    "cancel": "Annuler"
+    "cancel": "Annuler",
+    "noPointsMessage": "Vous avez 0 point. Gagnez des points pour les convertir !"
   },
   "calendar": {
     "bookFor": "Réserver pour",
