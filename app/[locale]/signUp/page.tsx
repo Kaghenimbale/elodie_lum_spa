@@ -98,7 +98,22 @@ const Page = () => {
       router.push("/userProfile");
     } catch (error: any) {
       console.error("Error creating user:", error);
-      setErrorMessage(error.message || "Something went wrong");
+      // Custom error handling
+      switch (error.code) {
+        case "auth/email-already-in-use":
+          setErrorMessage(
+            "This email is already registered. Please log in or use another email."
+          );
+          break;
+        case "auth/invalid-email":
+          setErrorMessage("Please enter a valid email address.");
+          break;
+        case "auth/weak-password":
+          setErrorMessage("Password should be at least 6 characters.");
+          break;
+        default:
+          setErrorMessage("Something went wrong. Please try again.");
+      }
     } finally {
       setLoading(false);
       setData({ email: "", password: "", referralCode: "" });
@@ -176,13 +191,6 @@ const Page = () => {
           <h2 className="text-[1.8rem] md:text-[2rem] font-bold text-center">
             {t("title")}
           </h2>
-
-          {errorMessage && (
-            <p className="text-red-600 text-sm">{errorMessage}</p>
-          )}
-          {successMessage && (
-            <p className="text-green-600 text-sm">{successMessage}</p>
-          )}
 
           {/* Email Input */}
           <div className="flex flex-col gap-2">
@@ -272,6 +280,17 @@ const Page = () => {
               {t("googleLogin")}
             </button>
           </div>
+
+          {errorMessage && (
+            <p className="text-red-600 bg-red-100 p-2 text-sm rounded">
+              {errorMessage}
+            </p>
+          )}
+          {successMessage && (
+            <p className="text-green-600 text-sm bg-green-100 rounded">
+              {successMessage}
+            </p>
+          )}
 
           <span className="flex gap-2 justify-center">
             {t("alreadyAccount")}

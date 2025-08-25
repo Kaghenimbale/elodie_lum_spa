@@ -72,32 +72,34 @@ export async function POST(req: Request) {
     console.error("🔥 Error saving booking to Firestore:", err);
   }
 
-  // -------------------- Calendar Event (.ics) --------------------
+  // -------------------- Calendar Event (Google Calendar + ICS) --------------------
+  let googleCalendarLink = "";
   let calendarLink = "";
+
   try {
     if (session.metadata?.date && session.metadata?.time) {
       const eventStart = new Date(
         `${session.metadata.date}T${session.metadata.time}`
       );
-      const eventEnd = new Date(eventStart.getTime() + 60 * 60 * 1000); // 1 hour duration
+      const eventEnd = new Date(eventStart.getTime() + 60 * 60 * 1000);
 
-      const icsContent = `
-BEGIN:VCALENDAR
-VERSION:2.0
-BEGIN:VEVENT
-SUMMARY:${session.metadata?.service || "Spa Appointment"}
-DTSTART:${eventStart.toISOString().replace(/[-:]/g, "").split(".")[0]}Z
-DTEND:${eventEnd.toISOString().replace(/[-:]/g, "").split(".")[0]}Z
-DESCRIPTION:Your appointment at Elodia Beauty & Spa.
-LOCATION:Elodia Beauty & Spa
-END:VEVENT
-END:VCALENDAR
-`;
-      const icsBlob = Buffer.from(icsContent, "utf8").toString("base64");
-      calendarLink = `data:text/calendar;base64,${icsBlob}`;
+      function formatDateForGoogle(d: Date) {
+        return d.toISOString().replace(/[-:]/g, "").split(".")[0];
+      }
+
+      const text = encodeURIComponent(
+        session.metadata?.service || "Spa Appointment"
+      );
+      const dates = `${formatDateForGoogle(eventStart)}/${formatDateForGoogle(eventEnd)}`;
+      const details = encodeURIComponent(
+        "Your appointment at Elodia Beauty & Spa"
+      );
+      const location = encodeURIComponent("Elodia Beauty & Spa");
+
+      googleCalendarLink = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${text}&dates=${dates}&details=${details}&location=${location}`;
     }
   } catch (err) {
-    console.error("⚠️ Error creating calendar link:", err);
+    console.error("⚠️ Error creating calendar links:", err);
   }
 
   // -------------------- Customer Email --------------------
@@ -115,12 +117,14 @@ END:VCALENDAR
           <li><b>Time:</b> ${session.metadata?.time || "TBD"}</li>
           <li><b>Amount Paid:</b> $${amountPaid}</li>
         </ul>
-        <p>We look forward to welcoming you at Elodia Beauty & Spa ✨</p>
-        ${
-          calendarLink
-            ? `<p><a href="${calendarLink}" download="appointment.ics" style="background:#008080;color:#fff;padding:10px 15px;border-radius:5px;text-decoration:none;">Add to Calendar</a></p>`
-            : ""
-        }
+        <p>We look forward to welcoming you at Elodia Beauty & Spa ✨ green</p>
+       <p>
+  <a href="${googleCalendarLink}" style="background:#008080;color:#fff;padding:10px 15px;border-radius:5px;text-decoration:none;">Add to Google Calendar</a>
+  <br/>
+  <a href="${calendarLink}" download="appointment.ics" style="background:#008080;color:#fff;padding:10px 15px;border-radius:5px;text-decoration:none;">Download .ICS</a>
+</p>
+
+
       `,
     });
     console.log(`✅ Customer email sent to ${customerEmail}`);
@@ -254,3 +258,241 @@ END:VCALENDAR
 
   return NextResponse.json({ received: true });
 }
+
+// import { NextResponse } from "next/server";
+// import Stripe from "stripe";
+// import { db } from "@/firebase/config";
+// import {
+//   doc,
+//   collection,
+//   query,
+//   where,
+//   getDocs,
+//   updateDoc,
+//   increment,
+//   addDoc,
+// } from "firebase/firestore";
+// import { Resend } from "resend";
+
+// export const runtime = "nodejs";
+// export const dynamic = "force-dynamic";
+
+// const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
+// const resend = new Resend(process.env.RESEND_API_KEY!);
+
+// function generateCalendarLinks(service: string, date: string, time: string) {
+//   const start = new Date(`${date}T${time}`);
+//   const end = new Date(start.getTime() + 60 * 60 * 1000); // 1 hour
+
+//   // ICS content
+//   const icsContent = `
+// BEGIN:VCALENDAR
+// VERSION:2.0
+// BEGIN:VEVENT
+// SUMMARY:${service}
+// DTSTART:${start.toISOString().replace(/[-:]/g, "").split(".")[0]}Z
+// DTEND:${end.toISOString().replace(/[-:]/g, "").split(".")[0]}Z
+// DESCRIPTION:Your appointment at Elodia Beauty & Spa.
+// LOCATION:Elodia Beauty & Spa
+// END:VEVENT
+// END:VCALENDAR
+// `;
+
+//   // Google Calendar link (works in email)
+//   const startDate = `${date.replace(/-/g, "")}T${time.replace(/:/g, "")}00`;
+//   const endHour = (start.getHours() + 1).toString().padStart(2, "0");
+//   const endDate = `${date.replace(/-/g, "")}T${endHour}${time.split(":")[1]}00`;
+//   const gCalLink = `https://calendar.google.com/calendar/r/eventedit?text=${encodeURIComponent(
+//     `Booking - ${service}`
+//   )}&dates=${startDate}/${endDate}&details=${encodeURIComponent(
+//     "Your appointment at Elodia Beauty & Spa"
+//   )}&location=${encodeURIComponent("Elodia Beauty & Spa")}`;
+
+//   return { icsContent, gCalLink };
+// }
+
+// export async function POST(req: Request) {
+//   const payload = await req.text();
+//   const sig = req.headers.get("stripe-signature")!;
+
+//   let event: Stripe.Event;
+//   try {
+//     event = stripe.webhooks.constructEvent(
+//       payload,
+//       sig,
+//       process.env.STRIPE_WEBHOOK_SECRET!
+//     );
+//   } catch (err: any) {
+//     console.error("❌ Webhook signature verification failed:", err.message);
+//     return NextResponse.json({ error: "Invalid signature" }, { status: 400 });
+//   }
+
+//   if (event.type !== "checkout.session.completed") {
+//     return NextResponse.json({ received: true });
+//   }
+
+//   const session = event.data.object as Stripe.Checkout.Session;
+//   const customerEmail =
+//     session.customer_details?.email || session.customer_email;
+//   if (!customerEmail) return NextResponse.json({ received: true });
+
+//   const amountPaid = session.amount_total
+//     ? Number(session.amount_total) / 100
+//     : 0;
+
+//   const service = session.metadata?.service || "Spa Appointment";
+//   const date = session.metadata?.date || "";
+//   const time = session.metadata?.time || "";
+//   const { icsContent, gCalLink } =
+//     date && time
+//       ? generateCalendarLinks(service, date, time)
+//       : { icsContent: "", gCalLink: "" };
+
+//   // -------------------- Firestore Booking --------------------
+//   try {
+//     await addDoc(collection(db, "bookings"), {
+//       name:
+//         session.metadata?.name || session.customer_details?.name || "Anonymous",
+//       email: customerEmail,
+//       price: amountPaid.toString(),
+//       service,
+//       date,
+//       time,
+//       message: session.metadata?.message || null,
+//       createdAt: new Date(),
+//       status: "paid",
+//       sessionId: session.id,
+//     });
+//     console.log(`💾 Booking saved for ${customerEmail}`);
+//   } catch (err) {
+//     console.error("🔥 Error saving booking to Firestore:", err);
+//   }
+
+//   // -------------------- Send Emails --------------------
+//   async function sendEmail(
+//     to: string,
+//     subject: string,
+//     htmlBody: string,
+//     icsAttachment?: string
+//   ) {
+//     try {
+//       const emailOptions: any = {
+//         from: "Elodia Beauty & Spa <onboarding@resend.dev>",
+//         to,
+//         subject,
+//         html: htmlBody,
+//       };
+
+//       // attach ICS file if available
+//       if (icsAttachment) {
+//         emailOptions.attachments = [
+//           {
+//             filename: "appointment.ics",
+//             content: icsAttachment,
+//             type: "text/calendar",
+//           },
+//         ];
+//       }
+
+//       await resend.emails.send(emailOptions);
+//       console.log(`✅ Email sent to ${to}`);
+//     } catch (err) {
+//       console.error(`❌ Failed to send email to ${to}:`, err);
+//     }
+//   }
+
+//   const calendarHtml =
+//     date && time
+//       ? `<p>
+//         <a href="${gCalLink}" target="_blank" style="background:#008080;color:#fff;padding:10px 15px;border-radius:5px;text-decoration:none;">Add to Google Calendar</a>
+//       </p>
+//       <p>You can also download the attached calendar file (.ICS)</p>`
+//       : "";
+
+//   // Customer email
+//   await sendEmail(
+//     customerEmail,
+//     "💆 Booking Confirmation – Elodia Beauty & Spa",
+//     `<h2>Thank you for your booking!</h2>
+//      <p>Your booking is confirmed for:</p>
+//      <ul>
+//        <li><b>Service:</b> ${service}</li>
+//        <li><b>Date:</b> ${date || "TBD"}</li>
+//        <li><b>Time:</b> ${time || "TBD"}</li>
+//        <li><b>Amount Paid:</b> $${amountPaid}</li>
+//      </ul>
+//      ${calendarHtml}
+//      <p>We look forward to welcoming you at Elodia Beauty & Spa ✨</p>`,
+//     icsContent
+//   );
+
+//   // Admin email
+//   await sendEmail(
+//     process.env.NEXT_PUBLIC_ADMIN_EMAIL!,
+//     "📩 New Booking Received",
+//     `<h2>New Booking Alert</h2>
+//      <p><b>${customerEmail}</b> has booked a service.</p>
+//      <ul>
+//        <li><b>Service:</b> ${service}</li>
+//        <li><b>Date:</b> ${date || "TBD"}</li>
+//        <li><b>Time:</b> ${time || "TBD"}</li>
+//        <li><b>Amount Paid:</b> $${amountPaid}</li>
+//      </ul>
+//      ${calendarHtml}`,
+//     icsContent
+//   );
+
+//   // -------------------- Referral Logic --------------------
+//   try {
+//     const usersRef = collection(db, "users");
+//     const userQuery = query(usersRef, where("email", "==", customerEmail));
+//     const userSnapshot = await getDocs(userQuery);
+//     if (userSnapshot.empty) return NextResponse.json({ received: true });
+
+//     const payingUserDoc = userSnapshot.docs[0];
+//     const payingUserRef = doc(db, "users", payingUserDoc.id);
+//     const payingUser = payingUserDoc.data();
+//     const currentCount = payingUser.referralPaymentsCount || 0;
+
+//     if (currentCount >= 2) return NextResponse.json({ received: true });
+
+//     await updateDoc(payingUserRef, { referralPaymentsCount: increment(1) });
+
+//     if (!payingUser.referredBy) return NextResponse.json({ received: true });
+
+//     const referrerQuery = query(
+//       usersRef,
+//       where("referralCode", "==", payingUser.referredBy)
+//     );
+//     const referrerSnapshot = await getDocs(referrerQuery);
+//     if (referrerSnapshot.empty) return NextResponse.json({ received: true });
+
+//     const referrerDoc = referrerSnapshot.docs[0];
+//     const referrerRef = doc(db, "users", referrerDoc.id);
+//     const referrerData = referrerDoc.data();
+
+//     const pointsEarned = Math.round(amountPaid * 0.05 * 10);
+//     await updateDoc(referrerRef, { points: increment(pointsEarned) });
+//     const totalPoints = (referrerData.points || 0) + pointsEarned;
+
+//     await sendEmail(
+//       referrerData.email,
+//       `✨ You've Earned ${pointsEarned} Point(s)!`,
+//       `<div style="font-family: Arial, sans-serif; max-width: 600px; margin:auto; padding:20px; background:#fafafa; border-radius:8px;">
+//          <h2 style="text-align:center;">🎉 Congratulations!</h2>
+//          <p>Hello <b>${referrerData.name || "Valued Guest"}</b>,</p>
+//          <p>A new customer, <b>${customerEmail}</b>, booked a service using your referral code.</p>
+//          <p>You earned <b style="color:#008080;">${pointsEarned} point(s)</b>. Total: <b style="color:#008080;">${totalPoints}</b>.</p>
+//          <div style="text-align:center; margin:25px 0;">
+//            <a href="https://elodiabspa.com/userProfile" style="background:#008080;color:#fff;padding:12px 20px;border-radius:6px;text-decoration:none;font-weight:bold;">View My Rewards</a>
+//          </div>
+//          ${calendarHtml}
+//        </div>`,
+//       icsContent
+//     );
+//   } catch (err) {
+//     console.error("🔥 Error handling referral logic:", err);
+//   }
+
+//   return NextResponse.json({ received: true });
+// }

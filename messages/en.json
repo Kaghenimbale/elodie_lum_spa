@@ -329,7 +329,8 @@
     "errorClaimingReward": "Error claiming reward.",
     "processing": "Processing...",
     "emailSent": "Email has been sent successfully for your reward of",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "noPointsMessage": "You have 0 points. Earn points to convert!"
   },
   "calendar": {
     "bookFor": "Book for",

@@ -61,7 +61,12 @@ const Page = () => {
     : "";
 
   const handleConvertPoints = () => {
-    if (!userData || !userData.points) return;
+    if (!userData) return;
+    if (!userData.points || userData.points === 0) {
+      setSuccessMessage(t("noPointsMessage")); // use translation
+      return;
+    }
+
     setConvertedDollar(userData.points / 10);
     setShowModal(true); // <-- show modal when converting
   };
@@ -105,7 +110,7 @@ const Page = () => {
   if (loading) {
     return (
       <div className="w-full h-screen flex items-center justify-center">
-        <ClipLoader color="#164E63" size={50} />
+        <ClipLoader color="#164E63" />
       </div>
     );
   }
