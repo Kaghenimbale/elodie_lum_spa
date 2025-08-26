@@ -146,7 +146,7 @@ export async function POST(req: Request) {
         </ul>
         <p>We look forward to welcoming you at Elodia Beauty & Spa ✨ green</p>
       
-        <a href="${googleCalendarLink}" style="background:#008080;color:#fff;padding:10px 15px;border-radius:5px;text-decoration:none;">Add to Google Calendar</a> 
+        <a href="${googleCalendarLink}" style="background:#008080;color:#fff;padding:10px 15px;border-radius:5px;text-decoration:none;">Add to Google Calendar</a>
         <br/>
         <a href="${calendarLink}" download="appointment.ics" style="background:#008080;color:#fff;padding:10px 15px;border-radius:5px;text-decoration:none;">Download .ICS</a>
       `,
@@ -202,13 +202,15 @@ export async function POST(req: Request) {
 
     const currentCount = payingUser.referralPaymentsCount || 0;
 
+    // Stop here if user already has 2 referral payments
     if (currentCount >= 2) {
       console.log(
-        `⚠️ referralPaymentsCount already ${currentCount}. No increment. No reward.`
+        `⚠️ referralPaymentsCount already ${currentCount}. No increment. No reward for referrer.`
       );
       return NextResponse.json({ received: true });
     }
 
+    // Increment the paying user's referralPaymentsCount
     await updateDoc(payingUserRef, {
       referralPaymentsCount: increment(1),
     });
@@ -218,10 +220,9 @@ export async function POST(req: Request) {
       `🔄 Updated referralPaymentsCount for ${customerEmail}: ${updatedCount}`
     );
 
-    if (!payingUser.referredBy) return NextResponse.json({ received: true });
-
-    if (updatedCount > 2) {
-      console.log(`⚠️ Count exceeded 2. No reward.`);
+    // Only give points to referrer if the updated count is <= 2
+    if (!payingUser.referredBy || updatedCount > 2) {
+      console.log(`⚠️ No referrer reward applicable.`);
       return NextResponse.json({ received: true });
     }
 
@@ -237,6 +238,7 @@ export async function POST(req: Request) {
     const referrerData = referrerDoc.data();
 
     const pointsEarned = Math.round(amountPaid * 0.05 * 10);
+
     await updateDoc(referrerRef, {
       points: increment(pointsEarned),
     });
