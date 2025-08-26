@@ -100,12 +100,12 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="bg-orange-50 fixed top-0 left-0 right-0 z-50 shadow-md px-5 md:px-10 py-3 h-[5rem]">
+      <nav className="bg-orange-50 fixed top-0 left-0 right-0 z-50 shadow-md px-5 md:px-10 py-3 h-[6.5rem]">
         <div className="flex justify-between items-center max-w-7xl mx-auto">
           {/* Logo */}
           <Link href={`/${locale}`}>
             <Image
-              width={100}
+              width={140}
               height={40}
               src="/logo.png"
               priority
