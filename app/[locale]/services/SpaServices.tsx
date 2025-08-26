@@ -344,7 +344,7 @@ const SpaServices = () => {
       {loading ? (
         <ClipLoader color="#164E63" />
       ) : services.length === 0 ? (
-        <div className="text-center py-8 text-gray-600 text-lg">
+        <div className="text-center py-8 text-gray-600 text-lg flex items-center justify-center">
           {t("no_services_available")}
         </div>
       ) : (

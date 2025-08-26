@@ -101,18 +101,20 @@ const Navbar = () => {
   return (
     <>
       <nav className="bg-orange-50 fixed top-0 left-0 right-0 z-50 shadow-md px-5 md:px-10 py-3 h-[6.5rem]">
-        <div className="flex justify-between items-center max-w-7xl mx-auto">
+        <div className="flex justify-between items-center max-w-7xl mx-auto px-4 md:px-6 py-3">
           {/* Logo */}
           <Link href={`/${locale}`}>
             <Image
-              width={140}
+              width={100}
               height={40}
               src="/logo.png"
               priority
               alt="EBS logo"
+              className="cursor-pointer"
             />
           </Link>
 
+          {/* Right Side */}
           <div className="flex items-center gap-4 md:gap-6">
             {/* Desktop Menu */}
             <ul className="hidden md:flex gap-6 xl:gap-12 items-center">
@@ -129,12 +131,12 @@ const Navbar = () => {
               ))}
             </ul>
 
-            {/* Language Switcher Desktop */}
+            {/* Language Switcher (Desktop) */}
             <div className="hidden md:block">
               <LanguageSwitcher />
             </div>
 
-            {/* User profile (desktop) */}
+            {/* User Profile (Desktop) */}
             {authReady && user && (
               <div className="hidden md:flex items-center gap-3 relative">
                 <button
@@ -151,7 +153,7 @@ const Navbar = () => {
                       priority
                     />
                   ) : (
-                    <span className="text-2xl font-bold rounded-full flex items-center justify-center w-[3rem] h-[3rem] bg-cyan-800 text-white">
+                    <span className="text-2xl font-bold rounded-full flex items-center justify-center w-12 h-12 bg-cyan-800 text-white">
                       {user.email![0].toUpperCase()}
                     </span>
                   )}
@@ -159,7 +161,7 @@ const Navbar = () => {
               </div>
             )}
 
-            {/* Connexion Button (desktop) */}
+            {/* Connexion Button (Desktop) */}
             {authReady && !user && (
               <Link
                 href="/signIn"
@@ -211,6 +213,7 @@ const Navbar = () => {
                   </Link>
                 ))}
 
+                {/* Mobile Profile & Auth */}
                 {authReady && user ? (
                   <>
                     {user.photoURL ? (
@@ -223,7 +226,7 @@ const Navbar = () => {
                         priority
                       />
                     ) : (
-                      <span className="text-2xl font-bold rounded-full flex items-center justify-center w-[3rem] h-[3rem] bg-cyan-800 text-white">
+                      <span className="text-2xl font-bold rounded-full flex items-center justify-center w-12 h-12 bg-cyan-800 text-white">
                         {user.email![0].toUpperCase()}
                       </span>
                     )}
@@ -254,6 +257,8 @@ const Navbar = () => {
                     Connexion
                   </Link>
                 )}
+
+                {/* Mobile Language Switcher */}
                 <LanguageSwitcher />
               </nav>
             </Dialog.Panel>
