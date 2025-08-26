@@ -9,28 +9,42 @@ const LanguageSwitcher = () => {
   const pathname = usePathname();
   const [currentLocale, setCurrentLocale] = useState("en");
 
+  // Load saved locale on first render
   useEffect(() => {
+    const savedLocale = localStorage.getItem("preferredLocale");
     const segments = pathname?.split("/") || [];
+
+    let detectedLocale = "en"; // default
+
     if (segments[1] === "en" || segments[1] === "fr") {
-      setCurrentLocale(segments[1]);
-    } else {
-      setCurrentLocale("en"); // default locale
+      detectedLocale = segments[1];
     }
-  }, [pathname]);
+
+    // Use saved locale if it exists
+    if (savedLocale && savedLocale !== detectedLocale) {
+      detectedLocale = savedLocale;
+      // Replace URL with saved locale
+      segments[1] = savedLocale;
+      router.replace(segments.join("/") || "/");
+    }
+
+    setCurrentLocale(detectedLocale);
+  }, [pathname, router]);
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const newLocale = e.target.value;
+    localStorage.setItem("preferredLocale", newLocale);
+
     const segments = pathname?.split("/") || [];
 
-    // Ensure locale is in first segment
     if (segments[1] === "en" || segments[1] === "fr") {
       segments[1] = newLocale;
     } else {
       segments.splice(1, 0, newLocale);
     }
 
-    const newPath = segments.join("/") || "/";
-    router.replace(newPath);
+    router.replace(segments.join("/") || "/");
+    setCurrentLocale(newLocale);
   };
 
   return (

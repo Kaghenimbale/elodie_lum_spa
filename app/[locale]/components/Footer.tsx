@@ -63,7 +63,7 @@ const Footer = () => {
 
           {/* Important Links */}
           <div className="flex flex-col gap-3 max-w-xs">
-            <h3 className="text-xl font-bold">Important Links</h3>
+            <h3 className="text-xl font-bold">{t1("description1")}</h3>
             <ul className="space-y-2 list-none">
               {[
                 { key: "about_us", en: "ABOUT US", fr: "À PROPOS" },
@@ -85,7 +85,7 @@ const Footer = () => {
           {/* Contact */}
           <div className="flex flex-col gap-4 max-w-xs font-thin">
             <h3 className="text-xl font-bold text-center md:text-left">
-              Contact Us
+              {t1("description2")}
             </h3>
             <address className="not-italic whitespace-pre-line">
               {tc("Address")}: 598 Concession str, Hamilton, <br />
@@ -157,7 +157,7 @@ const Footer = () => {
           {/* Opening Hours + Payments */}
           <div className="flex flex-col gap-6 max-w-xs">
             <h3 className="text-xl font-bold text-center md:text-left">
-              Opening Hours
+              {t1("description3")}
             </h3>
             <div className="w-full max-w-md space-y-2 mx-auto lg:mx-0">
               {schedule.map(({ days, hours }, i) => (
