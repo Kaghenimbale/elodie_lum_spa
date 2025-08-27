@@ -132,7 +132,7 @@ export async function POST(req: Request) {
   // -------------------- Customer Email --------------------
   try {
     await resend.emails.send({
-      from: "Elodia Beauty & Spa <onboarding@resend.dev>",
+      from: "Elodia Beauty & Spa <Booking@elodiabspa.com>",
       to: customerEmail,
       subject: "💆 Booking Confirmation – Elodia Beauty & Spa",
       html: `
@@ -159,7 +159,7 @@ export async function POST(req: Request) {
   // -------------------- Admin Email --------------------
   try {
     await resend.emails.send({
-      from: "Elodia Beauty & Spa <onboarding@resend.dev>",
+      from: "Elodia Beauty & Spa <Booking@elodiabspa.com>",
       to: process.env.NEXT_PUBLIC_ADMIN_EMAIL!,
       subject: "📩 New Booking Received",
       html: `
@@ -250,7 +250,7 @@ export async function POST(req: Request) {
 
     try {
       await resend.emails.send({
-        from: "Elodia Beauty & Spa <onboarding@resend.dev>",
+        from: "Elodia Beauty & Spa <Booking@elodiabspa.com>",
         to: referrerData.email,
         subject: `✨ You've Earned ${pointsEarned} Point(s)!`,
         html: `
