@@ -100,7 +100,7 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="bg-orange-50 fixed top-0 left-0 right-0 z-50 shadow-md px-5 md:px-10 py-3 h-[6.5rem]">
+      <nav className="bg-orange-50 fixed top-0 left-0 right-0 z-50 shadow-md px-5 md:px-10 py-3">
         <div className="flex justify-between items-center max-w-7xl mx-auto px-4 md:px-6 py-3">
           {/* Logo */}
           <Link href={`/${locale}`}>
