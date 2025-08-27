@@ -121,6 +121,8 @@ export async function POST(req: Request) {
         status: "CONFIRMED",
       });
 
+      console.log("Session Metadata:", session.metadata);
+
       if (!error && value) {
         calendarLink = `data:text/calendar;charset=utf-8,${encodeURIComponent(value)}`;
       }

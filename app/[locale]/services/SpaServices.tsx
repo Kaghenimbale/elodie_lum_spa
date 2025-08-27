@@ -137,23 +137,6 @@ const SpaServices = () => {
     }
   }, [selectedService]);
 
-  const handleDelete = async (id: string) => {
-    await deleteService(id);
-    setServices((prev) => prev.filter((s) => s.id !== id));
-  };
-
-  const handleEdit = (service: any) => {
-    setEditingId(service.id);
-    console.log(service);
-    setEditFormData({
-      name_en: service.name_en,
-      name_fr: service.name_fr,
-      price: service.price,
-      description_en: service.description_en,
-      description_fr: service.description_fr,
-    });
-  };
-
   const handleUpdate = async () => {
     if (!editingId) return;
 
@@ -373,89 +356,31 @@ const SpaServices = () => {
             />
 
             <div className="absolute bottom-6 bg-white p-4 shadow-lg rounded-lg w-[90%] max-w-md mx-auto flex flex-col gap-2 justify-center items-center">
-              {editingId === service.id ? (
-                <>
-                  <input
-                    name="name"
-                    value={
-                      locale === "fr"
-                        ? editFormData.name_fr
-                        : editFormData.name_en
-                    }
-                    onChange={handleEditChange}
-                    placeholder="Name"
-                    className="border p-1 w-full"
-                  />
-                  <textarea
-                    name="description"
-                    value={
-                      locale === "fr"
-                        ? editFormData.description_fr
-                        : editFormData.description_en
-                    }
-                    onChange={handleEditChange}
-                    placeholder="Description"
-                    className="border p-1 w-full resize-none break-words overflow-wrap"
-                    rows={4}
-                  />
-                  <input
-                    name="price"
-                    value={editFormData.price}
-                    onChange={handleEditChange}
-                    placeholder="Price"
-                    className="border p-1 w-full"
-                  />
-                  <button
-                    onClick={handleUpdate}
-                    className="bg-green-600 text-white px-2 py-1 rounded"
-                  >
-                    {t("save")}
-                  </button>
-                </>
-              ) : (
-                <>
-                  <h3 className="text-xl font-semibold break-words text-center">
-                    {locale === "fr" ? service.name_fr : service.name_en}
-                  </h3>
-                  <p className="font-thin text-center text-sm w-full break-words overflow-wrap hyphens-auto">
-                    {locale === "fr"
-                      ? service.description_fr
-                      : service.description_en}
-                  </p>
+              <>
+                <h3 className="text-xl font-semibold break-words text-center">
+                  {locale === "fr" ? service.name_fr : service.name_en}
+                </h3>
+                <p className="font-thin text-center text-sm w-full break-words overflow-wrap hyphens-auto">
+                  {locale === "fr"
+                    ? service.description_fr
+                    : service.description_en}
+                </p>
 
-                  <span className="text-center block">
-                    ${service.price}.00 CAD
-                  </span>
-                </>
-              )}
+                <span className="text-center block">
+                  ${service.price}.00 CAD
+                </span>
+              </>
 
-              {isAdmin ? (
-                <div className="flex gap-2 mt-2">
-                  <button
-                    onClick={() => handleEdit(service)}
-                    className="bg-blue-700 text-white text-sm hover:bg-cyan-700 transition duration-300 px-4 py-2 rounded"
-                  >
-                    {t("edit")}
-                  </button>
-                  <button
-                    onClick={() => handleDelete(service.id)}
-                    className="bg-red-700 text-white text-sm hover:bg-red-600 transition duration-300 px-4 py-2 rounded"
-                  >
-                    {t("delete")}
-                  </button>
-                </div>
-              ) : (
-                <button
-                  type="button"
-                  onClick={() => {
-                    setSelectedService(service);
-                    setShowModal(true);
-                  }}
-                  className="text-white bg-cyan-900 hover:bg-cyan-700 transition duration-300 px-4 py-2 rounded"
-                >
-                  {t("book")}
-                </button>
-              )}
+              <button
+                type="button"
+                onClick={() => {
+                  setSelectedService(service);
+                  setShowModal(true);
+                }}
+                className="text-white bg-cyan-900 hover:bg-cyan-700 transition duration-300 px-4 py-2 rounded"
+              >
+                {t("book")}
+              </button>
             </div>
           </div>
         ))

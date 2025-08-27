@@ -17,12 +17,15 @@ import {
 import { auth, googleProvider } from "@/firebase/config";
 import { createUserInFirestore } from "@/lib/userService";
 import { useSearchParams } from "next/navigation";
+import { useAuthStatus } from "../context/AuthContext";
 
 const Page = () => {
   const router = useRouter();
   const t = useTranslations("signUp");
 
   const searchParams = useSearchParams();
+
+  const { setVerified } = useAuthStatus();
 
   useEffect(() => {
     // Check if a referral code exists in the URL
@@ -65,6 +68,7 @@ const Page = () => {
     try {
       setLoading(true);
 
+      // Check if email is already used with Google
       const methods = await fetchSignInMethodsForEmail(auth, data.email);
       if (methods.includes("google.com")) {
         setErrorMessage(
@@ -74,17 +78,30 @@ const Page = () => {
         return;
       }
 
+      // Create Firebase Auth user
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         data.email,
         data.password
       );
 
-      const referralCode = await createUserInFirestore(
+      // Save user to Firestore (or detect if exists)
+      const { referralCode, isNewUser } = await createUserInFirestore(
         userCredential.user,
         data.referralCode || null
       );
 
+      if (!isNewUser) {
+        await signOut(auth); // Sign out immediately
+        setVerified(false); // Mark session as not verified
+        setErrorMessage("User already exists. Please sign in instead.");
+        // router.push("/signIn");
+        return;
+      }
+
+      setVerified(true); // Only mark verified if Firestore creation succeeded
+
+      // Send referral email
       await fetch("/api/send-referral", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -98,12 +115,9 @@ const Page = () => {
       router.push("/userProfile");
     } catch (error: any) {
       console.error("Error creating user:", error);
-      // Custom error handling
       switch (error.code) {
         case "auth/email-already-in-use":
-          setErrorMessage(
-            "This email is already registered. Please log in or use another email."
-          );
+          setErrorMessage("This email is already registered. Please log in.");
           break;
         case "auth/invalid-email":
           setErrorMessage("Please enter a valid email address.");
@@ -129,10 +143,20 @@ const Page = () => {
       const result = await signInWithPopup(auth, googleProvider);
       const user = result.user;
 
-      const referralCode = await createUserInFirestore(
+      const { referralCode, isNewUser } = await createUserInFirestore(
         user,
         data.referralCode || null
       );
+
+      if (!isNewUser) {
+        await signOut(auth); // Sign out immediately
+        setVerified(false); // Mark session as not verified
+        setErrorMessage("User already exists. Please sign in instead.");
+        // router.push("/signIn");
+        return;
+      }
+
+      setVerified(true); // Only mark verified if Firestore creation succeeded
 
       await fetch("/api/send-referral", {
         method: "POST",
@@ -144,12 +168,11 @@ const Page = () => {
       });
 
       setSuccessMessage("Account created successfully!");
-
-      if (user.email === process.env.NEXT_PUBLIC_ADMIN_EMAIL) {
-        router.push("/admin");
-      } else {
-        router.push("/userProfile");
-      }
+      router.push(
+        user.email === process.env.NEXT_PUBLIC_ADMIN_EMAIL
+          ? "/admin"
+          : "/userProfile"
+      );
     } catch (error: any) {
       console.error("Google Sign-In Error:", error);
       setErrorMessage("Failed to sign in with Google");

@@ -12,9 +12,18 @@ import { useRouter } from "next/navigation";
 import LanguageSwitcher from "./components/LanguageSwitcher";
 import ClipLoader from "react-spinners/ClipLoader";
 import { useLocale } from "next-intl";
+import { useAuthStatus } from "./context/AuthContext";
 
 const Navbar = () => {
   const locale = useLocale();
+  const router = useRouter();
+  const { user, setUser, loading, setLoading, verified, setVerified } =
+    useAuthStatus();
+
+  const [open, setOpen] = useState(false);
+  const [message, setMessage] = useState<string | null>(null);
+  const [showUserModal, setShowUserModal] = useState(false);
+  const userModalRef = useRef<HTMLDivElement>(null);
 
   const commonLinks1 = [
     { key: "home", en: "HOME", fr: "ACCUEIL" },
@@ -32,23 +41,14 @@ const Navbar = () => {
     { key: "manage-services", en: "Manage Services", fr: "Gérer les Services" },
   ];
 
-  const [open, setOpen] = useState(false);
-  const [user, setUser] = useState<User | null>(null);
-  const [authReady, setAuthReady] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState<string | null>(null);
-  const [showUserModal, setShowUserModal] = useState(false);
-  const userModalRef = useRef<HTMLDivElement>(null);
-
-  const router = useRouter();
-
   useEffect(() => {
+    setLoading(true);
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
-      setAuthReady(true);
+      setLoading(false);
     });
     return () => unsubscribe();
-  }, []);
+  }, [setUser, setLoading]);
 
   useEffect(() => {
     if (message) {
@@ -78,9 +78,11 @@ const Navbar = () => {
     setLoading(true);
     setMessage(null);
     try {
+      router.push("/");
       await signOut(auth);
+      setUser(null);
+      setVerified(false);
       setMessage("Logged out successfully.");
-      // router.push("/signIn");
     } catch (error: any) {
       console.error("Logout error:", error.message);
       setMessage("Error logging out. Please try again.");
@@ -92,10 +94,9 @@ const Navbar = () => {
 
   const isLoggedIn = !!user;
   const isAdmin = user?.email === process.env.NEXT_PUBLIC_ADMIN_EMAIL;
-
   const navlinks1 = [
     ...commonLinks1,
-    ...(authReady && isLoggedIn ? (isAdmin ? adminLinks1 : userLinks1) : []),
+    ...(isLoggedIn ? (isAdmin ? adminLinks1 : userLinks1) : []),
   ];
 
   return (
@@ -131,13 +132,13 @@ const Navbar = () => {
               ))}
             </ul>
 
-            {/* Language Switcher (Desktop) */}
+            {/* Language Switcher */}
             <div className="hidden md:block">
               <LanguageSwitcher />
             </div>
 
-            {/* User Profile (Desktop) */}
-            {authReady && user && (
+            {/* User Profile */}
+            {!loading && user && verified && (
               <div className="hidden md:flex items-center gap-3 relative">
                 <button
                   onClick={() => setShowUserModal(!showUserModal)}
@@ -161,8 +162,8 @@ const Navbar = () => {
               </div>
             )}
 
-            {/* Connexion Button (Desktop) */}
-            {authReady && !user && (
+            {/* Connexion Button */}
+            {!loading && !user && (
               <Link
                 href="/signIn"
                 prefetch
@@ -213,8 +214,8 @@ const Navbar = () => {
                   </Link>
                 ))}
 
-                {/* Mobile Profile & Auth */}
-                {authReady && user ? (
+                {/* Mobile User */}
+                {!loading && user && verified && (
                   <>
                     {user.photoURL ? (
                       <Image
@@ -247,7 +248,9 @@ const Navbar = () => {
                       )}
                     </button>
                   </>
-                ) : (
+                )}
+
+                {!loading && !user && (
                   <Link
                     href={`/${locale}/signIn`}
                     onClick={() => setOpen(false)}
@@ -258,7 +261,6 @@ const Navbar = () => {
                   </Link>
                 )}
 
-                {/* Mobile Language Switcher */}
                 <LanguageSwitcher />
               </nav>
             </Dialog.Panel>
@@ -273,14 +275,14 @@ const Navbar = () => {
         )}
       </nav>
 
-      {/* User Modal Desktop */}
-      {showUserModal && (
+      {/* User Modal */}
+      {showUserModal && !loading && user && (
         <div
           ref={userModalRef}
           className="fixed top-20 right-4 bg-white shadow-lg rounded-lg p-4 w-64 max-h-60 overflow-auto border z-50"
         >
           <div className="flex justify-center mb-2">
-            {user?.photoURL ? (
+            {user.photoURL ? (
               <Image
                 src={user.photoURL}
                 alt="Profile"
@@ -291,7 +293,7 @@ const Navbar = () => {
               />
             ) : (
               <span className="text-2xl font-bold rounded-full flex items-center justify-center w-[3rem] h-[3rem] bg-cyan-800 text-white">
-                {user?.email![0].toUpperCase()}
+                {user.email![0].toUpperCase()}
               </span>
             )}
           </div>
@@ -300,9 +302,9 @@ const Navbar = () => {
             <span className="text-sm text-gray-800 font-medium">Connected</span>
           </div>
           <p className="font-semibold text-gray-800 truncate">
-            {user?.displayName || user?.email}
+            {user.displayName || user.email}
           </p>
-          <p className="text-sm text-gray-500 mt-1 truncate">{user?.email}</p>
+          <p className="text-sm text-gray-500 mt-1 truncate">{user.email}</p>
 
           <button
             onClick={handleLogout}
