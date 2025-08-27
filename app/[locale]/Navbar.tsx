@@ -99,8 +99,6 @@ const Navbar = () => {
     ...(isLoggedIn ? (isAdmin ? adminLinks1 : userLinks1) : []),
   ];
 
-  console.log(verified);
-
   return (
     <>
       <nav className="bg-orange-50 fixed top-0 left-0 right-0 z-50 shadow-md px-5 md:px-10 py-3">
