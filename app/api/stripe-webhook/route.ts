@@ -171,9 +171,11 @@ export async function POST(req: Request) {
           <li><b>Time:</b> ${session.metadata?.time || "TBD"}</li>
           <li><b>Amount Paid:</b> $${amountPaid}</li>
         </ul>
-        <a href="${googleCalendarLink}" style="background:#008080;color:#fff;padding:10px 15px;border-radius:5px;text-decoration:none;">Add to Google Calendar</a>
-        <br/>
-        <a href="${calendarLink}" download="appointment.ics" style="background:#008080;color:#fff;padding:10px 15px;border-radius:5px;text-decoration:none;">Download .ICS</a>
+        ${
+          calendarLink
+            ? `<p><a href="${calendarLink}" download="appointment.ics" style="background:#008080;color:#fff;padding:10px 15px;border-radius:5px;text-decoration:none;">Add to Calendar</a></p>`
+            : ""
+        }
       `,
     });
     console.log(
@@ -265,9 +267,11 @@ export async function POST(req: Request) {
               Thank you for sharing Elodia Beauty & Spa with your friends. The more you refer, the more you earn! 💎
             </p>
           </div>
-        <a href="${googleCalendarLink}" style="background:#008080;color:#fff;padding:10px 15px;border-radius:5px;text-decoration:none;">Add to Google Calendar</a>
-        <br/>
-        <a href="${calendarLink}" download="appointment.ics" style="background:#008080;color:#fff;padding:10px 15px;border-radius:5px;text-decoration:none;">Download .ICS</a>
+          ${
+            calendarLink
+              ? `<p><a href="${calendarLink}" download="appointment.ics" style="background:#008080;color:#fff;padding:10px 15px;border-radius:5px;text-decoration:none;">Add to Calendar</a></p>`
+              : ""
+          }
         `,
       });
       console.log(`✅ Referral email sent to ${referrerData.email}`);
