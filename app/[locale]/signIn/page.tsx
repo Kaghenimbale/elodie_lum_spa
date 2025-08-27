@@ -15,6 +15,7 @@ import { FcGoogle } from "react-icons/fc";
 import { IoEye, IoEyeOff } from "react-icons/io5";
 import { ClipLoader } from "react-spinners";
 import { useTranslations } from "next-intl";
+import { useAuthStatus } from "../context/AuthContext";
 
 const Page = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -24,6 +25,7 @@ const Page = () => {
     type: "error" | "info";
     text: string;
   } | null>(null);
+  const { setVerified } = useAuthStatus();
 
   const t = useTranslations("signIn");
 
@@ -67,6 +69,9 @@ const Page = () => {
 
       const user = userCredential.user;
 
+      // Mark session as verified
+      setVerified(true);
+
       // Navigate first, then delay loading off
       if (user.email === process.env.NEXT_PUBLIC_ADMIN_EMAIL) {
         router.push("/admin");
@@ -97,6 +102,9 @@ const Page = () => {
       const result = await signInWithPopup(auth, googleProvider);
       const user = result.user;
       console.log("Google user logged in:", user.email);
+
+      // Mark session as verified
+      setVerified(true);
 
       router.push("/userProfile");
 

@@ -9,6 +9,7 @@ import { routing } from "@/i18n/routing";
 import ImageKitProvider from "./providers/ImageKitProvider";
 import { Toaster } from "react-hot-toast";
 import LocaleSync from "./components/LocaleSync"; // <-- Add this
+import { AuthProvider } from "./context/AuthContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -43,11 +44,13 @@ export default async function LocaleLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <NextIntlClientProvider>
-          <LocaleSync locale={locale} /> {/* Add here */}
-          <Navbar />
-          <ImageKitProvider>{children}</ImageKitProvider>
-          <Toaster position="top-right" reverseOrder={false} />
-          <Footer />
+          <AuthProvider>
+            <LocaleSync locale={locale} /> {/* Add here */}
+            <Navbar />
+            <ImageKitProvider>{children}</ImageKitProvider>
+            <Toaster position="top-right" reverseOrder={false} />
+            <Footer />
+          </AuthProvider>
         </NextIntlClientProvider>
       </body>
     </html>

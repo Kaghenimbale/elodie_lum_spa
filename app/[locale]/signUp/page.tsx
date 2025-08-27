@@ -17,12 +17,15 @@ import {
 import { auth, googleProvider } from "@/firebase/config";
 import { createUserInFirestore } from "@/lib/userService";
 import { useSearchParams } from "next/navigation";
+import { useAuthStatus } from "../context/AuthContext";
 
 const Page = () => {
   const router = useRouter();
   const t = useTranslations("signUp");
 
   const searchParams = useSearchParams();
+
+  const { setVerified } = useAuthStatus();
 
   useEffect(() => {
     // Check if a referral code exists in the URL
@@ -89,11 +92,14 @@ const Page = () => {
       );
 
       if (!isNewUser) {
-        await signOut(auth); // SIGN OUT IMMEDIATELY
+        await signOut(auth); // Sign out immediately
+        setVerified(false); // Mark session as not verified
         setErrorMessage("User already exists. Please sign in instead.");
         // router.push("/signIn");
         return;
       }
+
+      setVerified(true); // Only mark verified if Firestore creation succeeded
 
       // Send referral email
       await fetch("/api/send-referral", {
@@ -143,11 +149,14 @@ const Page = () => {
       );
 
       if (!isNewUser) {
-        await signOut(auth); // SIGN OUT IMMEDIATELY
+        await signOut(auth); // Sign out immediately
+        setVerified(false); // Mark session as not verified
         setErrorMessage("User already exists. Please sign in instead.");
         // router.push("/signIn");
         return;
       }
+
+      setVerified(true); // Only mark verified if Firestore creation succeeded
 
       await fetch("/api/send-referral", {
         method: "POST",
