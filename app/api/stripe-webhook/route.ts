@@ -132,7 +132,7 @@ export async function POST(req: Request) {
   // -------------------- Customer Email --------------------
   try {
     await resend.emails.send({
-      from: "Elodia Beauty & Spa <onboarding@resend.dev>",
+      from: "Elodia Beauty & Spa <Booking@elodiabspa.com>",
       to: customerEmail,
       subject: "💆 Booking Confirmation – Elodia Beauty & Spa",
       html: `
@@ -159,7 +159,7 @@ export async function POST(req: Request) {
   // -------------------- Admin Email --------------------
   try {
     await resend.emails.send({
-      from: "Elodia Beauty & Spa <onboarding@resend.dev>",
+      from: "Elodia Beauty & Spa <Booking@elodiabspa.com>",
       to: process.env.NEXT_PUBLIC_ADMIN_EMAIL!,
       subject: "📩 New Booking Received",
       html: `
@@ -171,11 +171,9 @@ export async function POST(req: Request) {
           <li><b>Time:</b> ${session.metadata?.time || "TBD"}</li>
           <li><b>Amount Paid:</b> $${amountPaid}</li>
         </ul>
-        ${
-          calendarLink
-            ? `<p><a href="${calendarLink}" download="appointment.ics" style="background:#008080;color:#fff;padding:10px 15px;border-radius:5px;text-decoration:none;">Add to Calendar</a></p>`
-            : ""
-        }
+        <a href="${googleCalendarLink}" style="background:#008080;color:#fff;padding:10px 15px;border-radius:5px;text-decoration:none;">Add to Google Calendar</a>
+        <br/>
+        <a href="${calendarLink}" download="appointment.ics" style="background:#008080;color:#fff;padding:10px 15px;border-radius:5px;text-decoration:none;">Download .ICS</a>
       `,
     });
     console.log(
@@ -250,7 +248,7 @@ export async function POST(req: Request) {
 
     try {
       await resend.emails.send({
-        from: "Elodia Beauty & Spa <onboarding@resend.dev>",
+        from: "Elodia Beauty & Spa <Booking@elodiabspa.com>",
         to: referrerData.email,
         subject: `✨ You've Earned ${pointsEarned} Point(s)!`,
         html: `
@@ -267,11 +265,9 @@ export async function POST(req: Request) {
               Thank you for sharing Elodia Beauty & Spa with your friends. The more you refer, the more you earn! 💎
             </p>
           </div>
-          ${
-            calendarLink
-              ? `<p><a href="${calendarLink}" download="appointment.ics" style="background:#008080;color:#fff;padding:10px 15px;border-radius:5px;text-decoration:none;">Add to Calendar</a></p>`
-              : ""
-          }
+        <a href="${googleCalendarLink}" style="background:#008080;color:#fff;padding:10px 15px;border-radius:5px;text-decoration:none;">Add to Google Calendar</a>
+        <br/>
+        <a href="${calendarLink}" download="appointment.ics" style="background:#008080;color:#fff;padding:10px 15px;border-radius:5px;text-decoration:none;">Download .ICS</a>
         `,
       });
       console.log(`✅ Referral email sent to ${referrerData.email}`);

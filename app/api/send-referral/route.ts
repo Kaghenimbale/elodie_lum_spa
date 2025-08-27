@@ -22,7 +22,7 @@ export async function POST(req: Request) {
   });
 
   const mailOptions = {
-    from: `"Elodia Beauty & Spa" <${process.env.EMAIL_USER}>`,
+    from: `"Elodia Beauty & Spa" <noreply@elodiabspa.com>`,
     to: email,
     subject: "Welcome! Here's your referral code 🎉",
     html: `

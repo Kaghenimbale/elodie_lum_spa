@@ -66,7 +66,7 @@ export async function POST(req: Request) {
 
     // Customer confirmation email
     await resend.emails.send({
-      from: "Elodia Beauty & Spa <onboarding@resend.dev>",
+      from: "Elodia Beauty & Spa <Booking@elodiabspa.com>",
       to: email,
       subject: "📅 Your Booking Confirmation at Elodia Beauty & Spa",
       html: `
@@ -96,7 +96,7 @@ export async function POST(req: Request) {
 
     // Admin notification
     await resend.emails.send({
-      from: "Elodia Beauty & Spa <onboarding@resend.dev>",
+      from: "Elodia Beauty & Spa <Booking@elodiabspa.com>",
       to: process.env.NEXT_PUBLIC_ADMIN_EMAIL!,
       subject: `🧖‍♀️ New Booking from ${name}`,
       html: `

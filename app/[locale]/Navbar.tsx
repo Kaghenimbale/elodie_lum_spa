@@ -80,7 +80,7 @@ const Navbar = () => {
     try {
       await signOut(auth);
       setMessage("Logged out successfully.");
-      router.push("/signIn");
+      // router.push("/signIn");
     } catch (error: any) {
       console.error("Logout error:", error.message);
       setMessage("Error logging out. Please try again.");

@@ -19,7 +19,7 @@ export async function POST(req: NextRequest) {
 
     // -------- Send email to ADMIN --------
     await resend.emails.send({
-      from: "EB & Spa <onboarding@resend.dev>", // must be verified or default
+      from: "EB & Spa <Rewards@elodiabspa.com>", // must be verified or default
       to: [process.env.NEXT_PUBLIC_ADMIN_EMAIL!, email],
       replyTo: email, // customer’s email
       subject: "Reward Claim Notification",
@@ -53,7 +53,7 @@ export async function POST(req: NextRequest) {
 
     // -------- Send email to CUSTOMER --------
     await resend.emails.send({
-      from: "EB & Spa <onboarding@resend.dev>",
+      from: "EB & Spa <Rewards@elodiabspa.com>",
       to: email, // ✅ customer's email
       subject: "Your Reward Claim Confirmation",
       html: `
