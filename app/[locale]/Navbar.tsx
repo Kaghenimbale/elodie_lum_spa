@@ -92,12 +92,20 @@ const Navbar = () => {
     }
   };
 
+  console.log("THIS IS THE USER", user);
+
   const isLoggedIn = !!user;
   const isAdmin = user?.email === process.env.NEXT_PUBLIC_ADMIN_EMAIL;
-  const navlinks1 = [
-    ...commonLinks1,
-    ...(isLoggedIn ? (isAdmin ? adminLinks1 : userLinks1) : []),
-  ];
+  // const navlinks1 = [
+  //   ...commonLinks1,
+  //   ...(isLoggedIn ? (isAdmin ? adminLinks1 : userLinks1) : []),
+  // ];
+  const navlinks1 = loading
+    ? commonLinks1 // show only common links while checking auth
+    : [
+        ...commonLinks1,
+        ...(isLoggedIn ? (isAdmin ? adminLinks1 : userLinks1) : []),
+      ];
 
   return (
     <>
