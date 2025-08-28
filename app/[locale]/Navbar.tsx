@@ -17,7 +17,7 @@ import { useAuthStatus } from "./context/AuthContext";
 const Navbar = () => {
   const locale = useLocale();
   const router = useRouter();
-  const { user, setUser, loading, setLoading, verified, setVerified } =
+  const { user, setUser, loading, setLoading, verified, setVerified, isAdmin } =
     useAuthStatus();
 
   const [open, setOpen] = useState(false);
@@ -95,11 +95,6 @@ const Navbar = () => {
   console.log("THIS IS THE USER", user);
 
   const isLoggedIn = !!user;
-  const isAdmin = user?.email === process.env.NEXT_PUBLIC_ADMIN_EMAIL;
-  // const navlinks1 = [
-  //   ...commonLinks1,
-  //   ...(isLoggedIn ? (isAdmin ? adminLinks1 : userLinks1) : []),
-  // ];
   const navlinks1 = loading
     ? commonLinks1 // show only common links while checking auth
     : [
