@@ -163,7 +163,7 @@ const Navbar = () => {
             )}
 
             {/* Connexion Button */}
-            {!loading && !user && (
+            {!user && (
               <Link
                 href="/signIn"
                 prefetch
