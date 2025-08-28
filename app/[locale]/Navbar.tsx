@@ -92,12 +92,20 @@ const Navbar = () => {
     }
   };
 
+  console.log("THIS IS THE USER", user);
+
   const isLoggedIn = !!user;
   const isAdmin = user?.email === process.env.NEXT_PUBLIC_ADMIN_EMAIL;
-  const navlinks1 = [
-    ...commonLinks1,
-    ...(isLoggedIn ? (isAdmin ? adminLinks1 : userLinks1) : []),
-  ];
+  // const navlinks1 = [
+  //   ...commonLinks1,
+  //   ...(isLoggedIn ? (isAdmin ? adminLinks1 : userLinks1) : []),
+  // ];
+  const navlinks1 = loading
+    ? commonLinks1 // show only common links while checking auth
+    : [
+        ...commonLinks1,
+        ...(isLoggedIn ? (isAdmin ? adminLinks1 : userLinks1) : []),
+      ];
 
   return (
     <>
@@ -138,7 +146,7 @@ const Navbar = () => {
             </div>
 
             {/* User Profile */}
-            {!loading && user && verified && (
+            {!loading && user && verified ? (
               <div className="hidden md:flex items-center gap-3 relative">
                 <button
                   onClick={() => setShowUserModal(!showUserModal)}
@@ -160,10 +168,7 @@ const Navbar = () => {
                   )}
                 </button>
               </div>
-            )}
-
-            {/* Connexion Button */}
-            {!user && (
+            ) : (
               <Link
                 href="/signIn"
                 prefetch
@@ -215,7 +220,7 @@ const Navbar = () => {
                 ))}
 
                 {/* Mobile User */}
-                {!loading && user && verified && (
+                {!loading && user && verified ? (
                   <>
                     {user.photoURL ? (
                       <Image
@@ -248,9 +253,7 @@ const Navbar = () => {
                       )}
                     </button>
                   </>
-                )}
-
-                {!loading && !user && (
+                ) : (
                   <Link
                     href={`/${locale}/signIn`}
                     onClick={() => setOpen(false)}
