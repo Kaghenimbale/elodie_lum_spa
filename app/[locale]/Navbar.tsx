@@ -138,7 +138,7 @@ const Navbar = () => {
             </div>
 
             {/* User Profile */}
-            {!loading && user && verified && (
+            {!loading && user && verified ? (
               <div className="hidden md:flex items-center gap-3 relative">
                 <button
                   onClick={() => setShowUserModal(!showUserModal)}
@@ -160,10 +160,7 @@ const Navbar = () => {
                   )}
                 </button>
               </div>
-            )}
-
-            {/* Connexion Button */}
-            {!user && (
+            ) : (
               <Link
                 href="/signIn"
                 prefetch
@@ -215,7 +212,7 @@ const Navbar = () => {
                 ))}
 
                 {/* Mobile User */}
-                {!loading && user && verified && (
+                {!loading && user && verified ? (
                   <>
                     {user.photoURL ? (
                       <Image
@@ -248,9 +245,7 @@ const Navbar = () => {
                       )}
                     </button>
                   </>
-                )}
-
-                {!loading && !user && (
+                ) : (
                   <Link
                     href={`/${locale}/signIn`}
                     onClick={() => setOpen(false)}
