@@ -13,6 +13,8 @@ import {
 } from "firebase/firestore";
 import { Resend } from "resend";
 import { createEvent } from "ics"; // <-- Add this at the top
+import fs from "fs";
+import path from "path";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -124,7 +126,14 @@ export async function POST(req: Request) {
       console.log("Session Metadata:", session.metadata);
 
       if (!error && value) {
-        calendarLink = `data:text/calendar;charset=utf-8,${encodeURIComponent(value)}`;
+        const icsFilename = `appointment-${session.id}.ics`;
+        const icsPath = path.join(process.cwd(), "public", icsFilename);
+
+        // Save ICS file
+        fs.writeFileSync(icsPath, value);
+
+        // Public URL for email
+        calendarLink = `https://elodiabspa.com/${icsFilename}`;
       }
     }
   } catch (err) {
@@ -147,10 +156,19 @@ export async function POST(req: Request) {
           <li><b>Amount Paid:</b> $${amountPaid}</li>
         </ul>
         <p>We look forward to welcoming you at Elodia Beauty & Spa ✨ green</p>
-      
-        <a href="${googleCalendarLink}" style="background:#008080;color:#fff;padding:10px 15px;border-radius:5px;text-decoration:none;">Add to Google Calendar</a>
-        <br/>
-        <a href="${calendarLink}" download="appointment.ics" style="background:#008080;color:#fff;padding:10px 15px;border-radius:5px;text-decoration:none;">Download .ICS</a>
+
+        <div style="margin-bottom: 10px;">
+  <a href="${googleCalendarLink}" 
+     style="display:inline-block;background:#008080;color:#fff;padding:10px 15px;border-radius:5px;text-decoration:none;">
+     Add to Google Calendar
+  </a>
+</div>
+<div>
+  <a href="${calendarLink}"
+     style="display:inline-block;background:#008080;color:#fff;padding:10px 15px;border-radius:5px;text-decoration:none;">
+     Download .ICS
+  </a>
+</div>
       `,
     });
     console.log(`✅ Customer email sent to ${customerEmail}`);
