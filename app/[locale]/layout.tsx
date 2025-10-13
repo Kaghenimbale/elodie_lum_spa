@@ -46,10 +46,10 @@ export default async function LocaleLayout({
         <NextIntlClientProvider>
           <AuthProvider>
             <LocaleSync locale={locale} /> {/* Add here */}
-            <Navbar />
+            {/* <Navbar /> */}
             <ImageKitProvider>{children}</ImageKitProvider>
-            <Toaster position="top-right" reverseOrder={false} />
-            <Footer />
+            {/* <Toaster position="top-right" reverseOrder={false} /> */}
+            {/* <Footer /> */}
           </AuthProvider>
         </NextIntlClientProvider>
       </body>
