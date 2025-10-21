@@ -537,7 +537,7 @@ const SpaServices = () => {
                         {t1("bookWithoutPayment")}
                       </label>
 
-                      {/* <label className="flex items-center gap-2">
+                      <label className="flex items-center gap-2">
                         <input
                           type="radio"
                           name="paymentOption"
@@ -546,7 +546,7 @@ const SpaServices = () => {
                           onChange={() => setPaymentOption("with-payment")}
                         />
                         {t1("bookWithPayment")}
-                      </label> */}
+                      </label>
                     </div>
 
                     <button
