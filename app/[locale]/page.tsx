@@ -11,15 +11,14 @@ import Wellness1 from "./components/Wellness1";
 export default function Home() {
   return (
     <div className="">
-      HELLO WORLD
-      {/* <Presentation /> */}
-      {/* <Beauty /> */}
-      {/* <Wellness /> */}
-      {/* <Hours /> */}
-      {/* <Wellness1 /> */}
-      {/* <Place /> */}
-      {/* <Earn /> */}
-      {/* <Testimonial /> */}
+      <Presentation />
+      <Beauty />
+      <Wellness />
+      <Hours />
+      <Wellness1 />
+      <Place />
+      <Earn />
+      <Testimonial />
     </div>
   );
 }
