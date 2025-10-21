@@ -101,8 +101,10 @@ const SpaServices = () => {
       if (user && user.email) {
         setUserEmail(user.email);
         if (
-          process.env.NEXT_PUBLIC_ADMIN_EMAIL &&
-          user.email === process.env.NEXT_PUBLIC_ADMIN_EMAIL
+          (process.env.NEXT_PUBLIC_ADMIN_EMAIL &&
+            user.email === process.env.NEXT_PUBLIC_ADMIN_EMAIL) ||
+          (process.env.NEXT_PUBLIC_ADMIN_EMAIL2 &&
+            user.email === process.env.NEXT_PUBLIC_ADMIN_EMAIL2)
         ) {
           setIsAdmin(true);
         } else {
@@ -537,7 +539,7 @@ const SpaServices = () => {
                         {t1("bookWithoutPayment")}
                       </label>
 
-                      <label className="flex items-center gap-2">
+                      {/* <label className="flex items-center gap-2">
                         <input
                           type="radio"
                           name="paymentOption"
@@ -546,7 +548,7 @@ const SpaServices = () => {
                           onChange={() => setPaymentOption("with-payment")}
                         />
                         {t1("bookWithPayment")}
-                      </label>
+                      </label> */}
                     </div>
 
                     <button

@@ -97,7 +97,9 @@ export async function POST(req: Request) {
     // Admin notification
     await resend.emails.send({
       from: "Elodia Beauty & Spa <Booking@elodiabspa.com>",
-      to: process.env.NEXT_PUBLIC_ADMIN_EMAIL!,
+      to:
+        process.env.NEXT_PUBLIC_ADMIN_EMAIL! ||
+        process.env.NEXT_PUBLIC_ADMIN_EMAIL2!,
       subject: `🧖‍♀️ New Booking from ${name}`,
       html: `
         <div style="font-family: Arial, sans-serif; color: #333; background-color: #f9f9f9; padding: 20px; border-radius: 8px; max-width: 600px; margin: auto; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">

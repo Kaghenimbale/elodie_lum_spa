@@ -42,7 +42,8 @@ export default function AdminPage() {
     "all" | "today" | "week" | "custom"
   >("all");
 
-  const adminEmail = process.env.NEXT_PUBLIC_ADMIN_EMAIL;
+  const adminEmail =
+    process.env.NEXT_PUBLIC_ADMIN_EMAIL || process.env.NEXT_PUBLIC_ADMIN_EMAIL2;
 
   // Fetch bookings
   useEffect(() => {
