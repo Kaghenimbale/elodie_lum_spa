@@ -42,7 +42,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       setUser(currentUser);
       setVerified(!!currentUser?.emailVerified);
 
-      if (currentUser?.email === process.env.NEXT_PUBLIC_ADMIN_EMAIL) {
+      if (
+        currentUser?.email === process.env.NEXT_PUBLIC_ADMIN_EMAIL ||
+        process.env.NEXT_PUBLIC_ADMIN_EMAIL2
+      ) {
         setIsAdmin(true);
       } else {
         setIsAdmin(false);

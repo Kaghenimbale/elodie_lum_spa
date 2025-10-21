@@ -180,7 +180,9 @@ export async function POST(req: Request) {
   try {
     await resend.emails.send({
       from: "Elodia Beauty & Spa <Booking@elodiabspa.com>",
-      to: process.env.NEXT_PUBLIC_ADMIN_EMAIL!,
+      to:
+        process.env.NEXT_PUBLIC_ADMIN_EMAIL! ||
+        process.env.NEXT_PUBLIC_ADMIN_EMAIL2!,
       subject: "📩 New Booking Received",
       html: `
         <h2>New Booking Alert</h2>
@@ -199,11 +201,11 @@ export async function POST(req: Request) {
       `,
     });
     console.log(
-      `✅ Admin email sent to ${process.env.NEXT_PUBLIC_ADMIN_EMAIL}`
+      `✅ Admin email sent to ${process.env.NEXT_PUBLIC_ADMIN_EMAIL && process.env.NEXT_PUBLIC_ADMIN_EMAIL2}`
     );
   } catch (err) {
     console.error(
-      `❌ Failed to send admin email to ${process.env.NEXT_PUBLIC_ADMIN_EMAIL}:`,
+      `❌ Failed to send admin email to ${process.env.NEXT_PUBLIC_ADMIN_EMAIL && process.env.NEXT_PUBLIC_ADMIN_EMAIL2}:`,
       err
     );
   }

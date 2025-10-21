@@ -169,7 +169,8 @@ const Page = () => {
 
       setSuccessMessage("Account created successfully!");
       router.push(
-        user.email === process.env.NEXT_PUBLIC_ADMIN_EMAIL
+        user.email === process.env.NEXT_PUBLIC_ADMIN_EMAIL ||
+          process.env.NEXT_PUBLIC_ADMIN_EMAIL2
           ? "/admin"
           : "/userProfile"
       );

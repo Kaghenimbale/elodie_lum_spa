@@ -73,7 +73,10 @@ const Page = () => {
       setVerified(true);
 
       // Navigate first, then delay loading off
-      if (user.email === process.env.NEXT_PUBLIC_ADMIN_EMAIL) {
+      if (
+        user.email === process.env.NEXT_PUBLIC_ADMIN_EMAIL ||
+        process.env.NEXT_PUBLIC_ADMIN_EMAIL2
+      ) {
         router.push("/admin");
       } else {
         router.push("/userProfile");
